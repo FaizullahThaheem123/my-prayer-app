@@ -578,7 +578,10 @@ font-size:16px;
 
 cursor:pointer;
 
-}/* ==========================
+}
+
+
+/* ==========================
    TASBEEH TARGET
 ========================== */
 
@@ -610,7 +613,10 @@ text-align:center;
 
 min-height:24px;
 
-}/*==========================
+}
+
+
+/*==========================
 TASBEEH HISTORY
 ==========================*/
 
@@ -660,7 +666,11 @@ font-weight:bold;
 
 color:#00ff88;
 
-}/*==========================
+}
+
+
+
+/*==========================
 TARGET BUTTONS
 ==========================*/
 
@@ -714,7 +724,9 @@ color:#fff;
 
 box-shadow:0 0 12px rgba(0,184,148,.5);
 
-}/*==========================
+}
+
+/*==========================
 ZIKR SELECT
 ==========================*/
 
@@ -764,7 +776,10 @@ ZIKR SELECT
     direction:rtl;
 
     line-height:1.8;
-}/*==========================
+}
+
+
+/*==========================
 TASBEEH POPUP
 ==========================*/
 
@@ -832,7 +847,10 @@ font-size:16px;
 
 line-height:1.6;
 
-}/*==========================
+}
+
+
+/*==========================
 TASBEEH PROGRESS BAR
 ==========================*/
 
@@ -878,7 +896,10 @@ color:#d4af37;
 
 margin-bottom:15px;
 
-}/*==========================
+}
+
+
+/*==========================
 TASBEEH TIMER
 ==========================*/
 
@@ -911,6 +932,8 @@ font-weight:700;
 letter-spacing:2px;
 
 }
+
+
 
 /* ===============================
    NOTIFICATION BUTTON
@@ -955,18 +978,17 @@ transition:.3s;
    HOME MOBILE SPACING
 ================================ */
 
-#homeScreen{
+#homeScreen,
+#quranScreen,
+#duasScreen,
+#tasbeehScreen,
+#qiblaScreen{
 
 padding-bottom:170px;
 
 }
 
 
-.app{
-
-padding-bottom:20px;
-
-}
 
 /* ===============================
    QIBLA SCREEN
