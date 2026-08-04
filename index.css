@@ -1,0 +1,1124 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+body{
+
+font-family:'Poppins',sans-serif;
+
+background:#06131d;
+
+color:white;
+
+}
+
+
+
+.app{
+
+max-width:430px;
+
+min-height:100vh;
+
+margin:auto;
+
+background:#071c2a;
+
+padding-bottom:90px;
+
+}
+
+
+/* ===============================
+   WELCOME HEADER
+================================ */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px;
+
+background:linear-gradient(
+135deg,
+#0B1622,
+#14283d
+);
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+box-shadow:0 8px 25px rgba(0,0,0,.25);
+
+}
+
+
+.welcome-text{
+
+font-size:14px;
+
+color:#d4af37;
+
+font-weight:600;
+
+margin:0 0 5px;
+
+}
+
+
+.header h2{
+
+font-size:28px;
+
+color:white;
+
+margin:0;
+
+font-weight:700;
+
+}
+
+
+.location{
+
+font-size:13px;
+
+color:#ddd;
+
+margin-top:8px;
+
+}
+
+
+.mosque-icon{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:#d4af37;
+
+color:#0B1622;
+
+font-size:28px;
+
+}
+
+
+
+
+
+/* ===============================
+   DATE BOX
+================================ */
+
+.date-box{
+
+margin:15px 0;
+
+padding:18px;
+
+background:linear-gradient(
+135deg,
+#14283d,
+#0B1622
+);
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+border:1px solid rgba(212,175,55,.25);
+
+}
+
+
+.date-box h3{
+
+color:#ffffff;
+
+font-size:18px;
+
+margin:0;
+
+font-weight:600;
+
+}
+
+
+.date-box p{
+
+color:#d4af37;
+
+font-size:14px;
+
+margin-top:8px;
+
+font-weight:500;
+
+}
+
+
+
+
+
+/* ===============================
+   CLOCK BOX
+================================ */
+
+.clock-box{
+
+margin:15px 0;
+
+padding:22px;
+
+background:#0B1622;
+
+border-radius:22px;
+
+text-align:center;
+
+border:1px solid rgba(212,175,55,.35);
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+
+.clock-box h1{
+
+font-size:38px;
+
+letter-spacing:2px;
+
+color:#d4af37;
+
+margin:0;
+
+font-weight:700;
+
+}
+
+
+.clock-box p{
+
+margin-top:8px;
+
+font-size:14px;
+
+color:#ccc;
+
+}
+
+
+/* ===============================
+   NEXT PRAYER CARD
+================================ */
+
+.next-prayer{
+
+margin:20px 0;
+
+padding:25px;
+
+background:linear-gradient(
+135deg,
+#d4af37,
+#b88912
+);
+
+border-radius:25px;
+
+text-align:center;
+
+color:#0B1622;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+
+.next-prayer h3{
+
+font-size:15px;
+
+margin:0;
+
+font-weight:600;
+
+opacity:.8;
+
+}
+
+
+.next-prayer h2{
+
+font-size:32px;
+
+margin:8px 0;
+
+font-weight:700;
+
+}
+
+
+.next-prayer p{
+
+font-size:18px;
+
+font-weight:600;
+
+margin:0;
+
+}
+
+
+/* ===============================
+   PRAYER CARDS
+================================ */
+
+.prayer-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+
+.prayer-card{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+padding:18px;
+
+background:#0B1622;
+
+border-radius:20px;
+
+border:1px solid rgba(212,175,55,.25);
+
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+transition:.3s;
+
+}
+
+
+.prayer-card:hover{
+
+transform:translateY(-3px);
+
+}
+
+
+.prayer-card span{
+
+font-size:30px;
+
+width:45px;
+
+text-align:center;
+
+}
+
+
+.prayer-card h3{
+
+color:#d4af37;
+
+margin:0;
+
+font-size:20px;
+
+}
+
+
+.prayer-card p{
+
+color:#aaa;
+
+font-size:12px;
+
+margin:5px 0;
+
+}
+
+
+.prayer-card b{
+
+display:block;
+
+color:white;
+
+font-size:18px;
+
+margin-top:5px;
+
+}
+
+
+.prayer-card small{
+
+display:block;
+
+color:#d4af37;
+
+font-size:13px;
+
+margin-top:5px;
+
+}
+
+
+.edit-jamaat{
+
+margin-top:8px;
+
+background:transparent;
+
+border:none;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+
+/* BOTTOM NAV */
+
+
+.bottom-nav{
+
+position:fixed;
+bottom:0;
+left:0;
+
+width:100%;
+
+height:70px;
+
+background:#0B1622;
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+border-top:1px solid rgba(212,175,55,.3);
+
+z-index:999;
+
+box-shadow:0 -5px 20px rgba(0,0,0,.25);
+
+}
+
+
+.nav-item{
+
+color:#aaa;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+
+font-size:12px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+.nav-item i{
+
+font-size:22px;
+
+margin-bottom:5px;
+
+}
+
+
+.nav-item:hover,
+.nav-item.active{
+
+color:#d4af37;
+
+transform:translateY(-5px);
+
+}
+
+
+.nav-item span{
+
+font-weight:600;
+
+}
+
+
+/* ==========================
+   TASBEEH SCREEN
+========================== */
+
+.tasbeeh-container{
+
+padding:25px;
+
+text-align:center;
+
+}
+
+.tasbeeh-container h2{
+
+font-size:28px;
+
+margin-bottom:10px;
+
+color:#ffffff;
+
+}
+
+#tasbeehName{
+
+font-size:18px;
+
+color:#d4af37;
+
+margin-bottom:20px;
+
+}
+
+#tasbeehCount{
+
+font-size:70px;
+
+font-weight:bold;
+
+color:#00e676;
+
+margin:20px 0;
+
+}
+
+.tasbeeh-btn{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:15px;
+
+font-size:22px;
+
+font-weight:bold;
+
+background:#00b894;
+
+color:#fff;
+
+cursor:pointer;
+
+margin-top:20px;
+
+}
+
+.tasbeeh-btn:active{
+
+transform:scale(0.97);
+
+}
+
+.tasbeeh-actions{
+
+margin-top:20px;
+
+}
+
+.tasbeeh-actions button{
+
+padding:12px 30px;
+
+border:none;
+
+border-radius:10px;
+
+background:#e74c3c;
+
+color:#fff;
+
+font-size:16px;
+
+cursor:pointer;
+
+}/* ==========================
+   TASBEEH TARGET
+========================== */
+
+#tasbeehTarget{
+
+margin-top:10px;
+
+font-size:18px;
+
+font-weight:700;
+
+color:#FFD54F;
+
+text-align:center;
+
+}
+
+#tasbeehStatus{
+
+margin-top:8px;
+
+font-size:16px;
+
+font-weight:600;
+
+color:#00E676;
+
+text-align:center;
+
+min-height:24px;
+
+}/*==========================
+TASBEEH HISTORY
+==========================*/
+
+.tasbeeh-history{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:12px;
+
+margin:25px 0;
+
+}
+
+.history-card{
+
+background:#18283a;
+
+border-radius:14px;
+
+padding:15px;
+
+text-align:center;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.history-card h3{
+
+font-size:14px;
+
+color:#d4af37;
+
+margin-bottom:10px;
+
+}
+
+.history-card span{
+
+display:block;
+
+font-size:28px;
+
+font-weight:bold;
+
+color:#00ff88;
+
+}/*==========================
+TARGET BUTTONS
+==========================*/
+
+.target-buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+margin:20px 0;
+
+}
+
+.target-buttons button{
+
+width:70px;
+
+height:45px;
+
+border:none;
+
+border-radius:12px;
+
+background:#1f3b57;
+
+color:#fff;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.target-buttons button:hover{
+
+background:#00b894;
+
+}
+
+.target-buttons button.active{
+
+background:#00b894;
+
+color:#fff;
+
+box-shadow:0 0 12px rgba(0,184,148,.5);
+
+}/*==========================
+ZIKR SELECT
+==========================*/
+
+#zikrSelect {
+
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+
+    border:none;
+    border-radius:12px;
+
+    background:#1f3b57;
+    color:white;
+
+    font-size:16px;
+    font-weight:600;
+
+    outline:none;
+}
+
+
+#tasbeehName {
+
+    margin-top:15px;
+
+    font-size:22px;
+    font-weight:700;
+
+    color:#d4af37;
+
+    text-align:center;
+}
+
+
+#tasbeehArabic {
+
+    margin-top:10px;
+
+    font-size:32px;
+    font-weight:bold;
+
+    color:white;
+
+    text-align:center;
+
+    direction:rtl;
+
+    line-height:1.8;
+}/*==========================
+TASBEEH POPUP
+==========================*/
+
+.tasbeeh-popup{
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%) scale(0.8);
+
+background:#0f2438;
+
+color:#fff;
+
+padding:25px;
+
+border-radius:20px;
+
+width:85%;
+
+max-width:320px;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.35s;
+
+z-index:9999;
+
+border:2px solid #d4af37;
+
+}
+
+.tasbeeh-popup.show{
+
+opacity:1;
+
+visibility:visible;
+
+transform:translate(-50%,-50%) scale(1);
+
+}
+
+.tasbeeh-popup h3{
+
+color:#d4af37;
+
+font-size:24px;
+
+margin-bottom:10px;
+
+}
+
+.tasbeeh-popup p{
+
+font-size:16px;
+
+line-height:1.6;
+
+}/*==========================
+TASBEEH PROGRESS BAR
+==========================*/
+
+.progress-box{
+
+width:100%;
+
+height:12px;
+
+background:#24384d;
+
+border-radius:50px;
+
+overflow:hidden;
+
+margin:15px 0;
+
+}
+
+.progress-bar{
+
+width:0%;
+
+height:100%;
+
+background:linear-gradient(90deg,#d4af37,#f7d774);
+
+border-radius:50px;
+
+transition:0.35s;
+
+}
+
+#progressText{
+
+text-align:center;
+
+font-size:15px;
+
+font-weight:600;
+
+color:#d4af37;
+
+margin-bottom:15px;
+
+}/*==========================
+TASBEEH TIMER
+==========================*/
+
+.tasbeeh-timer{
+
+margin:20px 0;
+
+padding:15px;
+
+background:#1b3147;
+
+border-radius:15px;
+
+text-align:center;
+
+border:1px solid rgba(212,175,55,.3);
+
+}
+
+.tasbeeh-timer h3{
+
+margin-top:10px;
+
+font-size:32px;
+
+color:#d4af37;
+
+font-weight:700;
+
+letter-spacing:2px;
+
+}
+
+/* ===============================
+   NOTIFICATION BUTTON
+================================ */
+
+.notification-btn{
+
+
+width:90%;
+
+max-width:350px;
+
+padding:14px;
+
+border:none;
+
+border-radius:30px;
+
+background:#d4af37;
+
+color:#0B1622;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,.3);
+
+z-index:900;
+
+transition:.3s;
+
+}
+
+
+
+
+
+/* ===============================
+   HOME MOBILE SPACING
+================================ */
+
+#homeScreen{
+
+padding-bottom:170px;
+
+}
+
+
+.app{
+
+padding-bottom:20px;
+
+}
+
+/* ===============================
+   QIBLA SCREEN
+================================ */
+
+.qibla-container{
+
+padding:20px;
+
+text-align:center;
+
+}
+
+
+.qibla-container h2{
+
+color:#d4af37;
+
+font-size:26px;
+
+margin-bottom:10px;
+
+}
+
+
+.qibla-location{
+
+color:#ccc;
+
+font-size:14px;
+
+margin-bottom:25px;
+
+}
+
+
+
+.compass-box{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+margin:30px 0;
+
+}
+
+
+
+.compass-circle{
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:#0B1622;
+
+border:5px solid #d4af37;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+}
+
+
+
+.compass-circle i{
+
+font-size:70px;
+
+color:#d4af37;
+
+}
+
+
+
+#qiblaDirection{
+
+color:white;
+
+font-size:18px;
+
+margin:20px 0;
+
+}
+
+
+
+.qibla-btn{
+
+padding:14px 35px;
+
+border:none;
+
+border-radius:30px;
+
+background:#d4af37;
+
+color:#0B1622;
+
+font-weight:700;
+
+font-size:16px;
+
+cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,.3);
+
+}
+
+/* ===============================
+   QIBLA NEEDLE
+================================ */
+
+#qiblaNeedle{
+
+position:absolute;
+
+font-size:55px;
+
+color:#d4af37;
+
+transform-origin:center;
+
+}
+
+
+.compass-circle{
+
+position:relative;
+
+}
+
+
+.kaaba-icon{
+
+position:absolute;
+
+bottom:35px;
+
+font-size:35px;
+
+color:white;
+
+}
+

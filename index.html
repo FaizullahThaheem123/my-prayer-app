@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Prayer</title>
+
+<meta name="theme-color" content="#0B1622">
+
+
+<link rel="stylesheet" href="index.css">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <section id="homeScreen">
+
+
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div>
+
+<p class="welcome-text">
+Assalamu Alaikum 👋
+</p>
+
+<h2>
+My Prayer
+</h2>
+
+<p class="location">
+📍 Adilpur, Ghotki, Pakistan
+</p>
+
+</div>
+
+
+<div class="mosque-icon">
+
+<i class="fa-solid fa-mosque"></i>
+
+</div>
+
+
+</header>
+
+
+
+
+<!-- DATE BOX -->
+
+
+<section class="date-box">
+
+
+<h3 id="date">
+Loading Date...
+</h3>
+
+
+<p id="islamic-date">
+Islamic Date Loading...
+</p>
+
+
+</section>
+
+
+
+
+
+<!-- CLOCK -->
+
+
+<section class="clock-box">
+
+
+<h1 id="clock">
+00:00:00
+</h1>
+
+
+<p>
+Current Time
+</p>
+
+
+</section>
+
+
+
+
+
+<!-- NEXT PRAYER -->
+
+
+<section class="next-prayer">
+
+
+<h3>
+Next Prayer
+</h3>
+
+
+<h2 id="nextPrayer">
+Fajr
+</h2>
+
+
+<p id="countdown">
+00:00:00 Left
+</p>
+
+
+</section>
+
+
+
+
+
+<!-- PRAYER CARDS -->
+
+
+<section class="prayer-list">
+
+
+
+<div class="prayer-card">
+
+<span>🌅</span>
+
+<div>
+
+<h3>Fajr</h3>
+
+<p>
+Prayer Time
+</p>
+
+<b id="fajr">
+Loading...
+</b>
+
+<small id="fajrJamaat">
+Jamaat Loading...
+</small>
+
+<button class="edit-jamaat" onclick="editJamaat('Fajr')">
+✏️
+</button>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="prayer-card">
+
+<span>☀️</span>
+
+<div>
+
+<h3>Dhuhr</h3>
+
+<p>
+Prayer Time
+</p>
+
+<b id="dhuhr">
+Loading...
+</b>
+
+<small id="dhuhrJamaat">
+Jamaat Loading...
+</small>
+
+<button class="edit-jamaat" onclick="editJamaat('Dhuhr')">
+✏️
+</button>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="prayer-card">
+
+<span>🌇</span>
+
+<div>
+
+<h3>Asr</h3>
+
+<p>
+Prayer Time
+</p>
+
+<b id="asr">
+Loading...
+</b>
+
+<small id="asrJamaat">
+Jamaat Loading...
+</small>
+
+<button class="edit-jamaat" onclick="editJamaat('Asr')">
+✏️
+</button>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="prayer-card">
+
+<span>🌇</span>
+
+<div>
+
+<h3>Maghrib</h3>
+
+<p>
+Prayer Time
+</p>
+
+<b id="maghrib">
+Loading...
+</b>
+
+<small id="maghribJamaat">
+Jamaat Loading...
+</small>
+
+<button class="edit-jamaat" onclick="editJamaat('Maghrib')">
+✏️
+</button>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="prayer-card">
+
+<span>🌙</span>
+
+<div>
+
+<h3>Isha</h3>
+
+<p>
+Prayer Time
+</p>
+
+<b id="isha">
+Loading...
+</b>
+
+<small id="ishaJamaat">
+Jamaat Loading...
+</small>
+
+<button class="edit-jamaat" onclick="editJamaat('Isha')">
+✏️
+</button>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+<!-- JAMAAT REMINDER -->
+
+<button class="notification-btn" onclick="enableNotifications()">
+🔔 Enable Jamaat Reminder
+</button>
+
+</section>
+
+
+
+
+
+<!-- QURAN SCREEN -->
+
+<section id="quranScreen" style="display:none;">
+
+<h2>Holy Quran</h2>
+
+<p>
+Coming Soon...
+</p>
+
+</section>
+
+
+
+<!-- DUAS SCREEN -->
+
+<section id="duasScreen" style="display:none;">
+
+<h2>Daily Duas</h2>
+
+<p>
+Coming Soon...
+</p>
+
+</section>
+
+
+
+<!-- TASBEEH SCREEN -->
+
+<section id="tasbeehScreen" style="display:none;">
+
+<div class="tasbeeh-container">
+
+<h2>📿 Digital Tasbeeh</h2>
+
+<p id="tasbeehName">
+SubhanAllah
+</p>
+
+<label>Select Zikr</label>
+
+<select id="zikrSelect" onchange="changeZikr()">
+
+<option value="SubhanAllah|سبحان الله">
+SubhanAllah
+</option>
+
+<option value="Alhamdulillah|الحمد لله">
+Alhamdulillah
+</option>
+
+<option value="Allahu Akbar|الله أكبر">
+Allahu Akbar
+</option>
+
+<option value="La ilaha illallah|لا إله إلا الله">
+La ilaha illallah
+</option>
+
+<option value="Astaghfirullah|أستغفر الله">
+Astaghfirullah
+</option>
+
+<option value="SubhanAllahi wa bihamdihi|سبحان الله وبحمده">
+SubhanAllahi wa bihamdihi
+</option>
+
+<option value="SubhanAllahil Azeem|سبحان الله العظيم">
+SubhanAllahil Azeem
+</option>
+
+<option value="La hawla wa la quwwata illa billah|لا حول ولا قوة إلا بالله">
+La hawla wa la quwwata illa billah
+</option>
+
+<option value="HasbunAllahu wa ni'mal Wakeel|حسبنا الله ونعم الوكيل">
+HasbunAllahu wa ni'mal Wakeel
+</option>
+
+<option value="Bismillah|بسم الله">
+Bismillah
+</option>
+
+</select>
+
+<h3 id="tasbeehDisplay">
+SubhanAllah
+</h3>
+
+<h2 id="tasbeehArabic">
+سبحان الله
+</h2>
+
+<div class="target-buttons">
+
+<button onclick="setTarget(33)">
+33
+</button>
+
+<button onclick="setTarget(99)">
+99
+</button>
+
+<button onclick="setTarget(100)">
+100
+</button>
+
+</div>
+
+
+<h1 id="tasbeehCount">
+0
+</h1>
+
+<div id="tasbeehTimer">
+00:00:00
+</div>
+
+<p id="tasbeehTarget">
+🎯 Target: 33
+</p>
+
+<div class="progress-box">
+
+<div id="progressBar" class="progress-bar"></div>
+
+</div>
+
+<p id="progressText">
+0 / 33
+</p>
+
+<p id="tasbeehStatus">
+Keep Counting...
+</p>
+
+
+<div class="tasbeeh-history">
+
+<div class="history-card">
+
+<h3>
+33 Complete
+</h3>
+
+<span id="complete33">
+0
+</span>
+
+</div>
+
+
+<div class="history-card">
+
+<h3>
+99 Complete
+</h3>
+
+<span id="complete99">
+0
+</span>
+
+</div>
+
+
+<div class="history-card">
+
+<h3>
+100 Complete
+</h3>
+
+<span id="complete100">
+0
+</span>
+
+</div>
+
+</div>
+
+
+<button class="tasbeeh-btn" onclick="increaseTasbeeh()">
+📿 TAP TO COUNT
+</button>
+
+
+<div class="tasbeeh-actions">
+
+<button onclick="confirmResetTasbeeh()">
+🔄 Reset
+</button>
+
+</div>
+
+<div id="tasbeehPopup" class="tasbeeh-popup">
+
+<h3 id="popupTitle">
+🎉 33 Complete
+</h3>
+
+<p id="popupText">
+May Allah accept your Dhikr.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- QIBLA SCREEN -->
+
+<section id="qiblaScreen" style="display:none;">
+
+<div class="qibla-container">
+
+
+<h2>
+🧭 Qibla Finder
+</h2>
+
+
+<p class="qibla-location">
+📍 Adilpur, Ghotki, Pakistan
+</p>
+
+
+
+<div class="compass-box">
+
+<div class="compass-circle">
+
+<div id="qiblaNeedle">
+
+<i class="fa-solid fa-location-arrow"></i>
+
+</div>
+
+<i class="fa-solid fa-kaaba kaaba-icon"></i>
+
+</div>
+
+
+
+<h3 id="qiblaDirection">
+Finding Qibla Direction...
+</h3>
+
+
+<button class="qibla-btn" onclick="findQibla()">
+
+🧭 Find Qibla
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+<div class="nav-item active" onclick="showScreen('home')">
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
+</div>
+
+<div class="nav-item" onclick="showScreen('quran')">
+<i class="fa-solid fa-book-quran"></i>
+<span>Quran</span>
+</div>
+
+<div class="nav-item" onclick="showScreen('duas')">
+<i class="fa-solid fa-hands-praying"></i>
+<span>Duas</span>
+</div>
+
+<div class="nav-item" onclick="showScreen('tasbeeh')">
+<i class="fa-solid fa-fingerprint"></i>
+<span>Tasbeeh</span>
+</div>
+
+<div class="nav-item" onclick="showScreen('qibla')">
+<i class="fa-solid fa-compass"></i>
+<span>Qibla</span>
+</div>
+
+</nav>
+
+
+</div>
+
+
+
+
+
+<script src="index.js"></script>
+
+</body>
+
+</html>
+
+
+
+
