@@ -1031,3 +1031,201 @@ document.getElementById("qiblaDirection").innerHTML =
 
 }
 
+// ===============================
+// DUA FUNCTIONS
+// ===============================
+
+function copyDua(button){
+
+let card = button.closest(".dua-card");
+
+let arabic = card.querySelector(".dua-arabic").innerText;
+
+let urdu = card.querySelector(".dua-urdu").innerText;
+
+let english = card.querySelector(".dua-english").innerText;
+
+navigator.clipboard.writeText(
+
+arabic + "\n\n" + urdu + "\n\n" + english
+
+);
+
+button.innerHTML = "✅ Copied";
+
+setTimeout(function(){
+
+button.innerHTML = "📋 Copy";
+
+},2000);
+
+}
+
+
+function toggleFavorite(button){
+
+if(button.innerHTML=="⭐ Favorite"){
+
+button.innerHTML="💛 Saved";
+
+button.style.background="#d4af37";
+
+button.style.color="#0B1622";
+
+}else{
+
+button.innerHTML="⭐ Favorite";
+
+button.style.background="#1f3b57";
+
+button.style.color="#fff";
+
+}
+
+}
+
+
+// ===============================
+// SEARCH DUA
+// ===============================
+
+function searchDua(){
+
+let input = document.getElementById("duaSearch").value.toLowerCase();
+
+let cards = document.querySelectorAll(".dua-card");
+
+cards.forEach(function(card){
+
+let text = card.innerText.toLowerCase();
+
+if(text.indexOf(input)>-1){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+}
+
+window.onload = function(){
+
+let cards = document.querySelectorAll(".dua-card");
+
+cards.forEach(function(card){
+
+card.style.display="block";
+
+});
+
+}
+
+// ===============================
+// DUA AUDIO SYSTEM
+// ===============================
+
+
+let currentDuaAudio = null;
+let currentPlayButton = null;
+
+
+
+function playDuaAudio(id, button){
+
+
+    // Agar koi purani audio chal rahi hai to stop karo
+
+    if(currentDuaAudio){
+
+        currentDuaAudio.pause();
+        currentDuaAudio.currentTime = 0;
+
+        if(currentPlayButton){
+
+            currentPlayButton.innerHTML = "▶️ Play";
+
+        }
+
+    }
+
+
+
+    let audio = document.getElementById(id);
+
+
+    if(audio){
+
+
+        audio.play();
+
+
+        currentDuaAudio = audio;
+
+        currentPlayButton = button;
+
+
+        button.innerHTML = "⏸ Playing";
+
+
+        audio.onended = function(){
+
+            button.innerHTML = "▶️ Play";
+
+            currentDuaAudio = null;
+
+            currentPlayButton = null;
+
+        };
+
+
+    }
+
+
+}
+
+
+
+
+function stopDuaAudio(button){
+
+
+    if(currentDuaAudio){
+
+
+        currentDuaAudio.pause();
+
+        currentDuaAudio.currentTime = 0;
+
+
+        if(currentPlayButton){
+
+            currentPlayButton.innerHTML = "▶️ Play";
+
+        }
+
+
+        currentDuaAudio = null;
+
+        currentPlayButton = null;
+
+
+    }
+
+
+    button.innerHTML = "⏹ Stopped";
+
+
+    setTimeout(()=>{
+
+        button.innerHTML = "⏹ Stop";
+
+    },1000);
+
+
+
+}
