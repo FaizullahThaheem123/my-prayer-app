@@ -1,0 +1,1103 @@
+/* ==========================================
+            MY PRAYER APP
+              INDEX.CSS
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#eef3f8;
+
+    color:#1b1b1b;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+.app{
+
+    width:100%;
+
+    max-width:500px;
+
+    margin:auto;
+
+    min-height:100vh;
+
+    background:#ffffff;
+
+    position:relative;
+
+    padding-bottom:95px;
+
+}
+
+/* ==========================
+        HEADER
+========================== */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:#0f4c75;
+
+    color:#fff;
+
+    border-bottom-left-radius:25px;
+
+    border-bottom-right-radius:25px;
+
+}
+
+.header-left h2{
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.welcome-text{
+
+    font-size:14px;
+
+    opacity:.9;
+
+    margin-bottom:4px;
+
+}
+
+.location{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    opacity:.9;
+
+}
+
+.mosque-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+}
+
+/* ==========================
+        DATE CARD
+========================== */
+
+.date-box{
+
+    margin:20px;
+
+    padding:18px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.date-box h3{
+
+    font-size:22px;
+
+    color:#0f4c75;
+
+    margin-bottom:8px;
+
+}
+
+.date-box p{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+/* ==========================
+        LIVE CLOCK
+========================== */
+
+.clock-box{
+
+    margin:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#0f4c75,#3282b8);
+
+    color:#fff;
+
+    text-align:center;
+
+}
+
+.clock-box h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+}
+
+.clock-box p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    opacity:.9;
+
+}
+
+/* ==========================
+        NEXT PRAYER
+========================== */
+
+.next-prayer{
+
+    margin:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:#ffffff;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    text-align:center;
+
+}
+
+.next-prayer h3{
+
+    color:#0f4c75;
+
+    margin-bottom:10px;
+
+}
+
+.next-prayer h2{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+.next-prayer p{
+
+    color:#777;
+
+    font-size:16px;
+
+}
+
+/* ==========================
+        PRAYER LIST
+========================== */
+
+.prayer-list{
+
+    margin:20px;
+
+}
+
+.prayer-card{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.prayer-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.prayer-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:#e8f4ff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:26px;
+
+    margin-right:15px;
+
+}
+
+.prayer-info{
+
+    flex:1;
+
+}
+
+.prayer-info h3{
+
+    font-size:20px;
+
+    color:#0f4c75;
+
+    margin-bottom:5px;
+
+}
+
+.prayer-info p{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+.prayer-info b{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:18px;
+
+    color:#222;
+
+}
+
+.prayer-info small{
+
+    display:block;
+
+    margin-top:5px;
+
+    color:#0f4c75;
+
+    font-weight:600;
+
+}
+
+.edit-jamaat{
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#0f4c75;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    transition:.3s;
+
+}
+
+.edit-jamaat:hover{
+
+    background:#3282b8;
+
+}
+
+/* ==========================
+        QUICK FEATURES
+========================== */
+
+.quick-features{
+
+    margin:20px;
+
+}
+
+.quick-features h2{
+
+    font-size:24px;
+
+    color:#0f4c75;
+
+    margin-bottom:18px;
+
+}
+
+.feature-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+.feature-card{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:20px 15px;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#222;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 22px rgba(0,0,0,.12);
+
+}
+
+.feature-icon{
+
+    width:65px;
+
+    height:65px;
+
+    margin:auto;
+
+    margin-bottom:15px;
+
+    border-radius:50%;
+
+    background:#e8f4ff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:30px;
+
+}
+
+.feature-card h3{
+
+    font-size:18px;
+
+    color:#0f4c75;
+
+    margin-bottom:8px;
+
+}
+
+.feature-card p{
+
+    font-size:13px;
+
+    color:#777;
+
+    line-height:1.5;
+
+}
+
+/* ==========================
+      BOTTOM NAVIGATION
+========================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:100%;
+
+    max-width:500px;
+
+    height:75px;
+
+    background:#ffffff;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    border-top:1px solid #e5e5e5;
+
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+    z-index:1000;
+
+}
+
+.nav-item{
+
+    flex:1;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#7a7a7a;
+
+    transition:.3s;
+
+}
+
+.nav-item i{
+
+    display:block;
+
+    font-size:22px;
+
+    margin-bottom:5px;
+
+}
+
+.nav-item span{
+
+    font-size:12px;
+
+    font-weight:500;
+
+}
+
+.nav-item.active{
+
+    color:#0f4c75;
+
+}
+
+.nav-item:hover{
+
+    color:#3282b8;
+
+}
+
+/* ==========================
+        FLOATING BUTTON
+========================== */
+
+.floating-btn{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:95px;
+
+    width:60px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#0f4c75;
+
+    color:#ffffff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 8px 20px rgba(15,76,117,.35);
+
+    transition:.3s;
+
+    z-index:999;
+
+}
+
+.floating-btn:hover{
+
+    background:#3282b8;
+
+    transform:scale(1.08);
+
+}
+
+.floating-btn:active{
+
+    transform:scale(.96);
+
+}
+
+/* ==========================
+        LOADING SCREEN
+========================== */
+
+#loadingScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#ffffff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.loader{
+
+    width:60px;
+
+    height:60px;
+
+    border:6px solid #d9e7f5;
+
+    border-top:6px solid #0f4c75;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+    0%{
+
+        transform:rotate(0deg);
+
+    }
+
+    100%{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+#loadingScreen h3{
+
+    color:#0f4c75;
+
+    font-size:24px;
+
+    margin-bottom:8px;
+
+}
+
+#loadingScreen p{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+/* ==========================
+          MODAL
+========================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    z-index:2000;
+
+}
+
+.modal-content{
+
+    width:100%;
+
+    max-width:380px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    animation:popup .25s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+.modal-content h2{
+
+    color:#0f4c75;
+
+    margin-bottom:10px;
+
+}
+
+.modal-content p{
+
+    color:#666;
+
+    margin-bottom:18px;
+
+    line-height:1.6;
+
+}
+
+.modal-content input{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:16px;
+
+    margin-bottom:20px;
+
+}
+
+.modal-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.modal-buttons button{
+
+    flex:1;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.save-btn{
+
+    background:#0f4c75;
+
+    color:#fff;
+
+}
+
+.save-btn:hover{
+
+    background:#3282b8;
+
+}
+
+.cancel-btn{
+
+    background:#eeeeee;
+
+    color:#333;
+
+}
+
+.cancel-btn:hover{
+
+    background:#dddddd;
+
+}
+
+/* ==========================
+        APP FOOTER
+========================== */
+
+.app-footer{
+
+    margin:30px 20px 100px;
+
+    text-align:center;
+
+    color:#777;
+
+}
+
+.app-footer p{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#0f4c75;
+
+    margin-bottom:6px;
+
+}
+
+.app-footer small{
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+/* ==========================
+        SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0f4c75;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#3282b8;
+
+}
+
+/* ==========================
+      TEXT SELECTION
+========================== */
+
+::selection{
+
+    background:#0f4c75;
+
+    color:#ffffff;
+
+}
+
+/* ==========================
+        RESPONSIVE
+========================== */
+
+@media (max-width:480px){
+
+    .header{
+
+        padding:18px;
+
+    }
+
+    .header-left h2{
+
+        font-size:24px;
+
+    }
+
+    .mosque-icon{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:24px;
+
+    }
+
+    .clock-box h1{
+
+        font-size:34px;
+
+    }
+
+    .next-prayer h2{
+
+        font-size:24px;
+
+    }
+
+    .prayer-card{
+
+        padding:15px;
+
+    }
+
+    .prayer-icon{
+
+        width:50px;
+
+        height:50px;
+
+        font-size:22px;
+
+    }
+
+    .feature-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .bottom-nav{
+
+        height:70px;
+
+    }
+
+    .nav-item i{
+
+        font-size:20px;
+
+    }
+
+    .nav-item span{
+
+        font-size:11px;
+
+    }
+
+    .floating-btn{
+
+        width:55px;
+
+        height:55px;
+
+        right:18px;
+
+        bottom:85px;
+
+        font-size:20px;
+
+    }
+
+}
+
+/* ==========================
+        TABLET
+========================== */
+
+@media (min-width:768px){
+
+    .app{
+
+        max-width:550px;
+
+    }
+
+}
+
+/* ==========================================
+        UTILITY CLASSES
+========================================== */
+
+.hidden{
+
+    display:none !important;
+
+}
+
+.show{
+
+    display:block !important;
+
+}
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.mt-10{
+
+    margin-top:10px;
+
+}
+
+.mt-20{
+
+    margin-top:20px;
+
+}
+
+.mb-10{
+
+    margin-bottom:10px;
+
+}
+
+.mb-20{
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================================
+        ACTIVE PRAYER CARD
+========================================== */
+
+.prayer-card.active{
+
+    border:2px solid #0f4c75;
+
+    background:#f3faff;
+
+}
+
+.prayer-card.active h3{
+
+    color:#0f4c75;
+
+}
+
+/* ==========================================
+        FEATURE CARD ACTIVE
+========================================== */
+
+.feature-card:active{
+
+    transform:scale(.97);
+
+}
+

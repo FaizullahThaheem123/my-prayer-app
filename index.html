@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Prayer</title>
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0B1622">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ===========================
+        HOME SCREEN
+============================ -->
+
+<section id="homeScreen">
+
+<!-- ===========================
+        HEADER
+============================ -->
+
+<header class="header">
+
+<div class="header-left">
+
+<p class="welcome-text">
+Assalamu Alaikum 👋
+</p>
+
+<h2 class="app-title">
+My Prayer
+</h2>
+
+<p class="location" id="locationName">
+📍 Detecting Location...
+</p>
+
+</div>
+
+<div class="header-right">
+
+<div class="mosque-icon">
+
+<i class="fa-solid fa-mosque"></i>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ===========================
+        DATE CARD
+============================ -->
+
+<section class="date-box">
+
+<h3 id="date">
+Loading Date...
+</h3>
+
+<p id="islamic-date">
+Loading Islamic Date...
+</p>
+
+</section>
+
+<!-- ===========================
+        LIVE CLOCK
+============================ -->
+
+<section class="clock-box">
+
+<h1 id="clock">
+00:00:00
+</h1>
+
+<p>
+Current Time
+</p>
+
+</section>
+
+<!-- ===========================
+      NEXT PRAYER
+============================ -->
+
+<section class="next-prayer">
+
+<h3>
+Next Prayer
+</h3>
+
+<h2 id="nextPrayer">
+Loading...
+</h2>
+
+<p id="countdown">
+00:00:00 Left
+</p>
+
+</section>
+
+<!-- ===========================
+        PRAYER TIMES
+============================ -->
+
+<section class="prayer-list">
+
+    <!-- FAJR -->
+
+    <div class="prayer-card">
+
+        <div class="prayer-icon">
+            🌅
+        </div>
+
+        <div class="prayer-info">
+
+            <h3>Fajr</h3>
+
+            <p>Prayer Time</p>
+
+            <b id="fajr">
+                Loading...
+            </b>
+
+            <small id="fajrJamaat">
+                Jamaat Loading...
+            </small>
+
+        </div>
+
+        <button
+            class="edit-jamaat"
+            onclick="editJamaat('Fajr')">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </div>
+
+    <!-- DHUHR -->
+
+    <div class="prayer-card">
+
+        <div class="prayer-icon">
+            ☀️
+        </div>
+
+        <div class="prayer-info">
+
+            <h3>Dhuhr</h3>
+
+            <p>Prayer Time</p>
+
+            <b id="dhuhr">
+                Loading...
+            </b>
+
+            <small id="dhuhrJamaat">
+                Jamaat Loading...
+            </small>
+
+        </div>
+
+        <button
+            class="edit-jamaat"
+            onclick="editJamaat('Dhuhr')">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </div>
+
+    <!-- ASR -->
+
+    <div class="prayer-card">
+
+        <div class="prayer-icon">
+            🌇
+        </div>
+
+        <div class="prayer-info">
+
+            <h3>Asr</h3>
+
+            <p>Prayer Time</p>
+
+            <b id="asr">
+                Loading...
+            </b>
+
+            <small id="asrJamaat">
+                Jamaat Loading...
+            </small>
+
+        </div>
+
+        <button
+            class="edit-jamaat"
+            onclick="editJamaat('Asr')">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </div>
+
+        <!-- MAGHRIB -->
+
+    <div class="prayer-card">
+
+        <div class="prayer-icon">
+            🌙
+        </div>
+
+        <div class="prayer-info">
+
+            <h3>Maghrib</h3>
+
+            <p>Prayer Time</p>
+
+            <b id="maghrib">
+                Loading...
+            </b>
+
+            <small id="maghribJamaat">
+                Jamaat Loading...
+            </small>
+
+        </div>
+
+        <button
+            class="edit-jamaat"
+            onclick="editJamaat('Maghrib')">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </div>
+
+    <!-- ISHA -->
+
+    <div class="prayer-card">
+
+        <div class="prayer-icon">
+            🌌
+        </div>
+
+        <div class="prayer-info">
+
+            <h3>Isha</h3>
+
+            <p>Prayer Time</p>
+
+            <b id="isha">
+                Loading...
+            </b>
+
+            <small id="ishaJamaat">
+                Jamaat Loading...
+            </small>
+
+        </div>
+
+        <button
+            class="edit-jamaat"
+            onclick="editJamaat('Isha')">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+      QUICK FEATURES
+=========================== -->
+
+<section class="quick-features">
+
+    <h2>
+        Islamic Features
+    </h2>
+
+    <div class="feature-grid">
+
+                <!-- HOLY QURAN -->
+
+        <a href="quran/quran.html" class="feature-card">
+
+            <div class="feature-icon">
+                📖
+            </div>
+
+            <h3>Holy Quran</h3>
+
+            <p>
+                Read the Holy Quran
+            </p>
+
+        </a>
+
+        <!-- DUAS -->
+
+        <a href="dua/duas.html" class="feature-card">
+
+            <div class="feature-icon">
+                🤲
+            </div>
+
+            <h3>Daily Duas</h3>
+
+            <p>
+                Morning & Evening Duas
+            </p>
+
+        </a>
+
+
+        <!-- TASBEEH -->
+
+<a href="tasbeeh/tasbeeh.html" class="feature-card">
+
+    <div class="feature-icon">
+        📿
+    </div>
+
+    <h3>Digital Tasbeeh</h3>
+
+    <p>
+        Smart Tasbeeh Counter
+    </p>
+
+</a>
+
+        <!-- 99 NAMES -->
+
+        <a href="names99/names99.html" class="feature-card">
+
+            <div class="feature-icon">
+                🕌
+            </div>
+
+            <h3>99 Names</h3>
+
+            <p>
+                Asma-ul-Husna
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+        END HOME CONTENT
+=========================== -->
+
+</section>
+
+<!-- ===========================
+      BOTTOM NAVIGATION
+=========================== -->
+
+<nav class="bottom-nav">
+
+    <!-- HOME -->
+
+    <a href="index.html"
+       class="nav-item active">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Home
+        </span>
+
+    </a>
+
+    <!-- QURAN -->
+
+    <a href="quran/quran.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-book-quran"></i>
+
+        <span>
+            Quran
+        </span>
+
+    </a>
+
+    <!-- DUAS -->
+
+    <a href="dua/duas.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-hands-praying"></i>
+
+        <span>
+            Duas
+        </span>
+
+    </a>
+
+    <!-- TASBEEH -->
+
+    <a href="tasbeeh/tasbeeh.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-circle-notch"></i>
+
+        <span>
+            Tasbeeh
+        </span>
+
+    </a>
+
+</nav>
+
+    <!-- 99 NAMES -->
+
+    <a href="names99/names99.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-star-and-crescent"></i>
+
+        <span>
+            99 Names
+        </span>
+
+    </a>
+
+    <!-- QIBLA -->
+
+    <a href="qibla/qibla.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-compass"></i>
+
+        <span>
+            Qibla
+        </span>
+
+    </a>
+
+</nav>
+
+<!-- ===========================
+        FLOATING BUTTON
+=========================== -->
+
+<button
+    class="floating-btn"
+    id="notificationBtn"
+    title="Prayer Notifications">
+
+    <i class="fa-solid fa-bell"></i>
+
+</button>
+
+<!-- ===========================
+        LOADING SCREEN
+=========================== -->
+
+<div id="loadingScreen">
+
+    <div class="loader"></div>
+
+    <h3>
+        My Prayer
+    </h3>
+
+    <p>
+        Loading...
+    </p>
+
+</div>
+
+<!-- ===========================
+        EDIT JAMAAT MODAL
+=========================== -->
+
+<div id="jamaatModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>
+            Edit Jamaat Time
+        </h2>
+
+        <p id="selectedPrayer">
+            Prayer
+        </p>
+
+        <input
+            type="time"
+            id="jamaatTimeInput">
+
+        <div class="modal-buttons">
+
+            <button
+                class="save-btn"
+                onclick="saveJamaatTime()">
+
+                Save
+
+            </button>
+
+            <button
+                class="cancel-btn"
+                onclick="closeJamaatModal()">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        NOTIFICATION MODAL
+=========================== -->
+
+<div id="notificationModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>
+            Prayer Notifications
+        </h2>
+
+        <p>
+
+            Enable notifications to receive prayer reminders.
+
+        </p>
+
+        <div class="modal-buttons">
+
+            <button
+                class="save-btn"
+                id="enableNotification">
+
+                Enable
+
+            </button>
+
+            <button
+                class="cancel-btn"
+                onclick="closeNotificationModal()">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        APP VERSION
+=========================== -->
+
+<footer class="app-footer">
+
+    <p>
+        My Prayer v1.0.0
+    </p>
+
+    <small>
+        © 2026 My Prayer. All Rights Reserved.
+    </small>
+
+</footer>
+
+</div>
+<!-- END APP -->
+
+<!-- ===========================
+        JAVASCRIPT
+=========================== -->
+
+<script src="index.js"></script>
+
+<!-- ===========================
+        FUTURE MODULES
+        (Disabled for now)
+=========================== -->
+
+<!--
+<script src="quran/quran.js"></script>
+<script src="duas/duas.js"></script>
+<script src="tasbeeh/tasbeeh.js"></script>
+<script src="names99/names99.js"></script>
+<script src="qibla/qibla.js"></script>
+-->
+
+<!-- ===========================
+        END BODY
+=========================== -->
+
+</body>
+
+</html>o
