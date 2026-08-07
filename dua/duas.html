@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Prayer | Daily Duas</title>
+
+<link rel="stylesheet" href="duas.css">
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<section class="duas-screen">
+
+
+<div class="duas-container">
+
+
+<!-- HEADER -->
+
+<div class="duas-header">
+
+<button
+class="back-home-btn"
+type="button"
+onclick="goHome()">
+
+🏠 Home
+
+</button>
+
+<h2>🤲 Daily Duas</h2>
+
+<p>
+Read authentic daily duas
+</p>
+
+</div>
+
+
+
+<!-- SEARCH -->
+
+<div class="duas-search">
+
+<input 
+type="text"
+id="duaSearch"
+placeholder="🔍 Search Dua..."
+onkeyup="searchDua()"
+>
+
+
+</div>
+
+
+
+<!-- CATEGORY -->
+
+<div class="dua-categories">
+
+<button onclick="showCategory('favorite')">
+⭐ Favorite
+</button>
+
+
+<button onclick="showCategory('all')">
+All
+</button>
+
+
+
+
+<button onclick="showCategory('protection')">
+Protection
+</button>
+
+
+<button onclick="showCategory('daily')">
+Daily
+</button>
+
+
+<button onclick="showCategory('travel')">
+Travel
+</button>
+
+
+
+
+</div>
+
+
+
+
+<!-- DUA LIST -->
+
+<div id="duaList">
+
+
+<!-- Dua cards JS se load hongi -->
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div id="duaReader" class="dua-reader">
+
+    <div class="reader-header">
+
+        <button class="reader-close" onclick="closeReader()">
+            ✕
+        </button>
+
+        <button 
+        class="reader-fav" 
+        id="readerFavBtn" 
+        onclick="toggleCurrentFavorite()">
+            🤍
+        </button>
+
+    </div>
+
+
+    <div class="reader-content">
+
+        <h2 id="readerTitle"></h2>
+
+        <p id="readerArabic" class="dua-arabic"></p>
+
+        <p id="readerMeaning" class="dua-meaning"></p>
+
+        <p id="readerUrdu" class="dua-urdu"></p>
+
+        <span id="readerReference" class="dua-reference"></span>
+
+    </div>
+
+
+    <div class="reader-bottom">
+
+        <button onclick="previousDua()">
+            ⬅ Previous
+        </button>
+
+        <span id="readerCount">
+            1 / 1
+        </span>
+
+        <button onclick="nextDua()">
+            Next ➡
+        </button>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+
+<script src="duas.js"></script>
+
+
+</body>
+
+</html>

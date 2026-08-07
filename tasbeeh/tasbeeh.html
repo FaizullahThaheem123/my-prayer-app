@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Prayer | Digital Tasbeeh</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="tasbeeh.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<section class="tasbeeh-screen">
+
+<div class="tasbeeh-container">
+
+<!-- ======================================
+     BACK TO HOME
+====================================== -->
+
+<button 
+class="back-home-btn"
+type="button"
+onclick="goHome()">
+
+🏠 Home
+
+</button>
+
+
+
+<h2>📿 Digital Tasbeeh</h2>
+
+<select id="zikrSelect" onchange="changeZikr()">
+
+<option value="SubhanAllah|سبحان الله" selected>SubhanAllah</option>
+
+<option value="Alhamdulillah|الحمد لله">Alhamdulillah</option>
+
+<option value="Allahu Akbar|الله أكبر">Allahu Akbar</option>
+
+<option value="La ilaha illallah|لا إله إلا الله">La ilaha illallah</option>
+
+<option value="Astaghfirullah|أستغفر الله">Astaghfirullah</option>
+
+<option value="SubhanAllahi wa bihamdihi|سبحان الله وبحمده">SubhanAllahi wa bihamdihi</option>
+
+<option value="SubhanAllahil Azeem|سبحان الله العظيم">SubhanAllahil Azeem</option>
+
+<option value="La hawla wa la quwwata illa billah|لا حول ولا قوة إلا بالله">La hawla wa la quwwata illa billah</option>
+
+<option value="HasbunAllahu wa ni'mal Wakeel|حسبنا الله ونعم الوكيل">HasbunAllahu wa ni'mal Wakeel</option>
+
+<option value="Bismillah|بسم الله">Bismillah</option>
+
+</select>
+
+<p id="tasbeehName">SubhanAllah</p>
+
+<h2 id="tasbeehArabic">سبحان الله</h2>
+
+<div class="target-buttons">
+
+<button type="button" onclick="setTarget(33)">33</button>
+
+<button type="button" onclick="setTarget(99)">99</button>
+
+<button type="button" onclick="setTarget(100)">100</button>
+
+</div>
+
+<h1 id="tasbeehCount">0</h1>
+
+
+
+<p id="tasbeehTarget">
+🎯 Target : 33
+</p>
+
+<div class="progress-box">
+
+<div id="progressBar" class="progress-bar"></div>
+
+</div>
+
+<p id="progressText">
+0 / 33
+</p>
+
+<p id="tasbeehStatus">
+Keep Counting...
+</p>
+
+<div class="tasbeeh-history">
+
+<div class="history-mini">
+33 ✅ <span id="complete33">0</span>
+</div>
+
+<div class="history-mini">
+99 ✅ <span id="complete99">0</span>
+</div>
+
+<div class="history-mini">
+100 ✅ <span id="complete100">0</span>
+</div>
+
+</div>
+
+
+<!-- BUTTON AREA -->
+
+<div class="button-wrapper">
+
+<button
+class="tasbeeh-btn"
+type="button"
+onclick="increaseTasbeeh()">
+
+📿 TAP TO COUNT
+
+</button>
+
+
+<div class="tasbeeh-actions">
+
+<button
+type="button"
+onclick="confirmResetTasbeeh()">
+
+🔄 RESET
+
+</button>
+
+</div>
+
+</div>
+
+<div
+id="tasbeehPopup"
+class="tasbeeh-popup">
+
+<h3 id="popupTitle">
+🎉 Target Complete
+</h3>
+
+<p id="popupText">
+May Allah accept your Dhikr.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<script src="tasbeeh.js"></script>
+
+</body>
+
+</html>
