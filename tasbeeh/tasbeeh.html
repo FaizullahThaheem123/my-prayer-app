@@ -1,174 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Prayer | Digital Tasbeeh</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Digital Tasbeeh | My Prayer</title>
 
 <link rel="stylesheet" href="tasbeeh.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="app">
+<div class="tasbeeh-app">
 
-<section class="tasbeeh-screen">
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
 
-<div class="tasbeeh-container">
+    <header class="tasbeeh-header">
 
-<!-- ======================================
-     BACK TO HOME
-====================================== -->
+        <button id="homeBtn" class="header-btn">
+            <i class="fa-solid fa-house"></i>
+        </button>
 
-<button 
-class="back-home-btn"
-type="button"
-onclick="goHome()">
+        <div class="header-title">
 
-🏠 Home
+            <h1>
+                <i class="fa-solid fa-ring"></i>
+                Digital Tasbeeh
+            </h1>
 
-</button>
+            <p>
+                Count your Dhikr with focus and peace
+            </p>
 
+        </div>
 
+        <button id="settingsBtn" class="header-btn">
+            <i class="fa-solid fa-gear"></i>
+        </button>
 
-<h2>📿 Digital Tasbeeh</h2>
-
-<select id="zikrSelect" onchange="changeZikr()">
-
-<option value="SubhanAllah|سبحان الله" selected>SubhanAllah</option>
-
-<option value="Alhamdulillah|الحمد لله">Alhamdulillah</option>
-
-<option value="Allahu Akbar|الله أكبر">Allahu Akbar</option>
-
-<option value="La ilaha illallah|لا إله إلا الله">La ilaha illallah</option>
-
-<option value="Astaghfirullah|أستغفر الله">Astaghfirullah</option>
-
-<option value="SubhanAllahi wa bihamdihi|سبحان الله وبحمده">SubhanAllahi wa bihamdihi</option>
-
-<option value="SubhanAllahil Azeem|سبحان الله العظيم">SubhanAllahil Azeem</option>
-
-<option value="La hawla wa la quwwata illa billah|لا حول ولا قوة إلا بالله">La hawla wa la quwwata illa billah</option>
-
-<option value="HasbunAllahu wa ni'mal Wakeel|حسبنا الله ونعم الوكيل">HasbunAllahu wa ni'mal Wakeel</option>
-
-<option value="Bismillah|بسم الله">Bismillah</option>
-
-</select>
-
-<p id="tasbeehName">SubhanAllah</p>
-
-<h2 id="tasbeehArabic">سبحان الله</h2>
-
-<div class="target-buttons">
-
-<button type="button" onclick="setTarget(33)">33</button>
-
-<button type="button" onclick="setTarget(99)">99</button>
-
-<button type="button" onclick="setTarget(100)">100</button>
-
-</div>
-
-<h1 id="tasbeehCount">0</h1>
+    </header>
 
 
 
-<p id="tasbeehTarget">
-🎯 Target : 33
-</p>
+    <!-- ========================= -->
+    <!-- DHIKR SECTION -->
+    <!-- ========================= -->
 
-<div class="progress-box">
+    <section class="dhikr-section">
 
-<div id="progressBar" class="progress-bar"></div>
+        <select id="dhikrSelect">
 
-</div>
+            <option value="bismillah">
+                Bismillah
+            </option>
 
-<p id="progressText">
-0 / 33
-</p>
+            <option value="subhanallah">
+                SubhanAllah
+            </option>
 
-<p id="tasbeehStatus">
-Keep Counting...
-</p>
+            <option value="alhamdulillah">
+                Alhamdulillah
+            </option>
 
-<div class="tasbeeh-history">
+            <option value="allahuakbar">
+                Allahu Akbar
+            </option>
 
-<div class="history-mini">
-33 ✅ <span id="complete33">0</span>
-</div>
+            <option value="astaghfirullah">
+                Astaghfirullah
+            </option>
 
-<div class="history-mini">
-99 ✅ <span id="complete99">0</span>
-</div>
+            <option value="lailahaillallah">
+                La ilaha illallah
+            </option>
 
-<div class="history-mini">
-100 ✅ <span id="complete100">0</span>
-</div>
+        </select>
 
-</div>
+        <h2 id="arabicDhikr">
+
+            بِسْمِ اللهِ
+
+        </h2>
+
+    </section>
+
+        <!-- ========================= -->
+    <!-- TARGET BUTTONS -->
+    <!-- ========================= -->
+
+    <section class="target-section">
+
+        <button class="target-btn active" data-target="33">
+            33
+        </button>
+
+        <button class="target-btn" data-target="99">
+            99
+        </button>
+
+        <button class="target-btn" data-target="100">
+            100
+        </button>
+
+    </section>
 
 
-<!-- BUTTON AREA -->
 
-<div class="button-wrapper">
+    <!-- ========================= -->
+<!-- INFO CIRCLES -->
+<!-- ========================= -->
 
-<button
-class="tasbeeh-btn"
-type="button"
-onclick="increaseTasbeeh()">
+<section class="info-section">
 
-📿 TAP TO COUNT
+    <!-- Target -->
+    <div class="info-card">
 
-</button>
+        <span class="info-label">
+            Target
+        </span>
 
+        <span id="targetValue" class="info-value">
+            33
+        </span>
 
-<div class="tasbeeh-actions">
+    </div>
 
-<button
-type="button"
-onclick="confirmResetTasbeeh()">
+    <!-- Count -->
+    <div class="info-card count-card">
 
-🔄 RESET
+        <span class="info-label">
+            Count
+        </span>
 
-</button>
+        <span id="countValue" class="info-value">
+            0
+        </span>
 
-</div>
+    </div>
 
-</div>
+    <!-- Progress -->
+    <div class="info-card">
 
-<div
-id="tasbeehPopup"
-class="tasbeeh-popup">
+        <span class="info-label">
+            Progress
+        </span>
 
-<h3 id="popupTitle">
-🎉 Target Complete
-</h3>
+        <span id="progressValue" class="info-value">
+            0%
+        </span>
 
-<p id="popupText">
-May Allah accept your Dhikr.
-</p>
-
-</div>
-
-</div>
+    </div>
 
 </section>
+
+
+
+   
+
+        <!-- ========================= -->
+    <!-- PROGRESS BAR -->
+    <!-- ========================= -->
+
+    <section class="progress-section">
+
+        <div class="progress-track">
+
+            <div id="progressBar" class="progress-fill"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- STATISTICS -->
+    <!-- ========================= -->
+
+    <section class="stats-section">
+
+        <div class="stat-card">
+
+            <span class="stat-number" id="completed33">
+                0
+            </span>
+
+            <span class="stat-title">
+                ×33
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-number" id="completed99">
+                0
+            </span>
+
+            <span class="stat-title">
+                ×99
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-number" id="completed100">
+                0
+            </span>
+
+            <span class="stat-title">
+                ×100
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- ACTION BUTTONS -->
+    <!-- ========================= -->
+
+    <section class="action-section">
+
+        <button id="countBtn" class="count-btn">
+
+            <i class="fa-solid fa-hand-pointer"></i>
+
+            TAP TO COUNT
+
+        </button>
+
+
+        <button id="resetBtn" class="reset-btn">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            RESET
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ========================= -->
+
+    <nav class="bottom-nav">
+
+        <a href="../index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="../quran/quran.html">
+            <i class="fa-solid fa-book-quran"></i>
+            <span>Quran</span>
+        </a>
+
+        <a href="../dua/duas.html">
+            <i class="fa-solid fa-hands-praying"></i>
+            <span>Duas</span>
+        </a>
+
+        <a href="tasbeeh.html" class="active">
+            <i class="fa-solid fa-ring"></i>
+            <span>Tasbeeh</span>
+        </a>
+
+    </nav>
 
 </div>
 
 <script src="tasbeeh.js"></script>
 
 </body>
-
 </html>

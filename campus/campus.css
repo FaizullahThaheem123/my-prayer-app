@@ -1,0 +1,1691 @@
+/* ======================================
+   MY PRAYER - CAMPUS / QIBLA
+   CSS - COMPLETE
+====================================== */
+
+
+/* ======================================
+   RESET
+====================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: #f4f8f7;
+    color: #17221f;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+/* ======================================
+   MAIN CAMPUS PAGE
+====================================== */
+
+.campus-page {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 95px;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.campus-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 16px;
+
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ======================================
+   HEADER BUTTON
+====================================== */
+
+.campus-header-btn {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: var(--primary-color-light);
+    color: #1976d2;
+
+    font-size: 18px;
+
+    border: none;
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.campus-header-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.campus-header-btn:active {
+    transform: scale(0.94);
+}
+
+
+/* ======================================
+   HEADER TITLE
+====================================== */
+
+.campus-header-title {
+    text-align: center;
+    flex: 1;
+}
+
+
+.campus-header-title h1 {
+    margin: 0;
+
+    font-size: 22px;
+    line-height: 1.2;
+
+    color: #1976d2;
+}
+
+
+.campus-header-title h1 i {
+    margin-right: 5px;
+
+    color: #1976d2;
+}
+
+
+.campus-header-title p {
+    margin-top: 3px;
+    margin-bottom: 0;
+
+    font-size: 11px;
+
+    color: #71807b;
+}
+
+
+/* ======================================
+   LOCATION CARD
+====================================== */
+
+.location-card {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 16px auto 12px;
+
+    padding: 13px 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(23, 107, 82, 0.08);
+
+    border-radius: 18px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+.location-icon {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #e8f5ef;
+    color: #176b52;
+
+    font-size: 19px;
+}
+
+
+.location-text {
+    min-width: 0;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.location-text span {
+    font-size: 11px;
+    color: #7b8984;
+}
+
+
+.location-text strong {
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.location-text sm#176b52 {
+    font-size: 10px;
+    color: #8a9691;
+}
+
+
+.location-refresh-btn {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: #f0f7f4;
+    color: #176b52;
+
+    transition: 0.25s ease;
+}
+
+
+.location-refresh-btn:hover {
+    transform: rotate(45deg);
+}
+
+
+
+/* ======================================
+   COMMON SECTION HEADING
+====================================== */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+
+.section-heading > div:first-child {
+    min-width: 0;
+}
+
+
+.section-heading span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    color: #83918c;
+}
+
+
+.section-heading h2 {
+    font-size: 18px;
+    color: #18342b;
+}
+
+
+
+/* ======================================
+   QIBLA ARROW CARD
+====================================== */
+
+.qibla-arrow-card {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 12px auto;
+
+    padding: 18px 14px 20px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.07);
+
+    text-align: center;
+}
+
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 7px 10px;
+
+    border-radius: 20px;
+
+    background: #eaf7f1;
+    color: #176b52;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.qibla-degree {
+    margin-top: 15px;
+
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+}
+
+
+.qibla-degree strong {
+    font-size: 42px;
+    line-height: 1;
+
+    color: #176b52;
+}
+
+
+.qibla-degree span {
+    font-size: 12px;
+    color: #7b8984;
+}
+
+
+
+/* ======================================
+   COMPASS
+====================================== */
+
+.compass-area {
+    width: min(76vw, 310px);
+    aspect-ratio: 1;
+
+    margin: 18px auto 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.compass-ring {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff 0%,
+            #f7fbf9 58%,
+            #e9f2ee 100%
+        );
+
+    border: 9px solid #dcebe5;
+
+    box-shadow:
+        inset 0 0 0 2px #ffffff,
+        0 10px 30px rgba(23, 107, 82, 0.12);
+}
+
+
+.compass-ring::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 18px;
+
+    border-radius: 50%;
+
+    border: 1px dashed rgba(23, 107, 82, 0.22);
+}
+
+
+.compass-ring::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 2px;
+    height: calc(100% - 50px);
+
+    transform: translate(-50%, -50%);
+
+    background: rgba(23, 107, 82, 0.08);
+}
+
+
+.compass-direction {
+    position: absolute;
+
+    z-index: 3;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #65756f;
+}
+
+
+.compass-direction.north {
+    top: 12px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #176b52;
+}
+
+
+.compass-direction.east {
+    right: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+.compass-direction.south {
+    bottom: 12px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+.compass-direction.west {
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+
+/* ======================================
+   QIBLA ARROW
+====================================== */
+
+.qibla-arrow {
+    position: absolute;
+
+    z-index: 8;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    transform: translate(-50%, -50%);
+
+    transition: transform 0.35s ease;
+
+    pointer-events: none;
+}
+
+
+.arrow-head {
+    position: absolute;
+
+    left: 50%;
+    top: 21px;
+
+    transform: translateX(-50%);
+
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #176b52;
+
+    color: #ffffff;
+
+    font-size: 28px;
+
+    box-shadow: 0 7px 20px rgba(23, 107, 82, 0.28);
+}
+
+
+.arrow-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #176b52;
+
+    border: 3px solid #176b52;
+
+    font-size: 19px;
+}
+
+
+.compass-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    z-index: 10;
+
+    width: 15px;
+    height: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translate(-50%, -50%);
+
+    color: #176b52;
+
+    font-size: 13px;
+}
+
+
+.compass-message {
+    margin-top: 8px;
+
+    font-size: 11px;
+    color: #7a8983;
+}
+
+
+.calibrate-btn {
+    margin-top: 13px;
+
+    padding: 10px 15px;
+
+    border-radius: 13px;
+
+    background: #eef7f3;
+    color: #176b52;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+
+.calibrate-btn:hover {
+    background: #dff0e9;
+}
+
+
+
+/* ======================================
+   QIBLA INFORMATION
+====================================== */
+
+.qibla-info-card {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 12px auto;
+
+    padding: 16px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+
+.info-card-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 15px;
+}
+
+
+.info-card-title > i {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #eaf6f1;
+    color: #176b52;
+}
+
+
+.info-card-title div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+
+.info-card-title strong {
+    font-size: 14px;
+}
+
+
+.info-card-title span {
+    font-size: 10px;
+    color: #7c8984;
+}
+
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 9px;
+}
+
+
+.info-item {
+    padding: 12px;
+
+    display: grid;
+
+    grid-template-columns: 28px 1fr;
+
+    column-gap: 7px;
+
+    background: #f7faf9;
+
+    border-radius: 14px;
+}
+
+
+.info-item > i {
+    grid-row: span 2;
+
+    align-self: center;
+
+    color: #176b52;
+
+    font-size: 14px;
+}
+
+
+.info-item span {
+    font-size: 9px;
+    color: #7c8984;
+}
+
+
+.info-item strong {
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    color: #1c332b;
+}
+
+
+
+/* ======================================
+   MAP SECTION
+====================================== */
+
+.qibla-map-section {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 12px auto;
+
+    padding: 16px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+
+.map-location-btn {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 12px;
+
+    background: #eef7f3;
+    color: #176b52;
+
+    transition: 0.25s ease;
+}
+
+
+.map-location-btn:hover {
+    transform: scale(1.06);
+}
+
+
+.qibla-map {
+    width: 100%;
+    height: 300px;
+
+    margin-top: 13px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    background: #e8eeeb;
+}
+
+
+.map-legend {
+    margin-top: 11px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 9px;
+    color: #6f7d78;
+}
+
+
+.legend-dot {
+    width: 9px;
+    height: 9px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+}
+
+
+.user-dot {
+    background: #176b52;
+}
+
+
+.kaaba-dot {
+    background: #222222;
+}
+
+
+.legend-line {
+    width: 20px;
+    height: 3px;
+
+    display: inline-block;
+
+    border-radius: 10px;
+
+    background: #176b52;
+}
+
+
+
+/* ======================================
+   LEAFLET MAP
+====================================== */
+
+.leaflet-control-zoom a {
+    color: #176b52 !important;
+}
+
+
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+}
+
+
+.leaflet-popup-content {
+    font-size: 12px;
+}
+
+
+
+/* ======================================
+   DIRECTION CARD
+====================================== */
+
+.direction-card {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 12px auto;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    background: #176b52;
+
+    color: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 7px 24px rgba(23, 107, 82, 0.18);
+}
+
+
+.direction-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 18px;
+}
+
+
+.direction-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.direction-content > span {
+    font-size: 10px;
+
+    opacity: 0.75;
+}
+
+
+.direction-content strong {
+    margin-top: 4px;
+
+    font-size: 16px;
+}
+
+
+.direction-content p {
+    margin-top: 5px;
+
+    font-size: 10px;
+    line-height: 1.5;
+
+    opacity: 0.82;
+}
+
+
+
+/* ======================================
+   COMPASS HELP
+====================================== */
+
+.compass-help {
+    width: calc(100% - 24px);
+    max-width: 700px;
+
+    margin: 12px auto;
+
+    padding: 14px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(23, 107, 82, 0.08);
+}
+
+
+.help-icon {
+    width: 39px;
+    height: 39px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eef7f3;
+    color: #176b52;
+}
+
+
+.compass-help strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+
+.compass-help p {
+    margin-top: 4px;
+
+    font-size: 10px;
+    line-height: 1.5;
+
+    color: #788680;
+}
+
+
+
+/* ======================================
+   CAMPUS MESSAGE
+====================================== */
+
+.campus-message {
+    width: calc(100% - 24px);
+    max-width: 500px;
+
+    margin: 18px auto;
+
+    padding: 22px 16px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+.campus-message > i {
+    font-size: 32px;
+
+    color: #176b52;
+
+    margin-bottom: 10px;
+}
+
+
+.campus-message strong {
+    display: block;
+
+    font-size: 16px;
+}
+
+
+.campus-message p {
+    margin-top: 6px;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    color: #7b8984;
+}
+
+
+.campus-message button {
+    margin-top: 13px;
+
+    padding: 10px 18px;
+
+    border-radius: 12px;
+
+    background: #176b52;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+
+/* ======================================
+   SETTINGS PANEL
+====================================== */
+
+.campus-settings-panel {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+}
+
+
+.settings-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: blur(3px);
+}
+
+
+.settings-sheet {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 100%;
+    max-width: 650px;
+
+    transform: translateX(-50%);
+
+    padding: 18px 16px 28px;
+
+    background: #ffffff;
+
+    border-radius: 24px 24px 0 0;
+
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.14);
+}
+
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+
+.settings-header h2 {
+    font-size: 18px;
+}
+
+
+.close-settings-btn {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eef4f1;
+    color: #52615b;
+}
+
+
+.setting-row {
+    padding: 13px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    border-bottom: 1px solid #edf1ef;
+}
+
+
+.setting-row:last-child {
+    border-bottom: 0;
+}
+
+
+.setting-row div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.setting-row strong {
+    font-size: 12px;
+}
+
+
+.setting-row span {
+    font-size: 10px;
+    color: #7c8984;
+}
+
+
+.setting-action-btn {
+    padding: 9px 13px;
+
+    border-radius: 11px;
+
+    background: #176b52;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+
+/* ======================================
+BOTTOM NAVIGATION
+SAME AS 99 NAMES
+====================================== */
+
+.bottom-nav {
+
+    position: fixed !important;
+
+    left: 50% !important;
+    bottom: 0 !important;
+
+    transform: translateX(-50%) !important;
+
+    width: 100% !important;
+    max-width: 430px !important;
+
+    height: 50px !important;
+    min-height: 50px !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+
+    justify-content: space-around !important;
+    align-items: center !important;
+
+    padding: 7px 4px !important;
+
+    background: #ffffff !important;
+
+    backdrop-filter: none !important;
+
+    border: none !important;
+
+    border-radius: 24px 24px 0 0 !important;
+
+    box-shadow:
+        0 -10px 30px rgba(0,0,0,.12) !important;
+
+    z-index: 9999 !important;
+}
+
+
+/* ======================================
+NAV ITEMS
+====================================== */
+
+.bottom-nav a {
+
+    flex: 1 !important;
+
+    min-width: 0 !important;
+
+    height: 100% !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    color: #777 !important;
+
+    font-size: 10px !important;
+
+    text-decoration: none !important;
+
+    transition: .3s !important;
+}
+
+
+/* ======================================
+ICON
+====================================== */
+
+.bottom-nav a i {
+
+    font-size: 16px !important;
+
+    margin: 0 !important;
+}
+
+
+/* ======================================
+TEXT
+====================================== */
+
+.bottom-nav a span {
+
+    white-space: nowrap !important;
+
+    overflow: visible !important;
+
+    max-width: none !important;
+
+    text-overflow: clip !important;
+
+    font-size: 9px !important;
+}
+
+
+/* ======================================
+ACTIVE
+====================================== */
+
+.bottom-nav a.active {
+
+    color: #1565c0 !important;
+
+    background: transparent !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* ======================================
+HOVER
+====================================== */
+
+.bottom-nav a:hover {
+
+    color: #1565c0 !important;
+
+    transform: translateY(-2px) !important;
+}
+
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media (min-width: 700px) {
+
+    .campus-page {
+        padding-bottom: 90px;
+    }
+
+
+    .campus-header {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+
+    .qibla-arrow-card {
+        padding: 22px;
+    }
+
+
+    .compass-area {
+        width: 330px;
+    }
+
+
+    .qibla-map {
+        height: 380px;
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    .campus-header-title h1 {
+        font-size: 19px;
+    }
+
+
+    .campus-header-title p {
+        font-size: 9px;
+    }
+
+
+    .campus-header-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .compass-area {
+        width: 255px;
+    }
+
+
+    .arrow-head {
+        width: 52px;
+        height: 52px;
+
+        font-size: 24px;
+    }
+
+
+    .qibla-degree strong {
+        font-size: 36px;
+    }
+
+
+    .bottom-nav a {
+        font-size: 8px;
+    }
+
+
+    .bottom-nav a i {
+        font-size: 15px;
+    }
+
+}
+
+
+
+/* ======================================
+   DARK MODE
+====================================== */
+
+body.dark-mode {
+    background: #101815;
+    color: #edf5f1;
+}
+
+
+body.dark-mode .campus-header,
+body.dark-mode .location-card,
+body.dark-mode .qibla-arrow-card,
+body.dark-mode .qibla-info-card,
+body.dark-mode .qibla-map-section,
+body.dark-mode .compass-help,
+body.dark-mode .campus-message,
+body.dark-mode .settings-sheet,
+body.dark-mode .bottom-nav {
+    background: #18221f;
+
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+
+body.dark-mode .campus-header-title h1,
+body.dark-mode .section-heading h2,
+body.dark-mode .info-item strong,
+body.dark-mode .location-text strong,
+body.dark-mode .setting-row strong {
+    color: #edf5f1;
+}
+
+
+body.dark-mode .campus-header-title p,
+body.dark-mode .location-text span,
+body.dark-mode .location-text sm#176b52,
+body.dark-mode .info-item span,
+body.dark-mode .info-card-title span,
+body.dark-mode .compass-message,
+body.dark-mode .compass-help p,
+body.dark-mode .setting-row span {
+    color: #9aa9a3;
+}
+
+
+body.dark-mode .campus-header-btn,
+body.dark-mode .location-icon,
+body.dark-mode .location-refresh-btn,
+body.dark-mode .calibrate-btn,
+body.dark-mode .map-location-btn,
+body.dark-mode .help-icon,
+body.dark-mode .close-settings-btn {
+    background: #22332d;
+    color: #72c9a7;
+}
+
+
+body.dark-mode .info-item {
+    background: #202c28;
+}
+
+
+body.dark-mode .compass-ring {
+    background:
+        radial-gradient(
+            circle,
+            #1c2824 0%,
+            #18221f 58%,
+            #13201b 100%
+        );
+
+    border-color: #30453d;
+}
+
+
+body.dark-mode .compass-direction {
+    color: #a7b7b0;
+}
+
+
+body.dark-mode .bottom-nav a {
+    color: #87958f;
+}
+
+
+body.dark-mode .bottom-nav a.active {
+    color: #72c9a7;
+    background: #22332d;
+}
+
+/* ======================================
+   CAMPUS - BLUE COLOR FIX
+====================================== */
+
+/* HEADER */
+.campus-header-btn,
+.campus-header-btn i {
+    color: #1976d2 !important;
+}
+
+.campus-header-title h1,
+.campus-header-title h1 i {
+    color: #1976d2 !important;
+}
+
+
+/* LOCATION */
+.location-icon,
+.location-icon i {
+    color: #1976d2 !important;
+}
+
+.location-refresh-btn,
+.location-refresh-btn i {
+    color: #1976d2 !important;
+}
+
+
+/* QIBLA STATUS */
+.status-badge,
+.status-badge i {
+    color: #1976d2 !important;
+}
+
+
+/* QIBLA DEGREE */
+.qibla-degree strong {
+    color: #1976d2 !important;
+}
+
+
+/* COMPASS DIRECTIONS */
+.compass-direction.north {
+    color: #1976d2 !important;
+}
+
+
+/* QIBLA ARROW */
+.arrow-head {
+    background: #1976d2 !important;
+    color: #ffffff !important;
+}
+
+.arrow-center {
+    color: #1976d2 !important;
+    border-color: #1976d2 !important;
+}
+
+.compass-center {
+    color: #1976d2 !important;
+}
+
+
+/* CALIBRATE */
+.calibrate-btn,
+.calibrate-btn i {
+    color: #1976d2 !important;
+}
+
+
+/* INFORMATION */
+.info-card-title > i {
+    color: #1976d2 !important;
+}
+
+.info-item > i {
+    color: #1976d2 !important;
+}
+
+
+/* MAP */
+.map-location-btn,
+.map-location-btn i {
+    color: #1976d2 !important;
+}
+
+.user-dot {
+    background: #1976d2 !important;
+}
+
+.legend-line {
+    background: #1976d2 !important;
+}
+
+.leaflet-control-zoom a {
+    color: #1976d2 !important;
+}
+
+
+/* DIRECTION CARD */
+.direction-card {
+    background: #1976d2 !important;
+}
+
+
+/* HELP */
+.help-icon,
+.help-icon i {
+    color: #1976d2 !important;
+}
+
+
+/* CAMPUS MESSAGE */
+.campus-message > i {
+    color: #1976d2 !important;
+}
+
+.campus-message button {
+    background: #1976d2 !important;
+}
+
+
+/* SETTINGS */
+.setting-action-btn {
+    background: #1976d2 !important;
+}
+
+
+/* BOTTOM NAV */
+.bottom-nav a:hover {
+    color: #1976d2 !important;
+}
+
+.bottom-nav a.active,
+.bottom-nav a.active i,
+.bottom-nav a.active span {
+    color: #1976d2 !important;
+}
+
+
+/* ======================================
+   DARK MODE - KEEP CAMPUS BLUE
+====================================== */
+
+body.dark-mode .campus-header-btn,
+body.dark-mode .campus-header-btn i {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .campus-header-title h1,
+body.dark-mode .campus-header-title h1 i {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .location-icon,
+body.dark-mode .location-icon i,
+body.dark-mode .location-refresh-btn,
+body.dark-mode .location-refresh-btn i {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .status-badge,
+body.dark-mode .status-badge i {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .qibla-degree strong {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .compass-direction.north {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .arrow-head {
+    background: #1976d2 !important;
+}
+
+body.dark-mode .arrow-center {
+    color: #1976d2 !important;
+    border-color: #1976d2 !important;
+}
+
+body.dark-mode .compass-center {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .info-card-title > i,
+body.dark-mode .info-item > i,
+body.dark-mode .map-location-btn,
+body.dark-mode .help-icon {
+    color: #1976d2 !important;
+}
+
+body.dark-mode .direction-card,
+body.dark-mode .campus-message button,
+body.dark-mode .setting-action-btn {
+    background: #1976d2 !important;
+}
+
+body.dark-mode .bottom-nav a.active,
+body.dark-mode .bottom-nav a.active i,
+body.dark-mode .bottom-nav a.active span {
+    color: #1976d2 !important;
+}
+
+/* ======================================
+   END CAMPUS CSS
+====================================== */

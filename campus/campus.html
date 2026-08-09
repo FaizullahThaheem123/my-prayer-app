@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#1565c0">
+
+<title>Qibla - My Prayer</title>
+
+
+<!-- FONT AWESOME -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<!-- LEAFLET MAP -->
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+
+<!-- CAMPUS CSS -->
+
+<link
+rel="stylesheet"
+href="campus.css">
+
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================
+     CAMPUS PAGE
+====================================== -->
+
+<div class="campus-page">
+
+
+<!-- ======================================
+     HEADER
+====================================== -->
+
+<header class="campus-header">
+
+
+<button
+id="campusHomeBtn"
+class="campus-header-btn"
+aria-label="Home">
+
+<i class="fa-solid fa-house"></i>
+
+</button>
+
+
+
+<div class="campus-header-title">
+
+<h1>
+
+<i class="fa-solid fa-kaaba"></i>
+
+Qibla
+
+</h1>
+
+
+<p>
+Find the direction of the Kaaba
+</p>
+
+</div>
+
+
+
+<button
+id="campusSettingsBtn"
+class="campus-header-btn"
+aria-label="Settings">
+
+<i class="fa-solid fa-gear"></i>
+
+</button>
+
+
+</header>
+
+
+
+<!-- ======================================
+     LOCATION STATUS
+====================================== -->
+
+<section class="location-card">
+
+
+<div class="location-icon">
+
+<i class="fa-solid fa-location-dot"></i>
+
+</div>
+
+
+<div class="location-text">
+
+<span>
+Current Location
+</span>
+
+
+<strong id="locationName">
+Finding your location...
+</strong>
+
+
+<small id="locationStatus">
+Please allow location access
+</small>
+
+</div>
+
+
+<button
+id="locationRefreshBtn"
+class="location-refresh-btn"
+aria-label="Refresh Location">
+
+<i class="fa-solid fa-rotate"></i>
+
+</button>
+
+
+</section>
+
+
+
+<!-- ======================================
+     QIBLA ARROW
+====================================== -->
+
+<section class="qibla-arrow-card">
+
+
+<div class="section-heading">
+
+<div>
+
+<span>
+QIBLA DIRECTION
+</span>
+
+
+<h2>
+Qibla Arrow
+</h2>
+
+</div>
+
+
+<div
+id="qiblaStatus"
+class="status-badge">
+
+<i class="fa-solid fa-compass"></i>
+
+Ready
+
+</div>
+
+</div>
+
+
+
+<!-- DEGREE -->
+
+<div class="qibla-degree">
+
+<strong id="qiblaDegree">
+--
+</strong>
+
+
+<span>
+° from North
+</span>
+
+</div>
+
+
+
+<!-- COMPASS -->
+
+<div
+id="compassArea"
+class="compass-area">
+
+
+<div class="compass-ring">
+
+
+<div class="compass-direction north">
+N
+</div>
+
+
+<div class="compass-direction east">
+E
+</div>
+
+
+<div class="compass-direction south">
+S
+</div>
+
+
+<div class="compass-direction west">
+W
+</div>
+
+
+
+<div
+id="qiblaArrow"
+class="qibla-arrow">
+
+
+<div class="arrow-head">
+
+<i class="fa-solid fa-location-arrow"></i>
+
+</div>
+
+
+<div class="arrow-center">
+
+<i class="fa-solid fa-kaaba"></i>
+
+</div>
+
+
+</div>
+
+
+
+<div class="compass-center">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<p
+id="compassMessage"
+class="compass-message">
+
+Move your phone to find the Qibla
+
+</p>
+
+
+<button
+id="calibrateBtn"
+class="calibrate-btn">
+
+<i class="fa-solid fa-compass"></i>
+
+Calibrate Compass
+
+</button>
+
+
+</section>
+
+
+
+<!-- ======================================
+     QIBLA INFORMATION
+====================================== -->
+
+<section class="qibla-info-card">
+
+
+<div class="info-card-title">
+
+<i class="fa-solid fa-kaaba"></i>
+
+<div>
+
+<strong>
+Kaaba
+</strong>
+
+<span>
+Masjid al-Haram, Makkah
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="info-grid">
+
+
+<div class="info-item">
+
+<i class="fa-solid fa-compass"></i>
+
+<span>
+Qibla Bearing
+</span>
+
+<strong id="bearingValue">
+--
+</strong>
+
+</div>
+
+
+
+<div class="info-item">
+
+<i class="fa-solid fa-location-arrow"></i>
+
+<span>
+Distance to Kaaba
+</span>
+
+<strong id="distanceValue">
+--
+</strong>
+
+</div>
+
+
+
+<div class="info-item">
+
+<i class="fa-solid fa-globe"></i>
+
+<span>
+Latitude
+</span>
+
+<strong id="latitudeValue">
+--
+</strong>
+
+</div>
+
+
+
+<div class="info-item">
+
+<i class="fa-solid fa-globe"></i>
+
+<span>
+Longitude
+</span>
+
+<strong id="longitudeValue">
+--
+</strong>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================
+     MAP SECTION
+====================================== -->
+
+<section class="qibla-map-section">
+
+
+<div class="section-heading">
+
+
+<div>
+
+<span>
+MAP VIEW
+</span>
+
+
+<h2>
+Qibla Map
+</h2>
+
+</div>
+
+
+<button
+id="mapLocationBtn"
+class="map-location-btn"
+aria-label="My Location">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+</button>
+
+
+</div>
+
+
+
+<div
+id="qiblaMap"
+class="qibla-map">
+</div>
+
+
+
+<div class="map-legend">
+
+
+<div class="legend-item">
+
+<span class="legend-dot user-dot"></span>
+
+Your Location
+
+</div>
+
+
+<div class="legend-item">
+
+<span class="legend-dot kaaba-dot"></span>
+
+Kaaba
+
+</div>
+
+
+<div class="legend-item">
+
+<span class="legend-line"></span>
+
+Qibla Direction
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================
+     DIRECTION DETAILS
+====================================== -->
+
+<section class="direction-card">
+
+
+<div class="direction-icon">
+
+<i class="fa-solid fa-route"></i>
+
+</div>
+
+
+<div class="direction-content">
+
+
+<span>
+Your Qibla Direction
+</span>
+
+
+<strong id="directionText">
+Calculating...
+</strong>
+
+
+<p id="directionDescription">
+
+The Qibla direction will appear here.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================
+     COMPASS HELP
+====================================== -->
+
+<section class="compass-help">
+
+
+<div class="help-icon">
+
+<i class="fa-solid fa-mobile-screen-button"></i>
+
+</div>
+
+
+<div>
+
+<strong>
+How to use Qibla Compass
+</strong>
+
+
+<p>
+
+Keep your phone flat and away from
+metal objects. Slowly rotate your phone
+until the arrow points toward the Kaaba.
+
+</p>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================
+     ERROR / PERMISSION MESSAGE
+====================================== -->
+
+<section
+id="campusMessage"
+class="campus-message"
+style="display:none;">
+
+
+<i class="fa-solid fa-circle-exclamation"></i>
+
+
+<strong id="campusMessageTitle">
+Location Required
+</strong>
+
+
+<p id="campusMessageText">
+Please allow location access to find the Qibla.
+</p>
+
+
+<button
+id="campusMessageBtn">
+
+Try Again
+
+</button>
+
+
+</section>
+
+
+
+<!-- ======================================
+     SETTINGS PANEL
+====================================== -->
+
+<div
+id="campusSettingsPanel"
+class="campus-settings-panel"
+style="display:none;">
+
+
+<div class="settings-overlay"></div>
+
+
+<div class="settings-sheet">
+
+
+<div class="settings-header">
+
+
+<h2>
+Qibla Settings
+</h2>
+
+
+<button
+id="closeCampusSettingsBtn"
+class="close-settings-btn"
+aria-label="Close">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+
+</div>
+
+
+
+<div class="setting-row">
+
+
+<div>
+
+<strong>
+Compass Calibration
+</strong>
+
+
+<span>
+Improve direction accuracy
+</span>
+
+</div>
+
+
+<button
+id="settingsCalibrateBtn"
+class="setting-action-btn">
+
+Calibrate
+
+</button>
+
+
+</div>
+
+
+
+<div class="setting-row">
+
+
+<div>
+
+<strong>
+Refresh Location
+</strong>
+
+
+<span>
+Get your current location again
+</span>
+
+</div>
+
+
+<button
+id="settingsLocationBtn"
+class="setting-action-btn">
+
+Refresh
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- ======================================
+     BOTTOM NAVIGATION
+====================================== -->
+
+<nav class="bottom-nav">
+
+
+<!-- HOME -->
+
+<a
+href="../index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+Home
+</span>
+
+</a>
+
+
+
+<!-- QURAN -->
+
+<a
+href="../quran/quran.html">
+
+<i class="fa-solid fa-book-quran"></i>
+
+<span>
+Quran
+</span>
+
+</a>
+
+
+
+<!-- DUAS -->
+
+<a
+href="../dua/duas.html">
+
+<i class="fa-solid fa-hands-praying"></i>
+
+<span>
+Duas
+</span>
+
+</a>
+
+
+
+<!-- 99 NAMES -->
+
+<a
+href="../names/names.html">
+
+<i class="fa-solid fa-star-and-crescent"></i>
+
+<span>
+99 Names
+</span>
+
+</a>
+
+
+
+<!-- TASBEEH -->
+
+<a
+href="../tasbeeh/tasbeeh.html">
+
+<i class="fa-solid fa-ring"></i>
+
+<span>
+Tasbeeh
+</span>
+
+</a>
+
+
+
+<!-- CAMPUS -->
+
+<a
+href="campus.html"
+class="active">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<span>
+Campus
+</span>
+
+</a>
+
+
+</nav>
+
+
+
+</div>
+
+
+
+<!-- ======================================
+     LEAFLET JS
+====================================== -->
+
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<!-- ======================================
+     CAMPUS JS
+====================================== -->
+
+<script src="campus.js"></script>
+
+
+</body>
+
+</html>

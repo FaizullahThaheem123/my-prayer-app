@@ -1,456 +1,384 @@
 // ======================================
 // MY PRAYER - DIGITAL TASBEEH
-// CLEAN VERSION
+// VERSION 2.0
 // ======================================
 
+
+// ======================================
+// ELEMENTS
+// ======================================
+
+const dhikrSelect = document.getElementById("dhikrSelect");
+const arabicDhikr = document.getElementById("arabicDhikr");
+
+const targetButtons = document.querySelectorAll(".target-btn");
+
+const targetValue = document.getElementById("targetValue");
+const countValue = document.getElementById("countValue");
+const progressValue = document.getElementById("progressValue");
+
+const countCard = document.querySelector(".count-card");
+
+const progressBar = document.getElementById("progressBar");
+
+const countBtn = document.getElementById("countBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const completed33 = document.getElementById("completed33");
+const completed99 = document.getElementById("completed99");
+const completed100 = document.getElementById("completed100");
+
+const homeBtn = document.getElementById("homeBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+
+
+// ======================================
+// VARIABLES
+// ======================================
 
 let count = 0;
 
 let target = 33;
 
-let complete33 = 0;
-let complete99 = 0;
-let complete100 = 0;
+let stats = {
 
-let isCompleted = false;
+    completed33: 0,
 
+    completed99: 0,
 
-// ======================================
-// LOAD
-// ======================================
-
-window.onload = function(){
-
-
-count = Number(localStorage.getItem("tasbeehCount")) || 0;
-
-target = Number(localStorage.getItem("tasbeehTarget")) || 33;
-
-
-complete33 = Number(localStorage.getItem("complete33")) || 0;
-
-complete99 = Number(localStorage.getItem("complete99")) || 0;
-
-complete100 = Number(localStorage.getItem("complete100")) || 0;
-
-
-
-document.getElementById("tasbeehCount").innerText = count;
-
-
-document.getElementById("complete33").innerText = complete33;
-
-document.getElementById("complete99").innerText = complete99;
-
-document.getElementById("complete100").innerText = complete100;
-
-
-
-let savedZikr = localStorage.getItem("selectedZikr");
-
-
-if(savedZikr){
-
-document.getElementById("zikrSelect").value = savedZikr;
-
-}
-
-
-changeZikr();
-
-setTarget(target);
-
-
-updateProgress();
-
+    completed100: 0
 
 };
 
 
-
-
 // ======================================
-// CHANGE ZIKR
+// DHIKR LIST
 // ======================================
 
-function changeZikr(){
+const dhikrList = {
 
+    bismillah: "بِسْمِ اللهِ",
 
-let value =
-document.getElementById("zikrSelect").value.split("|");
+    subhanallah: "سُبْحَانَ اللّٰهِ",
 
+    alhamdulillah: "ٱلْحَمْدُ لِلَّٰهِ",
 
-document.getElementById("tasbeehName").innerText =
-value[0];
+    allahuakbar: "اللّٰهُ أَكْبَر",
 
+    astaghfirullah: "أَسْتَغْفِرُ اللّٰهَ",
 
-document.getElementById("tasbeehArabic").innerText =
-value[1];
+    lailahaillallah: "لَا إِلٰهَ إِلَّا اللّٰهُ"
 
+};
 
-localStorage.setItem(
-"selectedZikr",
-document.getElementById("zikrSelect").value
-);
+// ======================================
+// UPDATE SCREEN
+// ======================================
 
+function updateScreen(){
+
+    countValue.textContent = count;
+
+    targetValue.textContent = target;
+
+    let percent = Math.floor((count / target) * 100);
+
+    if(percent > 100){
+
+        percent = 100;
+
+    }
+
+    progressValue.textContent = percent + "%";
+
+    progressBar.style.width = percent + "%";
 
 }
 
 
 
-
 // ======================================
-// TARGET
+// CHANGE DHIKR
 // ======================================
 
-function setTarget(newTarget){
+dhikrSelect.addEventListener("change",()=>{
 
+    const value = dhikrSelect.value;
 
-target = newTarget;
-
-
-document.getElementById("tasbeehTarget").innerText =
-"🎯 Target : " + target;
-
-
-
-document.querySelectorAll(".target-buttons button")
-.forEach(btn=>{
-
-
-btn.classList.remove("active");
-
-
-if(btn.innerText == target){
-
-btn.classList.add("active");
-
-}
-
+    arabicDhikr.textContent = dhikrList[value];
 
 });
 
 
-localStorage.setItem("tasbeehTarget",target);
 
+// ======================================
+// TARGET BUTTONS
+// ======================================
 
-updateProgress();
+targetButtons.forEach(button=>{
 
+    button.addEventListener("click",()=>{
 
-}
+        targetButtons.forEach(btn=>{
 
+            btn.classList.remove("active");
 
+        });
 
+        button.classList.add("active");
+
+        target = Number(button.dataset.target);
+
+        if(count > target){
+
+            count = target;
+
+        }
+
+        updateScreen();
+
+    });
+
+});
 
 
 // ======================================
-// COUNT
+// COUNT FUNCTION
 // ======================================
 
-function increaseTasbeeh(){
+function increaseCount(){
 
+if(count >= target){
 
-if(isCompleted){
-
-return;
+    return;
 
 }
-
 
 count++;
 
-
-document.getElementById("tasbeehCount").innerText =
-count;
+updateScreen();
 
 
-localStorage.setItem("tasbeehCount",count);
+// Count Number Animation
+
+countValue.classList.add("count-pop");
 
 
+// Count Card Glow
 
-updateProgress();
+countCard.classList.add("active-count");
 
 
+setTimeout(()=>{
+
+    countValue.classList.remove("count-pop");
+
+    countCard.classList.remove("active-count");
+
+},200);
+
+
+// Check Complete
 
 if(count === target){
 
-
-isCompleted=true;
-
+    checkCompleted();
 
 
-document.getElementById("tasbeehStatus").innerText =
-"✅ Target Complete";
+    setTimeout(()=>{
+
+        count = 0;
+
+        updateScreen();
+
+        saveData();
+
+    },1000);
 
 
+}else{
 
-saveHistory();
+    saveData();
 
-
-showPopup();
-
-
-
-setTimeout(()=>{
-
-
-resetCounter();
-
-
-isCompleted=false;
-
-
-},1000);
-
+}
 
 
 }
 
 
+// ======================================
+// BUTTON EVENT
+// ======================================
+
+countBtn.addEventListener("click",increaseCount);
+
+
+
+// ======================================
+// TARGET COMPLETED
+// ======================================
+
+function checkCompleted(){
+
+    if(count !== target){
+
+        return;
+
+    }
+
+    if(target === 33){
+
+        stats.completed33++;
+
+    }
+
+    else if(target === 99){
+
+        stats.completed99++;
+
+    }
+
+    else if(target === 100){
+
+        stats.completed100++;
+
+    }
+
+    completed33.textContent = stats.completed33;
+
+    completed99.textContent = stats.completed99;
+
+    completed100.textContent = stats.completed100;
+
+    alert("🤲 Alhamdulillah!\n\nTarget Completed!");
+
+}
+
+// ======================================
+// SAVE DATA
+// ======================================
+
+function saveData(){
+
+    localStorage.setItem("tasbeehCount", count);
+
+    localStorage.setItem("tasbeehTarget", target);
+
+    localStorage.setItem("tasbeehStats", JSON.stringify(stats));
 
 }
 
 
 
-
 // ======================================
-// UPDATE PROGRESS
+// LOAD DATA
 // ======================================
 
-function updateProgress(){
+function loadData(){
 
+    const savedCount = localStorage.getItem("tasbeehCount");
 
-let percent =
-(count / target) * 100;
+    const savedTarget = localStorage.getItem("tasbeehTarget");
 
+    const savedStats = localStorage.getItem("tasbeehStats");
 
-if(percent > 100){
+    if(savedCount !== null){
 
-percent=100;
+        count = Number(savedCount);
+
+    }
+
+    if(savedTarget !== null){
+
+        target = Number(savedTarget);
+
+    }
+
+    if(savedStats){
+
+        stats = JSON.parse(savedStats);
+
+    }
+
+    targetButtons.forEach(button=>{
+
+        button.classList.remove("active");
+
+        if(Number(button.dataset.target) === target){
+
+            button.classList.add("active");
+
+        }
+
+    });
+
+    completed33.textContent = stats.completed33;
+
+    completed99.textContent = stats.completed99;
+
+    completed100.textContent = stats.completed100;
+
+    updateScreen();
 
 }
 
 
 
-document.getElementById("progressBar").style.width =
-percent+"%";
+// ======================================
+// RESET
+// ======================================
 
+resetBtn.addEventListener("click",()=>{
 
-document.getElementById("progressText").innerText =
-count+" / "+target;
+    if(!confirm("Reset current Tasbeeh?")){
 
+        return;
 
-}
+    }
 
+    count = 0;
 
+    updateScreen();
+
+    saveData();
+
+});
 
 
 
 // ======================================
-// HISTORY
+// HOME BUTTON
 // ======================================
 
-function saveHistory(){
+homeBtn.addEventListener("click",()=>{
 
+    window.location.href="../index.html";
 
-if(target==33){
-
-complete33++;
-
-document.getElementById("complete33").innerText =
-complete33;
-
-localStorage.setItem("complete33",complete33);
-
-
-}
-
-
-else if(target==99){
-
-complete99++;
-
-document.getElementById("complete99").innerText =
-complete99;
-
-localStorage.setItem("complete99",complete99);
-
-
-}
-
-
-else if(target==100){
-
-complete100++;
-
-document.getElementById("complete100").innerText =
-complete100;
-
-localStorage.setItem("complete100",complete100);
-
-
-}
-
-
-
-}
-
+});
 
 
 
 // ======================================
-// RESET COUNTER
+// SETTINGS BUTTON
 // ======================================
 
-function resetCounter(){
+settingsBtn.addEventListener("click",()=>{
 
+    alert("Settings will be added in the next update.");
 
-count=0;
-
-
-document.getElementById("tasbeehCount").innerText=0;
-
-
-document.getElementById("tasbeehStatus").innerText =
-"Keep Counting...";
-
-
-updateProgress();
-
-
-localStorage.setItem("tasbeehCount",0);
-
-
-}
-
+});
 
 
 
 // ======================================
-// FULL RESET
+// APP START
 // ======================================
 
-function confirmResetTasbeeh(){
+window.addEventListener("DOMContentLoaded",()=>{
 
+    loadData();
 
-if(!confirm("Reset Tasbeeh Counter?")){
+    updateScreen();
 
-return;
+});
 
-}
-
-
-resetCounter();
-
-
-}
-
-
-
-
-// ======================================
-// POPUP
-// ======================================
-
-function showPopup(){
-
-
-let popup =
-document.getElementById("tasbeehPopup");
-
-
-document.getElementById("popupTitle").innerText =
-"🎉 "+target+" Complete";
-
-
-document.getElementById("popupText").innerText =
-"May Allah accept your Dhikr.";
-
-
-
-popup.classList.add("show");
-
-
-
-setTimeout(()=>{
-
-
-popup.classList.remove("show");
-
-
-},1000);
-
-
-}
-
-// ======================================
-// INDEX APP CONNECTION
-// ======================================
-
-
-function connectWithMainApp(){
-
-
-    localStorage.setItem(
-        "lastOpenedModule",
-        "tasbeeh"
-    );
-
-
-}
-
-
-
-connectWithMainApp();
-
-
-
-// ======================================
-// THEME SYNC
-// ======================================
-
-
-function syncTasbeehTheme(){
-
-
-let savedTheme =
-localStorage.getItem("appTheme");
-
-
-
-if(savedTheme){
-
-
-document.body.classList.add(savedTheme);
-
-
-
-}
-
-
-
-}
-
-
-
-syncTasbeehTheme();
-
-// ======================================
-// HOME NAVIGATION
-// ======================================
-
-
-function goHome(){
-
-
-    localStorage.setItem(
-        "lastOpenedModule",
-        "home"
-    );
-
-
-    window.location.href =
-    "../index.html";
-
-
-}

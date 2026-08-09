@@ -1,0 +1,1246 @@
+/* ======================================
+   MY PRAYER - 99 NAMES OF ALLAH
+   NAMES CSS
+====================================== */
+
+
+/* ======================================
+   BASIC RESET
+====================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+body{
+    margin:0;
+    padding:0;
+
+    font-family:
+        Arial,
+        "Segoe UI",
+        sans-serif;
+
+    background:#f5f7fa;
+    color:#222;
+
+    min-height:100vh;
+
+    padding-bottom:85px;
+}
+
+
+/* ======================================
+   MAIN NAMES PAGE
+====================================== */
+
+.names-page{
+    width:100%;
+    max-width:430px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
+    background:#f5f7fa;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.names-header{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:15px 14px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e8e8e8;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+}
+
+
+/* ======================================
+   HEADER BUTTON
+====================================== */
+
+.header-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#1565c0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    transition:.25s;
+}
+
+
+.header-btn:active{
+
+    transform:scale(.92);
+
+}
+
+
+.header-btn:hover{
+
+    background:#e3f2fd;
+
+}
+
+
+/* ======================================
+   HEADER TITLE
+====================================== */
+
+.header-title{
+
+    flex:1;
+
+    text-align:center;
+
+    min-width:0;
+}
+
+
+.header-title h1{
+
+    font-size:20px;
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    color:#1565c0;
+
+}
+
+
+.header-title h1 i{
+
+    margin-right:5px;
+
+}
+
+
+.header-title p{
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    color:#777;
+
+}
+
+
+/* ======================================
+   SEARCH AREA
+====================================== */
+
+.names-search-area{
+
+    padding:14px 14px 8px;
+
+}
+
+
+/* ======================================
+   SEARCH BOX
+====================================== */
+
+.search-box{
+
+    width:100%;
+
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:0 12px;
+
+    background:#ffffff;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:14px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.05);
+}
+
+
+.search-box > i{
+
+    color:#1565c0;
+
+    font-size:15px;
+
+    flex-shrink:0;
+}
+
+
+.search-box input{
+
+    flex:1;
+
+    width:100%;
+
+    min-width:0;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#222;
+
+    font-size:14px;
+}
+
+
+.search-box input::placeholder{
+
+    color:#999;
+
+}
+
+
+/* ======================================
+   CLEAR SEARCH
+====================================== */
+
+.clear-search-btn{
+
+    width:30px;
+
+    height:30px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#777;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+}
+
+
+/* ======================================
+   FILTER BUTTONS
+====================================== */
+
+.names-filters{
+
+    display:flex;
+
+    gap:8px;
+
+    padding:8px 14px 12px;
+
+}
+
+
+.filter-btn{
+
+    flex:1;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:#ffffff;
+
+    color:#777;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    border:1px solid #e5e7eb;
+
+    transition:.25s;
+}
+
+
+.filter-btn.active{
+
+    background:#1565c0;
+
+    color:#ffffff;
+
+    border-color:#1565c0;
+
+}
+
+
+.filter-btn i{
+
+    margin-right:4px;
+
+}
+
+
+/* ======================================
+   AUDIO PLAYER
+====================================== */
+
+.names-audio-player{
+
+    margin:4px 14px 12px;
+
+    padding:13px;
+
+    background:#ffffff;
+
+    border-radius:17px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08);
+
+    border:1px solid #edf0f3;
+}
+
+
+/* ======================================
+   AUDIO INFO
+====================================== */
+
+.audio-info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.audio-icon{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:12px;
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+}
+
+
+.audio-text{
+
+    min-width:0;
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+}
+
+
+.audio-text span{
+
+    font-size:10px;
+
+    color:#888;
+}
+
+
+.audio-text strong{
+
+    font-size:14px;
+
+    color:#222;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* ======================================
+   AUDIO CONTROLS
+====================================== */
+
+.audio-controls{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+    margin-top:12px;
+}
+
+
+.audio-control-btn{
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#1565c0;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+.main-audio-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#1565c0;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    box-shadow:
+        0 5px 15px rgba(21,101,192,.25);
+}
+
+
+/* ======================================
+   AUDIO PROGRESS
+====================================== */
+
+.audio-progress{
+
+    width:100%;
+
+    height:4px;
+
+    margin-top:12px;
+
+    background:#e8edf2;
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+
+.audio-progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    background:#1565c0;
+
+    border-radius:10px;
+
+    transition:width .1s linear;
+}
+
+
+/* ======================================
+   NOW PLAYING
+====================================== */
+
+.now-playing{
+
+    margin:0 14px 10px;
+
+    padding:9px 12px;
+
+    background:#eef6ff;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:8px;
+}
+
+
+.playing-label{
+
+    font-size:10px;
+
+    color:#1565c0;
+
+    font-weight:700;
+}
+
+
+.playing-label i{
+
+    margin-right:4px;
+}
+
+
+#playingName{
+
+    font-size:12px;
+
+    color:#1565c0;
+
+}
+
+
+/* ======================================
+   COUNTERS
+====================================== */
+
+.names-counters{
+
+    display:flex;
+
+    gap:10px;
+
+    padding:0 14px 10px;
+}
+
+
+.counter-info{
+
+    flex:1;
+
+    background:#ffffff;
+
+    border-radius:12px;
+
+    padding:9px 12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border:1px solid #edf0f3;
+}
+
+
+.counter-info span{
+
+    font-size:11px;
+
+    color:#777;
+}
+
+
+.counter-info strong{
+
+    font-size:14px;
+
+    color:#1565c0;
+}
+
+
+/* ======================================
+   NAMES LIST
+====================================== */
+
+#namesList{
+
+    width:100%;
+
+    padding:0 14px 20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+
+/* ======================================
+   NAME CARD
+====================================== */
+
+.name-card{
+
+    width:100%;
+
+    min-height:66px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 11px;
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    border:1px solid #edf0f3;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.045);
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        background .2s;
+}
+
+
+.name-card:active{
+
+    transform:scale(.985);
+
+}
+
+
+/* ======================================
+   NAME NUMBER
+====================================== */
+
+.name-number{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:10px;
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    flex-shrink:0;
+}
+
+
+/* ======================================
+   NAME CONTENT
+====================================== */
+
+.name-content{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:4px;
+}
+
+
+/* ======================================
+   ENGLISH NAME
+====================================== */
+
+.name-english{
+
+    display:block;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#222;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* ======================================
+   ARABIC NAME
+====================================== */
+
+.name-arabic{
+
+    display:block;
+
+    direction:rtl;
+
+    text-align:left;
+
+    font-size:18px;
+
+    line-height:1.4;
+
+    font-weight:700;
+
+    color:#1565c0;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* ======================================
+   NAME ACTIONS
+====================================== */
+
+.name-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    flex-shrink:0;
+}
+
+
+.name-action-btn{
+
+    width:32px;
+
+    height:32px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f5f7fa;
+
+    color:#777;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.name-action-btn:hover{
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+}
+
+
+.favorite-name-btn{
+
+    color:#999;
+
+}
+
+
+.play-name-btn{
+
+    color:#1565c0;
+
+}
+
+
+/* ======================================
+   PLAYING NAME CARD
+====================================== */
+
+.name-card.playing-name{
+
+    background:#eef6ff;
+
+    border-color:#90caf9;
+
+    box-shadow:
+        0 4px 15px rgba(21,101,192,.12);
+}
+
+
+.name-card.playing-name
+.name-number{
+
+    background:#1565c0;
+
+    color:#ffffff;
+}
+
+
+.name-card.playing-name
+.name-arabic{
+
+    color:#1565c0;
+}
+
+
+/* ======================================
+   NO NAME FOUND
+====================================== */
+
+#noNamesFound{
+
+    display:none;
+
+    margin:20px 14px;
+
+    padding:30px 15px;
+
+    background:#ffffff;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    color:#777;
+}
+
+
+#noNamesFound i{
+
+    font-size:25px;
+
+    color:#aaa;
+
+    margin-bottom:10px;
+}
+
+
+#noNamesFound h3{
+
+    margin-bottom:5px;
+
+    font-size:15px;
+
+    color:#555;
+}
+
+
+#noNamesFound p{
+
+    font-size:12px;
+
+    color:#999;
+}
+
+
+/* ======================================
+   BOTTOM NAVIGATION
+====================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    bottom:0;
+
+    width:100%;
+
+    max-width:430px;
+
+    height:50px;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:7px 4px;
+
+    background:#ffffff;
+
+    border-radius:24px 24px 0 0;
+
+    box-shadow:
+        0 -10px 30px rgba(0,0,0,.12);
+
+    z-index:9999;
+}
+
+
+.bottom-nav a{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    font-size:10px;
+
+    color:#777;
+
+    transition:.3s;
+
+    min-width:0;
+}
+
+
+.bottom-nav i{
+
+    font-size:16px;
+
+    margin:0;
+}
+
+
+.bottom-nav span{
+
+    white-space:nowrap;
+
+    font-size:9px;
+}
+
+
+.bottom-nav a.active{
+
+    color:#1565c0;
+
+    font-weight:700;
+}
+
+
+.bottom-nav a:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media(max-width:430px){
+
+    body{
+
+        padding-bottom:78px;
+
+    }
+
+
+    .names-header{
+
+        padding:13px 12px;
+
+    }
+
+
+    .header-title h1{
+
+        font-size:18px;
+
+    }
+
+
+    .header-title p{
+
+        font-size:10px;
+
+    }
+
+
+    .name-card{
+
+        min-height:62px;
+
+        padding:9px;
+
+    }
+
+
+    .name-arabic{
+
+        font-size:17px;
+
+    }
+
+
+    .name-english{
+
+        font-size:12px;
+
+    }
+
+
+    .name-action-btn{
+
+        width:30px;
+
+        height:30px;
+
+    }
+
+}
+
+
+/* ======================================
+   DARK THEME
+====================================== */
+
+body.dark-mode{
+
+    background:#121212;
+
+    color:#ffffff;
+
+}
+
+
+body.dark-mode .names-page{
+
+    background:#121212;
+
+}
+
+
+body.dark-mode .names-header,
+body.dark-mode .search-box,
+body.dark-mode .filter-btn,
+body.dark-mode .names-audio-player,
+body.dark-mode .counter-info,
+body.dark-mode .name-card,
+body.dark-mode .bottom-nav{
+
+    background:#1e1e1e;
+
+    border-color:#2d2d2d;
+}
+
+
+body.dark-mode .header-title h1{
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .header-title p,
+body.dark-mode .audio-text span,
+body.dark-mode .counter-info span{
+
+    color:#aaa;
+
+}
+
+
+body.dark-mode .search-box input{
+
+    color:#ffffff;
+
+}
+
+
+body.dark-mode .name-english{
+
+    color:#ffffff;
+
+}
+
+
+body.dark-mode .name-arabic{
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .name-number{
+
+    background:#263b4d;
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .name-action-btn{
+
+    background:#292929;
+
+    color:#aaa;
+
+}
+
+
+body.dark-mode .audio-icon{
+
+    background:#263b4d;
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .now-playing{
+
+    background:#172b3d;
+
+}
+
+
+body.dark-mode .playing-label,
+body.dark-mode #playingName{
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .bottom-nav a{
+
+    color:#aaa;
+
+}
+
+
+body.dark-mode .bottom-nav a.active{
+
+    color:#64b5f6;
+
+}
+
+
+/* ======================================
+   END
+====================================== */

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#1565c0">
+
+<title>99 Names of Allah - My Prayer</title>
+
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<link
+rel="stylesheet"
+href="names.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================
+     MY PRAYER - 99 NAMES
+     MAIN APP
+====================================== -->
+
+<div class="names-page">
+
+
+<!-- ======================================
+     HEADER
+====================================== -->
+
+<header class="names-header">
+
+
+<button
+id="namesHomeBtn"
+class="header-btn"
+aria-label="Home">
+
+<i class="fa-solid fa-house"></i>
+
+</button>
+
+
+<div class="header-title">
+
+<h1>
+
+<i class="fa-solid fa-star-and-crescent"></i>
+
+99 Names
+
+</h1>
+
+
+<p>
+Beautiful Names of Allah
+</p>
+
+</div>
+
+
+<button
+id="namesSettingsBtn"
+class="header-btn"
+aria-label="Settings">
+
+<i class="fa-solid fa-gear"></i>
+
+</button>
+
+
+</header>
+
+
+
+<!-- ======================================
+     SEARCH
+====================================== -->
+
+<section class="names-search-area">
+
+
+<div class="search-box">
+
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+
+<input
+type="text"
+id="nameSearch"
+placeholder="Search Names..."
+autocomplete="off">
+
+
+<button
+id="clearSearchBtn"
+class="clear-search-btn"
+aria-label="Clear Search">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================
+     FILTERS
+====================================== -->
+
+<section class="names-filters">
+
+
+<button
+id="allNamesBtn"
+class="filter-btn active">
+
+All Names
+
+<span id="allNamesCount">
+99
+</span>
+
+</button>
+
+
+<button
+id="favoriteNamesBtn"
+class="filter-btn">
+
+<i class="fa-solid fa-heart"></i>
+
+Favorites
+
+<span id="favoriteCount">
+0
+</span>
+
+</button>
+
+
+</section>
+
+
+
+<!-- ======================================
+     AUDIO PLAYER
+====================================== -->
+
+<section
+id="namesAudioPlayer"
+class="names-audio-player">
+
+
+<!-- AUDIO INFO -->
+
+<div class="audio-info">
+
+
+<div class="audio-icon">
+
+<i class="fa-solid fa-volume-high"></i>
+
+</div>
+
+
+<div class="audio-text">
+
+
+<span id="audioStatus">
+Select a Name
+</span>
+
+
+<strong id="audioName">
+99 Names of Allah
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- AUDIO CONTROLS -->
+
+<div class="audio-controls">
+
+
+<button
+id="previousAudioBtn"
+class="audio-control-btn"
+aria-label="Previous Name">
+
+<i class="fa-solid fa-backward-step"></i>
+
+</button>
+
+
+
+<button
+id="mainAudioBtn"
+class="main-audio-btn"
+aria-label="Play Audio">
+
+<i class="fa-solid fa-play"></i>
+
+</button>
+
+
+
+<button
+id="nextAudioBtn"
+class="audio-control-btn"
+aria-label="Next Name">
+
+<i class="fa-solid fa-forward-step"></i>
+
+</button>
+
+
+</div>
+
+
+
+<!-- AUDIO PROGRESS -->
+
+<div class="audio-progress">
+
+
+<div
+id="audioProgressBar"
+class="audio-progress-fill">
+</div>
+
+
+</div>
+
+
+
+<audio
+id="nameAudio"
+preload="metadata">
+</audio>
+
+
+</section>
+
+
+
+<!-- ======================================
+     NOW PLAYING
+====================================== -->
+
+<div class="now-playing">
+
+
+<span class="playing-label">
+
+<i class="fa-solid fa-volume-high"></i>
+
+Now Playing
+
+</span>
+
+
+<strong id="playingName">
+—
+</strong>
+
+
+</div>
+
+
+
+
+
+<!-- ======================================
+     99 NAMES LIST
+====================================== -->
+
+<main
+id="namesList"
+class="names-list">
+
+<!--
+JavaScript will load
+all 99 Names here.
+-->
+
+</main>
+
+
+
+<!-- ======================================
+     NO RESULTS
+====================================== -->
+
+<section
+id="noNamesFound"
+class="no-names-found"
+style="display:none;">
+
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+
+<h3>
+No Name Found
+</h3>
+
+
+<p>
+Try another search.
+</p>
+
+
+</section>
+
+
+
+<!-- ======================================
+     COUNTERS
+====================================== -->
+
+<div class="names-counters">
+
+    <div class="counter-info">
+
+        <span>
+            Names
+        </span>
+
+        <strong id="visibleNamesCount">
+            99
+        </strong>
+
+    </div>
+
+
+    <div class="counter-info">
+
+        <span>
+            Favorites
+        </span>
+
+        <strong id="favoriteCountDisplay">
+            0
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================
+     BOTTOM NAVIGATION
+====================================== -->
+
+<nav class="bottom-nav">
+
+
+
+<!-- HOME -->
+
+<a
+href="../index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+Home
+</span>
+
+</a>
+
+
+
+<!-- QURAN -->
+
+<a
+href="../quran/quran.html">
+
+<i class="fa-solid fa-book-quran"></i>
+
+<span>
+Quran
+</span>
+
+</a>
+
+
+
+<!-- DUAS -->
+
+<a
+href="../dua/duas.html">
+
+<i class="fa-solid fa-hands-praying"></i>
+
+<span>
+Duas
+</span>
+
+</a>
+
+
+
+<!-- 99 NAMES -->
+
+<a
+href="names.html"
+class="active">
+
+<i class="fa-solid fa-star-and-crescent"></i>
+
+<span>
+99 Names
+</span>
+
+</a>
+
+
+<!-- TASBEEH -->
+
+<a
+href="../tasbeeh/tasbeeh.html">
+
+<i class="fa-solid fa-ring"></i>
+
+<span>
+Tasbeeh
+</span>
+
+</a>
+
+
+
+<!-- CAMPUS -->
+
+<a
+href="../campus/campus.html">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<span>
+Campus
+</span>
+
+</a>
+
+
+
+</nav>
+
+
+</div>
+
+
+
+<!-- ======================================
+     JAVASCRIPT
+====================================== -->
+
+<script src="names.js"></script>
+
+
+</body>
+
+</html>

@@ -15,8 +15,7 @@ let jamaatTimes = {};
 
 let currentPrayer = "";
 
-const API_URL =
-"https://api.aladhan.com/v1/timingsByCity";
+
 
 /* ==========================================
         DOM ELEMENTS
@@ -249,22 +248,22 @@ function showPrayerTimes(){
 }
 
 /* ==========================================
-        NEXT PRAYER
+NEXT PRAYER
 ========================================== */
 
 function calculateNextPrayer(){
 
     const prayers = [
 
-        {name:"Fajr",time:prayerTimes.Fajr},
+        {name:"Fajr", time:prayerTimes.Fajr},
 
-        {name:"Dhuhr",time:prayerTimes.Dhuhr},
+        {name:"Dhuhr", time:prayerTimes.Dhuhr},
 
-        {name:"Asr",time:prayerTimes.Asr},
+        {name:"Asr", time:prayerTimes.Asr},
 
-        {name:"Maghrib",time:prayerTimes.Maghrib},
+        {name:"Maghrib", time:prayerTimes.Maghrib},
 
-        {name:"Isha",time:prayerTimes.Isha}
+        {name:"Isha", time:prayerTimes.Isha}
 
     ];
 
@@ -289,9 +288,9 @@ function calculateNextPrayer(){
 
             next = {
 
-                name:prayer.name,
+                name: prayer.name,
 
-                date:prayerDate
+                date: prayerDate
 
             };
 
@@ -308,7 +307,7 @@ function calculateNextPrayer(){
         const tomorrow = new Date();
 
         tomorrow.setDate(
-            tomorrow.getDate()+1
+            tomorrow.getDate() + 1
         );
 
         tomorrow.setHours(
@@ -325,9 +324,9 @@ function calculateNextPrayer(){
 
         next = {
 
-            name:"Fajr",
+            name: "Fajr",
 
-            date:tomorrow
+            date: tomorrow
 
         };
 
@@ -335,14 +334,23 @@ function calculateNextPrayer(){
 
     currentPrayer = next.name;
 
-    nextPrayer.innerHTML = currentPrayer;
+    /* UPDATE PRAYER NAME */
+    const nextPrayerName =
+        document.getElementById("nextPrayerName");
 
+    if(nextPrayerName){
+
+        nextPrayerName.innerHTML =
+            currentPrayer;
+
+    }
+
+    /* START COUNTDOWN */
     startCountdown(next.date);
-
 }
 
 /* ==========================================
-        COUNTDOWN TIMER
+COUNTDOWN TIMER
 ========================================== */
 
 let countdownInterval = null;
@@ -350,9 +358,7 @@ let countdownInterval = null;
 function startCountdown(nextPrayerTime){
 
     if(countdownInterval){
-
         clearInterval(countdownInterval);
-
     }
 
     countdownInterval = setInterval(() => {
@@ -360,7 +366,7 @@ function startCountdown(nextPrayerTime){
         const now = new Date();
 
         const difference =
-        nextPrayerTime - now;
+            nextPrayerTime - now;
 
         if(difference <= 0){
 
@@ -373,13 +379,17 @@ function startCountdown(nextPrayerTime){
         }
 
         const hours =
-        Math.floor(difference / 3600000);
+            Math.floor(difference / 3600000);
 
         const minutes =
-        Math.floor((difference % 3600000) / 60000);
+            Math.floor(
+                (difference % 3600000) / 60000
+            );
 
         const seconds =
-        Math.floor((difference % 60000) / 1000);
+            Math.floor(
+                (difference % 60000) / 1000
+            );
 
         countdown.innerHTML =
 
@@ -391,12 +401,9 @@ function startCountdown(nextPrayerTime){
 
             ":" +
 
-            String(seconds).padStart(2,"0") +
-
-            " Left";
+            String(seconds).padStart(2,"0");
 
     },1000);
-
 }
 
 /* ==========================================
@@ -418,37 +425,52 @@ function highlightCurrentPrayer(){
 }
 
 /* ==========================================
-        JAMAAT TIME
+JAMAAT TIME
 ========================================== */
 
 let selectedPrayer = "";
+
+
+/* ==========================
+EDIT JAMAAT
+========================== */
 
 function editJamaat(prayer){
 
     selectedPrayer = prayer;
 
     document.getElementById("selectedPrayer").innerText =
-    prayer;
+        prayer;
 
     document.getElementById("jamaatTimeInput").value =
-    jamaatTimes[prayer] || "";
+        jamaatTimes[prayer] || "";
 
     document.getElementById("jamaatModal").style.display =
-    "flex";
+        "flex";
 
 }
+
+
+/* ==========================
+CLOSE JAMAAT MODAL
+========================== */
 
 function closeJamaatModal(){
 
     document.getElementById("jamaatModal").style.display =
-    "none";
+        "none";
 
 }
+
+
+/* ==========================
+SAVE JAMAAT TIME
+========================== */
 
 function saveJamaatTime(){
 
     const time =
-    document.getElementById("jamaatTimeInput").value;
+        document.getElementById("jamaatTimeInput").value;
 
     if(time === "") return;
 
@@ -465,14 +487,20 @@ function saveJamaatTime(){
 
 }
 
+
+/* ==========================
+LOAD SAVED JAMAAT
+========================== */
+
 function loadSavedJamaat(){
 
     const saved =
-    localStorage.getItem("jamaatTimes");
+        localStorage.getItem("jamaatTimes");
 
     if(saved){
 
-        jamaatTimes = JSON.parse(saved);
+        jamaatTimes =
+            JSON.parse(saved);
 
     }
 
@@ -480,41 +508,67 @@ function loadSavedJamaat(){
 
 }
 
+
+/* ==========================
+UPDATE JAMAAT UI
+========================== */
+
 function updateJamaatUI(){
 
     const prayers = [
 
         "Fajr",
-
         "Dhuhr",
-
         "Asr",
-
         "Maghrib",
-
         "Isha"
 
     ];
 
-    prayers.forEach(prayer=>{
+    prayers.forEach(prayer => {
 
-        const element = document.getElementById(
-            prayer.toLowerCase()+"Jamaat"
-        );
+        const element =
+            document.getElementById(
+                prayer.toLowerCase() + "Jamaat"
+            );
 
         if(element){
 
-            element.innerHTML =
+            const time = jamaatTimes[prayer];
 
-                jamaatTimes[prayer]
+            if(time){
 
-                ?
+                /* SAME TIME SYSTEM FOR ALL 5 PRAYERS */
 
-                "Jamaat : " + jamaatTimes[prayer]
+                const parts = time.split(":");
 
-                :
+                let hours = parseInt(parts[0]);
 
-                "Jamaat Not Set";
+                const minutes = parts[1];
+
+                const ampm =
+                    hours >= 12 ? "PM" : "AM";
+
+                hours = hours % 12;
+
+                if(hours === 0){
+                    hours = 12;
+                }
+
+                element.innerHTML =
+                    String(hours).padStart(2,"0") +
+                    ":" +
+                    minutes +
+                    " " +
+                    ampm;
+
+            }
+
+            else{
+
+                element.innerHTML = "--:--";
+
+            }
 
         }
 
@@ -653,48 +707,10 @@ document.querySelectorAll(".nav-item").forEach(item=>{
 
 });
 
-/* ==========================================
-FEATURE CARDS
-========================================== */
-
-document.querySelectorAll(".feature-card").forEach(card=>{
-
-    card.addEventListener("click",()=>{
-
-        console.log("Opening Feature...");
-
-    });
-
-});
 
 
-/* ==========================================
-TASBEEH MODULE CONTROL
-========================================== */
-
-const tasbeehCard =
-document.getElementById("tasbeehCard");
 
 
-if(tasbeehCard){
-
-    tasbeehCard.addEventListener("click",()=>{
-
-
-        localStorage.setItem(
-            "lastOpenedModule",
-            "tasbeeh"
-        );
-
-
-        console.log(
-            "Opening Tasbeeh Module..."
-        );
-
-
-    });
-
-}
 
 /* ==========================================
         ERROR HANDLING
@@ -764,73 +780,9 @@ console.log(
 
 );
 
-/* ==========================================
-        FINAL INITIALIZATION
-========================================== */
 
-function initializeApp(){
 
-    console.log("Initializing My Prayer...");
 
-    updateClock();
-
-    loadTodayDate();
-
-    detectLocation();
-
-    loadSavedJamaat();
-
-}
-
-/* ==========================================
-        FUTURE MODULES
-========================================== */
-
-/*
-
-Modules will remain separate.
-
-quran/
-├── quran.html
-├── quran.css
-└── quran.js
-
-duas/
-├── duas.html
-├── duas.css
-└── duas.js
-
-tasbeeh/
-├── tasbeeh.html
-├── tasbeeh.css
-└── tasbeeh.js
-
-names99/
-├── names99.html
-├── names99.css
-└── names99.js
-
-qibla/
-├── qibla.html
-├── qibla.css
-└── qibla.js
-
-No module code will be added inside
-index.js.
-
-Index.js will only control:
-
-✔ Home Screen
-✔ Prayer Times
-✔ Date
-✔ Islamic Date
-✔ Clock
-✔ Next Prayer
-✔ Countdown
-✔ Jamaat Times
-✔ Notifications
-
-*/
 
 /* ==========================================
             END OF FILE

@@ -45,516 +45,735 @@ body{
 
 }
 
-/* ==========================
-        HEADER
-========================== */
-
-.header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:20px;
-
-    background:#0f4c75;
-
-    color:#fff;
-
-    border-bottom-left-radius:25px;
-
-    border-bottom-right-radius:25px;
-
-}
-
-.header-left h2{
-
-    font-size:28px;
-
-    font-weight:700;
-
-}
-
-.welcome-text{
-
-    font-size:14px;
-
-    opacity:.9;
-
-    margin-bottom:4px;
-
-}
-
-.location{
-
-    margin-top:8px;
-
-    font-size:13px;
-
-    opacity:.9;
-
-}
-
-.mosque-icon{
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.15);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:28px;
-
-}
 
 /* ==========================
-        DATE CARD
+HEADER
 ========================== */
 
-.date-box{
+.header {
+    width: 100%;
+    padding: 2px 5px;
 
-    margin:20px;
+    background: transparent;
+    color: #fff;
 
-    padding:18px;
+    display: flex;
+    flex-direction: column;
 
-    background:#ffffff;
-
-    border-radius:18px;
-
-    text-align:center;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
+    gap: 50px;
 }
 
-.date-box h3{
-
-    font-size:22px;
-
-    color:#0f4c75;
-
-    margin-bottom:8px;
-
-}
-
-.date-box p{
-
-    color:#666;
-
-    font-size:15px;
-
-}
 
 /* ==========================
-        LIVE CLOCK
+HEADER CARD
 ========================== */
 
-.clock-box{
+.header-card {
+    width: 100%;
 
-    margin:20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    padding:20px;
+    border-radius: 12px;
 
-    border-radius:18px;
-
-    background:linear-gradient(135deg,#0f4c75,#3282b8);
-
-    color:#fff;
-
-    text-align:center;
-
+    box-sizing: border-box;
 }
 
-.clock-box h1{
-
-    font-size:42px;
-
-    font-weight:700;
-
-    letter-spacing:2px;
-
-}
-
-.clock-box p{
-
-    margin-top:8px;
-
-    font-size:14px;
-
-    opacity:.9;
-
-}
 
 /* ==========================
-        NEXT PRAYER
+MY PRAYER CARD
 ========================== */
 
-.next-prayer{
+.header-card-top {
+    height: 40px;
+    padding: 0 8px;
 
-    margin:20px;
-
-    padding:20px;
-
-    border-radius:18px;
-
-    background:#ffffff;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    text-align:center;
-
+    background: #0f4c75;
 }
 
-.next-prayer h3{
 
-    color:#0f4c75;
+/* ==========================
+ASSALAMUALAIKUM CARD
+========================== */
 
-    margin-bottom:10px;
+.header-card-bottom {
+    height: 40px;
+    padding: 0 8px;
 
+    background: #0f4c75;
 }
 
-.next-prayer h2{
 
-    font-size:30px;
+/* ==========================
+MY PRAYER
+========================== */
 
-    margin-bottom:8px;
+.app-title {
+    font-size: 10px;
 
+    font-weight: 700;
+
+    margin: 0;
+
+    line-height: 1;
 }
 
-.next-prayer p{
 
-    color:#777;
+/* ==========================
+MOSQUE
+========================== */
 
-    font-size:16px;
+.mosque-icon {
+    width: 18px;
+    height: 18px;
 
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    flex-shrink: 0;
+
+    position: relative;
+
+    background: none;
+}
+
+.mosque-icon::before {
+    content: "";
+
+    position: absolute;
+
+    width: 21px;
+    height: 21px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.15);
+}
+
+
+/* ==========================
+ASSALAMUALAIKUM
+========================== */
+
+.welcome-text {
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin: 0;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================
+LOCATION
+========================== */
+
+.location {
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin: 0;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================
+HEADER TEXT + ICON COLOR
+========================== */
+
+.header-card,
+.header-card .app-title,
+.header-card .welcome-text,
+.header-card .location,
+.header-card .mosque-icon,
+.header-card .mosque-icon i {
+    color: #ffffff;
 }
 
 /* ==========================
-        PRAYER LIST
+DATE CARD
 ========================== */
 
-.prayer-list{
-
-    margin:20px;
-
+.date-box {
+    margin: 5px 0;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 13px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
-.prayer-card{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:18px;
-
-    margin-bottom:15px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    transition:.3s;
-
+.date-box h3 {
+    font-size: 16px;
+    color: #0f4c75;
+    margin-bottom: 3px;
+    font-weight: 600;
 }
 
-.prayer-card:hover{
 
-    transform:translateY(-3px);
-
-}
-
-.prayer-icon{
-
-    width:60px;
-
-    height:60px;
-
-    border-radius:50%;
-
-    background:#e8f4ff;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:26px;
-
-    margin-right:15px;
-
-}
-
-.prayer-info{
-
-    flex:1;
-
-}
-
-.prayer-info h3{
-
-    font-size:20px;
-
-    color:#0f4c75;
-
-    margin-bottom:5px;
-
-}
-
-.prayer-info p{
-
-    color:#777;
-
-    font-size:14px;
-
-}
-
-.prayer-info b{
-
-    display:block;
-
-    margin-top:8px;
-
-    font-size:18px;
-
-    color:#222;
-
-}
-
-.prayer-info small{
-
-    display:block;
-
-    margin-top:5px;
-
-    color:#0f4c75;
-
-    font-weight:600;
-
-}
-
-.edit-jamaat{
-
-    width:45px;
-
-    height:45px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#0f4c75;
-
-    color:#fff;
-
-    cursor:pointer;
-
-    font-size:17px;
-
-    transition:.3s;
-
-}
-
-.edit-jamaat:hover{
-
-    background:#3282b8;
-
+.date-box p {
+    font-size: 16px;
+    color: #0f4c75;
+    font-weight: 600;
+    margin: 0;
 }
 
 /* ==========================
-        QUICK FEATURES
+LIVE CLOCK
 ========================== */
 
-.quick-features{
+.clock-box {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 13px;
 
-    margin:20px;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
 
+    color: #fff;
+    text-align: center;
 }
 
-.quick-features h2{
 
-    font-size:24px;
+/* CLOCK TIME */
 
-    color:#0f4c75;
-
-    margin-bottom:18px;
-
+.clock-box h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1.1;
 }
 
-.feature-grid{
 
-    display:grid;
+/* CLOCK DATE / TEXT */
 
-    grid-template-columns:repeat(2,1fr);
-
-    gap:15px;
-
-}
-
-.feature-card{
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:20px 15px;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    color:#222;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    transition:.3s;
-
-}
-
-.feature-card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:0 12px 22px rgba(0,0,0,.12);
-
-}
-
-.feature-icon{
-
-    width:65px;
-
-    height:65px;
-
-    margin:auto;
-
-    margin-bottom:15px;
-
-    border-radius:50%;
-
-    background:#e8f4ff;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:30px;
-
-}
-
-.feature-card h3{
-
-    font-size:18px;
-
-    color:#0f4c75;
-
-    margin-bottom:8px;
-
-}
-
-.feature-card p{
-
-    font-size:13px;
-
-    color:#777;
-
-    line-height:1.5;
-
+.clock-box p {
+    margin: 3px 0 0;
+    font-size: 11px;
+    opacity: .9;
+    line-height: 1.1;
 }
 
 /* ==========================
-      BOTTOM NAVIGATION
+NEXT PRAYER
 ========================== */
 
-.bottom-nav{
+.next-prayer {
+    margin: 5px 0;
+    padding: 8px 20px;
+    border-radius: 13px;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    text-align: center;
+}
 
-    position:fixed;
 
-    bottom:0;
+/* TWO LINES */
 
-    left:50%;
+.next-prayer-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: 20px;
+}
 
-    transform:translateX(-50%);
 
-    width:100%;
+/* LEFT + RIGHT TEXT */
 
-    max-width:500px;
+.next-prayer-label,
+.next-prayer-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f4c75;
+    line-height: 1.2;
+}
 
-    height:75px;
 
-    background:#ffffff;
+/* LEFT COLUMN */
 
-    display:flex;
+.next-prayer-row > :first-child {
+    text-align: left;
+}
 
-    justify-content:space-around;
 
-    align-items:center;
+/* RIGHT COLUMN */
 
-    border-top:1px solid #e5e5e5;
+.next-prayer-row > :last-child {
+    text-align: left;
+}
 
-    box-shadow:0 -5px 20px rgba(0,0,0,.08);
 
-    z-index:1000;
+/* SECOND LINE */
+
+.next-prayer-row + .next-prayer-row {
+    margin-top: 5px;
+}
+
+
+/* ==========================
+PRAYER LIST
+========================== */
+
+.prayer-list {
+    margin: 2px 0;
+}
+
+
+/* ==========================
+PRAYER CARD
+========================== */
+
+.prayer-card {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    height: 20px;
+    min-height: 20px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 0 5px;
+
+    margin-bottom: 2px;
+
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+
+    transition: .3s;
+
+    overflow: hidden;
+}
+
+
+/* ==========================
+PRAYER ICON
+========================== */
+
+.prayer-icon {
+    width: auto;
+    height: auto;
+
+    background: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 9px;
+
+    margin-right: 2px;
+
+    flex-shrink: 0;
+}
+
+
+/* ==========================
+PRAYER INFO - BALANCED GAP
+========================== */
+
+.prayer-info {
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns: 55px 70px 14px 1fr;
+
+    align-items: center;
+
+    min-width: 0;
+
+    height: 100%;
+}
+
+
+/* ==========================
+PRAYER NAME
+========================== */
+
+.prayer-info h3 {
+    font-size: 11px;
+
+    color: #0f4c75;
+
+    margin: 0;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================
+PRAYER TIME
+========================== */
+
+.prayer-info b {
+    display: block;
+
+    margin: 0;
+
+    font-size: 10px;
+
+    color: #222;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================
+JAMAAT ICON
+========================== */
+
+.jamaat-icon {
+    font-size: 9px;
+
+    margin: 0;
+
+    line-height: 1;
+
+    text-align: center;
+}
+
+
+/* ==========================
+JAMAAT TIME
+========================== */
+
+.prayer-info small {
+    display: block;
+
+    margin: 0;
+
+    color: #0f4c75;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================
+EDIT BUTTON
+========================== */
+
+.edit-jamaat {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+
+    margin-left: 3px;
+
+    flex-shrink: 0;
+}
+
+/* ==========================
+EDIT BUTTON
+========================== */
+
+.edit-jamaat {
+    width: 18px;
+    height: 18px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: #0f4c75;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-size: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-left: 4px;
+
+    transition: .3s;
+}
+
+
+/* ==========================
+HOVER
+========================== */
+
+.prayer-card:hover {
+    transform: translateY(-1px);
+}
+
+.edit-jamaat:hover {
+    background: #3282b8;
+}
+
+
+
+/* ==========================
+   BOTTOM NAVIGATION
+========================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 0px;
+
+    transform: translateX(-50%);
+
+    width: calc(100% - 16px);
+
+    max-width: 500px;
+
+    height: 58px;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 30px;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,.10);
+
+    z-index: 4000;
 
 }
 
-.nav-item{
 
-    flex:1;
+/* NAV ITEM */
 
-    text-align:center;
+.nav-item {
 
-    text-decoration:none;
+    flex: 1;
 
-    color:#7a7a7a;
+    min-width: 0;
 
-    transition:.3s;
+    height: 100%;
 
-}
+    display: flex;
 
-.nav-item i{
+    flex-direction: column;
 
-    display:block;
+    align-items: center;
 
-    font-size:22px;
+    justify-content: center;
 
-    margin-bottom:5px;
+    gap: 2px;
 
-}
+    text-align: center;
 
-.nav-item span{
+    text-decoration: none;
 
-    font-size:12px;
+    color: #7a7a7a;
 
-    font-weight:500;
+    border-radius: 22px;
 
-}
-
-.nav-item.active{
-
-    color:#0f4c75;
+    transition: .3s;
 
 }
 
-.nav-item:hover{
 
-    color:#3282b8;
+/* ICON */
 
+.nav-item i {
+
+    display: block;
+
+    font-size: 17px;
+
+    margin-bottom: 2px;
+
+}
+
+
+/* TEXT */
+
+.nav-item span {
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+}
+
+
+/* ACTIVE */
+
+.nav-item.active {
+
+    color: #0f4c75;
+
+    background: #eef6fb;
+
+}
+
+
+/* HOVER */
+
+.nav-item:hover {
+
+    color: #3282b8;
+
+}
+
+
+/* ======================================
+INDEX NAVIGATION - SAME AS 99 NAMES
+====================================== */
+
+.bottom-nav {
+    position: fixed !important;
+
+    left: 50% !important;
+    bottom: 0 !important;
+
+    transform: translateX(-50%) !important;
+
+    width: 100% !important;
+    max-width: 430px !important;
+
+    height: 50px !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+
+    justify-content: space-around !important;
+    align-items: center !important;
+
+    padding: 7px 4px !important;
+
+    background: #ffffff !important;
+
+    border: none !important;
+
+    border-radius: 24px 24px 0 0 !important;
+
+    box-shadow:
+        0 -10px 30px rgba(0,0,0,.12) !important;
+
+    z-index: 9999 !important;
+}
+
+
+/* NAV ITEMS */
+
+.bottom-nav .nav-item {
+    flex: 1 !important;
+
+    min-width: 0 !important;
+
+    height: 100% !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    text-align: center !important;
+
+    text-decoration: none !important;
+
+    color: #777 !important;
+
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    transition: .3s !important;
+}
+
+
+/* ICON */
+
+.bottom-nav .nav-item i {
+    display: block !important;
+
+    font-size: 16px !important;
+
+    margin: 0 !important;
+}
+
+
+/* TEXT */
+
+.bottom-nav .nav-item span {
+    white-space: nowrap !important;
+
+    font-size: 9px !important;
+
+    font-weight: 400 !important;
+}
+
+
+/* ACTIVE */
+
+.bottom-nav .nav-item.active {
+    color: #1565c0 !important;
+
+    background: transparent !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* HOVER */
+
+.bottom-nav .nav-item:hover {
+    transform: translateY(-2px) !important;
 }
 
 /* ==========================
@@ -973,9 +1192,7 @@ body{
 
     }
 
-    .feature-grid{
-
-        grid-template-columns:1fr;
+ 
 
     }
 
@@ -1011,7 +1228,7 @@ body{
 
     }
 
-}
+
 
 /* ==========================
         TABLET
@@ -1027,51 +1244,6 @@ body{
 
 }
 
-/* ==========================================
-        UTILITY CLASSES
-========================================== */
-
-.hidden{
-
-    display:none !important;
-
-}
-
-.show{
-
-    display:block !important;
-
-}
-
-.text-center{
-
-    text-align:center;
-
-}
-
-.mt-10{
-
-    margin-top:10px;
-
-}
-
-.mt-20{
-
-    margin-top:20px;
-
-}
-
-.mb-10{
-
-    margin-bottom:10px;
-
-}
-
-.mb-20{
-
-    margin-bottom:20px;
-
-}
 
 /* ==========================================
         ACTIVE PRAYER CARD
@@ -1091,13 +1263,13 @@ body{
 
 }
 
-/* ==========================================
-        FEATURE CARD ACTIVE
-========================================== */
 
-.feature-card:active{
+/* ==========================
+HIDE PRAYER ALARM BELL
+========================== */
 
-    transform:scale(.97);
-
+button:has(.fa-bell),
+a:has(.fa-bell),
+div:has(> .fa-bell) {
+    display: none !important;
 }
-
