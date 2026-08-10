@@ -34,52 +34,146 @@
 
 <section id="homeScreen">
 
-<!-- ==========================
-HEADER CARD 1
+<!-- =========================
+     HEADER
 ========================== -->
 
-<div class="header-card header-card-top">
+<header class="header">
 
-    <h2 class="app-title">
-        My Prayer
-    </h2>
 
-    <div class="mosque-icon">
-        <i class="fa-solid fa-mosque"></i>
+    <!-- =========================
+         MY PRAYER CARD
+    ========================== -->
+
+    <div class="header-card header-card-top">
+
+
+        <!-- HOME -->
+
+        <button
+            class="home-btn"
+            onclick="location.href='index.html'">
+
+            <i class="fa-solid fa-house"></i>
+
+        </button>
+
+
+        <!-- CENTER -->
+
+        <div class="prayer-title-group">
+
+            <h2 class="app-title">
+                My Prayer
+            </h2>
+
+
+            <!-- FAISAL MOSQUE -->
+
+            <div class="mosque-icon">
+
+                <img
+                    src="images/faisal-mosque.png"
+                    alt="Faisal Mosque">
+
+            </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <button class="settings-btn">
+
+            <i class="fa-solid fa-gear"></i>
+
+        </button>
+
+
     </div>
 
-</div>
 
 
-<!-- ==========================
-HEADER CARD 2
-========================== -->
+    <!-- =========================
+         ASSALAMUALAIKUM CARD
+    ========================== -->
 
-<div class="header-card header-card-bottom">
+    <div class="header-card header-card-bottom">
 
-    <p class="welcome-text">
-        Assalamu Alaikum 👋
-    </p>
 
-    <p class="location" id="locationName">
-        📍 Detecting Location...
-    </p>
+        <div class="welcome-location">
 
-</div>
+            <p class="welcome-text">
+                Assalamu Alaikum 👋
+            </p>
+
+            <p
+                class="location"
+                id="locationName">
+
+                📍 Adil Pur
+
+            </p>
+
+        </div>
+
+
+        <!-- DUA BOY -->
+
+        <img
+            class="dua-boy"
+            src="images/dua-boy.png"
+            alt="Dua">
+
+
+    </div>
+
+
+</header>
 
 <!-- ===========================
-        DATE CARD
+     DATE CARD
 ============================ -->
 
 <section class="date-box">
 
-<h3 id="date">
-Loading Date...
-</h3>
 
-<p id="islamic-date">
-Loading Islamic Date...
-</p>
+    <!-- MAKKAH -->
+
+    <div class="date-place date-makkah">
+
+        <img
+            src="images/makkah.png"
+            alt="Makkah">
+
+    </div>
+
+
+    <!-- DATE -->
+
+    <div class="date-content">
+
+        <h3 id="date">
+            Loading Date...
+        </h3>
+
+        <p id="islamic-date">
+            Loading Islamic Date...
+        </p>
+
+    </div>
+
+
+    <!-- MADINAH -->
+
+    <div class="date-place date-madinah">
+
+        <img
+            src="images/madinah.png"
+            alt="Madinah">
+
+    </div>
+
 
 </section>
 
@@ -106,31 +200,37 @@ NEXT PRAYER
 <div class="next-prayer">
 
     <!-- TOP LINE -->
-    <div class="next-prayer-row">
+<div class="next-prayer-row">
 
-        <span class="next-prayer-label">
-            Next Prayer
-        </span>
+    <span class="next-prayer-label">
+        Next Prayer
+    </span>
 
-        <span class="next-prayer-label">
-            Left Time
-        </span>
+    <span class="next-prayer-label">
+        Left Time
+    </span>
 
-    </div>
+    <span class="next-prayer-label">
+        Jamaat
+    </span>
+
+</div>
 
 
-    <!-- BOTTOM LINE -->
-    <div class="next-prayer-row">
+<!-- BOTTOM LINE -->
+<div class="next-prayer-row">
 
-        <span id="nextPrayerName" class="next-prayer-value">
-            Maghrib
-        </span>
+    <span id="nextPrayerName" class="next-prayer-value">
+        Maghrib
+    </span>
 
-        <span id="countdown" class="next-prayer-value">
-            01:25:40
-        </span>
+    <span id="countdown" class="next-prayer-value">
+        01:25:40
+    </span>
 
-    </div>
+    <span id="nextPrayerJamaat" class="next-prayer-value">
+        07:15 PM
+    </span>
 
 </div>
 

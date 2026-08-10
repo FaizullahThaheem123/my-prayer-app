@@ -225,25 +225,52 @@ async function getPrayerTimes(latitude, longitude){
 
 
 /* ==========================================
-        SHOW PRAYER TIMES
+SHOW PRAYER TIMES
 ========================================== */
 
 function showPrayerTimes(){
 
+    function formatPrayerTime(time){
+
+        if(!time) return "--:--";
+
+        const parts = time.split(":");
+
+        let hours = parseInt(parts[0]);
+        const minutes = parts[1];
+
+        const ampm =
+            hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12;
+
+        if(hours === 0){
+            hours = 12;
+        }
+
+        return (
+            String(hours).padStart(2,"0") +
+            ":" +
+            minutes +
+            " " +
+            ampm
+        );
+    }
+
     document.getElementById("fajr").innerHTML =
-    prayerTimes.Fajr;
+        formatPrayerTime(prayerTimes.Fajr);
 
     document.getElementById("dhuhr").innerHTML =
-    prayerTimes.Dhuhr;
+        formatPrayerTime(prayerTimes.Dhuhr);
 
     document.getElementById("asr").innerHTML =
-    prayerTimes.Asr;
+        formatPrayerTime(prayerTimes.Asr);
 
     document.getElementById("maghrib").innerHTML =
-    prayerTimes.Maghrib;
+        formatPrayerTime(prayerTimes.Maghrib);
 
     document.getElementById("isha").innerHTML =
-    prayerTimes.Isha;
+        formatPrayerTime(prayerTimes.Isha);
 
 }
 
@@ -290,7 +317,9 @@ function calculateNextPrayer(){
 
                 name: prayer.name,
 
-                date: prayerDate
+                date: prayerDate,
+
+                jamaat: jamaatTimes[prayer.name] || ""
 
             };
 
@@ -326,7 +355,9 @@ function calculateNextPrayer(){
 
             name: "Fajr",
 
-            date: tomorrow
+            date: tomorrow,
+
+            jamaat: jamaatTimes["Fajr"] || ""
 
         };
 
@@ -334,7 +365,11 @@ function calculateNextPrayer(){
 
     currentPrayer = next.name;
 
-    /* UPDATE PRAYER NAME */
+
+    /* ==========================
+    UPDATE PRAYER NAME
+    ========================== */
+
     const nextPrayerName =
         document.getElementById("nextPrayerName");
 
@@ -345,9 +380,72 @@ function calculateNextPrayer(){
 
     }
 
-    /* START COUNTDOWN */
+
+    /* ==========================
+    UPDATE JAMAAT TIME
+    ========================== */
+
+    const nextPrayerJamaat =
+        document.getElementById("nextPrayerJamaat");
+
+    if(nextPrayerJamaat){
+
+        const time = next.jamaat;
+
+        if(time){
+
+            const parts = time.split(":");
+
+            let hours =
+                parseInt(parts[0]);
+
+            const minutes =
+                parts[1];
+
+            const ampm =
+                hours >= 12 ? "PM" : "AM";
+
+            hours =
+                hours % 12;
+
+            if(hours === 0){
+
+                hours = 12;
+
+            }
+
+            nextPrayerJamaat.innerHTML =
+
+                String(hours).padStart(2,"0") +
+
+                ":" +
+
+                minutes +
+
+                " " +
+
+                ampm;
+
+        }
+
+        else{
+
+            nextPrayerJamaat.innerHTML =
+                "--:--";
+
+        }
+
+    }
+
+
+    /* ==========================
+    START COUNTDOWN
+    ========================== */
+
     startCountdown(next.date);
+
 }
+
 
 /* ==========================================
 COUNTDOWN TIMER
@@ -358,7 +456,9 @@ let countdownInterval = null;
 function startCountdown(nextPrayerTime){
 
     if(countdownInterval){
+
         clearInterval(countdownInterval);
+
     }
 
     countdownInterval = setInterval(() => {
@@ -370,7 +470,9 @@ function startCountdown(nextPrayerTime){
 
         if(difference <= 0){
 
-            clearInterval(countdownInterval);
+            clearInterval(
+                countdownInterval
+            );
 
             calculateNextPrayer();
 
@@ -379,7 +481,9 @@ function startCountdown(nextPrayerTime){
         }
 
         const hours =
-            Math.floor(difference / 3600000);
+            Math.floor(
+                difference / 3600000
+            );
 
         const minutes =
             Math.floor(
@@ -404,6 +508,7 @@ function startCountdown(nextPrayerTime){
             String(seconds).padStart(2,"0");
 
     },1000);
+
 }
 
 /* ==========================================

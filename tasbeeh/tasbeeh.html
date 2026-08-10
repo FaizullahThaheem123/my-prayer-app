@@ -49,47 +49,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 
-    <!-- ========================= -->
-    <!-- DHIKR SECTION -->
-    <!-- ========================= -->
+   <!-- =========================
+     DHIKR SECTION
+========================= -->
 
-    <section class="dhikr-section">
+<section class="dhikr-section">
 
-        <select id="dhikrSelect">
+    <select id="dhikrSelect">
 
-            <option value="bismillah">
-                Bismillah
-            </option>
+        <option value="0">Bismillah</option>
+        <option value="1">SubhanAllah</option>
+        <option value="2">Alhamdulillah</option>
+        <option value="3">Allahu Akbar</option>
+        <option value="4">Astaghfirullah</option>
+        <option value="5">La ilaha illallah</option>
+        <option value="6">SubhanAllahi wa bihamdihi</option>
+        <option value="7">SubhanAllahil Azim</option>
+        <option value="8">La hawla wa la quwwata illallah</option>
+        <option value="9">HasbiyAllahu</option>
+        <option value="10">HasbiyAllahu wa ni'mal wakeel</option>
+        <option value="11">Rabbi ighfir li</option>
+        <option value="12">Allahumma ighfir li</option>
+        <option value="13">Rabbi zidni ilma</option>
+        <option value="14">Rabbana atina fid-dunya hasanah</option>
+        <option value="15">Rabbana ighfir lana</option>
+        <option value="16">Allahumma a'inni ala dhikrika</option>
+        <option value="17">Allahumma salli ala Muhammad</option>
+        <option value="18">Sallallahu alayhi wa sallam</option>
+        <option value="19">SubhanAllahi walhamdulillah</option>
+        <option value="20">SubhanAllahi walhamdulillahi wallahu Akbar</option>
+        <option value="21">La ilaha illallahu wahdahu</option>
+        <option value="22">Allahumma anta Rabbi</option>
+        <option value="23">Allahumma innaka Afuwwun</option>
+        <option value="24">Rabbi ishrah li sadri</option>
+        <option value="25">Rabbi yassir wa la tu'assir</option>
+        <option value="26">Allahumma ihdini</option>
+        <option value="27">Allahummarhamni</option>
+        <option value="28">Allahummarzuqni</option>
+        <option value="29">Rabbi Allah</option>
+        <option value="30">Tawakkaltu alAllah</option>
 
-            <option value="subhanallah">
-                SubhanAllah
-            </option>
+    </select>
 
-            <option value="alhamdulillah">
-                Alhamdulillah
-            </option>
+    <h2 id="arabicDhikr">
+        بِسْمِ اللهِ
+    </h2>
 
-            <option value="allahuakbar">
-                Allahu Akbar
-            </option>
+    <div id="dhikrMeaning">
+        اللہ کے نام سے۔
+    </div>
 
-            <option value="astaghfirullah">
-                Astaghfirullah
-            </option>
-
-            <option value="lailahaillallah">
-                La ilaha illallah
-            </option>
-
-        </select>
-
-        <h2 id="arabicDhikr">
-
-            بِسْمِ اللهِ
-
-        </h2>
-
-    </section>
+</section>
 
         <!-- ========================= -->
     <!-- TARGET BUTTONS -->
@@ -255,33 +265,93 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 
-    <!-- ========================= -->
-    <!-- BOTTOM NAVIGATION -->
-    <!-- ========================= -->
+    
+<!-- ==========================
+BOTTOM NAVIGATION
+========================== -->
 
-    <nav class="bottom-nav">
+<nav class="bottom-nav">
 
-        <a href="../index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
+    <!-- HOME -->
+    <a href="../index.html"
+       class="nav-item">
 
-        <a href="../quran/quran.html">
-            <i class="fa-solid fa-book-quran"></i>
-            <span>Quran</span>
-        </a>
+        <i class="fa-solid fa-house"></i>
 
-        <a href="../dua/duas.html">
-            <i class="fa-solid fa-hands-praying"></i>
-            <span>Duas</span>
-        </a>
+        <span>
+            Home
+        </span>
 
-        <a href="tasbeeh.html" class="active">
-            <i class="fa-solid fa-ring"></i>
-            <span>Tasbeeh</span>
-        </a>
+    </a>
 
-    </nav>
+
+    <!-- QURAN -->
+    <a href="../quran/quran.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-book-quran"></i>
+
+        <span>
+            Quran
+        </span>
+
+    </a>
+
+
+    <!-- DUAS -->
+    <a href="../dua/duas.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-hands-praying"></i>
+
+        <span>
+            Duas
+        </span>
+
+    </a>
+
+
+    <!-- 99 NAMES -->
+    <a href="../names/names.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-star-and-crescent"></i>
+
+        <span>
+            99 Names
+        </span>
+
+    </a>
+
+
+    <!-- TASBEEH -->
+    <a href="tasbeeh.html"
+       class="nav-item active">
+
+        <i class="fa-solid fa-ring"></i>
+
+        <span>
+            Tasbeeh
+        </span>
+
+    </a>
+
+
+    <!-- CAMPUS -->
+    <a href="../campus/campus.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-graduation-cap"></i>
+
+        <span>
+            Campus
+        </span>
+
+    </a>
+
+</nav>
+
+
 
 </div>
 

@@ -65,8 +65,8 @@ margin-bottom:20px;
 
 
 .header-btn{
-width:40px;
-height:40px;
+width:50px;
+height:50px;
 border:none;
 border-radius:16px;
 background:rgba(255,255,255,.15);
@@ -111,6 +111,7 @@ opacity:.7;
 .dhikr-section{
 text-align:center;
 margin-bottom:05px;
+transform:translateY(0px);
 }
 
 #dhikrSelect{
@@ -141,18 +142,20 @@ margin:0;
 .target-section{
 display:flex;
 justify-content:center;
-gap:40px;
+gap:55px;
 margin-bottom:5px;
+transform:translateY(10px);
+
 }
 
 .target-btn{
-width:50px;
-height:50px;
+width:80px;
+height:80px;
 border:none;
 border-radius:50%;
 background:rgba(255,255,255,.15);
 color:#fff;
-font-size:5px;
+font-size:25px;
 font-weight:700;
 cursor:pointer;
 transition:.3s;
@@ -182,7 +185,10 @@ display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
 margin-bottom:05px;
+
+transform:translateY(10px);
 }
+
 
 .info-card{
 background:rgba(255,255,255,.15);
@@ -193,6 +199,7 @@ backdrop-filter:blur(12px);
 box-shadow:0 8px 25px rgba(0,0,0,.15);
 }
 
+
 .info-label{
 display:block;
 font-size:13px;
@@ -200,10 +207,12 @@ opacity:.9;
 margin-bottom:8px;
 }
 
+
 .info-value{
 font-size:24px;
 font-weight:700;
 }
+
 
 
 /* ===========================
@@ -214,7 +223,10 @@ font-weight:700;
 display:flex;
 justify-content:center;
 margin-bottom:15px;
+
+transform:translateY(10px);
 }
+
 
 #mainCounter{
 width:180px;
@@ -230,9 +242,11 @@ transition:.3s;
 box-shadow:0 15px 40px rgba(0,0,0,.20);
 }
 
+
 #mainCounter:hover{
 transform:scale(1.03);
 }
+
 
 #counterNumber{
 font-size:40px;
@@ -241,6 +255,7 @@ color:#1565c0;
 line-height:1;
 }
 
+
 #mainCounter small{
 margin-top:10px;
 font-size:10px;
@@ -248,22 +263,28 @@ font-weight:600;
 color:#666;
 }
 
+
+
 /* ===========================
    PROGRESS BAR
 =========================== */
 
 .progress-section{
 margin-bottom:05px;
+
+transform:translateY(10px);
 }
+
 
 .progress-track{
 width:100%;
-height:05px;
+height:10px;
 background:rgba(255,255,255,.18);
 border-radius:20px;
 overflow:hidden;
 backdrop-filter:blur(10px);
 }
+
 
 .progress-fill{
 width:0%;
@@ -283,6 +304,8 @@ display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:5px;
 margin-bottom:5px;
+
+    transform:translateY(10px);
 }
 
 .stat-card{
@@ -307,59 +330,96 @@ opacity:.9;
 }
 
 
+
+
 /* ===========================
-   ACTION BUTTONS
+   ACTION SECTION
 =========================== */
 
 .action-section{
-display:flex;
-flex-direction:column;
-gap:8px;
-margin-bottom:25px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:25px;
 }
 
-
-.count-btn,
-.reset-btn{
-
-width:100%;
-height:40px;
-border:none;
-border-radius:50px;
-font-size:20px;
-font-weight:600;
-cursor:pointer;
-transition:.3s;
-
-}
 
 .count-btn{
 
-background:#ffffff;
-color:#1565c0;
-box-shadow:0 10px 25px rgba(0,0,0,.18);
+    width:100%;
+    height:40px;
 
+    border:none;
+    border-radius:50px;
+
+    background:#ffffff;
+    color:#1565c0;
+
+    font-size:20px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:background .3s, box-shadow .3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+    transform:translateY(10px);
 }
+
+
+/* HOVER — NO MOVEMENT */
 
 .count-btn:hover{
 
-transform:translateY(-2px);
+    background:#ffffff;
+    color:#1565c0;
 
 }
 
+
+/* CLICK — NO MOVEMENT */
+
+.count-btn:active{
+
+    transform:translateY(10px);
+
+}
+
+
+/* ===========================
+   RESET BUTTON
+=========================== */
+
 .reset-btn{
 
-background:rgba(255,255,255,.18);
-color:#ffffff;
-border:2px solid rgba(255,255,255,.25);
+    width:100%;
+    height:40px;
 
+    border:none;
+    border-radius:50px;
+
+    background:rgba(255,255,255,.18);
+    color:#ffffff;
+
+    border:2px solid rgba(255,255,255,.25);
+
+    font-size:20px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+transform:translateY(6px);
 }
 
 .reset-btn:hover{
 
-background:rgba(255,255,255,.30);
+    background:rgba(255,255,255,.30);
 
 }
+
+
 
 
 /* ===========================
@@ -537,3 +597,16 @@ transform:scale(1);
 
 }
 
+/* ===========================
+   DHIKR URDU MEANING
+=========================== */
+
+#dhikrMeaning{
+font-size:18px;
+line-height:1.8;
+font-weight:600;
+color:#fff;
+margin-top:12px;
+direction:rtl;
+text-align:center;
+}
