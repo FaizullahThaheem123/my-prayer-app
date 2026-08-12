@@ -44,7 +44,7 @@ scrollbar-width:none;
 
 display:flex;
 flex-direction:column;
-justify-content:center;
+justify-content:space-between;
 }
 .tasbeeh-app::-webkit-scrollbar{
 display:none;
