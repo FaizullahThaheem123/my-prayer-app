@@ -10,6 +10,7 @@
 
 const dhikrSelect = document.getElementById("dhikrSelect");
 const arabicDhikr = document.getElementById("arabicDhikr");
+const dhikrMeaning = document.getElementById("dhikrMeaning");
 
 const targetButtons = document.querySelectorAll(".target-btn");
 
@@ -57,6 +58,13 @@ let stats = {
 
 const dhikrList = [
 
+
+{
+    arabic:"بِسْمِ اللهِ",
+    meaning:"اللہ کے نام سے۔"
+},
+
+
 {
 arabic:"سُبْحَانَ اللَّهِ",
 meaning:"اللہ پاک ہے۔"
@@ -72,14 +80,16 @@ arabic:"اللَّهُ أَكْبَرُ",
 meaning:"اللہ سب سے بڑا ہے۔"
 },
 
-{
-arabic:"لَا إِلَٰهَ إِلَّا اللَّهُ",
-meaning:"اللہ کے سوا کوئی معبود نہیں۔"
-},
-
+// 4
 {
 arabic:"أَسْتَغْفِرُ اللَّهَ",
 meaning:"میں اللہ سے بخشش مانگتا ہوں۔"
+},
+
+// 5
+{
+arabic:"لَا إِلَٰهَ إِلَّا اللَّهُ",
+meaning:"اللہ کے سوا کوئی معبود نہیں۔"
 },
 
 {
