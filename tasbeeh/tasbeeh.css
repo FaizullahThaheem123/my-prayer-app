@@ -38,20 +38,17 @@ align-items:flex-start;
 .tasbeeh-app{
 width:100%;
 max-width:430px;
-
 min-height:100dvh;
-height:auto;
-
 padding:12px 16px 80px;
-
 scrollbar-width:none;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
-
-
 .tasbeeh-app::-webkit-scrollbar{
 display:none;
 }
-
 
 /* ===========================
    HEADER
