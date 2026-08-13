@@ -87,6 +87,8 @@ body{
 
     border-bottom:1px solid #e8e8e8;
 
+border-radius:16px;
+
     position:sticky;
 
     top:0;
@@ -184,6 +186,28 @@ body{
 
 
 /* ======================================
+   ALL CAMPUS CARDS
+   SAME WIDTH / SAME ALIGNMENT
+====================================== */
+
+.location-card,
+.qibla-arrow-card,
+.qibla-info-card,
+.qibla-map-section,
+.direction-card,
+.compass-help,
+.campus-message{
+
+    width:100%;
+
+    margin-left:0;
+
+    margin-right:0;
+
+}
+
+
+/* ======================================
    LOCATION CARD
 ====================================== */
 
@@ -195,7 +219,9 @@ body{
 
     gap:11px;
 
-    margin:13px;
+    margin-top:10px;
+
+    margin-bottom:10px;
 
     padding:12px;
 
@@ -316,7 +342,9 @@ body{
 
 .qibla-arrow-card{
 
-    margin:0 13px 13px;
+    margin-top:0;
+
+    margin-bottom:10px;
 
     padding:16px 13px 15px;
 
@@ -683,8 +711,6 @@ body{
 }
 
 
-/* Arrow line */
-
 .qibla-arrow::before{
 
     content:"";
@@ -710,8 +736,6 @@ body{
 
 }
 
-
-/* Arrow head */
 
 .arrow-head{
 
@@ -743,8 +767,6 @@ body{
 
 }
 
-
-/* Kaaba center */
 
 .arrow-center{
 
@@ -902,7 +924,9 @@ body{
 
 .qibla-info-card{
 
-    margin:0 13px 13px;
+    margin-top:0;
+
+    margin-bottom:10px;
 
     padding:15px;
 
@@ -1052,7 +1076,9 @@ body{
 
 .qibla-map-section{
 
-    margin:0 13px 13px;
+    margin-top:0;
+
+    margin-bottom:10px;
 
     padding:15px;
 
@@ -1180,7 +1206,9 @@ body{
 
     gap:11px;
 
-    margin:0 13px 13px;
+    margin-top:0;
+
+    margin-bottom:10px;
 
     padding:13px;
 
@@ -1268,7 +1296,9 @@ body{
 
     gap:11px;
 
-    margin:0 13px 20px;
+    margin-top:0;
+
+    margin-bottom:15px;
 
     padding:13px;
 
@@ -1332,7 +1362,9 @@ body{
 
 .campus-message{
 
-    margin:13px;
+    margin-top:10px;
+
+    margin-bottom:10px;
 
     padding:20px;
 
@@ -1446,7 +1478,7 @@ body{
 
     max-width:430px;
 
-    padding:18px;
+    padding:18px 13px;
 
     background:#ffffff;
 
@@ -1692,6 +1724,21 @@ body{
     }
 
 
+    .location-card,
+    .qibla-arrow-card,
+    .qibla-info-card,
+    .qibla-map-section,
+    .direction-card,
+    .compass-help,
+    .campus-message{
+
+        margin-left:10px;
+
+        margin-right:10px;
+
+    }
+
+
     .qibla-arrow-card{
 
         padding:15px 11px;
@@ -1754,21 +1801,13 @@ body.dark-mode .campus-page{
 
 
 body.dark-mode .campus-header,
-
 body.dark-mode .location-card,
-
 body.dark-mode .qibla-arrow-card,
-
 body.dark-mode .qibla-info-card,
-
 body.dark-mode .qibla-map-section,
-
 body.dark-mode .direction-card,
-
 body.dark-mode .settings-sheet,
-
 body.dark-mode .campus-message,
-
 body.dark-mode .bottom-nav{
 
     background:#1e1e1e;
@@ -1786,9 +1825,7 @@ body.dark-mode .campus-header-title h1{
 
 
 body.dark-mode .campus-header-title p,
-
 body.dark-mode .location-text span,
-
 body.dark-mode .location-text small{
 
     color:#aaa;
@@ -1797,7 +1834,6 @@ body.dark-mode .location-text small{
 
 
 body.dark-mode .campus-header-btn,
-
 body.dark-mode .location-refresh-btn{
 
     background:#292929;
@@ -1822,7 +1858,6 @@ body.dark-mode .qibla-degree strong{
 
 
 body.dark-mode .qibla-degree span,
-
 body.dark-mode .qibla-bearing-live{
 
     color:#aaa;
@@ -1875,7 +1910,6 @@ body.dark-mode .arrow-center{
 
 
 body.dark-mode .qibla-arrow::before,
-
 body.dark-mode .arrow-head{
 
     background:transparent;
@@ -1916,7 +1950,6 @@ body.dark-mode .qibla-info-card .info-card-title{
 
 
 body.dark-mode .info-card-title strong,
-
 body.dark-mode .info-item strong{
 
     color:#eeeeee;
@@ -1925,7 +1958,6 @@ body.dark-mode .info-item strong{
 
 
 body.dark-mode .info-card-title span,
-
 body.dark-mode .info-item span{
 
     color:#aaa;
@@ -1941,9 +1973,7 @@ body.dark-mode .info-item{
 
 
 body.dark-mode .info-card-title > i,
-
 body.dark-mode .direction-icon,
-
 body.dark-mode .location-icon{
 
     background:#263b4d;
@@ -1961,7 +1991,6 @@ body.dark-mode .direction-content strong{
 
 
 body.dark-mode .direction-content span,
-
 body.dark-mode .direction-content p{
 
     color:#aaa;
