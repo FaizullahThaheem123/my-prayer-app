@@ -34,7 +34,6 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 rel="stylesheet"
 href="campus.css">
 
-
 </head>
 
 
@@ -54,7 +53,6 @@ href="campus.css">
 
 <header class="campus-header">
 
-
 <button
 id="campusHomeBtn"
 class="campus-header-btn"
@@ -65,24 +63,21 @@ aria-label="Home">
 </button>
 
 
-
 <div class="campus-header-title">
 
 <h1>
 
-<i class="fa-solid fa-kaaba"></i>
+<i class="fa-solid fa-compass"></i>
 
 Qibla
 
 </h1>
-
 
 <p>
 Find the direction of the Kaaba
 </p>
 
 </div>
-
 
 
 <button
@@ -94,7 +89,6 @@ aria-label="Settings">
 
 </button>
 
-
 </header>
 
 
@@ -104,7 +98,6 @@ aria-label="Settings">
 ====================================== -->
 
 <section class="location-card">
-
 
 <div class="location-icon">
 
@@ -119,11 +112,9 @@ aria-label="Settings">
 Current Location
 </span>
 
-
 <strong id="locationName">
 Finding your location...
 </strong>
-
 
 <small id="locationStatus">
 Please allow location access
@@ -141,13 +132,12 @@ aria-label="Refresh Location">
 
 </button>
 
-
 </section>
 
 
 
 <!-- ======================================
-     QIBLA ARROW
+     QIBLA COMPASS
 ====================================== -->
 
 <section class="qibla-arrow-card">
@@ -158,12 +148,11 @@ aria-label="Refresh Location">
 <div>
 
 <span>
-QIBLA DIRECTION
+LIVE COMPASS
 </span>
 
-
 <h2>
-Qibla Arrow
+Qibla Compass
 </h2>
 
 </div>
@@ -183,7 +172,9 @@ Ready
 
 
 
-<!-- DEGREE -->
+<!-- ======================================
+     LIVE PHONE HEADING
+====================================== -->
 
 <div class="qibla-degree">
 
@@ -191,16 +182,26 @@ Ready
 --
 </strong>
 
-
 <span>
-° from North
+° Phone Heading
 </span>
 
 </div>
 
 
+<div
+id="qiblaBearingLive"
+class="qibla-bearing-live">
 
-<!-- COMPASS -->
+Qibla Bearing: --
+
+</div>
+
+
+
+<!-- ======================================
+     COMPASS
+====================================== -->
 
 <div
 id="compassArea"
@@ -214,16 +215,13 @@ class="compass-area">
 N
 </div>
 
-
 <div class="compass-direction east">
 E
 </div>
 
-
 <div class="compass-direction south">
 S
 </div>
-
 
 <div class="compass-direction west">
 W
@@ -231,10 +229,29 @@ W
 
 
 
+<div class="compass-degree degree-0">
+0°
+</div>
+
+<div class="compass-degree degree-90">
+90°
+</div>
+
+<div class="compass-degree degree-180">
+180°
+</div>
+
+<div class="compass-degree degree-270">
+270°
+</div>
+
+
+
+<!-- QIBLA ARROW -->
+
 <div
 id="qiblaArrow"
 class="qibla-arrow">
-
 
 <div class="arrow-head">
 
@@ -242,17 +259,17 @@ class="qibla-arrow">
 
 </div>
 
-
 <div class="arrow-center">
 
 <i class="fa-solid fa-kaaba"></i>
 
 </div>
 
-
 </div>
 
 
+
+<!-- CENTER -->
 
 <div class="compass-center">
 
@@ -262,7 +279,6 @@ class="qibla-arrow">
 
 
 </div>
-
 
 </div>
 
@@ -283,7 +299,7 @@ class="calibrate-btn">
 
 <i class="fa-solid fa-compass"></i>
 
-Calibrate Compass
+Enable / Calibrate Compass
 
 </button>
 
@@ -337,7 +353,6 @@ Qibla Bearing
 </div>
 
 
-
 <div class="info-item">
 
 <i class="fa-solid fa-location-arrow"></i>
@@ -351,7 +366,6 @@ Distance to Kaaba
 </strong>
 
 </div>
-
 
 
 <div class="info-item">
@@ -369,7 +383,6 @@ Latitude
 </div>
 
 
-
 <div class="info-item">
 
 <i class="fa-solid fa-globe"></i>
@@ -384,16 +397,14 @@ Longitude
 
 </div>
 
-
 </div>
-
 
 </section>
 
 
 
 <!-- ======================================
-     MAP SECTION
+     MAP
 ====================================== -->
 
 <section class="qibla-map-section">
@@ -401,13 +412,11 @@ Longitude
 
 <div class="section-heading">
 
-
 <div>
 
 <span>
 MAP VIEW
 </span>
-
 
 <h2>
 Qibla Map
@@ -425,9 +434,7 @@ aria-label="My Location">
 
 </button>
 
-
 </div>
-
 
 
 <div
@@ -436,9 +443,7 @@ class="qibla-map">
 </div>
 
 
-
 <div class="map-legend">
-
 
 <div class="legend-item">
 
@@ -466,9 +471,7 @@ Qibla Direction
 
 </div>
 
-
 </div>
-
 
 </section>
 
@@ -490,26 +493,19 @@ Qibla Direction
 
 <div class="direction-content">
 
-
 <span>
 Your Qibla Direction
 </span>
-
 
 <strong id="directionText">
 Calculating...
 </strong>
 
-
 <p id="directionDescription">
-
 The Qibla direction will appear here.
-
 </p>
 
-
 </div>
-
 
 </section>
 
@@ -535,7 +531,6 @@ The Qibla direction will appear here.
 How to use Qibla Compass
 </strong>
 
-
 <p>
 
 Keep your phone flat and away from
@@ -546,13 +541,12 @@ until the arrow points toward the Kaaba.
 
 </div>
 
-
 </section>
 
 
 
 <!-- ======================================
-     ERROR / PERMISSION MESSAGE
+     ERROR MESSAGE
 ====================================== -->
 
 <section
@@ -560,19 +554,15 @@ id="campusMessage"
 class="campus-message"
 style="display:none;">
 
-
 <i class="fa-solid fa-circle-exclamation"></i>
-
 
 <strong id="campusMessageTitle">
 Location Required
 </strong>
 
-
 <p id="campusMessageText">
 Please allow location access to find the Qibla.
 </p>
-
 
 <button
 id="campusMessageBtn">
@@ -581,13 +571,12 @@ Try Again
 
 </button>
 
-
 </section>
 
 
 
 <!-- ======================================
-     SETTINGS PANEL
+     SETTINGS
 ====================================== -->
 
 <div
@@ -604,7 +593,6 @@ style="display:none;">
 
 <div class="settings-header">
 
-
 <h2>
 Qibla Settings
 </h2>
@@ -619,20 +607,17 @@ aria-label="Close">
 
 </button>
 
-
 </div>
 
 
 
 <div class="setting-row">
 
-
 <div>
 
 <strong>
 Compass Calibration
 </strong>
-
 
 <span>
 Improve direction accuracy
@@ -649,20 +634,17 @@ Calibrate
 
 </button>
 
-
 </div>
 
 
 
 <div class="setting-row">
 
-
 <div>
 
 <strong>
 Refresh Location
 </strong>
-
 
 <span>
 Get your current location again
@@ -679,13 +661,10 @@ Refresh
 
 </button>
 
-
 </div>
 
 
-
 </div>
-
 
 </div>
 
@@ -698,10 +677,7 @@ Refresh
 <nav class="bottom-nav">
 
 
-<!-- HOME -->
-
-<a
-href="../index.html">
+<a href="../index.html">
 
 <i class="fa-solid fa-house"></i>
 
@@ -712,11 +688,7 @@ Home
 </a>
 
 
-
-<!-- QURAN -->
-
-<a
-href="../quran/quran.html">
+<a href="../quran/quran.html">
 
 <i class="fa-solid fa-book-quran"></i>
 
@@ -727,11 +699,7 @@ Quran
 </a>
 
 
-
-<!-- DUAS -->
-
-<a
-href="../dua/duas.html">
+<a href="../dua/duas.html">
 
 <i class="fa-solid fa-hands-praying"></i>
 
@@ -742,11 +710,7 @@ Duas
 </a>
 
 
-
-<!-- 99 NAMES -->
-
-<a
-href="../names/names.html">
+<a href="../names/names.html">
 
 <i class="fa-solid fa-star-and-crescent"></i>
 
@@ -757,11 +721,7 @@ href="../names/names.html">
 </a>
 
 
-
-<!-- TASBEEH -->
-
-<a
-href="../tasbeeh/tasbeeh.html">
+<a href="../tasbeeh/tasbeeh.html">
 
 <i class="fa-solid fa-ring"></i>
 
@@ -772,17 +732,14 @@ Tasbeeh
 </a>
 
 
-
-<!-- CAMPUS -->
-
 <a
 href="campus.html"
 class="active">
 
-<i class="fa-solid fa-graduation-cap"></i>
+<i class="fa-solid fa-compass"></i>
 
 <span>
-Campus
+Qibla
 </span>
 
 </a>
@@ -791,23 +748,18 @@ Campus
 </nav>
 
 
-
 </div>
 
 
 
-<!-- ======================================
-     LEAFLET JS
-====================================== -->
+<!-- LEAFLET JS -->
 
 <script
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
 
-<!-- ======================================
-     CAMPUS JS
-====================================== -->
+<!-- CAMPUS JS -->
 
 <script src="campus.js"></script>
 
