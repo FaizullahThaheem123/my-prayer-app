@@ -1,11 +1,13 @@
 /* ======================================
    MY PRAYER - 99 NAMES OF ALLAH
-   NAMES CSS
+   DETAIL PAGE
+   AUDIO TOP
+   NAVIGATION INSIDE CARD
 ====================================== */
 
 
 /* ======================================
-   BASIC RESET
+   RESET
 ====================================== */
 
 *{
@@ -21,8 +23,12 @@ html{
 
 
 body{
+
     margin:0;
+
     padding:0;
+
+    padding-bottom:80px;
 
     font-family:
         Arial,
@@ -30,20 +36,22 @@ body{
         sans-serif;
 
     background:#f5f7fa;
+
     color:#222;
 
     min-height:100vh;
 
-    padding-bottom:85px;
 }
 
 
 /* ======================================
-   MAIN NAMES PAGE
+   MAIN PAGE
 ====================================== */
 
 .names-page{
+
     width:100%;
+
     max-width:430px;
 
     min-height:100vh;
@@ -55,6 +63,7 @@ body{
     position:relative;
 
     overflow:hidden;
+
 }
 
 
@@ -85,12 +94,9 @@ body{
     top:0;
 
     z-index:100;
+
 }
 
-
-/* ======================================
-   HEADER BUTTON
-====================================== */
 
 .header-btn{
 
@@ -119,6 +125,7 @@ body{
     flex-shrink:0;
 
     transition:.25s;
+
 }
 
 
@@ -147,6 +154,7 @@ body{
     text-align:center;
 
     min-width:0;
+
 }
 
 
@@ -182,194 +190,96 @@ body{
 
 
 /* ======================================
-   SEARCH AREA
+   DETAIL PAGE
 ====================================== */
 
-.names-search-area{
+.name-detail-page{
 
-    padding:14px 14px 8px;
+    padding:15px 14px 25px;
 
 }
 
 
+
 /* ======================================
-   SEARCH BOX
+   MAIN NAME CARD
 ====================================== */
 
-.search-box{
+.main-name-card{
 
     width:100%;
-
-    height:46px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    padding:0 12px;
 
     background:#ffffff;
 
-    border:1px solid #e2e8f0;
+    border-radius:22px;
 
-    border-radius:14px;
+    padding:15px 18px 18px;
+
+    border:1px solid #edf0f3;
 
     box-shadow:
-        0 4px 15px rgba(0,0,0,.05);
-}
-
-
-.search-box > i{
-
-    color:#1565c0;
-
-    font-size:15px;
-
-    flex-shrink:0;
-}
-
-
-.search-box input{
-
-    flex:1;
-
-    width:100%;
-
-    min-width:0;
-
-    border:none;
-
-    outline:none;
-
-    background:transparent;
-
-    color:#222;
-
-    font-size:14px;
-}
-
-
-.search-box input::placeholder{
-
-    color:#999;
+        0 7px 25px rgba(0,0,0,.07);
 
 }
+
 
 
 /* ======================================
-   CLEAR SEARCH
+   PAGE COUNTER
 ====================================== */
 
-.clear-search-btn{
+.name-page-counter{
 
-    width:30px;
-
-    height:30px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#f1f5f9;
-
-    color:#777;
-
-    display:none;
+    display:flex;
 
     align-items:center;
 
     justify-content:center;
 
-    cursor:pointer;
+    gap:5px;
 
-}
-
-
-/* ======================================
-   FILTER BUTTONS
-====================================== */
-
-.names-filters{
-
-    display:flex;
-
-    gap:8px;
-
-    padding:8px 14px 12px;
-
-}
-
-
-.filter-btn{
-
-    flex:1;
-
-    height:38px;
-
-    border:none;
-
-    border-radius:11px;
-
-    background:#ffffff;
+    margin-bottom:10px;
 
     color:#777;
 
-    font-size:12px;
+    font-size:13px;
 
-    font-weight:600;
-
-    cursor:pointer;
-
-    border:1px solid #e5e7eb;
-
-    transition:.25s;
-}
-
-
-.filter-btn.active{
-
-    background:#1565c0;
-
-    color:#ffffff;
-
-    border-color:#1565c0;
+    font-weight:700;
 
 }
 
 
-.filter-btn i{
+#currentNameNumber{
 
-    margin-right:4px;
+    color:#1565c0;
+
+    font-size:16px;
 
 }
+
 
 
 /* ======================================
    AUDIO PLAYER
+   TOP OF CARD
 ====================================== */
 
 .names-audio-player{
 
-    margin:4px 14px 12px;
+    width:100%;
 
     padding:13px;
 
-    background:#ffffff;
+    background:#f8fbff;
 
-    border-radius:17px;
+    border-radius:16px;
 
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.08);
+    border:1px solid #e3edf7;
 
-    border:1px solid #edf0f3;
+    margin-bottom:18px;
+
 }
 
-
-/* ======================================
-   AUDIO INFO
-====================================== */
 
 .audio-info{
 
@@ -388,7 +298,7 @@ body{
 
     height:40px;
 
-    border-radius:12px;
+    border-radius:11px;
 
     background:#e3f2fd;
 
@@ -407,15 +317,14 @@ body{
 
 .audio-text{
 
-    min-width:0;
-
-    flex:1;
-
     display:flex;
 
     flex-direction:column;
 
     gap:3px;
+
+    min-width:0;
+
 }
 
 
@@ -424,6 +333,7 @@ body{
     font-size:10px;
 
     color:#888;
+
 }
 
 
@@ -433,53 +343,24 @@ body{
 
     color:#222;
 
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
 }
 
 
+
 /* ======================================
-   AUDIO CONTROLS
+   AUDIO BUTTON
 ====================================== */
 
 .audio-controls{
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
-
-    gap:18px;
-
-    margin-top:12px;
-}
-
-
-.audio-control-btn{
-
-    width:38px;
-
-    height:38px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#f1f5f9;
-
-    color:#1565c0;
-
-    cursor:pointer;
-
-    display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    margin-top:10px;
+
 }
 
 
@@ -497,8 +378,6 @@ body{
 
     color:#ffffff;
 
-    cursor:pointer;
-
     display:flex;
 
     align-items:center;
@@ -507,9 +386,20 @@ body{
 
     font-size:17px;
 
+    cursor:pointer;
+
     box-shadow:
         0 5px 15px rgba(21,101,192,.25);
+
 }
+
+
+.main-audio-btn:active{
+
+    transform:scale(.93);
+
+}
+
 
 
 /* ======================================
@@ -520,15 +410,16 @@ body{
 
     width:100%;
 
-    height:4px;
+    height:5px;
 
-    margin-top:12px;
+    margin-top:11px;
 
-    background:#e8edf2;
+    background:#e1e8ef;
 
     border-radius:10px;
 
     overflow:hidden;
+
 }
 
 
@@ -543,178 +434,150 @@ body{
     border-radius:10px;
 
     transition:width .1s linear;
+
 }
+
 
 
 /* ======================================
-   NOW PLAYING
+   ARABIC
 ====================================== */
 
-.now-playing{
+.detail-arabic{
 
-    margin:0 14px 10px;
+    direction:rtl;
 
-    padding:9px 12px;
-
-    background:#eef6ff;
-
-    border-radius:10px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:8px;
-}
-
-
-.playing-label{
-
-    font-size:10px;
+    text-align:center;
 
     color:#1565c0;
+
+    font-size:38px;
+
+    line-height:1.8;
 
     font-weight:700;
-}
 
+    margin-bottom:2px;
 
-.playing-label i{
-
-    margin-right:4px;
-}
-
-
-#playingName{
-
-    font-size:12px;
-
-    color:#1565c0;
+    word-break:break-word;
 
 }
+
 
 
 /* ======================================
-   COUNTERS
+   ENGLISH
 ====================================== */
 
-.names-counters{
+.detail-english{
 
-    display:flex;
+    text-align:center;
 
-    gap:10px;
+    font-size:20px;
 
-    padding:0 14px 10px;
+    font-weight:800;
+
+    color:#222;
+
+    margin-bottom:18px;
+
 }
 
 
-.counter-info{
 
-    flex:1;
+/* ======================================
+   MEANING
+====================================== */
 
-    background:#ffffff;
+.meaning-section{
 
-    border-radius:12px;
+    background:#f7faff;
 
-    padding:9px 12px;
+    border-radius:15px;
 
-    display:flex;
+    padding:13px;
 
-    align-items:center;
+    margin-bottom:10px;
 
-    justify-content:space-between;
+    text-align:center;
 
-    border:1px solid #edf0f3;
 }
 
 
-.counter-info span{
+.section-label{
+
+    display:block;
+
+    color:#1565c0;
 
     font-size:11px;
 
-    color:#777;
+    font-weight:800;
+
+    margin-bottom:6px;
+
 }
 
 
-.counter-info strong{
+.section-label i{
 
-    font-size:14px;
+    margin-right:5px;
 
-    color:#1565c0;
 }
+
+
+.detail-urdu{
+
+    direction:rtl;
+
+    text-align:center;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    color:#333;
+
+    font-weight:600;
+
+}
+
 
 
 /* ======================================
-   NAMES LIST
+   INFORMATION BOX
 ====================================== */
 
-#namesList{
-
-    width:100%;
-
-    padding:0 14px 20px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-}
-
-
-/* ======================================
-   NAME CARD
-====================================== */
-
-.name-card{
-
-    width:100%;
-
-    min-height:66px;
+.info-box{
 
     display:flex;
 
     align-items:center;
 
-    gap:10px;
+    gap:11px;
 
-    padding:10px 11px;
+    width:100%;
+
+    padding:11px;
 
     background:#ffffff;
 
+    border:1px solid #e8edf2;
+
     border-radius:14px;
 
-    border:1px solid #edf0f3;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.045);
-
-    transition:
-        transform .2s,
-        box-shadow .2s,
-        background .2s;
-}
-
-
-.name-card:active{
-
-    transform:scale(.985);
+    margin-top:8px;
 
 }
 
 
-/* ======================================
-   NAME NUMBER
-====================================== */
+.info-icon{
 
-.name-number{
+    width:37px;
 
-    width:34px;
+    height:37px;
 
-    height:34px;
-
-    border-radius:10px;
+    border-radius:11px;
 
     background:#e3f2fd;
 
@@ -726,19 +589,12 @@ body{
 
     justify-content:center;
 
-    font-size:11px;
-
-    font-weight:800;
-
     flex-shrink:0;
+
 }
 
 
-/* ======================================
-   NAME CONTENT
-====================================== */
-
-.name-content{
+.info-content{
 
     flex:1;
 
@@ -748,91 +604,128 @@ body{
 
     flex-direction:column;
 
-    justify-content:center;
+    gap:3px;
 
-    gap:4px;
 }
 
 
+.info-content span{
+
+    font-size:10px;
+
+    color:#888;
+
+}
+
+
+.info-content strong{
+
+    direction:rtl;
+
+    text-align:right;
+
+    font-size:14px;
+
+    color:#333;
+
+    line-height:1.5;
+
+}
+
+
+
 /* ======================================
-   ENGLISH NAME
+   FAVORITE
 ====================================== */
 
-.name-english{
+.favorite-btn{
 
-    display:block;
+    width:100%;
+
+    height:43px;
+
+    border:1px solid #e3e8ed;
+
+    border-radius:13px;
+
+    background:#f8fafc;
+
+    color:#777;
+
+    margin-top:11px;
 
     font-size:13px;
 
     font-weight:700;
 
-    color:#222;
+    cursor:pointer;
 
-    white-space:nowrap;
+    transition:.25s;
 
-    overflow:hidden;
-
-    text-overflow:ellipsis;
 }
 
 
-/* ======================================
-   ARABIC NAME
-====================================== */
+.favorite-btn i{
 
-.name-arabic{
+    margin-right:6px;
 
-    display:block;
-
-    direction:rtl;
-
-    text-align:left;
-
-    font-size:18px;
-
-    line-height:1.4;
-
-    font-weight:700;
-
-    color:#1565c0;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
 }
 
 
+.favorite-btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+.favorite-btn.favorite-active{
+
+    background:#fff0f1;
+
+    border-color:#ffcdd2;
+
+    color:#e53935;
+
+}
+
+
+
 /* ======================================
-   NAME ACTIONS
+   PREVIOUS / NEXT
+   INSIDE MAIN CARD
 ====================================== */
 
-.name-actions{
+.name-navigation{
 
     display:flex;
 
-    align-items:center;
+    gap:9px;
 
-    gap:5px;
+    width:100%;
 
-    flex-shrink:0;
+    margin-top:13px;
+
 }
 
 
-.name-action-btn{
+.name-nav-btn{
 
-    width:32px;
+    flex:1;
 
-    height:32px;
+    height:46px;
 
-    border:none;
+    border:1px solid #e1e7ec;
 
-    border-radius:50%;
+    border-radius:13px;
 
-    background:#f5f7fa;
+    background:#ffffff;
 
-    color:#777;
+    color:#1565c0;
+
+    font-size:13px;
+
+    font-weight:800;
 
     display:flex;
 
@@ -840,114 +733,55 @@ body{
 
     justify-content:center;
 
+    gap:7px;
+
     cursor:pointer;
 
     transition:.2s;
-}
-
-
-.name-action-btn:hover{
-
-    background:#e3f2fd;
-
-    color:#1565c0;
 
 }
 
 
-.favorite-name-btn{
+.name-nav-btn:active{
 
-    color:#999;
-
-}
-
-
-.play-name-btn{
-
-    color:#1565c0;
+    transform:scale(.97);
 
 }
 
 
-/* ======================================
-   PLAYING NAME CARD
-====================================== */
-
-.name-card.playing-name{
+.name-nav-btn:hover{
 
     background:#eef6ff;
 
-    border-color:#90caf9;
-
-    box-shadow:
-        0 4px 15px rgba(21,101,192,.12);
 }
 
 
-.name-card.playing-name
-.name-number{
+.name-nav-btn:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+
+}
+
+
+.name-nav-btn.next-btn{
 
     background:#1565c0;
 
     color:#ffffff;
+
+    border-color:#1565c0;
+
 }
 
 
-.name-card.playing-name
-.name-arabic{
+.name-nav-btn.next-btn:hover{
 
-    color:#1565c0;
+    background:#0d5aa7;
+
 }
 
-
-/* ======================================
-   NO NAME FOUND
-====================================== */
-
-#noNamesFound{
-
-    display:none;
-
-    margin:20px 14px;
-
-    padding:30px 15px;
-
-    background:#ffffff;
-
-    border-radius:15px;
-
-    text-align:center;
-
-    color:#777;
-}
-
-
-#noNamesFound i{
-
-    font-size:25px;
-
-    color:#aaa;
-
-    margin-bottom:10px;
-}
-
-
-#noNamesFound h3{
-
-    margin-bottom:5px;
-
-    font-size:15px;
-
-    color:#555;
-}
-
-
-#noNamesFound p{
-
-    font-size:12px;
-
-    color:#999;
-}
 
 
 /* ======================================
@@ -968,7 +802,7 @@ body{
 
     max-width:430px;
 
-    height:50px;
+    height:58px;
 
     display:flex;
 
@@ -986,6 +820,7 @@ body{
         0 -10px 30px rgba(0,0,0,.12);
 
     z-index:9999;
+
 }
 
 
@@ -1012,6 +847,7 @@ body{
     transition:.3s;
 
     min-width:0;
+
 }
 
 
@@ -1019,7 +855,6 @@ body{
 
     font-size:16px;
 
-    margin:0;
 }
 
 
@@ -1028,6 +863,7 @@ body{
     white-space:nowrap;
 
     font-size:9px;
+
 }
 
 
@@ -1036,6 +872,7 @@ body{
     color:#1565c0;
 
     font-weight:700;
+
 }
 
 
@@ -1046,18 +883,12 @@ body{
 }
 
 
+
 /* ======================================
    MOBILE
 ====================================== */
 
 @media(max-width:430px){
-
-    body{
-
-        padding-bottom:78px;
-
-    }
-
 
     .names-header{
 
@@ -1080,42 +911,71 @@ body{
     }
 
 
-    .name-card{
+    .name-detail-page{
 
-        min-height:62px;
-
-        padding:9px;
+        padding:12px 11px 22px;
 
     }
 
 
-    .name-arabic{
+    .main-name-card{
+
+        padding:13px 13px 16px;
+
+        border-radius:19px;
+
+    }
+
+
+    .names-audio-player{
+
+        margin-bottom:15px;
+
+    }
+
+
+    .detail-arabic{
+
+        font-size:32px;
+
+    }
+
+
+    .detail-english{
+
+        font-size:18px;
+
+        margin-bottom:15px;
+
+    }
+
+
+    .detail-urdu{
 
         font-size:17px;
 
     }
 
 
-    .name-english{
+    .info-content strong{
 
-        font-size:12px;
+        font-size:13px;
 
     }
 
 
-    .name-action-btn{
+    .bottom-nav{
 
-        width:30px;
-
-        height:30px;
+        height:55px;
 
     }
 
 }
 
 
+
 /* ======================================
-   DARK THEME
+   DARK MODE
 ====================================== */
 
 body.dark-mode{
@@ -1135,16 +995,26 @@ body.dark-mode .names-page{
 
 
 body.dark-mode .names-header,
-body.dark-mode .search-box,
-body.dark-mode .filter-btn,
-body.dark-mode .names-audio-player,
-body.dark-mode .counter-info,
-body.dark-mode .name-card,
+
+body.dark-mode .main-name-card,
+
+body.dark-mode .name-nav-btn,
+
 body.dark-mode .bottom-nav{
 
     background:#1e1e1e;
 
     border-color:#2d2d2d;
+
+}
+
+
+body.dark-mode .names-audio-player{
+
+    background:#172b3d;
+
+    border-color:#2d4052;
+
 }
 
 
@@ -1155,37 +1025,60 @@ body.dark-mode .header-title h1{
 }
 
 
-body.dark-mode .header-title p,
-body.dark-mode .audio-text span,
-body.dark-mode .counter-info span{
+body.dark-mode .header-title p{
 
     color:#aaa;
 
 }
 
 
-body.dark-mode .search-box input{
+body.dark-mode .header-btn{
 
-    color:#ffffff;
-
-}
-
-
-body.dark-mode .name-english{
-
-    color:#ffffff;
-
-}
-
-
-body.dark-mode .name-arabic{
+    background:#292929;
 
     color:#64b5f6;
 
 }
 
 
-body.dark-mode .name-number{
+body.dark-mode .detail-arabic{
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .detail-english{
+
+    color:#ffffff;
+
+}
+
+
+body.dark-mode .meaning-section{
+
+    background:#172b3d;
+
+}
+
+
+body.dark-mode .detail-urdu{
+
+    color:#eeeeee;
+
+}
+
+
+body.dark-mode .info-box{
+
+    background:#1e1e1e;
+
+    border-color:#333;
+
+}
+
+
+body.dark-mode .info-icon{
 
     background:#263b4d;
 
@@ -1194,11 +1087,36 @@ body.dark-mode .name-number{
 }
 
 
-body.dark-mode .name-action-btn{
+body.dark-mode .info-content span{
+
+    color:#aaa;
+
+}
+
+
+body.dark-mode .info-content strong{
+
+    color:#eeeeee;
+
+}
+
+
+body.dark-mode .favorite-btn{
 
     background:#292929;
 
+    border-color:#3a3a3a;
+
     color:#aaa;
+
+}
+
+
+body.dark-mode .favorite-btn.favorite-active{
+
+    background:#3a2023;
+
+    color:#ef5350;
 
 }
 
@@ -1212,17 +1130,48 @@ body.dark-mode .audio-icon{
 }
 
 
-body.dark-mode .now-playing{
+body.dark-mode .audio-text span{
 
-    background:#172b3d;
+    color:#aaa;
 
 }
 
 
-body.dark-mode .playing-label,
-body.dark-mode #playingName{
+body.dark-mode .audio-text strong{
+
+    color:#ffffff;
+
+}
+
+
+body.dark-mode .name-page-counter{
+
+    color:#aaa;
+
+}
+
+
+body.dark-mode #currentNameNumber{
 
     color:#64b5f6;
+
+}
+
+
+body.dark-mode .name-nav-btn{
+
+    color:#64b5f6;
+
+}
+
+
+body.dark-mode .name-nav-btn.next-btn{
+
+    background:#1565c0;
+
+    color:#ffffff;
+
+    border-color:#1565c0;
 
 }
 
@@ -1239,6 +1188,7 @@ body.dark-mode .bottom-nav a.active{
     color:#64b5f6;
 
 }
+
 
 
 /* ======================================

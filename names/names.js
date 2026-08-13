@@ -1,12 +1,13 @@
 // ======================================
 // MY PRAYER - 99 NAMES OF ALLAH
-// COMPLETE JAVASCRIPT
+// DETAIL PAGE SYSTEM
+// AUDIO TOP + NAVIGATION INSIDE CARD
 // ======================================
 
 
+
 // ======================================
-// 99 NAMES OF ALLAH
-// ARABIC + ENGLISH + URDU + AUDIO
+// 99 NAMES
 // ======================================
 
 const namesOfAllah = [
@@ -16,7 +17,8 @@ const namesOfAllah = [
         arabic: "الرَّحْمَنُ",
         english: "Ar-Rahman",
         urdu: "نہایت رحم کرنے والا",
-        audio: "audio/name-01.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -24,7 +26,8 @@ const namesOfAllah = [
         arabic: "الرَّحِيمُ",
         english: "Ar-Raheem",
         urdu: "بہت رحم کرنے والا",
-        audio: "audio/name-02.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -32,7 +35,8 @@ const namesOfAllah = [
         arabic: "الْمَلِكُ",
         english: "Al-Malik",
         urdu: "بادشاہ",
-        audio: "audio/name-03.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -40,7 +44,8 @@ const namesOfAllah = [
         arabic: "الْقُدُّوسُ",
         english: "Al-Quddus",
         urdu: "نہایت پاک",
-        audio: "audio/name-04.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -48,7 +53,8 @@ const namesOfAllah = [
         arabic: "السَّلَامُ",
         english: "As-Salam",
         urdu: "سلامتی دینے والا",
-        audio: "audio/name-05.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -56,7 +62,8 @@ const namesOfAllah = [
         arabic: "الْمُؤْمِنُ",
         english: "Al-Mu'min",
         urdu: "امن دینے والا",
-        audio: "audio/name-06.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -64,7 +71,8 @@ const namesOfAllah = [
         arabic: "الْمُهَيْمِنُ",
         english: "Al-Muhaymin",
         urdu: "نگہبان",
-        audio: "audio/name-07.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -72,7 +80,8 @@ const namesOfAllah = [
         arabic: "الْعَزِيزُ",
         english: "Al-Aziz",
         urdu: "زبردست، غالب",
-        audio: "audio/name-08.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -80,7 +89,8 @@ const namesOfAllah = [
         arabic: "الْجَبَّارُ",
         english: "Al-Jabbar",
         urdu: "زبردست اقتدار والا",
-        audio: "audio/name-09.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -88,7 +98,8 @@ const namesOfAllah = [
         arabic: "الْمُتَكَبِّرُ",
         english: "Al-Mutakabbir",
         urdu: "بڑائی والا",
-        audio: "audio/name-10.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -96,7 +107,8 @@ const namesOfAllah = [
         arabic: "الْخَالِقُ",
         english: "Al-Khaliq",
         urdu: "پیدا کرنے والا",
-        audio: "audio/name-11.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -104,7 +116,8 @@ const namesOfAllah = [
         arabic: "الْبَارِئُ",
         english: "Al-Bari",
         urdu: "وجود میں لانے والا",
-        audio: "audio/name-12.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -112,7 +125,8 @@ const namesOfAllah = [
         arabic: "الْمُصَوِّرُ",
         english: "Al-Musawwir",
         urdu: "صورت بنانے والا",
-        audio: "audio/name-13.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -120,7 +134,8 @@ const namesOfAllah = [
         arabic: "الْغَفَّارُ",
         english: "Al-Ghaffar",
         urdu: "بہت بخشنے والا",
-        audio: "audio/name-14.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -128,7 +143,8 @@ const namesOfAllah = [
         arabic: "الْقَهَّارُ",
         english: "Al-Qahhar",
         urdu: "سب پر غالب",
-        audio: "audio/name-15.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -136,7 +152,8 @@ const namesOfAllah = [
         arabic: "الْوَهَّابُ",
         english: "Al-Wahhab",
         urdu: "بہت عطا کرنے والا",
-        audio: "audio/name-16.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -144,7 +161,8 @@ const namesOfAllah = [
         arabic: "الرَّزَّاقُ",
         english: "Ar-Razzaq",
         urdu: "رزق دینے والا",
-        audio: "audio/name-17.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -152,7 +170,8 @@ const namesOfAllah = [
         arabic: "الْفَتَّاحُ",
         english: "Al-Fattah",
         urdu: "فتح دینے والا",
-        audio: "audio/name-18.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -160,7 +179,8 @@ const namesOfAllah = [
         arabic: "الْعَلِيمُ",
         english: "Al-Alim",
         urdu: "سب کچھ جاننے والا",
-        audio: "audio/name-19.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -168,7 +188,8 @@ const namesOfAllah = [
         arabic: "الْقَابِضُ",
         english: "Al-Qabid",
         urdu: "قبض کرنے والا",
-        audio: "audio/name-20.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -176,7 +197,8 @@ const namesOfAllah = [
         arabic: "الْبَاسِطُ",
         english: "Al-Basit",
         urdu: "کشادگی دینے والا",
-        audio: "audio/name-21.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -184,7 +206,8 @@ const namesOfAllah = [
         arabic: "الْخَافِضُ",
         english: "Al-Khafid",
         urdu: "پست کرنے والا",
-        audio: "audio/name-22.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -192,7 +215,8 @@ const namesOfAllah = [
         arabic: "الرَّافِعُ",
         english: "Ar-Rafi",
         urdu: "بلند کرنے والا",
-        audio: "audio/name-23.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -200,7 +224,8 @@ const namesOfAllah = [
         arabic: "الْمُعِزُّ",
         english: "Al-Mu'izz",
         urdu: "عزت دینے والا",
-        audio: "audio/name-24.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -208,7 +233,8 @@ const namesOfAllah = [
         arabic: "الْمُذِلُّ",
         english: "Al-Mudhill",
         urdu: "ذلت دینے والا",
-        audio: "audio/name-25.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -216,7 +242,8 @@ const namesOfAllah = [
         arabic: "السَّمِيعُ",
         english: "As-Sami",
         urdu: "سب کچھ سننے والا",
-        audio: "audio/name-26.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -224,7 +251,8 @@ const namesOfAllah = [
         arabic: "الْبَصِيرُ",
         english: "Al-Basir",
         urdu: "سب کچھ دیکھنے والا",
-        audio: "audio/name-27.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -232,7 +260,8 @@ const namesOfAllah = [
         arabic: "الْحَكَمُ",
         english: "Al-Hakam",
         urdu: "فیصلہ کرنے والا",
-        audio: "audio/name-28.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -240,7 +269,8 @@ const namesOfAllah = [
         arabic: "الْعَدْلُ",
         english: "Al-Adl",
         urdu: "نہایت انصاف کرنے والا",
-        audio: "audio/name-29.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -248,7 +278,8 @@ const namesOfAllah = [
         arabic: "اللَّطِيفُ",
         english: "Al-Latif",
         urdu: "نہایت مہربان، باریک بین",
-        audio: "audio/name-30.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -256,7 +287,8 @@ const namesOfAllah = [
         arabic: "الْخَبِيرُ",
         english: "Al-Khabir",
         urdu: "باخبر",
-        audio: "audio/name-31.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -264,7 +296,8 @@ const namesOfAllah = [
         arabic: "الْحَلِيمُ",
         english: "Al-Halim",
         urdu: "بہت بردبار",
-        audio: "audio/name-32.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -272,7 +305,8 @@ const namesOfAllah = [
         arabic: "الْعَظِيمُ",
         english: "Al-Azim",
         urdu: "بہت عظمت والا",
-        audio: "audio/name-33.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -280,7 +314,8 @@ const namesOfAllah = [
         arabic: "الْغَفُورُ",
         english: "Al-Ghafur",
         urdu: "بہت بخشنے والا",
-        audio: "audio/name-34.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -288,7 +323,8 @@ const namesOfAllah = [
         arabic: "الشَّكُورُ",
         english: "Ash-Shakur",
         urdu: "قدر دان",
-        audio: "audio/name-35.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -296,7 +332,8 @@ const namesOfAllah = [
         arabic: "الْعَلِيُّ",
         english: "Al-Ali",
         urdu: "سب سے بلند",
-        audio: "audio/name-36.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -304,7 +341,8 @@ const namesOfAllah = [
         arabic: "الْكَبِيرُ",
         english: "Al-Kabir",
         urdu: "بہت بڑا",
-        audio: "audio/name-37.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -312,7 +350,8 @@ const namesOfAllah = [
         arabic: "الْحَفِيظُ",
         english: "Al-Hafiz",
         urdu: "حفاظت کرنے والا",
-        audio: "audio/name-38.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -320,7 +359,8 @@ const namesOfAllah = [
         arabic: "الْمُقِيتُ",
         english: "Al-Muqit",
         urdu: "روزی اور قوت دینے والا",
-        audio: "audio/name-39.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -328,7 +368,8 @@ const namesOfAllah = [
         arabic: "الْحسِيبُ",
         english: "Al-Hasib",
         urdu: "حساب لینے والا",
-        audio: "audio/name-40.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -336,7 +377,8 @@ const namesOfAllah = [
         arabic: "الْجَلِيلُ",
         english: "Al-Jalil",
         urdu: "بزرگی والا",
-        audio: "audio/name-41.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -344,7 +386,8 @@ const namesOfAllah = [
         arabic: "الْكَرِيمُ",
         english: "Al-Karim",
         urdu: "نہایت سخی",
-        audio: "audio/name-42.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -352,7 +395,8 @@ const namesOfAllah = [
         arabic: "الرَّقِيبُ",
         english: "Ar-Raqib",
         urdu: "نگرانی کرنے والا",
-        audio: "audio/name-43.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -360,7 +404,8 @@ const namesOfAllah = [
         arabic: "الْمُجِيبُ",
         english: "Al-Mujib",
         urdu: "دعا قبول کرنے والا",
-        audio: "audio/name-44.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -368,7 +413,8 @@ const namesOfAllah = [
         arabic: "الْوَاسِعُ",
         english: "Al-Wasi",
         urdu: "کشادگی والا",
-        audio: "audio/name-45.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -376,7 +422,8 @@ const namesOfAllah = [
         arabic: "الْحَكِيمُ",
         english: "Al-Hakim",
         urdu: "حکمت والا",
-        audio: "audio/name-46.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -384,7 +431,8 @@ const namesOfAllah = [
         arabic: "الْوَدُودُ",
         english: "Al-Wadud",
         urdu: "محبت کرنے والا",
-        audio: "audio/name-47.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -392,7 +440,8 @@ const namesOfAllah = [
         arabic: "الْمَجِيدُ",
         english: "Al-Majid",
         urdu: "بزرگ و برتر",
-        audio: "audio/name-48.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -400,7 +449,8 @@ const namesOfAllah = [
         arabic: "الْبَاعِثُ",
         english: "Al-Ba'ith",
         urdu: "اٹھانے والا",
-        audio: "audio/name-49.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -408,7 +458,8 @@ const namesOfAllah = [
         arabic: "الشَّهِيدُ",
         english: "Ash-Shahid",
         urdu: "گواہ",
-        audio: "audio/name-50.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -416,7 +467,8 @@ const namesOfAllah = [
         arabic: "الْحَقُّ",
         english: "Al-Haqq",
         urdu: "حق",
-        audio: "audio/name-51.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -424,7 +476,8 @@ const namesOfAllah = [
         arabic: "الْوَكِيلُ",
         english: "Al-Wakil",
         urdu: "کارساز",
-        audio: "audio/name-52.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -432,7 +485,8 @@ const namesOfAllah = [
         arabic: "الْقَوِيُّ",
         english: "Al-Qawiyy",
         urdu: "بہت طاقتور",
-        audio: "audio/name-53.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -440,7 +494,8 @@ const namesOfAllah = [
         arabic: "الْمَتِينُ",
         english: "Al-Matin",
         urdu: "مضبوط",
-        audio: "audio/name-54.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -448,7 +503,8 @@ const namesOfAllah = [
         arabic: "الْوَلِيُّ",
         english: "Al-Wali",
         urdu: "مددگار",
-        audio: "audio/name-55.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -456,7 +512,8 @@ const namesOfAllah = [
         arabic: "الْحَمِيدُ",
         english: "Al-Hamid",
         urdu: "قابل حمد",
-        audio: "audio/name-56.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -464,7 +521,8 @@ const namesOfAllah = [
         arabic: "الْمُحْصِي",
         english: "Al-Muhsi",
         urdu: "شمار کرنے والا",
-        audio: "audio/name-57.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -472,7 +530,8 @@ const namesOfAllah = [
         arabic: "الْمُبْدِئُ",
         english: "Al-Mubdi",
         urdu: "پہلی بار پیدا کرنے والا",
-        audio: "audio/name-58.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -480,7 +539,8 @@ const namesOfAllah = [
         arabic: "الْمُعِيدُ",
         english: "Al-Muid",
         urdu: "دوبارہ پیدا کرنے والا",
-        audio: "audio/name-59.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -488,7 +548,8 @@ const namesOfAllah = [
         arabic: "الْمُحْيِي",
         english: "Al-Muhyi",
         urdu: "زندگی دینے والا",
-        audio: "audio/name-60.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -496,7 +557,8 @@ const namesOfAllah = [
         arabic: "الْمُمِيتُ",
         english: "Al-Mumit",
         urdu: "موت دینے والا",
-        audio: "audio/name-61.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -504,7 +566,8 @@ const namesOfAllah = [
         arabic: "الْحَيُّ",
         english: "Al-Hayy",
         urdu: "ہمیشہ زندہ",
-        audio: "audio/name-62.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -512,7 +575,8 @@ const namesOfAllah = [
         arabic: "الْقَيُّومُ",
         english: "Al-Qayyum",
         urdu: "سب کو قائم رکھنے والا",
-        audio: "audio/name-63.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -520,7 +584,8 @@ const namesOfAllah = [
         arabic: "الْوَاجِدُ",
         english: "Al-Wajid",
         urdu: "پانے والا",
-        audio: "audio/name-64.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -528,7 +593,8 @@ const namesOfAllah = [
         arabic: "الْمَاجِدُ",
         english: "Al-Majid",
         urdu: "بزرگ و کریم",
-        audio: "audio/name-65.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -536,7 +602,8 @@ const namesOfAllah = [
         arabic: "الْوَاحِدُ",
         english: "Al-Wahid",
         urdu: "ایک",
-        audio: "audio/name-66.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -544,7 +611,8 @@ const namesOfAllah = [
         arabic: "الْأَحَدُ",
         english: "Al-Ahad",
         urdu: "یکتا",
-        audio: "audio/name-67.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -552,7 +620,8 @@ const namesOfAllah = [
         arabic: "الصَّمَدُ",
         english: "As-Samad",
         urdu: "بے نیاز",
-        audio: "audio/name-68.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -560,7 +629,8 @@ const namesOfAllah = [
         arabic: "الْقَادِرُ",
         english: "Al-Qadir",
         urdu: "قدرت والا",
-        audio: "audio/name-69.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -568,7 +638,8 @@ const namesOfAllah = [
         arabic: "الْمُقْتَدِرُ",
         english: "Al-Muqtadir",
         urdu: "مکمل قدرت والا",
-        audio: "audio/name-70.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -576,7 +647,8 @@ const namesOfAllah = [
         arabic: "الْمُقَدِّمُ",
         english: "Al-Muqaddim",
         urdu: "آگے کرنے والا",
-        audio: "audio/name-71.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -584,7 +656,8 @@ const namesOfAllah = [
         arabic: "الْمُؤَخِّرُ",
         english: "Al-Mu'akhkhir",
         urdu: "پیچھے کرنے والا",
-        audio: "audio/name-72.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -592,7 +665,8 @@ const namesOfAllah = [
         arabic: "الْأَوَّلُ",
         english: "Al-Awwal",
         urdu: "سب سے پہلا",
-        audio: "audio/name-73.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -600,7 +674,8 @@ const namesOfAllah = [
         arabic: "الْآخِرُ",
         english: "Al-Akhir",
         urdu: "سب سے آخر",
-        audio: "audio/name-74.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -608,7 +683,8 @@ const namesOfAllah = [
         arabic: "الظَّاهِرُ",
         english: "Az-Zahir",
         urdu: "ظاہر",
-        audio: "audio/name-75.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -616,7 +692,8 @@ const namesOfAllah = [
         arabic: "الْبَاطِنُ",
         english: "Al-Batin",
         urdu: "پوشیدہ",
-        audio: "audio/name-76.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -624,7 +701,8 @@ const namesOfAllah = [
         arabic: "الْوَالِي",
         english: "Al-Wali",
         urdu: "حاکم",
-        audio: "audio/name-77.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -632,7 +710,8 @@ const namesOfAllah = [
         arabic: "الْمُتَعَالِي",
         english: "Al-Muta'ali",
         urdu: "بہت بلند",
-        audio: "audio/name-78.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -640,7 +719,8 @@ const namesOfAllah = [
         arabic: "الْبَرُّ",
         english: "Al-Barr",
         urdu: "نیکی اور احسان کرنے والا",
-        audio: "audio/name-79.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -648,7 +728,8 @@ const namesOfAllah = [
         arabic: "التَّوَابُ",
         english: "At-Tawwab",
         urdu: "توبہ قبول کرنے والا",
-        audio: "audio/name-80.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -656,7 +737,8 @@ const namesOfAllah = [
         arabic: "الْمُنْتَقِمُ",
         english: "Al-Muntaqim",
         urdu: "بدلہ لینے والا",
-        audio: "audio/name-81.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -664,7 +746,8 @@ const namesOfAllah = [
         arabic: "الْعَفُوُّ",
         english: "Al-Afuww",
         urdu: "معاف کرنے والا",
-        audio: "audio/name-82.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -672,7 +755,8 @@ const namesOfAllah = [
         arabic: "الرَّؤُوفُ",
         english: "Ar-Ra'uf",
         urdu: "نہایت شفقت کرنے والا",
-        audio: "audio/name-83.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -680,7 +764,8 @@ const namesOfAllah = [
         arabic: "مَالِكُ الْمُلْكِ",
         english: "Malik-ul-Mulk",
         urdu: "بادشاہی کا مالک",
-        audio: "audio/name-84.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -688,7 +773,8 @@ const namesOfAllah = [
         arabic: "ذُو الْجَلَالِ وَالْإِكْرَامِ",
         english: "Dhul-Jalali wal-Ikram",
         urdu: "جلال اور اکرام والا",
-        audio: "audio/name-85.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -696,7 +782,8 @@ const namesOfAllah = [
         arabic: "الْمُقْسِطُ",
         english: "Al-Muqsit",
         urdu: "انصاف قائم کرنے والا",
-        audio: "audio/name-86.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -704,7 +791,8 @@ const namesOfAllah = [
         arabic: "الْجَامِعُ",
         english: "Al-Jami",
         urdu: "جمع کرنے والا",
-        audio: "audio/name-87.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -712,7 +800,8 @@ const namesOfAllah = [
         arabic: "الْغَنِيُّ",
         english: "Al-Ghani",
         urdu: "بے نیاز",
-        audio: "audio/name-88.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -720,7 +809,8 @@ const namesOfAllah = [
         arabic: "الْمُغْنِي",
         english: "Al-Mughni",
         urdu: "غنی کرنے والا",
-        audio: "audio/name-89.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -728,7 +818,8 @@ const namesOfAllah = [
         arabic: "الْمَانِعُ",
         english: "Al-Mani",
         urdu: "روکنے والا",
-        audio: "audio/name-90.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -736,7 +827,8 @@ const namesOfAllah = [
         arabic: "الضَّارُّ",
         english: "Ad-Darr",
         urdu: "نقصان پہنچانے پر قادر",
-        audio: "audio/name-91.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -744,7 +836,8 @@ const namesOfAllah = [
         arabic: "النَّافِعُ",
         english: "An-Nafi",
         urdu: "نفع پہنچانے والا",
-        audio: "audio/name-92.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -752,7 +845,8 @@ const namesOfAllah = [
         arabic: "النُّورُ",
         english: "An-Nur",
         urdu: "نور",
-        audio: "audio/name-93.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -760,7 +854,8 @@ const namesOfAllah = [
         arabic: "الْهَادِي",
         english: "Al-Hadi",
         urdu: "ہدایت دینے والا",
-        audio: "audio/name-94.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -768,7 +863,8 @@ const namesOfAllah = [
         arabic: "الْبَدِيعُ",
         english: "Al-Badi",
         urdu: "بے مثال پیدا کرنے والا",
-        audio: "audio/name-95.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -776,7 +872,8 @@ const namesOfAllah = [
         arabic: "الْبَاقِي",
         english: "Al-Baqi",
         urdu: "ہمیشہ باقی رہنے والا",
-        audio: "audio/name-96.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -784,7 +881,8 @@ const namesOfAllah = [
         arabic: "الْوَارِثُ",
         english: "Al-Warith",
         urdu: "وارث",
-        audio: "audio/name-97.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -792,7 +890,8 @@ const namesOfAllah = [
         arabic: "الرَّشِيدُ",
         english: "Ar-Rashid",
         urdu: "درست راہ دکھانے والا",
-        audio: "audio/name-98.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     },
 
     {
@@ -800,248 +899,309 @@ const namesOfAllah = [
         arabic: "الصَّبُورُ",
         english: "As-Sabur",
         urdu: "بہت صبر کرنے والا",
-        audio: "audio/name-99.mp3"
+        when: "مخصوص وقت مقرر نہیں",
+        count: "مخصوص تعداد مقرر نہیں"
     }
 
 ];
+
 
 
 // ======================================
 // ELEMENTS
 // ======================================
 
-const namesList =
-document.getElementById("namesList");
+const currentNameNumber =
+    document.getElementById("currentNameNumber");
 
-const nameSearch =
-document.getElementById("nameSearch");
+const detailArabic =
+    document.getElementById("detailArabic");
 
-const clearSearchBtn =
-document.getElementById("clearSearchBtn");
+const detailEnglish =
+    document.getElementById("detailEnglish");
 
-const allNamesBtn =
-document.getElementById("allNamesBtn");
+const detailUrdu =
+    document.getElementById("detailUrdu");
 
-const favoriteNamesBtn =
-document.getElementById("favoriteNamesBtn");
+const detailWhen =
+    document.getElementById("detailWhen");
 
-const favoriteCount =
-document.getElementById("favoriteCount");
+const detailCount =
+    document.getElementById("detailCount");
 
-const visibleNamesCount =
-document.getElementById("visibleNamesCount");
+const favoriteNameBtn =
+    document.getElementById("favoriteNameBtn");
 
-const noNamesFound =
-document.getElementById("noNamesFound");
+const previousNameBtn =
+    document.getElementById("previousNameBtn");
 
-const namesHomeBtn =
-document.getElementById("namesHomeBtn");
-
-const namesSettingsBtn =
-document.getElementById("namesSettingsBtn");
+const nextNameBtn =
+    document.getElementById("nextNameBtn");
 
 const mainAudioBtn =
-document.getElementById("mainAudioBtn");
-
-const previousAudioBtn =
-document.getElementById("previousAudioBtn");
-
-const nextAudioBtn =
-document.getElementById("nextAudioBtn");
+    document.getElementById("mainAudioBtn");
 
 const nameAudio =
-document.getElementById("nameAudio");
-
-const playingName =
-document.getElementById("playingName");
+    document.getElementById("nameAudio");
 
 const audioProgressBar =
-document.getElementById("audioProgressBar");
+    document.getElementById("audioProgressBar");
+
+const namesHomeBtn =
+    document.getElementById("namesHomeBtn");
+
+const namesSettingsBtn =
+    document.getElementById("namesSettingsBtn");
+
 
 
 // ======================================
 // VARIABLES
 // ======================================
 
+let currentIndex = 0;
+
+
 let favoriteNames =
-JSON.parse(
-    localStorage.getItem("favoriteNames") || "[]"
-);
+    JSON.parse(
+        localStorage.getItem("favoriteNames") || "[]"
+    );
 
-let currentList =
-[...namesOfAllah];
-
-let currentAudioIndex =
--1;
-
-let showingFavorites =
-false;
 
 
 // ======================================
-// DISPLAY NAMES
+// GET READING INFO
 // ======================================
 
-function displayNames(list){
+function getReadingInfo(name){
 
-    namesList.innerHTML = "";
+    return {
 
-    visibleNamesCount.textContent =
-        list.length;
+        when:
+            name.when ||
+            "مخصوص وقت مقرر نہیں",
+
+        count:
+            name.count ||
+            "مخصوص تعداد مقرر نہیں"
+
+    };
+
+}
 
 
-    if(list.length === 0){
 
-        noNamesFound.style.display =
-            "block";
+// ======================================
+// SHOW NAME
+// ======================================
 
-        return;
+function showName(index){
+
+    if(index < 0){
+
+        index = 0;
 
     }
 
 
-    noNamesFound.style.display =
-        "none";
+    if(index >= namesOfAllah.length){
+
+        index =
+            namesOfAllah.length - 1;
+
+    }
 
 
-    list.forEach(function(name){
-
-        const card =
-            document.createElement("div");
+    currentIndex = index;
 
 
-        card.className =
-            "name-card";
+    const name =
+        namesOfAllah[currentIndex];
 
 
-        card.dataset.number =
-            name.number;
+    const readingInfo =
+        getReadingInfo(name);
 
 
-        const isFavorite =
-            favoriteNames.includes(
-                name.number
+
+    // ==================================
+    // UPDATE CONTENT
+    // ==================================
+
+    currentNameNumber.textContent =
+        String(name.number).padStart(2, "0");
+
+
+    detailArabic.textContent =
+        name.arabic;
+
+
+    detailEnglish.textContent =
+        name.english;
+
+
+    detailUrdu.textContent =
+        name.urdu;
+
+
+    detailWhen.textContent =
+        readingInfo.when;
+
+
+    detailCount.textContent =
+        readingInfo.count;
+
+
+
+    // ==================================
+    // UPDATE FAVORITE
+    // ==================================
+
+    updateFavoriteButton();
+
+
+
+    // ==================================
+    // UPDATE NAVIGATION
+    // ==================================
+
+    updateNavigation();
+
+
+
+    // ==================================
+    // RESET AUDIO FOR NEW NAME
+    // ==================================
+
+    resetAudio();
+
+
+    // IMPORTANT:
+    // No window.scrollTo()
+    // Screen will stay at current position.
+
+}
+
+
+
+// ======================================
+// NEXT NAME
+// ======================================
+
+nextNameBtn.addEventListener(
+    "click",
+    function(){
+
+        if(
+            currentIndex <
+            namesOfAllah.length - 1
+        ){
+
+            showName(
+                currentIndex + 1
             );
 
+        }
 
-        card.innerHTML = `
-
-            <div class="name-number">
-
-                ${String(name.number).padStart(2,"0")}
-
-            </div>
+    }
+);
 
 
-            <div class="name-content">
 
-                <span class="name-english">
+// ======================================
+// PREVIOUS NAME
+// ======================================
 
-                    ${name.english}
+previousNameBtn.addEventListener(
+    "click",
+    function(){
 
-                </span>
+        if(currentIndex > 0){
 
+            showName(
+                currentIndex - 1
+            );
 
-                <span class="name-arabic">
+        }
 
-                    ${name.arabic}
-
-                </span>
-
-            </div>
-
-
-            <div class="name-actions">
-
-                <button
-                type="button"
-                class="name-action-btn favorite-name-btn"
-                data-number="${name.number}">
-
-                    <i
-                    class="fa-solid fa-heart"
-                    style="color:${isFavorite ? "#e53935" : "inherit"}">
-                    </i>
-
-                </button>
+    }
+);
 
 
-                <button
-                type="button"
-                class="name-action-btn play-name-btn"
-                data-number="${name.number}">
 
-                    <i class="fa-solid fa-volume-high"></i>
+// ======================================
+// UPDATE NAVIGATION
+// ======================================
 
-                </button>
+function updateNavigation(){
 
-            </div>
-
-        `;
+    previousNameBtn.disabled =
+        currentIndex === 0;
 
 
-        namesList.appendChild(card);
-
-    });
-
-
-    updateFavoriteCount();
+    nextNameBtn.disabled =
+        currentIndex ===
+        namesOfAllah.length - 1;
 
 }
 
-
-// ======================================
-// FAVORITE COUNT
-// ======================================
-
-function updateFavoriteCount(){
-
-    favoriteCount.textContent =
-        favoriteNames.length;
-
-}
-
-
-// ======================================
-// SAVE FAVORITES
-// ======================================
-
-function saveFavorites(){
-
-    localStorage.setItem(
-        "favoriteNames",
-        JSON.stringify(favoriteNames)
-    );
-
-}
 
 
 // ======================================
 // FAVORITE BUTTON
 // ======================================
 
-namesList.addEventListener(
+function updateFavoriteButton(){
+
+    const number =
+        namesOfAllah[currentIndex].number;
+
+
+    const isFavorite =
+        favoriteNames.includes(number);
+
+
+    if(isFavorite){
+
+        favoriteNameBtn.innerHTML =
+
+            '<i class="fa-solid fa-heart"></i>' +
+            ' Favorite';
+
+
+        favoriteNameBtn.classList.add(
+            "favorite-active"
+        );
+
+    }
+    else{
+
+        favoriteNameBtn.innerHTML =
+
+            '<i class="fa-regular fa-heart"></i>' +
+            ' Favorite';
+
+
+        favoriteNameBtn.classList.remove(
+            "favorite-active"
+        );
+
+    }
+
+}
+
+
+
+// ======================================
+// FAVORITE CLICK
+// ======================================
+
+favoriteNameBtn.addEventListener(
     "click",
-    function(event){
-
-        const button =
-            event.target.closest(
-                ".favorite-name-btn"
-            );
-
-
-        if(!button){
-
-            return;
-
-        }
-
-
-        event.stopPropagation();
-
+    function(){
 
         const number =
-            Number(button.dataset.number);
+            namesOfAllah[currentIndex].number;
 
 
         if(
@@ -1065,174 +1225,38 @@ namesList.addEventListener(
         }
 
 
-        saveFavorites();
+        localStorage.setItem(
+            "favoriteNames",
+            JSON.stringify(favoriteNames)
+        );
 
-        applyCurrentFilter();
+
+        updateFavoriteButton();
 
     }
 );
 
 
-// ======================================
-// PLAY INDIVIDUAL NAME
-// ======================================
-
-namesList.addEventListener(
-    "click",
-    function(event){
-
-        const button =
-            event.target.closest(
-                ".play-name-btn"
-            );
-
-
-        if(!button){
-
-            return;
-
-        }
-
-
-        event.stopPropagation();
-
-
-        const number =
-            Number(button.dataset.number);
-
-
-        const index =
-            namesOfAllah.findIndex(
-                function(name){
-
-                    return name.number === number;
-
-                }
-            );
-
-
-        if(index === -1){
-
-            return;
-
-        }
-
-
-        playNameAudio(index);
-
-    }
-);
-
 
 // ======================================
-// PLAY AUDIO
-// ======================================
-
-function playNameAudio(index){
-
-    const name =
-        namesOfAllah[index];
-
-
-    if(!name){
-
-        return;
-
-    }
-
-
-    currentAudioIndex =
-        index;
-
-
-    nameAudio.src =
-        name.audio;
-
-
-    nameAudio.play()
-    .then(function(){
-
-        updatePlayingName(name);
-
-    })
-    .catch(function(error){
-
-        console.log(
-            "Audio error:",
-            error
-        );
-
-    });
-
-}
-
-
-// ======================================
-// UPDATE PLAYING NAME
-// ======================================
-
-function updatePlayingName(name){
-
-    playingName.textContent =
-        name.english;
-
-
-    document
-    .querySelectorAll(".name-card")
-    .forEach(function(card){
-
-        card.classList.remove(
-            "playing-name"
-        );
-
-    });
-
-
-    const activeCard =
-        document.querySelector(
-            '.name-card[data-number="' +
-            name.number +
-            '"]'
-        );
-
-
-    if(activeCard){
-
-        activeCard.classList.add(
-            "playing-name"
-        );
-
-
-        activeCard.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }
-
-}
-
-
-// ======================================
-// MAIN AUDIO BUTTON
+// AUDIO PLAY / PAUSE
 // ======================================
 
 mainAudioBtn.addEventListener(
     "click",
     function(){
 
-        if(!nameAudio.src){
-
-            playNameAudio(0);
-
-            return;
-
-        }
-
-
         if(nameAudio.paused){
 
-            nameAudio.play();
+            nameAudio.play()
+            .catch(function(error){
+
+                console.log(
+                    "Audio error:",
+                    error
+                );
+
+            });
 
         }
         else{
@@ -1243,6 +1267,7 @@ mainAudioBtn.addEventListener(
 
     }
 );
+
 
 
 // ======================================
@@ -1260,6 +1285,7 @@ nameAudio.addEventListener(
 );
 
 
+
 // ======================================
 // AUDIO PAUSE
 // ======================================
@@ -1275,6 +1301,7 @@ nameAudio.addEventListener(
 );
 
 
+
 // ======================================
 // AUDIO PROGRESS
 // ======================================
@@ -1283,7 +1310,10 @@ nameAudio.addEventListener(
     "timeupdate",
     function(){
 
-        if(!nameAudio.duration){
+        if(
+            !nameAudio.duration ||
+            !isFinite(nameAudio.duration)
+        ){
 
             return;
 
@@ -1291,6 +1321,7 @@ nameAudio.addEventListener(
 
 
         const percent =
+
             (
                 nameAudio.currentTime /
                 nameAudio.duration
@@ -1304,6 +1335,7 @@ nameAudio.addEventListener(
 );
 
 
+
 // ======================================
 // AUDIO ENDED
 // ======================================
@@ -1312,248 +1344,39 @@ nameAudio.addEventListener(
     "ended",
     function(){
 
-        if(
-            currentAudioIndex <
-            namesOfAllah.length - 1
-        ){
+        audioProgressBar.style.width =
+            "0%";
 
-            playNameAudio(
-                currentAudioIndex + 1
-            );
 
-        }
-        else{
-
-            currentAudioIndex = -1;
-
-            playingName.textContent =
-                "99 Names of Allah";
-
-        }
+        mainAudioBtn.innerHTML =
+            '<i class="fa-solid fa-play"></i>';
 
     }
 );
 
 
-// ======================================
-// PREVIOUS AUDIO
-// ======================================
-
-previousAudioBtn.addEventListener(
-    "click",
-    function(){
-
-        if(currentAudioIndex <= 0){
-
-            playNameAudio(0);
-
-            return;
-
-        }
-
-
-        playNameAudio(
-            currentAudioIndex - 1
-        );
-
-    }
-);
-
 
 // ======================================
-// NEXT AUDIO
+// RESET AUDIO
 // ======================================
 
-nextAudioBtn.addEventListener(
-    "click",
-    function(){
+function resetAudio(){
 
-        if(
-            currentAudioIndex <
-            namesOfAllah.length - 1
-        ){
+    nameAudio.pause();
 
-            playNameAudio(
-                currentAudioIndex + 1
-            );
 
-        }
+    nameAudio.currentTime = 0;
 
-    }
-);
 
+    audioProgressBar.style.width =
+        "0%";
 
-// ======================================
-// SEARCH
-// ======================================
 
-nameSearch.addEventListener(
-    "input",
-    function(){
-
-        applyCurrentFilter();
-
-        clearSearchBtn.style.display =
-            nameSearch.value.trim()
-            ? "block"
-            : "none";
-
-    }
-);
-
-
-// ======================================
-// CLEAR SEARCH
-// ======================================
-
-clearSearchBtn.addEventListener(
-    "click",
-    function(){
-
-        nameSearch.value = "";
-
-        clearSearchBtn.style.display =
-            "none";
-
-        applyCurrentFilter();
-
-    }
-);
-
-
-// ======================================
-// ALL NAMES
-// ======================================
-
-allNamesBtn.addEventListener(
-    "click",
-    function(){
-
-        showingFavorites =
-            false;
-
-
-        allNamesBtn.classList.add(
-            "active"
-        );
-
-
-        favoriteNamesBtn.classList.remove(
-            "active"
-        );
-
-
-        applyCurrentFilter();
-
-    }
-);
-
-
-// ======================================
-// FAVORITES FILTER
-// ======================================
-
-favoriteNamesBtn.addEventListener(
-    "click",
-    function(){
-
-        showingFavorites =
-            true;
-
-
-        favoriteNamesBtn.classList.add(
-            "active"
-        );
-
-
-        allNamesBtn.classList.remove(
-            "active"
-        );
-
-
-        applyCurrentFilter();
-
-    }
-);
-
-
-// ======================================
-// APPLY FILTER
-// ======================================
-
-function applyCurrentFilter(){
-
-    const search =
-        nameSearch.value
-        .trim()
-        .toLowerCase();
-
-
-    let list =
-        [...namesOfAllah];
-
-
-    if(search){
-
-        list =
-            list.filter(
-                function(name){
-
-                    return (
-
-                        name.english
-                        .toLowerCase()
-                        .includes(search)
-
-                        ||
-
-                        name.urdu
-                        .toLowerCase()
-                        .includes(search)
-
-                        ||
-
-                        name.arabic
-                        .includes(search)
-
-                        ||
-
-                        String(name.number)
-                        .includes(search)
-
-                    );
-
-                }
-            );
-
-    }
-
-
-    if(showingFavorites){
-
-        list =
-            list.filter(
-                function(name){
-
-                    return favoriteNames.includes(
-                        name.number
-                    );
-
-                }
-            );
-
-    }
-
-
-    currentList =
-        list;
-
-
-    displayNames(
-        currentList
-    );
+    mainAudioBtn.innerHTML =
+        '<i class="fa-solid fa-play"></i>';
 
 }
+
 
 
 // ======================================
@@ -1571,8 +1394,9 @@ namesHomeBtn.addEventListener(
 );
 
 
+
 // ======================================
-// SETTINGS BUTTON
+// SETTINGS
 // ======================================
 
 namesSettingsBtn.addEventListener(
@@ -1587,19 +1411,119 @@ namesSettingsBtn.addEventListener(
 );
 
 
+
 // ======================================
-// APP START
+// AUDIO ERROR
+// ======================================
+
+nameAudio.addEventListener(
+    "error",
+    function(){
+
+        console.log(
+            "99 Names audio file could not be loaded."
+        );
+
+    }
+);
+
+
+
+// ======================================
+// KEYBOARD NAVIGATION
+// ======================================
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "ArrowRight"){
+
+            nextNameBtn.click();
+
+        }
+
+
+        if(event.key === "ArrowLeft"){
+
+            previousNameBtn.click();
+
+        }
+
+    }
+);
+
+
+
+// ======================================
+// SWIPE NAVIGATION
+// ======================================
+
+let touchStartX = 0;
+
+
+let touchEndX = 0;
+
+
+
+document.addEventListener(
+    "touchstart",
+    function(event){
+
+        touchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    { passive:true }
+);
+
+
+
+document.addEventListener(
+    "touchend",
+    function(event){
+
+        touchEndX =
+            event.changedTouches[0].screenX;
+
+
+        const difference =
+            touchEndX - touchStartX;
+
+
+        if(Math.abs(difference) < 60){
+
+            return;
+
+        }
+
+
+        if(difference < 0){
+
+            nextNameBtn.click();
+
+        }
+        else{
+
+            previousNameBtn.click();
+
+        }
+
+    },
+    { passive:true }
+);
+
+
+
+// ======================================
+// START APP
 // ======================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        displayNames(
-            namesOfAllah
-        );
-
-        updateFavoriteCount();
+        showName(0);
 
     }
 );

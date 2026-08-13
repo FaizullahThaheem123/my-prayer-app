@@ -686,3 +686,21 @@ function goHome(){
 window.location.href="../index.html";
 
 }
+
+
+// ===============================
+// SETTINGS PANEL TOGGLE (theme picker)
+// ===============================
+
+function toggleDuaSettings(){
+
+const panel = document.getElementById("duaThemePanel");
+
+if (!panel) return;
+
+panel.style.display =
+  (panel.style.display === "none" || panel.style.display === "")
+    ? "flex"
+    : "none";
+
+}
