@@ -1,604 +1,383 @@
-/* =======================================
-   MY PRAYER - DIGITAL TASBEEH
-   MAIN SCREEN
+/* ======================================
+   MY PRAYER - DIGITAL TASBEEH (ULTIMATE)
 ======================================= */
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-
-/* ===========================
-   BODY
-=========================== */
-
 html{
-height:100%;
-overflow:hidden;
+    height:100%;
+    overflow:hidden;
 }
 
 body{
-font-family:Arial,sans-serif;
-
-background:linear-gradient(
-180deg,
-#0b3d91,
-#1565c0,
-#42a5f5
-);
-
-height:100dvh;
-overflow:hidden;
-
-color:#fff;
-
-display:flex;
-justify-content:center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at 10% 20%, #0b3d91, #081f4a);
+    height:100dvh;
+    overflow:hidden;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
-
 
 .tasbeeh-app{
-width:100%;
-max-width:430px;
-height:100dvh;
-
-padding:12px 16px 85px;
-
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-
-overflow:hidden;
-scrollbar-width:none;
+    width:100%;
+    max-width:430px;
+    height:100dvh;
+    padding:10px 16px 85px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(2px);
 }
 
-
-.tasbeeh-app::-webkit-scrollbar{
-display:none;
-}
-
+.tasbeeh-app::-webkit-scrollbar{ display:none; }
 
 /* ===========================
-   HEADER
+   HEADER (Title Left, Image Right)
 =========================== */
-
 .tasbeeh-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+    padding:10px 12px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.10);
 }
-
-
-.header-btn{
-width:50px;
-height:50px;
-border:none;
-border-radius:16px;
-background:rgba(255,255,255,.15);
-color:#fff;
-font-size:25x;
-cursor:pointer;
-transition:.3s;
-backdrop-filter:blur(8px);
-}
-
-
-.header-btn:hover{
-background:#fff;
-color:#1565c0;
-transform:scale(1.05);
-}
-
 
 .header-title{
-text-align:center;
-flex:1;
-padding:0 5px;
+    flex:1;
+    text-align:left;
+    min-width:0;
 }
-
-
 .header-title h1{
-font-size:20px;
-font-weight:500;
-margin-bottom:2px;
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.header-title p{
+    font-size:11px;
+    opacity:0.8;
+    margin-top:2px;
 }
 
-
-.header-title p{
-font-size:12px;
-opacity:.7;
+.tasbeeh-header-image{
+    width:50px;
+    height:50px;
+    flex-shrink:0;
+    margin-left:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+.tasbeeh-header-image img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+    border-radius:50%;
 }
 
 /* ===========================
    DHIKR SECTION
 =========================== */
-
 .dhikr-section{
-text-align:center;
-margin-bottom:20px;
+    text-align:center;
+    margin-bottom:15px;
 }
-
 #dhikrSelect{
-width:100%;
-padding:10px;
-border:none;
-border-radius:20px;
-font-size:15px;
-background:#fff;
-color:#0b3d91;
-font-weight:600;
-outline:none;
-margin-bottom:16px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:18px;
+    font-size:15px;
+    background: rgba(255,255,255,0.15);
+    color:#fff;
+    font-weight:600;
+    outline:none;
+    margin-bottom:14px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.10);
 }
+#dhikrSelect option{ color:#0b3d91; background:#fff; }
 
 #arabicDhikr{
-font-size:32px;
-line-height:1.2;
-font-weight:bold;
-color:#fff;
-margin:0;
+    font-size:34px;
+    line-height:1.2;
+    font-weight:700;
+    color:#fff;
+    margin:0;
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+#dhikrMeaning{
+    font-size:16px;
+    line-height:1.8;
+    font-weight:600;
+    color:rgba(255,255,255,0.9);
+    margin-top:8px;
+    direction:rtl;
+    text-align:center;
 }
 
 /* ===========================
    TARGET BUTTONS
 =========================== */
-
 .target-section{
-display:flex;
-justify-content:center;
-gap:35px;
-margin-bottom:20px;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-bottom:15px;
 }
-
 .target-btn{
-width:90px;
-height:90px;
-border:none;
-border-radius:50%;
-background:rgba(255,255,255,.15);
-color:#fff;
-font-size:26px;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
-backdrop-filter:blur(10px);
-box-shadow:0 5px 10px rgba(0,0,0,.15);
+    width:78px;
+    height:78px;
+    border:none;
+    border-radius:50%;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 6px 18px rgba(0,0,0,0.2);
 }
-
-.target-btn:hover{
-transform:translateY(-3px);
-background:#fff;
-color:#1565c0;
-}
-
+.target-btn:hover{ transform:translateY(-3px); background:#fff; color:#0b3d91; }
 .target-btn.active{
-background:#fff;
-color:#1565c0;
-box-shadow:0 0 25px rgba(255,255,255,.5);
+    background:#fff;
+    color:#0b3d91;
+    box-shadow:0 0 30px rgba(255,255,255,0.4);
+    border-color:#fff;
 }
-
 
 /* ===========================
    INFO CARDS
 =========================== */
-
 .info-section{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:15px;
 }
-
-
 .info-card{
-background:rgba(255,255,255,.15);
-border-radius:22px;
-padding:16px 8px;
-text-align:center;
-backdrop-filter:blur(12px);
-box-shadow:0 8px 25px rgba(0,0,0,.15);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.10);
+    border-radius:18px;
+    padding:14px 6px;
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.15);
+    transition:.3s;
 }
+.info-label{ display:block; font-size:11px; opacity:0.8; margin-bottom:4px; }
+.info-value{ font-size:24px; font-weight:700; }
 
-
-.info-label{
-display:block;
-font-size:13px;
-opacity:.9;
-margin-bottom:8px;
+.count-card{ transition:all .25s ease; }
+.count-card.active-count{
+    transform:scale(1.05);
+    background: rgba(255,255,255,0.25);
+    border-color:#fff;
+    box-shadow:0 0 30px rgba(255,255,255,0.2);
 }
-
-
-.info-value{
-font-size:26px;
-font-weight:700;
-}
-
-
-
-/* ===========================
-   MAIN COUNTER
-=========================== */
-
-.counter-section{
-display:flex;
-justify-content:center;
-margin-bottom:20px;
-}
-
-
-#mainCounter{
-width:190px;
-height:190px;
-border-radius:50%;
-background:#fff;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 15px 40px rgba(0,0,0,.20);
-}
-
-
-#mainCounter:hover{
-transform:scale(1.03);
-}
-
-
-#counterNumber{
-font-size:42px;
-font-weight:700;
-color:#1565c0;
-line-height:1;
-}
-
-
-#mainCounter small{
-margin-top:10px;
-font-size:10px;
-font-weight:600;
-color:#666;
-}
-
-
+.count-card.active-count .info-value{ color:#fff; }
 
 /* ===========================
    PROGRESS BAR
 =========================== */
-
-.progress-section{
-margin-bottom:20px;
-}
-
-
+.progress-section{ margin-bottom:15px; }
 .progress-track{
-width:100%;
-height:12px;
-background:rgba(255,255,255,.18);
-border-radius:20px;
-overflow:hidden;
-backdrop-filter:blur(10px);
+    width:100%;
+    height:10px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    overflow:hidden;
 }
-
-
 .progress-fill{
-width:0%;
-height:100%;
-background:linear-gradient(90deg,#ffffff,#d6ecff,#7dd3fc);
-border-radius:30px;
-transition:.4s ease;
+    width:0%;
+    height:100%;
+    background: linear-gradient(90deg, #ffffff, #7dd3fc, #38bdf8);
+    border-radius:20px;
+    transition:.4s ease;
 }
-
 
 /* ===========================
    STATISTICS
 =========================== */
-
 .stats-section{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:15px;
 }
-
 .stat-card{
-background:rgba(255,255,255,.15);
-border-radius:24px;
-padding:14px 8px;
-text-align:center;
-backdrop-filter:blur(12px);
-box-shadow:0 8px 25px rgba(0,0,0,.15);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    padding:12px 6px;
+    text-align:center;
 }
-
-.stat-number{
-display:block;
-font-size:22px;
-font-weight:600;
-margin-bottom:2px;
-}
-
-.stat-title{
-font-size:15px;
-opacity:.9;
-}
-
-
-
+.stat-number{ display:block; font-size:20px; font-weight:600; margin-bottom:2px; }
+.stat-title{ font-size:13px; opacity:0.8; }
 
 /* ===========================
-   ACTION SECTION
+   ACTION BUTTONS
 =========================== */
-
-.action-section{
-display:flex;
-flex-direction:column;
-gap:12px;
-margin-bottom:10px;
-}
-
-
+.action-section{ display:flex; flex-direction:column; gap:10px; margin-bottom:5px; }
 .count-btn{
-
-width:100%;
-height:56px;
-
-border:none;
-border-radius:50px;
-
-background:#ffffff;
-color:#1565c0;
-
-font-size:20px;
-font-weight:600;
-
-cursor:pointer;
-
-transition:background .3s, box-shadow .3s;
-
-box-shadow:0 10px 25px rgba(0,0,0,.18);
+    width:100%;
+    height:54px;
+    border:none;
+    border-radius:30px;
+    background: #ffffff;
+    color:#0b3d91;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    transition:.3s;
 }
-
-
-/* HOVER — NO MOVEMENT */
-
-.count-btn:hover{
-
-background:#ffffff;
-color:#1565c0;
-
-}
-
-
-/* CLICK — NO MOVEMENT */
-
-.count-btn:active{
-
-transform:scale(.98);
-
-}
-
-
-/* ===========================
-   RESET BUTTON
-=========================== */
+.count-btn:active{ transform:scale(.97); }
 
 .reset-btn{
-
-width:100%;
-height:56px;
-
-border:none;
-border-radius:50px;
-
-background:rgba(255,255,255,.18);
-color:#ffffff;
-
-border:2px solid rgba(255,255,255,.25);
-
-font-size:20px;
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
+    width:100%;
+    height:54px;
+    border:none;
+    border-radius:30px;
+    background: rgba(255,255,255,0.12);
+    color:#fff;
+    border:2px solid rgba(255,255,255,0.20);
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:.3s;
 }
-
-.reset-btn:hover{
-
-background:rgba(255,255,255,.30);
-
-}
-
-
-
+.reset-btn:hover{ background:rgba(255,255,255,0.25); }
+.reset-btn:active{ transform:scale(.97); }
 
 /* ===========================
-   BOTTOM NAVIGATION
+   BOTTOM NAV (Home + More)
 =========================== */
-
 .bottom-nav{
-
-position:fixed;
-left:50%;
-transform:translateX(-50%);
-bottom:0;
-
-width:100%;
-max-width:430px;
-
-display:flex;
-justify-content:space-around;
-align-items:center;
-
-padding:10px 5px;
-
-background:#ffffff;
-border-radius:24px 24px 0 0;
-
-box-shadow:0 -10px 30px rgba(0,0,0,.12);
-
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:0;
+    width:100%;
+    max-width:430px;
+    height:58px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:6px 4px;
+    background: rgba(8,30,65,0.92);
+    backdrop-filter:blur(20px);
+    border-top:1px solid rgba(255,255,255,0.10);
+    border-radius:24px 24px 0 0;
+    box-shadow:0 -10px 30px rgba(0,0,0,0.4);
+    z-index:9999;
 }
+.bottom-nav > a, .more-nav{ flex:1; min-width:0; }
+.bottom-nav a{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; text-decoration:none; font-size:10px; color:rgba(255,255,255,0.7); transition:.3s; }
+.bottom-nav i{ font-size:16px; }
+.bottom-nav span{ white-space:nowrap; font-size:9px; }
+.bottom-nav a.active{ color:#fff; font-weight:700; }
 
-.bottom-nav a{
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-text-decoration:none;
-
-font-size:10px;
-
-color:#777;
-
-transition:.3s;
-
+.more-nav{ position:relative; display:flex; align-items:center; justify-content:center; }
+.more-nav-btn{
+    width:100%;
+    min-height:50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    border:none;
+    background:transparent;
+    color:rgba(255,255,255,0.7);
+    font-size:10px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:0.3s;
 }
+.more-nav-btn:hover{ color:#fff; }
+.more-nav-btn i{ font-size:16px; }
+.more-nav-btn span{ font-size:9px; white-space:nowrap; }
+.more-nav-btn.active{ color:#fff; font-weight:700; }
 
-.bottom-nav i{
-
-font-size:15px;
-margin-bottom:6px;
-
+.more-menu{
+    position:absolute;
+    right:0;
+    bottom:62px;
+    width:170px;
+    padding:8px;
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background: rgba(8,30,65,0.97);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+    z-index:10001;
 }
-
-.bottom-nav a.active{
-
-color:#1565c0;
-font-weight:700;
-
+.more-menu.show{ display:flex !important; }
+.more-menu a, .more-menu button{
+    width:100%;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 12px;
+    border:none;
+    border-radius:10px;
+    background:transparent;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+    transition:0.2s;
 }
-
-.bottom-nav a:hover{
-
-transform:translateY(-2px);
-
-}
-
+.more-menu a i, .more-menu button i{ width:20px; text-align:center; }
+.more-menu a:hover, .more-menu button:hover{ background:rgba(255,255,255,0.10); }
+.more-menu a.active{ background:rgba(255,255,255,0.15); font-weight:700; }
 
 /* ===========================
-   MOBILE — small tweaks only, sizes kept modest so everything
-   fits within one screen height with no scrolling
+   COUNT ANIMATION
 =========================== */
-
-@media(max-width:480px){
-
-.header-title h1{
-font-size:20px;
-}
-
-#arabicDhikr{
-font-size:30px;
-}
-
-.target-btn{
-width:78px;
-height:78px;
-font-size:24px;
-}
-
-#mainCounter{
-width:170px;
-height:170px;
-}
-
-#counterNumber{
-font-size:38px;
-}
-
-}
-
-
-/* Completed Animation */
-
-.completed{
-
-transform:scale(1.08);
-
-box-shadow:0 0 40px #7CFC00;
-
-transition:.35s;
-
-}
-
-/* ===========================
-   COUNT CARD ANIMATION
-=========================== */
-
-.count-card{
-
-cursor:pointer;
-
-transition:all .25s ease;
-
-}
-
-.count-card.active-count{
-
-transform:scale(1.08);
-
-background:linear-gradient(135deg,#ffffff,#dff4ff);
-
-color:#1565c0;
-
-box-shadow:0 0 30px rgba(33,150,243,.45);
-
-}
-
-.count-card.active-count .info-label,
-
-.count-card.active-count .info-value{
-
-color:#1565c0;
-
-}
-
-/* ===========================
-   COUNT NUMBER ANIMATION
-=========================== */
-
 .count-pop{
-
-animation:countPop .20s ease;
-
+    animation:countPop .20s ease;
 }
-
 @keyframes countPop{
-
-0%{
-
-transform:scale(1);
-
-}
-
-50%{
-
-transform:scale(1.30);
-
-}
-
-100%{
-
-transform:scale(1);
-
-}
-
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.30); }
+    100%{ transform:scale(1); }
 }
 
 /* ===========================
-   DHIKR URDU MEANING
+   MOBILE RESPONSIVE
 =========================== */
-
-#dhikrMeaning{
-font-size:18px;
-line-height:1.8;
-font-weight:600;
-color:#fff;
-margin-top:12px;
-direction:rtl;
-text-align:center;
+@media(max-width:480px){
+    .header-title h1{ font-size:18px; }
+    #arabicDhikr{ font-size:28px; }
+    .target-btn{ width:70px; height:70px; font-size:20px; }
+    .target-section{ gap:15px; }
+    .info-value{ font-size:20px; }
 }

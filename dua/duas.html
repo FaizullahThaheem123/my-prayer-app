@@ -2,461 +2,158 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Prayer | Daily Duas</title>
-
-    <!-- DUAS CSS -->
     <link rel="stylesheet" href="duas.css">
-
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-
 
 <body>
 
-
 <div class="app">
-
-
-    <!-- ======================================
-         DUAS SCREEN
-    ======================================= -->
 
     <section class="duas-screen">
 
-
         <div class="duas-container">
 
-
             <!-- ==================================
-                 HEADER
+                 HEADER (Title Left, Image Right)
             =================================== -->
-
             <div class="duas-header">
-
-
-                <button
-                    class="duas-header-btn"
-                    type="button"
-                    onclick="goHome()"
-                    aria-label="Home">
-
-                    🏠
-
-                </button>
-
-
+                <!-- TITLE -->
                 <div class="duas-header-title">
-
-                    <h1>
-                        🤲 Daily Duas
-                    </h1>
-
-                    <p>
-                        Read authentic daily duas
-                    </p>
-
+                    <h1>🤲 Daily Duas</h1>
+                    <p>Read authentic daily duas</p>
                 </div>
 
-
-                <button
-                    class="duas-header-btn"
-                    type="button"
-                    onclick="toggleDuaSettings()"
-                    aria-label="Dua Settings">
-
-                    ⚙️
-
-                </button>
-
-
+                <!-- DUA IMAGE (same folder) -->
+                <div class="duas-header-image">
+                    <img src="dua.jpg" alt="Dua">
+                </div>
             </div>
-
-
-
-            <!-- ==================================
-                 THEME PANEL
-            =================================== -->
-
-            <div
-                id="duaThemePanel"
-                class="dua-themes"
-                style="display:none;">
-
-                <button
-                    type="button"
-                    onclick="changeDuaTheme('gold')"
-                    aria-label="Gold Theme">
-
-                    🟡
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="changeDuaTheme('green')"
-                    aria-label="Green Theme">
-
-                    🟢
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="changeDuaTheme('teal')"
-                    aria-label="Teal Theme">
-
-                    🔵
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="changeDuaTheme('purple')"
-                    aria-label="Purple Theme">
-
-                    🟣
-
-                </button>
-
-
-            </div>
-
-
 
             <!-- ==================================
                  SEARCH
             =================================== -->
-
-            <div class="duas-search">
-
-                <input
-                    type="text"
-                    id="duaSearch"
-                    placeholder="🔍 Search Dua..."
-                    onkeyup="searchDua()"
-                    autocomplete="off">
-
+            <div class="duas-search" onclick="closeMoreMenu()">
+                <input type="text" id="duaSearch" placeholder="🔍 Search Dua..." onkeyup="searchDua()" autocomplete="off">
             </div>
-
-
 
             <!-- ==================================
                  CATEGORIES
             =================================== -->
-
             <div class="dua-categories">
-
-
-                <button
-                    type="button"
-                    onclick="showCategory('favorite')">
-
-                    ⭐ Favorite
-
-                    <span id="favoriteCount"></span>
-
+                <button type="button" onclick="showCategory('favorite')">
+                    ⭐ Favorite <span id="favoriteCount"></span>
                 </button>
-
-
-                <button
-                    type="button"
-                    onclick="showCategory('all')">
-
-                    All
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="showCategory('protection')">
-
-                    Protection
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="showCategory('daily')">
-
-                    Daily
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="showCategory('travel')">
-
-                    Travel
-
-                </button>
-
-
+                <button type="button" onclick="showCategory('all')">All</button>
+                <button type="button" onclick="showCategory('protection')">Protection</button>
+                <button type="button" onclick="showCategory('daily')">Daily</button>
+                <button type="button" onclick="showCategory('travel')">Travel</button>
             </div>
-
-
 
             <!-- ==================================
                  DUA LIST
             =================================== -->
-
-            <div id="duaList">
-
-                <!--
-                    Duas JavaScript se
-                    automatically load hongi.
-                -->
-
-            </div>
-
+            <div id="duaList"></div>
 
         </div>
-
-
 
         <!-- ======================================
              FULL DUA READER
         ======================================= -->
-
-        <div
-            id="duaReader"
-            class="dua-reader">
-
-
-            <!-- ==================================
-                 READER HEADER
-            =================================== -->
+        <div id="duaReader" class="dua-reader">
 
             <div class="reader-header">
-
-
-                <button
-                    class="reader-close"
-                    type="button"
-                    onclick="closeReader()"
-                    aria-label="Close">
-
-                    ✕
-
-                </button>
-
-
-                <button
-                    class="reader-fav"
-                    id="readerFavBtn"
-                    type="button"
-                    onclick="toggleCurrentFavorite()"
-                    aria-label="Favorite">
-
-                    🤍
-
-                </button>
-
-
+                <button class="reader-close" type="button" onclick="closeReader()">✕</button>
+                <button class="reader-fav" id="readerFavBtn" type="button" onclick="toggleCurrentFavorite()">🤍</button>
             </div>
-
-
-
-            <!-- ==================================
-                 READER CONTENT
-            =================================== -->
 
             <div class="reader-content">
-
-
                 <h2 id="readerTitle"></h2>
 
+                <!-- AUDIO -->
+                <div class="dua-audio-player">
+                    <button id="duaAudioBtn" type="button" onclick="toggleDuaAudio()">▶️</button>
+                    <div class="dua-audio-info">
+                        <span id="duaAudioStatus">Play Audio</span>
+                        <div class="dua-audio-progress">
+                            <div id="duaAudioProgressFill"></div>
+                        </div>
+                    </div>
+                </div>
 
-                <p
-                    id="readerArabic"
-                    class="dua-arabic">
-                </p>
+                <audio id="duaAudio"></audio>
 
-
-                <p
-                    id="readerMeaning"
-                    class="dua-meaning">
-                </p>
-
-
-                <p
-                    id="readerUrdu"
-                    class="dua-urdu">
-                </p>
-
-
-                <span
-                    id="readerReference"
-                    class="dua-reference">
-                </span>
-
-
+                <p id="readerArabic" class="dua-arabic"></p>
+                <p id="readerMeaning" class="dua-meaning"></p>
+                <p id="readerUrdu" class="dua-urdu"></p>
+                <span id="readerReference" class="dua-reference"></span>
             </div>
-
-
-
-            <!-- ==================================
-                 READER BOTTOM
-            =================================== -->
 
             <div class="reader-bottom">
-
-
-                <button
-                    type="button"
-                    onclick="previousDua()">
-
-                    ⬅ Previous
-
-                </button>
-
-
-                <span id="readerCount">
-
-                    1 / 1
-
-                </span>
-
-
-                <button
-                    type="button"
-                    onclick="nextDua()">
-
-                    Next ➡
-
-                </button>
-
-
+                <button type="button" onclick="previousDua()">⬅ Previous</button>
+                <span id="readerCount">1 / 1</span>
+                <button type="button" onclick="nextDua()">Next ➡</button>
             </div>
-
 
         </div>
 
-
     </section>
 
+    <!-- ======================================
+         BOTTOM NAV (ONLY HOME + MORE)
+    ======================================= -->
+    <nav class="bottom-nav">
 
+        <!-- HOME -->
+        <a href="../index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
 
-<!-- ======================================
-     BOTTOM NAVIGATION
-====================================== -->
+        <!-- MORE -->
+        <div class="more-nav">
+            <button type="button" class="more-nav-btn" onclick="toggleMoreMenu()">
+                <i class="fa-solid fa-ellipsis"></i>
+                <span>More</span>
+            </button>
 
-<nav class="bottom-nav">
+            <div id="moreMenu" class="more-menu">
+                <a href="../quran/quran.html">
+                    <i class="fa-solid fa-book-quran"></i>
+                    <span>Quran</span>
+                </a>
+                <a href="duas.html" class="active">
+                    <i class="fa-solid fa-hands-praying"></i>
+                    <span>Duas</span>
+                </a>
+                <a href="../names/names.html">
+                    <i class="fa-solid fa-star-and-crescent"></i>
+                    <span>99 Names</span>
+                </a>
+                <a href="../tasbeeh/tasbeeh.html">
+                    <i class="fa-solid fa-ring"></i>
+                    <span>Tasbeeh</span>
+                </a>
+                <a href="../campus/campus.html">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Campus</span>
+                </a>
+                <!-- نیا Settings بٹن -->
+                <button type="button" onclick="toggleDuaSettings()">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </button>
+            </div>
+        </div>
 
+    </nav>
+    
+    <script src="duas.js"></script>
 
-    <!-- HOME -->
-
-    <a
-        href="../index.html">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span>
-            Home
-        </span>
-
-    </a>
-
-
-    <!-- QURAN -->
-
-    <a
-        href="../quran/quran.html">
-
-        <i class="fa-solid fa-book-quran"></i>
-
-        <span>
-            Quran
-        </span>
-
-    </a>
-
-
-    <!-- DUAS -->
-
-    <a
-        href="duas.html"
-        class="active">
-
-        <i class="fa-solid fa-hands-praying"></i>
-
-        <span>
-            Duas
-        </span>
-
-    </a>
-
-
-    <!-- 99 NAMES -->
-
-    <a
-        href="../names/names.html">
-
-        <i class="fa-solid fa-star-and-crescent"></i>
-
-        <span>
-            99 Names
-        </span>
-
-    </a>
-
-
-    <!-- TASBEEH -->
-
-    <a
-        href="../tasbeeh/tasbeeh.html">
-
-        <i class="fa-solid fa-ring"></i>
-
-        <span>
-            Tasbeeh
-        </span>
-
-    </a>
-
-
-    <!-- CAMPUS -->
-
-    <a
-        href="../campus/campus.html">
-
-        <i class="fa-solid fa-graduation-cap"></i>
-
-        <span>
-            Campus
-        </span>
-
-    </a>
-
-
-</nav>
-
-
-
-<!-- ======================================
-     DUAS JAVASCRIPT
-======================================= -->
-
-<script src="duas.js"></script>
-
+</div>
 
 </body>
-
 </html>

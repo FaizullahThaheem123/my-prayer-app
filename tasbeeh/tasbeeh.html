@@ -1,361 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Digital Tasbeeh | My Prayer</title>
-
 <link rel="stylesheet" href="tasbeeh.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
 
 <div class="tasbeeh-app">
 
     <!-- ========================= -->
-    <!-- HEADER -->
+    <!-- HEADER (Title Left, Image Right) -->
     <!-- ========================= -->
-
     <header class="tasbeeh-header">
-
-        <button id="homeBtn" class="header-btn">
-            <i class="fa-solid fa-house"></i>
-        </button>
-
         <div class="header-title">
-
-            <h1>
-                <i class="fa-solid fa-ring"></i>
-                Digital Tasbeeh
-            </h1>
-
-            <p>
-                Count your Dhikr with focus and peace
-            </p>
-
+            <h1><i class="fa-solid fa-ring"></i> Digital Tasbeeh</h1>
+            <p>Count your Dhikr with focus and peace</p>
         </div>
-
-        <button id="settingsBtn" class="header-btn">
-            <i class="fa-solid fa-gear"></i>
-        </button>
-
+        <div class="tasbeeh-header-image">
+        <img src="tasbeeh.jpg" alt="Tasbeeh">
+        </div>
     </header>
 
+    <!-- ========================= -->
+    <!-- DHIKR SECTION -->
+    <!-- ========================= -->
+    <section class="dhikr-section">
+        <select id="dhikrSelect">
+            <option value="0">Bismillah</option>
+            <option value="1">SubhanAllah</option>
+            <option value="2">Alhamdulillah</option>
+            <option value="3">Allahu Akbar</option>
+            <option value="4">Astaghfirullah</option>
+            <option value="5">La ilaha illallah</option>
+            <option value="6">SubhanAllahi wa bihamdihi</option>
+            <option value="7">SubhanAllahil Azim</option>
+            <option value="8">La hawla wa la quwwata illallah</option>
+            <option value="9">HasbiyAllahu</option>
+            <option value="10">HasbiyAllahu wa ni'mal wakeel</option>
+            <option value="11">Rabbi ighfir li</option>
+            <option value="12">Allahumma ighfir li</option>
+            <option value="13">Rabbi zidni ilma</option>
+            <option value="14">Rabbana atina fid-dunya hasanah</option>
+            <option value="15">Rabbana ighfir lana</option>
+            <option value="16">Allahumma a'inni ala dhikrika</option>
+            <option value="17">Allahumma salli ala Muhammad</option>
+            <option value="18">Sallallahu alayhi wa sallam</option>
+            <option value="19">SubhanAllahi walhamdulillah</option>
+            <option value="20">SubhanAllahi walhamdulillahi wallahu Akbar</option>
+            <option value="21">La ilaha illallahu wahdahu</option>
+            <option value="22">Allahumma anta Rabbi</option>
+            <option value="23">Allahumma innaka Afuwwun</option>
+            <option value="24">Rabbi ishrah li sadri</option>
+            <option value="25">Rabbi yassir wa la tu'assir</option>
+            <option value="26">Allahumma ihdini</option>
+            <option value="27">Allahummarhamni</option>
+            <option value="28">Allahummarzuqni</option>
+            <option value="29">Rabbi Allah</option>
+            <option value="30">Tawakkaltu alAllah</option>
+        </select>
+        <h2 id="arabicDhikr">بِسْمِ اللهِ</h2>
+        <div id="dhikrMeaning">اللہ کے نام سے۔</div>
+    </section>
 
-
-   <!-- =========================
-     DHIKR SECTION
-========================= -->
-
-<section class="dhikr-section">
-
-    <select id="dhikrSelect">
-
-        <option value="0">Bismillah</option>
-        <option value="1">SubhanAllah</option>
-        <option value="2">Alhamdulillah</option>
-        <option value="3">Allahu Akbar</option>
-        <option value="4">Astaghfirullah</option>
-        <option value="5">La ilaha illallah</option>
-        <option value="6">SubhanAllahi wa bihamdihi</option>
-        <option value="7">SubhanAllahil Azim</option>
-        <option value="8">La hawla wa la quwwata illallah</option>
-        <option value="9">HasbiyAllahu</option>
-        <option value="10">HasbiyAllahu wa ni'mal wakeel</option>
-        <option value="11">Rabbi ighfir li</option>
-        <option value="12">Allahumma ighfir li</option>
-        <option value="13">Rabbi zidni ilma</option>
-        <option value="14">Rabbana atina fid-dunya hasanah</option>
-        <option value="15">Rabbana ighfir lana</option>
-        <option value="16">Allahumma a'inni ala dhikrika</option>
-        <option value="17">Allahumma salli ala Muhammad</option>
-        <option value="18">Sallallahu alayhi wa sallam</option>
-        <option value="19">SubhanAllahi walhamdulillah</option>
-        <option value="20">SubhanAllahi walhamdulillahi wallahu Akbar</option>
-        <option value="21">La ilaha illallahu wahdahu</option>
-        <option value="22">Allahumma anta Rabbi</option>
-        <option value="23">Allahumma innaka Afuwwun</option>
-        <option value="24">Rabbi ishrah li sadri</option>
-        <option value="25">Rabbi yassir wa la tu'assir</option>
-        <option value="26">Allahumma ihdini</option>
-        <option value="27">Allahummarhamni</option>
-        <option value="28">Allahummarzuqni</option>
-        <option value="29">Rabbi Allah</option>
-        <option value="30">Tawakkaltu alAllah</option>
-
-    </select>
-
-    <h2 id="arabicDhikr">
-        بِسْمِ اللهِ
-    </h2>
-
-    <div id="dhikrMeaning">
-        اللہ کے نام سے۔
-    </div>
-
-</section>
-
-        <!-- ========================= -->
+    <!-- ========================= -->
     <!-- TARGET BUTTONS -->
     <!-- ========================= -->
-
     <section class="target-section">
-
-        <button class="target-btn active" data-target="33">
-            33
-        </button>
-
-        <button class="target-btn" data-target="99">
-            99
-        </button>
-
-        <button class="target-btn" data-target="100">
-            100
-        </button>
-
+        <button class="target-btn active" data-target="33">33</button>
+        <button class="target-btn" data-target="99">99</button>
+        <button class="target-btn" data-target="100">100</button>
     </section>
 
-
+    <!-- ========================= -->
+    <!-- INFO CARDS -->
+    <!-- ========================= -->
+    <section class="info-section">
+        <div class="info-card">
+            <span class="info-label">Target</span>
+            <span id="targetValue" class="info-value">33</span>
+        </div>
+        <div class="info-card count-card">
+            <span class="info-label">Count</span>
+            <span id="countValue" class="info-value">0</span>
+        </div>
+        <div class="info-card">
+            <span class="info-label">Progress</span>
+            <span id="progressValue" class="info-value">0%</span>
+        </div>
+    </section>
 
     <!-- ========================= -->
-<!-- INFO CIRCLES -->
-<!-- ========================= -->
-
-<section class="info-section">
-
-    <!-- Target -->
-    <div class="info-card">
-
-        <span class="info-label">
-            Target
-        </span>
-
-        <span id="targetValue" class="info-value">
-            33
-        </span>
-
-    </div>
-
-    <!-- Count -->
-    <div class="info-card count-card">
-
-        <span class="info-label">
-            Count
-        </span>
-
-        <span id="countValue" class="info-value">
-            0
-        </span>
-
-    </div>
-
-    <!-- Progress -->
-    <div class="info-card">
-
-        <span class="info-label">
-            Progress
-        </span>
-
-        <span id="progressValue" class="info-value">
-            0%
-        </span>
-
-    </div>
-
-</section>
-
-
-
-   
-
-        <!-- ========================= -->
     <!-- PROGRESS BAR -->
     <!-- ========================= -->
-
     <section class="progress-section">
-
         <div class="progress-track">
-
             <div id="progressBar" class="progress-fill"></div>
-
         </div>
-
     </section>
-
-
 
     <!-- ========================= -->
     <!-- STATISTICS -->
     <!-- ========================= -->
-
     <section class="stats-section">
-
         <div class="stat-card">
-
-            <span class="stat-number" id="completed33">
-                0
-            </span>
-
-            <span class="stat-title">
-                ×33
-            </span>
-
+            <span class="stat-number" id="completed33">0</span>
+            <span class="stat-title">×33</span>
         </div>
-
-
         <div class="stat-card">
-
-            <span class="stat-number" id="completed99">
-                0
-            </span>
-
-            <span class="stat-title">
-                ×99
-            </span>
-
+            <span class="stat-number" id="completed99">0</span>
+            <span class="stat-title">×99</span>
         </div>
-
-
         <div class="stat-card">
-
-            <span class="stat-number" id="completed100">
-                0
-            </span>
-
-            <span class="stat-title">
-                ×100
-            </span>
-
+            <span class="stat-number" id="completed100">0</span>
+            <span class="stat-title">×100</span>
         </div>
-
     </section>
-
-
 
     <!-- ========================= -->
     <!-- ACTION BUTTONS -->
     <!-- ========================= -->
-
     <section class="action-section">
-
         <button id="countBtn" class="count-btn">
-
-            <i class="fa-solid fa-hand-pointer"></i>
-
-            TAP TO COUNT
-
+            <i class="fa-solid fa-hand-pointer"></i> TAP TO COUNT
         </button>
-
-
         <button id="resetBtn" class="reset-btn">
-
-            <i class="fa-solid fa-rotate-left"></i>
-
-            RESET
-
+            <i class="fa-solid fa-rotate-left"></i> RESET
         </button>
-
     </section>
 
+    <!-- ========================== -->
+    <!-- BOTTOM NAV (Home + More) -->
+    <!-- ========================== -->
+    <nav class="bottom-nav">
+        <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
 
-
-    
-<!-- ==========================
-BOTTOM NAVIGATION
-========================== -->
-
-<nav class="bottom-nav">
-
-    <!-- HOME -->
-    <a href="../index.html"
-       class="nav-item">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span>
-            Home
-        </span>
-
-    </a>
-
-
-    <!-- QURAN -->
-    <a href="../quran/quran.html"
-       class="nav-item">
-
-        <i class="fa-solid fa-book-quran"></i>
-
-        <span>
-            Quran
-        </span>
-
-    </a>
-
-
-    <!-- DUAS -->
-    <a href="../dua/duas.html"
-       class="nav-item">
-
-        <i class="fa-solid fa-hands-praying"></i>
-
-        <span>
-            Duas
-        </span>
-
-    </a>
-
-
-    <!-- 99 NAMES -->
-    <a href="../names/names.html"
-       class="nav-item">
-
-        <i class="fa-solid fa-star-and-crescent"></i>
-
-        <span>
-            99 Names
-        </span>
-
-    </a>
-
-
-    <!-- TASBEEH -->
-    <a href="tasbeeh.html"
-       class="nav-item active">
-
-        <i class="fa-solid fa-ring"></i>
-
-        <span>
-            Tasbeeh
-        </span>
-
-    </a>
-
-
-    <!-- CAMPUS -->
-    <a href="../campus/campus.html"
-       class="nav-item">
-
-        <i class="fa-solid fa-graduation-cap"></i>
-
-        <span>
-            Campus
-        </span>
-
-    </a>
-
-</nav>
-
-
+        <div class="more-nav">
+            <button type="button" class="more-nav-btn active" id="moreNavBtn">
+                <i class="fa-solid fa-ellipsis"></i><span>More</span>
+            </button>
+            <div class="more-menu" id="moreMenu">
+                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                <a href="tasbeeh.html" class="active"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+            </div>
+        </div>
+    </nav>
 
 </div>
 
 <script src="tasbeeh.js"></script>
-
 </body>
 </html>

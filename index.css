@@ -1,1527 +1,326 @@
-/* ==========================================
-            MY PRAYER APP
-              INDEX.CSS
-========================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-html{
-    scroll-behavior:smooth;
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #eef3f8;
+    color: #1b1b1b;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
-
-body{
-
-    font-family:'Poppins',sans-serif;
-
-    background:#eef3f8;
-
-    color:#1b1b1b;
-
-    min-height:100vh;
-
-    overflow-x:hidden;
-
+.app {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    min-height: 100vh;
+    background: #ffffff;
+    position: relative;
+    padding-bottom: 95px;
 }
-
-.app{
-
-    width:100%;
-
-    max-width:500px;
-
-    margin:auto;
-
-    min-height:100vh;
-
-    background:#ffffff;
-
-    position:relative;
-
-    padding-bottom:95px;
-
-}
-
 
 /* ===========================
-   HEADER
+   HEADER (CLEAN & FIXED)
 =========================== */
 
-.header{
-width:100%;
-padding:2px 5px;
-
-background:transparent;
-
-display:flex;
-flex-direction:column;
-
-gap:3px;
-
-box-sizing:border-box;
+   .index-header {
+    background: #ffffff;
+    padding: 18px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 100;
 }
-
-
+.index-header .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.index-header .app-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f4c75;
+    line-height: 1.1;
+}
+.index-header .app-subtitle {
+    font-size: 11px;
+    color: #777;
+    font-weight: 500;
+}
+.index-header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0; /* دائیں حصے کو سکڑنے یا بڑھنے سے روکتا ہے */
+}
+.index-header .dua-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f4c75;
+    white-space: nowrap; /* ٹیکسٹ کو آگے پیچھے آنے سے روکتا ہے */
+}
+.index-header .header-dua {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
 /* ===========================
-   HEADER CARD
+   LOCATION CARD (RESTORED)
 =========================== */
-
-.header-card{
-width:100%;
-
-border-radius:12px;
-
-box-sizing:border-box;
+.header-card-bottom {
+    width: 100%;
+    padding: 8px 12px;
+    background: #0f4c75;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 10px;
 }
-
-
-/* ===========================
-   MY PRAYER CARD
-=========================== */
-
-.header-card-top{
-width:100%;
-height:40px;
-
-padding:0 10px;
-
-background:#0f4c75;
-
-display:flex;
-align-items:center;
-justify-content:space-between;
-
-box-sizing:border-box;
+.welcome-location { display: flex; align-items: center; gap: 6px; }
+.welcome-text, .location {
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
 }
-
-
-/* ===========================
-   HOME BUTTON
-=========================== */
-
-.home-btn{
-width:28px;
-height:28px;
-
-border:none;
-border-radius:50%;
-
-background:#fff;
-color:#1565c0;
-
-font-size:13px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
-padding:0;
-margin:0;
-
-flex-shrink:0;
-
-box-shadow:0 4px 10px rgba(0,0,0,.15);
-}
-
-
-/* ===========================
-   CENTER GROUP
-=========================== */
-
-.prayer-title-group{
-display:flex;
-align-items:center;
-justify-content:center;
-
-gap:8px;
-
-position:absolute;
-
-left:50%;
-
-transform:translateX(-50%);
-
-white-space:nowrap;
-}
-
-
-/* ===========================
-   MY PRAYER
-=========================== */
-
-.header-card-top .app-title{
-font-size:10px;
-
-font-weight:700;
-
-margin:0;
-padding:0;
-
-line-height:1;
-
-color:#fff;
-
-white-space:nowrap;
-}
-
-
-/* ===========================
-   FAISAL MOSQUE
-=========================== */
-
-.header-card-top .mosque-icon{
-width:35px;
-height:35px;
-
-border-radius:50%;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-position:relative;
-
-background:none;
-
-margin:0;
-
-flex-shrink:0;
-}
-
-
-/* ===========================
-   FAISAL MOSQUE IMAGE
-=========================== */
-
-.header-card-top .mosque-icon img{
-width:28px;
-height:28px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-display:block;
-
-position:relative;
-
-z-index:1;
-}
-
-
-/* ===========================
-   SETTINGS BUTTON
-=========================== */
-
-.settings-btn{
-width:28px;
-height:28px;
-
-border:none;
-border-radius:50%;
-
-background:#fff;
-color:#1565c0;
-
-font-size:13px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
-padding:0;
-margin:0;
-
-flex-shrink:0;
-
-box-shadow:0 4px 10px rgba(0,0,0,.15);
-}
-
-
-/* ===========================
-   HOVER
-=========================== */
-
-.home-btn:hover,
-.settings-btn:hover{
-background:#1565c0;
-
-color:#fff;
-
-transform:scale(1.08);
-}
-
-
-/* ===========================
-   ASSALAMUALAIKUM CARD
-=========================== */
-
-.header-card-bottom{
-width:100%;
-height:40px;
-
-padding:0 8px 0 12px;
-
-background:#0f4c75;
-
-display:flex;
-align-items:center;
-
-box-sizing:border-box;
-
-border-radius:12px;
-
-overflow:hidden;
-}
-
-
-/* ===========================
-   WELCOME + LOCATION
-=========================== */
-
-.welcome-location{
-display:flex;
-align-items:center;
-
-gap:6px;
-
-min-width:0;
-}
-
-
-/* ===========================
-   ASSALAMUALAIKUM
-=========================== */
-
-.welcome-text{
-font-size:11px;
-
-font-weight:500;
-
-margin:0;
-
-line-height:1.2;
-
-white-space:nowrap;
-
-color:#fff;
-}
-
-
-/* ===========================
-   LOCATION
-=========================== */
-
-.location{
-font-size:11px;
-
-font-weight:500;
-
-margin:0;
-
-line-height:1.2;
-
-white-space:nowrap;
-
-color:#fff;
-}
-
-
-/* ===========================
-   DUA BOY
-=========================== */
-
-.dua-boy{
-width:28px;
-height:28px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-display:block;
-
-margin-left:auto;
-
-flex-shrink:0;
-}
-
 
 /* ==========================
    DATE CARD
 ========================== */
-
-.date-box{
-    margin:5px 0;
-    padding:5px 8px;
-
-    background:#ffffff;
-
-    border-radius:13px;
-
-    text-align:center;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    box-sizing:border-box;
-
-    min-height:58px;
-}
-
-
-/* ==========================
-   MAKKAH / MADINAH
-========================== */
-
-.date-place{
-    width:48px;
-    height:48px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    flex-shrink:0;
-}
-
-
-/* ==========================
-   PLACE IMAGES
-========================== */
-
-.date-place img{
-    width:48px;
-    height:48px;
-
-    border-radius:10px;
-
-    object-fit:cover;
-
-    display:block;
-}
-
-
-/* ==========================
-   DATE CENTER
-========================== */
-
-.date-content{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:center;
-
-    min-width:0;
-
-    padding:0 5px;
-}
-
-
-/* ==========================
-   DATE
-========================== */
-
-.date-box h3{
-    font-size:16px;
-
-    color:#0f4c75;
-
-    margin:0 0 3px 0;
-
-    font-weight:600;
-
-    line-height:1.1;
-
-    white-space:nowrap;
-}
-
-
-/* ==========================
-   ISLAMIC DATE
-========================== */
-
-.date-box p{
-    font-size:16px;
-
-    color:#0f4c75;
-
-    font-weight:600;
-
-    margin:0;
-
-    line-height:1.1;
-
-    white-space:nowrap;
-}
-
-
-/* ==========================
-   LEFT / RIGHT SPACE
-========================== */
-
-.date-makkah{
-    margin-right:8px;
-}
-
-.date-madinah{
-    margin-left:8px;
-}
-
-
-
-/* ==========================
-LIVE CLOCK
-========================== */
-
-.clock-box {
-    margin: 5px 0;
-    padding: 8px;
+.date-box {
+    margin: 5px 10px 5px;
+    padding: 5px 8px;
+    background: #ffffff;
     border-radius: 13px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 58px;
+}
+.date-place { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.date-place img { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; }
+.date-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.date-content h3 { font-size: 16px; color: #0f4c75; font-weight: 600; line-height: 1.1; margin: 0 0 3px; white-space: nowrap; }
+.date-content p { font-size: 16px; color: #0f4c75; font-weight: 600; line-height: 1.1; margin: 0; white-space: nowrap; }
+.date-makkah { margin-right: 8px; }
+.date-madinah { margin-left: 8px; }
 
+/* ==========================
+   CLOCK
+========================== */
+.clock-box {
+    margin: 10px 10px 5px;
+    padding: 12px 8px;
+    border-radius: 16px;
     background: linear-gradient(135deg, #0f4c75, #3282b8);
-
     color: #fff;
     text-align: center;
 }
-
-
-/* CLOCK TIME */
-
-.clock-box h1 {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 0;
-    line-height: 1.1;
-}
-
-
-/* CLOCK DATE / TEXT */
-
-.clock-box p {
-    margin: 3px 0 0;
-    font-size: 11px;
-    opacity: .9;
-    line-height: 1.1;
-}
+.clock-box h1 { font-size: 28px; font-weight: 700; letter-spacing: 1px; margin: 0; line-height: 1.1; }
+.clock-box p { margin: 3px 0 0; font-size: 11px; opacity: .9; }
 
 /* ==========================
-NEXT PRAYER
+   NEXT PRAYER
 ========================== */
-
 .next-prayer {
-    margin: 5px 0;
+    margin: 10px 10px 5px;
     padding: 8px 20px;
     border-radius: 13px;
     background: #ffffff;
     box-shadow: 0 3px 10px rgba(0,0,0,.08);
     text-align: center;
 }
-
-
-/* TWO LINES */
-
 .next-prayer-row {
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     column-gap: 20px;
 }
-
-
-/* LEFT + RIGHT TEXT */
-
-.next-prayer-label,
-.next-prayer-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: #0f4c75;
-    line-height: 1.2;
-}
-
-
-/* LEFT COLUMN */
-
-.next-prayer-row > :first-child {
-    text-align: left;
-}
-
-
-/* RIGHT COLUMN */
-
-.next-prayer-row > :last-child {
-    text-align: left;
-}
-
-
-/* SECOND LINE */
-
-.next-prayer-row + .next-prayer-row {
-    margin-top: 5px;
-}
-
+.next-prayer-label, .next-prayer-value { font-size: 14px; font-weight: 600; color: #0f4c75; line-height: 1.2; }
+.next-prayer-row > :first-child { text-align: left; }
+.next-prayer-row > :last-child { text-align: left; }
+.next-prayer-row + .next-prayer-row { margin-top: 5px; }
 
 /* ==========================
-PRAYER LIST
+   PRAYER CARDS
 ========================== */
-
-.prayer-list {
-    margin: 2px 0;
-}
-
-
-/* ==========================
-PRAYER CARD
-========================== */
-
 .prayer-card {
     display: flex;
     align-items: center;
-
     width: 100%;
-
     height: 20px;
     min-height: 20px;
-
     background: #ffffff;
-
     border-radius: 10px;
-
     padding: 0 5px;
-
     margin-bottom: 2px;
-
     box-shadow: 0 1px 4px rgba(0,0,0,.07);
-
-    transition: .3s;
-
-    overflow: hidden;
 }
-
-
-/* ==========================
-PRAYER ICON
-========================== */
-
-.prayer-icon {
-    width: auto;
-    height: auto;
-
-    background: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 9px;
-
-    margin-right: 2px;
-
-    flex-shrink: 0;
-}
-
-
-/* ==========================
-PRAYER INFO - BALANCED GAP
-========================== */
-
+.prayer-icon { font-size: 9px; margin-right: 2px; flex-shrink: 0; }
 .prayer-info {
     flex: 1;
-
     display: grid;
-
     grid-template-columns: 55px 70px 14px 1fr;
-
     align-items: center;
-
-    min-width: 0;
-
     height: 100%;
 }
-
-
-/* ==========================
-PRAYER NAME
-========================== */
-
-.prayer-info h3 {
-    font-size: 11px;
-
-    color: #0f4c75;
-
-    margin: 0;
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    white-space: nowrap;
-}
-
-
-/* ==========================
-PRAYER TIME
-========================== */
-
-.prayer-info b {
-    display: block;
-
-    margin: 0;
-
-    font-size: 10px;
-
-    color: #222;
-
-    line-height: 1;
-
-    white-space: nowrap;
-}
-
-
-/* ==========================
-JAMAAT ICON
-========================== */
-
-.jamaat-icon {
-    font-size: 9px;
-
-    margin: 0;
-
-    line-height: 1;
-
-    text-align: center;
-}
-
-
-/* ==========================
-JAMAAT TIME
-========================== */
-
-.prayer-info small {
-    display: block;
-
-    margin: 0;
-
-    color: #0f4c75;
-
-    font-size: 10px;
-
-    font-weight: 600;
-
-    line-height: 1;
-
-    white-space: nowrap;
-}
-
-
-/* ==========================
-EDIT BUTTON
-========================== */
-
+.prayer-info h3 { font-size: 11px; color: #0f4c75; font-weight: 700; line-height: 1; white-space: nowrap; }
+.prayer-info b { font-size: 10px; color: #222; line-height: 1; white-space: nowrap; }
+.jamaat-icon { font-size: 9px; text-align: center; }
+.prayer-info small { font-size: 10px; color: #0f4c75; font-weight: 600; line-height: 1; white-space: nowrap; }
 .edit-jamaat {
-    width: 16px;
-    height: 16px;
-
-    border-radius: 5px;
-
-    font-size: 7px;
-
-    margin-left: 3px;
-
-    flex-shrink: 0;
+    width: 18px; height: 18px; border: none; border-radius: 5px;
+    background: #0f4c75; color: #fff; cursor: pointer; font-size: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 4px;
 }
+.edit-jamaat:hover { background: #3282b8; }
+.prayer-card.active { border: 2px solid #0f4c75; background: #f3faff; }
+.prayer-card.active h3 { color: #0f4c75; }
 
 /* ==========================
-EDIT BUTTON
+   BOTTOM NAV (HOME + MORE)
 ========================== */
-
-.edit-jamaat {
-    width: 18px;
-    height: 18px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    background: #0f4c75;
-
-    color: #fff;
-
-    cursor: pointer;
-
-    font-size: 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    margin-left: 4px;
-
-    transition: .3s;
-}
-
-
-/* ==========================
-HOVER
-========================== */
-
-.prayer-card:hover {
-    transform: translateY(-1px);
-}
-
-.edit-jamaat:hover {
-    background: #3282b8;
-}
-
-
-
-/* ==========================
-   BOTTOM NAVIGATION
-========================== */
-
-.bottom-nav {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 0px;
-
-    transform: translateX(-50%);
-
-    width: calc(100% - 16px);
-
-    max-width: 500px;
-
-    height: 58px;
-
-    display: flex;
-
-    flex-direction: row;
-
-    justify-content: space-around;
-
-    align-items: center;
-
-    background: #ffffff;
-
-    border: 1px solid #e5e5e5;
-
-    border-radius: 30px;
-
-    box-shadow: 0 4px 20px rgba(0,0,0,.10);
-
-    z-index: 4000;
-
-}
-
-
-/* NAV ITEM */
-
-.nav-item {
-
-    flex: 1;
-
-    min-width: 0;
-
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 2px;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    color: #7a7a7a;
-
-    border-radius: 22px;
-
-    transition: .3s;
-
-}
-
-
-/* ICON */
-
-.nav-item i {
-
-    display: block;
-
-    font-size: 17px;
-
-    margin-bottom: 2px;
-
-}
-
-
-/* TEXT */
-
-.nav-item span {
-
-    font-size: 10px;
-
-    font-weight: 500;
-
-    white-space: nowrap;
-
-}
-
-
-/* ACTIVE */
-
-.nav-item.active {
-
-    color: #0f4c75;
-
-    background: #eef6fb;
-
-}
-
-
-/* HOVER */
-
-.nav-item:hover {
-
-    color: #3282b8;
-
-}
-
-
-/* ======================================
-INDEX NAVIGATION - SAME AS 99 NAMES
-====================================== */
-
 .bottom-nav {
     position: fixed !important;
-
     left: 50% !important;
     bottom: 0 !important;
-
     transform: translateX(-50%) !important;
-
     width: 100% !important;
     max-width: 430px !important;
-
     height: 50px !important;
-
     display: flex !important;
     flex-direction: row !important;
-
     justify-content: space-around !important;
     align-items: center !important;
-
     padding: 7px 4px !important;
-
     background: #ffffff !important;
-
     border: none !important;
-
     border-radius: 24px 24px 0 0 !important;
-
-    box-shadow:
-        0 -10px 30px rgba(0,0,0,.12) !important;
-
+    box-shadow: 0 -10px 30px rgba(0,0,0,.12) !important;
     z-index: 9999 !important;
 }
-
-
-/* NAV ITEMS */
-
 .bottom-nav .nav-item {
     flex: 1 !important;
-
-    min-width: 0 !important;
-
-    height: 100% !important;
-
     display: flex !important;
-
     flex-direction: column !important;
-
     align-items: center !important;
-
     justify-content: center !important;
-
     gap: 4px !important;
-
-    padding: 0 !important;
-
-    margin: 0 !important;
-
-    text-align: center !important;
-
     text-decoration: none !important;
-
     color: #777 !important;
-
-    border-radius: 0 !important;
-
-    background: transparent !important;
-
+    font-size: 10px !important;
     transition: .3s !important;
 }
+.bottom-nav .nav-item i { font-size: 16px !important; }
+.bottom-nav .nav-item span { font-size: 9px !important; white-space: nowrap !important; }
+.bottom-nav .nav-item.active { color: #1565c0 !important; font-weight: 700 !important; }
+.bottom-nav .nav-item:hover { transform: translateY(-2px) !important; }
 
-
-/* ICON */
-
-.bottom-nav .nav-item i {
-    display: block !important;
-
-    font-size: 16px !important;
-
-    margin: 0 !important;
+/* MORE MENU */
+.more-nav { position: relative; flex: 1; display: flex; justify-content: center; }
+.more-nav-btn {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; border: none; background: transparent; color: #777; font-size: 10px; cursor: pointer;
 }
+.more-nav-btn i { font-size: 16px; }
+.more-nav-btn span { font-size: 9px; white-space: nowrap; }
+.more-nav-btn:hover { color: #1565c0; }
 
-
-/* TEXT */
-
-.bottom-nav .nav-item span {
-    white-space: nowrap !important;
-
-    font-size: 9px !important;
-
-    font-weight: 400 !important;
+.more-menu {
+    position: absolute;
+    bottom: 55px; right: 0;
+    width: 160px; padding: 8px;
+    background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.20);
+    display: none; flex-direction: column; gap: 5px; z-index: 10001;
 }
-
-
-/* ACTIVE */
-
-.bottom-nav .nav-item.active {
-    color: #1565c0 !important;
-
-    background: transparent !important;
-
-    font-weight: 700 !important;
+.more-menu.show { display: flex !important; }
+.more-menu a, .more-menu button {
+    width: 100%; min-height: 40px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border: none; border-radius: 10px;
+    background: transparent; color: #333; text-decoration: none;
+    font-size: 12px; cursor: pointer; text-align: left;
 }
-
-
-/* HOVER */
-
-.bottom-nav .nav-item:hover {
-    transform: translateY(-2px) !important;
-}
+.more-menu a i, .more-menu button i { width: 20px; color: #1565c0; text-align: center; }
+.more-menu a:hover, .more-menu button:hover { background: #e3f2fd; color: #1565c0; }
 
 /* ==========================
-        FLOATING BUTTON
+   FLOATING BUTTON & LOADING
 ========================== */
-
-.floating-btn{
-
-    position:fixed;
-
-    right:25px;
-
-    bottom:95px;
-
-    width:60px;
-
-    height:60px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#0f4c75;
-
-    color:#ffffff;
-
-    font-size:22px;
-
-    cursor:pointer;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    box-shadow:0 8px 20px rgba(15,76,117,.35);
-
-    transition:.3s;
-
-    z-index:999;
-
+.floating-btn {
+    position: fixed; right: 25px; bottom: 95px;
+    width: 60px; height: 60px; border: none; border-radius: 50%;
+    background: #0f4c75; color: #fff; font-size: 22px; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 8px 20px rgba(15,76,117,.35); transition: .3s; z-index: 999;
 }
+.floating-btn:hover { background: #3282b8; transform: scale(1.08); }
+.floating-btn:active { transform: scale(.96); }
 
-.floating-btn:hover{
-
-    background:#3282b8;
-
-    transform:scale(1.08);
-
+#loadingScreen {
+    position: fixed; inset: 0; background: #ffffff;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
 }
-
-.floating-btn:active{
-
-    transform:scale(.96);
-
+.loader {
+    width: 60px; height: 60px; border: 6px solid #d9e7f5; border-top: 6px solid #0f4c75;
+    border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;
 }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+#loadingScreen h3 { color: #0f4c75; font-size: 24px; margin-bottom: 8px; }
+#loadingScreen p { color: #666; font-size: 15px; }
 
 /* ==========================
-        LOADING SCREEN
+   MODALS & RESPONSIVE
 ========================== */
-
-#loadingScreen{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#ffffff;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:9999;
-
+.modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: none; justify-content: center; align-items: center; padding: 20px; z-index: 2000;
 }
-
-.loader{
-
-    width:60px;
-
-    height:60px;
-
-    border:6px solid #d9e7f5;
-
-    border-top:6px solid #0f4c75;
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-    margin-bottom:20px;
-
+.modal-content {
+    width: 100%; max-width: 380px; background: #ffffff; border-radius: 20px;
+    padding: 25px; text-align: center; animation: popup .25s ease;
 }
+@keyframes popup { from { opacity:0; transform: scale(.9); } to { opacity:1; transform: scale(1); } }
+.modal-content h2 { color: #0f4c75; margin-bottom: 10px; }
+.modal-content p { color: #666; margin-bottom: 18px; line-height: 1.6; }
+.modal-content input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; outline: none; font-size: 16px; margin-bottom: 20px; }
+.modal-buttons { display: flex; gap: 12px; }
+.modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; }
+.save-btn { background: #0f4c75; color: #fff; }
+.save-btn:hover { background: #3282b8; }
+.cancel-btn { background: #eeeeee; color: #333; }
+.cancel-btn:hover { background: #dddddd; }
 
-@keyframes spin{
+.app-footer { margin: 30px 20px 100px; text-align: center; color: #777; }
+.app-footer p { font-size: 15px; font-weight: 600; color: #0f4c75; margin-bottom: 6px; }
+.app-footer small { font-size: 12px; line-height: 1.5; }
 
-    0%{
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #edf2f7; }
+::-webkit-scrollbar-thumb { background: #0f4c75; border-radius: 20px; }
+::-webkit-scrollbar-thumb:hover { background: #3282b8; }
 
-        transform:rotate(0deg);
+::selection { background: #0f4c75; color: #ffffff; }
 
-    }
-
-    100%{
-
-        transform:rotate(360deg);
-
-    }
-
+@media (max-width:480px) {
+    .index-header { padding: 15px 16px 10px; }
+    .index-header .app-title { font-size: 20px; }
+    .index-header .app-subtitle { font-size: 10px; }
+    .clock-box h1 { font-size: 34px; }
+    .bottom-nav { height: 60px !important; }
+    .bottom-nav .nav-item i { font-size: 20px !important; }
+    .bottom-nav .nav-item span { font-size: 11px !important; }
+    .floating-btn { width: 55px; height: 55px; right: 18px; bottom: 85px; font-size: 20px; }
 }
-
-#loadingScreen h3{
-
-    color:#0f4c75;
-
-    font-size:24px;
-
-    margin-bottom:8px;
-
-}
-
-#loadingScreen p{
-
-    color:#666;
-
-    font-size:15px;
-
-}
-
-/* ==========================
-          MODAL
-========================== */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.45);
-
-    display:none;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-
-    z-index:2000;
-
-}
-
-.modal-content{
-
-    width:100%;
-
-    max-width:380px;
-
-    background:#ffffff;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    text-align:center;
-
-    animation:popup .25s ease;
-
-}
-
-@keyframes popup{
-
-    from{
-
-        opacity:0;
-
-        transform:scale(.9);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:scale(1);
-
-    }
-
-}
-
-.modal-content h2{
-
-    color:#0f4c75;
-
-    margin-bottom:10px;
-
-}
-
-.modal-content p{
-
-    color:#666;
-
-    margin-bottom:18px;
-
-    line-height:1.6;
-
-}
-
-.modal-content input{
-
-    width:100%;
-
-    padding:12px;
-
-    border:1px solid #ddd;
-
-    border-radius:12px;
-
-    outline:none;
-
-    font-size:16px;
-
-    margin-bottom:20px;
-
-}
-
-.modal-buttons{
-
-    display:flex;
-
-    gap:12px;
-
-}
-
-.modal-buttons button{
-
-    flex:1;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:600;
-
-}
-
-.save-btn{
-
-    background:#0f4c75;
-
-    color:#fff;
-
-}
-
-.save-btn:hover{
-
-    background:#3282b8;
-
-}
-
-.cancel-btn{
-
-    background:#eeeeee;
-
-    color:#333;
-
-}
-
-.cancel-btn:hover{
-
-    background:#dddddd;
-
-}
-
-/* ==========================
-        APP FOOTER
-========================== */
-
-.app-footer{
-
-    margin:30px 20px 100px;
-
-    text-align:center;
-
-    color:#777;
-
-}
-
-.app-footer p{
-
-    font-size:15px;
-
-    font-weight:600;
-
-    color:#0f4c75;
-
-    margin-bottom:6px;
-
-}
-
-.app-footer small{
-
-    font-size:12px;
-
-    line-height:1.5;
-
-}
-
-/* ==========================
-        SCROLLBAR
-========================== */
-
-::-webkit-scrollbar{
-
-    width:6px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#edf2f7;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:#0f4c75;
-
-    border-radius:20px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:#3282b8;
-
-}
-
-/* ==========================
-      TEXT SELECTION
-========================== */
-
-::selection{
-
-    background:#0f4c75;
-
-    color:#ffffff;
-
-}
-
-/* ==========================
-        RESPONSIVE
-========================== */
-
-@media (max-width:480px){
-
-    .header{
-
-        padding:18px;
-
-    }
-
-    .header-left h2{
-
-        font-size:24px;
-
-    }
-
-    .mosque-icon{
-
-        width:55px;
-
-        height:55px;
-
-        font-size:24px;
-
-    }
-
-    .clock-box h1{
-
-        font-size:34px;
-
-    }
-
-    .next-prayer h2{
-
-        font-size:24px;
-
-    }
-
-    .prayer-card{
-
-        padding:15px;
-
-    }
-
-    .prayer-icon{
-
-        width:50px;
-
-        height:50px;
-
-        font-size:22px;
-
-    }
-
- 
-
-    }
-
-    .bottom-nav{
-
-        height:70px;
-
-    }
-
-    .nav-item i{
-
-        font-size:20px;
-
-    }
-
-    .nav-item span{
-
-        font-size:11px;
-
-    }
-
-    .floating-btn{
-
-        width:55px;
-
-        height:55px;
-
-        right:18px;
-
-        bottom:85px;
-
-        font-size:20px;
-
-    }
-
-
-
-/* ==========================
-        TABLET
-========================== */
-
-@media (min-width:768px){
-
-    .app{
-
-        max-width:550px;
-
-    }
-
-}
-
-
-/* ==========================================
-        ACTIVE PRAYER CARD
-========================================== */
-
-.prayer-card.active{
-
-    border:2px solid #0f4c75;
-
-    background:#f3faff;
-
-}
-
-.prayer-card.active h3{
-
-    color:#0f4c75;
-
-}
-
-
-/* ==========================
-HIDE PRAYER ALARM BELL
-========================== */
-
-button:has(.fa-bell),
-a:has(.fa-bell),
-div:has(> .fa-bell) {
-    display: none !important;
-}
-
+@media (min-width:768px) { .app { max-width: 550px; } }
 

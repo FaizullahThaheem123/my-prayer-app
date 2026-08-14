@@ -1,455 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-content="#1565c0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1565c0">
 <title>99 Names of Allah - My Prayer</title>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<link
-rel="stylesheet"
-href="names.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="names.css">
 </head>
-
-
 <body>
-
 
 <div class="names-page">
 
-
 <!-- ======================================
-     HEADER
+     HEADER (TITLE LEFT, IMAGE RIGHT)
 ====================================== -->
-
 <header class="names-header">
-
-    <button
-    id="namesHomeBtn"
-    class="header-btn"
-    aria-label="Home">
-
-        <i class="fa-solid fa-house"></i>
-
-    </button>
-
-
     <div class="header-title">
-
-        <h1>
-
-            <i class="fa-solid fa-star-and-crescent"></i>
-
-            99 Names
-
-        </h1>
-
-        <p>
-            Beautiful Names of Allah
-        </p>
-
+        <h1><i class="fa-solid fa-star-and-crescent"></i> 99 Names</h1>
+        <p>Beautiful Names of Allah</p>
     </div>
-
-
-    <button
-    id="namesSettingsBtn"
-    class="header-btn"
-    aria-label="Settings">
-
-        <i class="fa-solid fa-gear"></i>
-
-    </button>
-
+    <div class="names-header-image">
+        <img src="../images/makkah.png" alt="Makkah">
+    </div>
 </header>
 
-
-
 <!-- ======================================
-     NAME DETAIL
+     MAIN CONTENT
 ====================================== -->
-
 <main class="name-detail-page">
-
-
-    <!-- ==================================
-         MAIN NAME CARD
-    ================================== -->
-
     <section class="main-name-card">
 
-
         <!-- PAGE COUNTER -->
-
         <div class="name-page-counter">
-
-            <span id="currentNameNumber">
-                01
-            </span>
-
-            <span>
-                /
-            </span>
-
-            <span>
-                99
-            </span>
-
+            <span id="currentNameNumber">01</span> / <span>99</span>
         </div>
 
-
-
-        <!-- ==================================
-             AUDIO - TOP
-        ================================== -->
-
+        <!-- AUDIO PLAYER (TOP) -->
         <section class="names-audio-player">
-
-
             <div class="audio-info">
-
-
-                <div class="audio-icon">
-
-                    <i class="fa-solid fa-volume-high"></i>
-
-                </div>
-
-
+                <div class="audio-icon"><i class="fa-solid fa-volume-high"></i></div>
                 <div class="audio-text">
-
-                    <span>
-                        99 Names Audio
-                    </span>
-
-                    <strong>
-                        Name of Allah
-                    </strong>
-
+                    <span>99 Names Audio</span>
+                    <strong id="audioNameText">Name of Allah</strong>
                 </div>
-
             </div>
-
-
-
             <div class="audio-controls">
-
-                <button
-                id="mainAudioBtn"
-                class="main-audio-btn"
-                aria-label="Play Audio">
-
-                    <i class="fa-solid fa-play"></i>
-
-                </button>
-
+                <button id="mainAudioBtn" class="main-audio-btn"><i class="fa-solid fa-play"></i></button>
             </div>
-
-
-
             <div class="audio-progress">
-
-                <div
-                id="audioProgressBar"
-                class="audio-progress-fill">
-                </div>
-
+                <div id="audioProgressBar" class="audio-progress-fill"></div>
             </div>
-
-
-            <audio
-            id="nameAudio"
-            preload="metadata"
-            src="name of allah.mp3">
-            </audio>
-
-
+            <audio id="nameAudio" preload="metadata" src="name of allah.mp3"></audio>
         </section>
 
+        <!-- ARABIC / ENGLISH / URDU -->
+        <div id="detailArabic" class="detail-arabic"></div>
+        <h2 id="detailEnglish" class="detail-english"></h2>
+        <div id="detailEnglishMeaning" class="detail-english-meaning"></div>
+        <div id="detailUrdu" class="detail-urdu"></div>
 
-
-        <!-- ==================================
-             ARABIC
-        ================================== -->
-
-        <div
-        id="detailArabic"
-        class="detail-arabic">
-
-            الرَّحْمَنُ
-
+        <!-- BENEFITS -->
+        <div class="benefit-section">
+            <strong class="benefit-label-en">Benefit:</strong>
+            <p id="detailBenefitEn" class="benefit-text-en">Loading...</p>
+        </div>
+        <div class="benefit-section-urdu">
+            <strong class="benefit-label-ur">فائدہ:</strong>
+            <p id="detailBenefitUr" class="benefit-text-ur">لوڈ ہو رہا ہے...</p>
         </div>
 
-
-
-        <!-- ==================================
-             ENGLISH
-        ================================== -->
-
-        <h2
-        id="detailEnglish"
-        class="detail-english">
-
-            Ar-Rahman
-
-        </h2>
-
-
-
-        <!-- ==================================
-             MEANING
-        ================================== -->
-
-        <div class="meaning-section">
-
-            <span class="section-label">
-
-                <i class="fa-solid fa-book-open"></i>
-
-                Meaning
-
-            </span>
-
-
-            <p
-            id="detailUrdu"
-            class="detail-urdu">
-
-                نہایت رحم کرنے والا
-
-            </p>
-
+        <!-- DISCLAIMER -->
+        <div class="disclaimer-note">
+            Note: The benefits listed for each name are based on popular traditions and are not confirmed by the Qur'an or authentic sayings of the Prophet (ﷺ). For authentic guidance, please refer to the Qur'an and Sunnah.
         </div>
 
-
-
-        <!-- ==================================
-             WHEN TO RECITE
-        ================================== -->
-
-        <div class="info-box">
-
-            <div class="info-icon">
-
-                <i class="fa-regular fa-clock"></i>
-
-            </div>
-
-
-            <div class="info-content">
-
-                <span>
-                    کب پڑھیں؟
-                </span>
-
-                <strong id="detailWhen">
-
-                    مخصوص وقت مقرر نہیں
-
-                </strong>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- ==================================
-             HOW MANY TIMES
-        ================================== -->
-
-        <div class="info-box">
-
-            <div class="info-icon">
-
-                <i class="fa-solid fa-repeat"></i>
-
-            </div>
-
-
-            <div class="info-content">
-
-                <span>
-                    کتنی بار پڑھیں؟
-                </span>
-
-                <strong id="detailCount">
-
-                    مخصوص تعداد مقرر نہیں
-
-                </strong>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- ==================================
-             FAVORITE
-        ================================== -->
-
-        <button
-        id="favoriteNameBtn"
-        class="favorite-btn">
-
-            <i class="fa-regular fa-heart"></i>
-
-            Favorite
-
+        <!-- FAVORITE BUTTON -->
+        <button id="favoriteNameBtn" class="favorite-btn">
+            <i class="fa-regular fa-heart"></i> Favorite
         </button>
 
-
-
-        <!-- ==================================
-             PREVIOUS / NEXT
-             INSIDE THE CARD
-        ================================== -->
-
+        <!-- PREVIOUS / NEXT -->
         <div class="name-navigation">
-
-
-            <button
-            id="previousNameBtn"
-            class="name-nav-btn">
-
-                <i class="fa-solid fa-arrow-left"></i>
-
-                <span>
-                    Previous
-                </span>
-
+            <button id="previousNameBtn" class="name-nav-btn">
+                <i class="fa-solid fa-arrow-left"></i> <span>Previous</span>
             </button>
-
-
-
-            <button
-            id="nextNameBtn"
-            class="name-nav-btn next-btn">
-
-                <span>
-                    Next
-                </span>
-
-                <i class="fa-solid fa-arrow-right"></i>
-
+            <button id="nextNameBtn" class="name-nav-btn next-btn">
+                <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
-
-
         </div>
-
-
     </section>
-
-
 </main>
 
-
-
 <!-- ======================================
-     BOTTOM NAVIGATION
+     BOTTOM NAV (ONLY HOME + MORE)
 ====================================== -->
-
 <nav class="bottom-nav">
+    <!-- Only Home remains outside -->
+    <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
 
-
-    <a
-    href="../index.html">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span>
-            Home
-        </span>
-
-    </a>
-
-
-
-    <a
-    href="../quran/quran.html">
-
-        <i class="fa-solid fa-book-quran"></i>
-
-        <span>
-            Quran
-        </span>
-
-    </a>
-
-
-
-    <a
-    href="../dua/duas.html">
-
-        <i class="fa-solid fa-hands-praying"></i>
-
-        <span>
-            Duas
-        </span>
-
-    </a>
-
-
-
-    <a
-    href="names.html"
-    class="active">
-
-        <i class="fa-solid fa-star-and-crescent"></i>
-
-        <span>
-            99 Names
-        </span>
-
-    </a>
-
-
-
-    <a
-    href="../tasbeeh/tasbeeh.html">
-
-        <i class="fa-solid fa-ring"></i>
-
-        <span>
-            Tasbeeh
-        </span>
-
-    </a>
-
-
-
-    <a
-    href="../campus/campus.html">
-
-        <i class="fa-solid fa-graduation-cap"></i>
-
-        <span>
-            Campus
-        </span>
-
-    </a>
-
-
+    <!-- Quran & Duas moved inside More -->
+    <div class="more-nav">
+        <button type="button" class="more-nav-btn active" id="moreNavBtn">
+            <i class="fa-solid fa-ellipsis"></i><span>More</span>
+        </button>
+        <div class="more-menu" id="moreMenu">
+            <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+            <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+            <a href="names.html" class="active"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+            <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+            <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+            <button type="button" id="namesSettingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        </div>
+    </div>
 </nav>
-
 
 </div>
 
-
 <script src="names.js"></script>
-
 </body>
-
 </html>

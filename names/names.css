@@ -1,13 +1,6 @@
 /* ======================================
    MY PRAYER - 99 NAMES OF ALLAH
-   DETAIL PAGE
-   AUDIO TOP
-   NAVIGATION INSIDE CARD
-====================================== */
-
-
-/* ======================================
-   RESET
+   TITLE LEFT, IMAGE RIGHT, BOTTOM NAV FIX
 ====================================== */
 
 *{
@@ -16,1191 +9,609 @@
     padding:0;
 }
 
-
 html{
     scroll-behavior:smooth;
 }
 
-
 body{
-
     margin:0;
-
     padding:0;
-
     padding-bottom:80px;
-
-    font-family:
-        Arial,
-        "Segoe UI",
-        sans-serif;
-
+    font-family: Arial, "Segoe UI", sans-serif;
     background:#f5f7fa;
-
     color:#222;
-
     min-height:100vh;
-
 }
-
-
-/* ======================================
-   MAIN PAGE
-====================================== */
 
 .names-page{
-
     width:100%;
-
     max-width:430px;
-
     min-height:100vh;
-
     margin:0 auto;
-
     background:#f5f7fa;
-
     position:relative;
-
     overflow:hidden;
-
+    padding:0 10px;
 }
 
-
-/* ======================================
-   HEADER
-====================================== */
-
+/* ========== HEADER (TITLE LEFT, IMAGE RIGHT) ========== */
 .names-header{
-
     width:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    padding:15px 14px;
-
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:center !important;
+    padding:15px 13px;
     background:#ffffff;
-
     border-bottom:1px solid #e8e8e8;
-
     border-radius:0 0 18px 18px;
-
     position:sticky;
-
     top:0;
-
     z-index:100;
-
 }
-
-
-.header-btn{
-
-    width:42px;
-
-    height:42px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#f1f5f9;
-
-    color:#1565c0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    flex-shrink:0;
-
-    transition:.25s;
-
-}
-
-
-.header-btn:active{
-
-    transform:scale(.92);
-
-}
-
-
-.header-btn:hover{
-
-    background:#e3f2fd;
-
-}
-
-
-/* ======================================
-   HEADER TITLE
-====================================== */
 
 .header-title{
-
     flex:1;
-
-    text-align:center;
-
     min-width:0;
-
+    text-align:left;
 }
-
-
 .header-title h1{
-
     font-size:20px;
-
     line-height:1.2;
-
     font-weight:800;
-
     color:#1565c0;
-
 }
-
-
 .header-title h1 i{
-
     margin-right:5px;
-
 }
-
-
 .header-title p{
-
     margin-top:4px;
-
     font-size:11px;
-
     color:#777;
-
 }
 
+.names-header-image{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    margin-left:10px;
+}
+.names-header-image img{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+    border-radius:50%;
+}
 
-/* ======================================
-   DETAIL PAGE
-====================================== */
-
+/* ========== MAIN CARD ========== */
 .name-detail-page{
-
     width:100%;
-
     padding:15px 0 25px;
-
 }
-
-
-/* ======================================
-   MAIN NAME CARD
-   SAME OUTER WIDTH AS HEADER
-====================================== */
 
 .main-name-card{
-
     width:100%;
-
     background:#ffffff;
-
     border-radius:18px;
-
     padding:15px 18px 25px;
-
     border:1px solid #edf0f3;
-
-    box-shadow:
-        0 7px 25px rgba(0,0,0,.07);
-
+    box-shadow:0 7px 25px rgba(0,0,0,.07);
 }
-
-
-/* ======================================
-   PAGE COUNTER
-====================================== */
 
 .name-page-counter{
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:5px;
-
     margin-bottom:10px;
-
     color:#777;
-
     font-size:13px;
-
     font-weight:700;
-
 }
-
-
 #currentNameNumber{
-
     color:#1565c0;
-
     font-size:16px;
-
 }
-
-
-/* ======================================
-   AUDIO PLAYER
-   TOP OF CARD
-====================================== */
 
 .names-audio-player{
-
     width:100%;
-
     padding:13px;
-
     background:#f8fbff;
-
     border-radius:16px;
-
     border:1px solid #e3edf7;
-
     margin-bottom:18px;
-
 }
-
-
 .audio-info{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
 }
-
-
 .audio-icon{
-
     width:40px;
-
     height:40px;
-
     border-radius:11px;
-
     background:#e3f2fd;
-
     color:#1565c0;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     flex-shrink:0;
-
 }
-
-
 .audio-text{
-
     display:flex;
-
     flex-direction:column;
-
     gap:3px;
-
     min-width:0;
-
 }
-
-
 .audio-text span{
-
     font-size:10px;
-
     color:#888;
-
 }
-
-
 .audio-text strong{
-
     font-size:14px;
-
     color:#222;
-
 }
-
-
-/* ======================================
-   AUDIO BUTTON
-====================================== */
-
 .audio-controls{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     margin-top:10px;
-
 }
-
-
 .main-audio-btn{
-
     width:48px;
-
     height:48px;
-
     border:none;
-
     border-radius:50%;
-
     background:#1565c0;
-
     color:#ffffff;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:17px;
-
     cursor:pointer;
-
-    box-shadow:
-        0 5px 15px rgba(21,101,192,.25);
-
+    box-shadow:0 5px 15px rgba(21,101,192,.25);
 }
-
-
 .main-audio-btn:active{
-
     transform:scale(.93);
-
 }
-
-
-/* ======================================
-   AUDIO PROGRESS
-====================================== */
-
 .audio-progress{
-
     width:100%;
-
     height:5px;
-
     margin-top:11px;
-
     background:#e1e8ef;
-
     border-radius:10px;
-
     overflow:hidden;
-
 }
-
-
 .audio-progress-fill{
-
     width:0%;
-
     height:100%;
-
     background:#1565c0;
-
     border-radius:10px;
-
     transition:width .1s linear;
-
 }
-
-
-/* ======================================
-   ARABIC
-====================================== */
 
 .detail-arabic{
-
     direction:rtl;
-
     text-align:center;
-
     color:#1565c0;
-
     font-size:38px;
-
     line-height:1.8;
-
     font-weight:700;
-
     margin-bottom:2px;
-
     word-break:break-word;
-
 }
-
-
-/* ======================================
-   ENGLISH
-====================================== */
-
 .detail-english{
-
     text-align:center;
-
     font-size:20px;
-
     font-weight:800;
-
     color:#222;
-
-    margin-bottom:18px;
-
+    margin-bottom:5px;
+    text-transform:uppercase;
 }
-
-
-/* ======================================
-   MEANING
-====================================== */
-
-.meaning-section{
-
-    background:#f7faff;
-
-    border-radius:15px;
-
-    padding:13px;
-
-    margin-bottom:10px;
-
+.detail-english-meaning{
     text-align:center;
-
-}
-
-
-.section-label{
-
-    display:block;
-
-    color:#1565c0;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    margin-bottom:6px;
-
-}
-
-
-.section-label i{
-
-    margin-right:5px;
-
-}
-
-
-.detail-urdu{
-
-    direction:rtl;
-
-    text-align:center;
-
     font-size:18px;
-
-    line-height:1.8;
-
-    color:#333;
-
-    font-weight:600;
-
+    color:#444;
+    margin-bottom:15px;
 }
-
-
-/* ======================================
-   INFORMATION BOX
-====================================== */
-
-.info-box{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:11px;
-
-    width:100%;
-
-    padding:11px;
-
-    background:#ffffff;
-
-    border:1px solid #e8edf2;
-
-    border-radius:14px;
-
-    margin-top:8px;
-
-}
-
-
-.info-icon{
-
-    width:37px;
-
-    height:37px;
-
-    border-radius:11px;
-
-    background:#e3f2fd;
-
-    color:#1565c0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    flex-shrink:0;
-
-}
-
-
-.info-content{
-
-    flex:1;
-
-    min-width:0;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:3px;
-
-}
-
-
-.info-content span{
-
-    font-size:10px;
-
-    color:#888;
-
-}
-
-
-.info-content strong{
-
+.detail-urdu{
     direction:rtl;
-
-    text-align:right;
-
-    font-size:14px;
-
+    text-align:center;
+    font-size:18px;
+    line-height:1.8;
     color:#333;
-
-    line-height:1.5;
-
+    font-weight:600;
 }
 
+.benefit-section{
+    margin-top:12px;
+    text-align:left;
+}
+.benefit-label-en{
+    font-size:18px;
+    font-weight:700;
+    color:#222;
+    display:block;
+    margin-bottom:6px;
+}
+.benefit-text-en{
+    font-size:14px;
+    line-height:1.6;
+    color:#444;
+}
 
-/* ======================================
-   FAVORITE
-====================================== */
+.benefit-section-urdu{
+    margin-top:15px;
+    text-align:right;
+    direction:rtl;
+}
+.benefit-label-ur{
+    font-size:18px;
+    font-weight:700;
+    color:#222;
+    display:block;
+    text-align:right;
+    direction:rtl;
+    margin-bottom:6px;
+}
+.benefit-text-ur{
+    font-size:16px;
+    line-height:1.6;
+    color:#444;
+    text-align:right;
+    direction:rtl;
+}
+
+.disclaimer-note{
+    font-size:10px;
+    color:#888;
+    text-align:center;
+    margin-top:20px;
+    line-height:1.4;
+    border-top:1px solid #eee;
+    padding-top:15px;
+}
 
 .favorite-btn{
-
     width:100%;
-
     height:43px;
-
     border:1px solid #e3e8ed;
-
     border-radius:13px;
-
     background:#f8fafc;
-
     color:#777;
-
-    margin-top:11px;
-
+    margin-top:15px;
     font-size:13px;
-
     font-weight:700;
-
     cursor:pointer;
-
     transition:.25s;
-
 }
-
-
-.favorite-btn i{
-
-    margin-right:6px;
-
-}
-
-
 .favorite-btn:active{
-
     transform:scale(.98);
-
 }
-
-
 .favorite-btn.favorite-active{
-
     background:#fff0f1;
-
     border-color:#ffcdd2;
-
     color:#e53935;
-
 }
-
-
-/* ======================================
-   PREVIOUS / NEXT
-   INSIDE MAIN CARD
-====================================== */
 
 .name-navigation{
-
     display:flex;
-
     gap:9px;
-
     width:100%;
-
     margin-top:13px;
-
 }
-
-
 .name-nav-btn{
-
     flex:1;
-
     height:46px;
-
     border:1px solid #e1e7ec;
-
     border-radius:13px;
-
     background:#ffffff;
-
     color:#1565c0;
-
     font-size:13px;
-
     font-weight:800;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:7px;
-
     cursor:pointer;
-
     transition:.2s;
-
 }
-
-
 .name-nav-btn:active{
-
     transform:scale(.97);
-
 }
-
-
 .name-nav-btn:hover{
-
     background:#eef6ff;
-
 }
-
-
 .name-nav-btn:disabled{
-
     opacity:.35;
-
     cursor:not-allowed;
-
 }
-
-
 .name-nav-btn.next-btn{
-
     background:#1565c0;
-
     color:#ffffff;
-
     border-color:#1565c0;
-
 }
-
-
 .name-nav-btn.next-btn:hover{
-
     background:#0d5aa7;
-
 }
 
-
-/* ======================================
-   BOTTOM NAVIGATION
-====================================== */
-
+/* ========== BOTTOM NAV (HOME + MORE ONLY) ========== */
 .bottom-nav{
-
     position:fixed;
-
     left:50%;
-
     transform:translateX(-50%);
-
     bottom:0;
-
     width:100%;
-
     max-width:430px;
-
     height:58px;
-
     display:flex;
-
     justify-content:space-around;
-
     align-items:center;
-
     padding:7px 4px;
-
     background:#ffffff;
-
     border-radius:24px 24px 0 0;
-
-    box-shadow:
-        0 -10px 30px rgba(0,0,0,.12);
-
+    box-shadow:0 -10px 30px rgba(0,0,0,.12);
     z-index:9999;
-
 }
-
-
-.bottom-nav a{
-
+.bottom-nav > a, .more-nav{
     flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:4px;
-
-    text-decoration:none;
-
-    font-size:10px;
-
-    color:#777;
-
-    transition:.3s;
-
     min-width:0;
-
 }
-
-
+.bottom-nav a{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    text-decoration:none;
+    font-size:10px;
+    color:#777;
+    transition:.3s;
+}
 .bottom-nav i{
-
     font-size:16px;
-
 }
-
-
 .bottom-nav span{
-
     white-space:nowrap;
-
     font-size:9px;
-
 }
-
-
 .bottom-nav a.active{
-
     color:#1565c0;
-
     font-weight:700;
-
 }
 
-
-.bottom-nav a:hover{
-
-    transform:translateY(-2px);
-
+.more-nav{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.more-nav-btn{
+    width:100%;
+    min-height:50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    border:none;
+    background:transparent;
+    color:#777;
+    font-size:10px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:0.3s;
+}
+.more-nav-btn:hover{
+    color:#1565c0;
+}
+.more-nav-btn i{
+    font-size:16px;
+}
+.more-nav-btn span{
+    font-size:9px;
+    white-space:nowrap;
 }
 
+.more-menu{
+    position:absolute;
+    right:0;
+    bottom:62px;
+    width:165px;
+    padding:8px;
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    box-shadow:0 12px 32px rgba(0,0,0,.20);
+    z-index:10001;
+}
+.more-menu.show{
+    display:flex !important;
+}
+.more-menu a, .more-menu button{
+    width:100%;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 10px;
+    border:none;
+    border-radius:10px;
+    background:transparent;
+    color:#333;
+    text-decoration:none;
+    font-size:12px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+    transition:0.2s;
+}
+.more-menu a i, .more-menu button i{
+    width:20px;
+    color:#1565c0;
+    text-align:center;
+}
+.more-menu a:hover, .more-menu button:hover{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+.more-menu a.active{
+    background:#e3f2fd;
+    color:#1565c0;
+    font-weight:700;
+}
 
-/* ======================================
-   MOBILE
-====================================== */
+/* ========== DARK MODE ========== */
+body.dark-mode{
+    background:#121212;
+    color:#ffffff;
+}
+body.dark-mode .names-page{
+    background:#121212;
+}
+body.dark-mode .names-header,
+body.dark-mode .main-name-card,
+body.dark-mode .name-nav-btn,
+body.dark-mode .bottom-nav{
+    background:#1e1e1e;
+    border-color:#2d2d2d;
+}
+body.dark-mode .names-header{
+    border-radius:0 0 18px 18px;
+}
+body.dark-mode .main-name-card{
+    border-radius:18px;
+}
+body.dark-mode .names-audio-player{
+    background:#172b3d;
+    border-color:#2d4052;
+}
+body.dark-mode .header-title h1{
+    color:#64b5f6;
+}
+body.dark-mode .header-title p{
+    color:#aaa;
+}
+body.dark-mode .detail-arabic{
+    color:#64b5f6;
+}
+body.dark-mode .detail-english{
+    color:#ffffff;
+}
+body.dark-mode .detail-english-meaning{
+    color:#ddd;
+}
+body.dark-mode .detail-urdu{
+    color:#eeeeee;
+}
+body.dark-mode .benefit-label-en,
+body.dark-mode .benefit-label-ur{
+    color:#ffffff;
+}
+body.dark-mode .benefit-text-en,
+body.dark-mode .benefit-text-ur{
+    color:#ccc;
+}
+body.dark-mode .disclaimer-note{
+    color:#888;
+    border-color:#333;
+}
+body.dark-mode .favorite-btn{
+    background:#292929;
+    border-color:#3a3a3a;
+    color:#aaa;
+}
+body.dark-mode .favorite-btn.favorite-active{
+    background:#3a2023;
+    color:#ef5350;
+}
+body.dark-mode .audio-icon{
+    background:#263b4d;
+    color:#64b5f6;
+}
+body.dark-mode .audio-text strong{
+    color:#ffffff;
+}
+body.dark-mode .audio-text span{
+    color:#aaa;
+}
+body.dark-mode .bottom-nav a{
+    color:#aaa;
+}
+body.dark-mode .bottom-nav a.active{
+    color:#64b5f6;
+}
+body.dark-mode .more-nav-btn{
+    color:#aaa;
+}
+body.dark-mode .more-nav-btn:hover{
+    color:#64b5f6;
+}
+body.dark-mode .more-menu{
+    background:#1e1e1e;
+    border-color:#333;
+}
+body.dark-mode .more-menu a, body.dark-mode .more-menu button{
+    color:#fff;
+}
+body.dark-mode .more-menu a:hover, body.dark-mode .more-menu button:hover{
+    background:#263b4d;
+    color:#64b5f6;
+}
+body.dark-mode .more-menu a.active{
+    background:#263b4d;
+    color:#64b5f6;
+}
 
 @media(max-width:430px){
-
     .names-header{
-
         padding:13px 12px;
-
-        border-radius:0 0 17px 17px;
-
     }
-
-
     .header-title h1{
-
         font-size:18px;
-
     }
-
-
     .header-title p{
-
         font-size:10px;
-
     }
-
-
+    .names-header-image{
+        width:38px;
+        height:38px;
+    }
+    .names-header-image img{
+        width:30px;
+        height:30px;
+    }
     .name-detail-page{
-
-        width:100%;
-
         padding:12px 0 22px;
-
     }
-
-
     .main-name-card{
-
-        width:100%;
-
         padding:13px 13px 16px;
-
         border-radius:17px;
-
     }
-
-
     .names-audio-player{
-
         margin-bottom:15px;
-
     }
-
-
     .detail-arabic{
-
         font-size:32px;
-
     }
-
-
     .detail-english{
-
         font-size:18px;
-
         margin-bottom:15px;
-
     }
-
-
     .detail-urdu{
-
         font-size:17px;
-
     }
-
-
-    .info-content strong{
-
-        font-size:13px;
-
-    }
-
-
     .bottom-nav{
-
         height:55px;
-
     }
-
+    .more-menu{
+        width:155px;
+        bottom:58px;
+    }
 }
-
-
-/* ======================================
-   DARK MODE
-====================================== */
-
-body.dark-mode{
-
-    background:#121212;
-
-    color:#ffffff;
-
-}
-
-
-body.dark-mode .names-page{
-
-    background:#121212;
-
-}
-
-
-body.dark-mode .names-header,
-
-body.dark-mode .main-name-card,
-
-body.dark-mode .name-nav-btn,
-
-body.dark-mode .bottom-nav{
-
-    background:#1e1e1e;
-
-    border-color:#2d2d2d;
-
-}
-
-
-body.dark-mode .names-header{
-
-    border-radius:0 0 18px 18px;
-
-}
-
-
-body.dark-mode .main-name-card{
-
-    border-radius:18px;
-
-}
-
-
-body.dark-mode .names-audio-player{
-
-    background:#172b3d;
-
-    border-color:#2d4052;
-
-}
-
-
-body.dark-mode .header-title h1{
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .header-title p{
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode .header-btn{
-
-    background:#292929;
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .detail-arabic{
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .detail-english{
-
-    color:#ffffff;
-
-}
-
-
-body.dark-mode .meaning-section{
-
-    background:#172b3d;
-
-}
-
-
-body.dark-mode .detail-urdu{
-
-    color:#eeeeee;
-
-}
-
-
-body.dark-mode .info-box{
-
-    background:#1e1e1e;
-
-    border-color:#333;
-
-}
-
-
-body.dark-mode .info-icon{
-
-    background:#263b4d;
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .info-content span{
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode .info-content strong{
-
-    color:#eeeeee;
-
-}
-
-
-body.dark-mode .favorite-btn{
-
-    background:#292929;
-
-    border-color:#3a3a3a;
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode .favorite-btn.favorite-active{
-
-    background:#3a2023;
-
-    color:#ef5350;
-
-}
-
-
-body.dark-mode .audio-icon{
-
-    background:#263b4d;
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .audio-text span{
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode .audio-text strong{
-
-    color:#ffffff;
-
-}
-
-
-body.dark-mode .name-page-counter{
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode #currentNameNumber{
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .name-nav-btn{
-
-    color:#64b5f6;
-
-}
-
-
-body.dark-mode .name-nav-btn.next-btn{
-
-    background:#1565c0;
-
-    color:#ffffff;
-
-    border-color:#1565c0;
-
-}
-
-
-body.dark-mode .bottom-nav a{
-
-    color:#aaa;
-
-}
-
-
-body.dark-mode .bottom-nav a.active{
-
-    color:#64b5f6;
-
-}
-
-
-/* ======================================
-   END
-====================================== */

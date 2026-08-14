@@ -1,1907 +1,566 @@
-/* ======================================
-   MY PRAYER - CAMPUS / QIBLA
-   JAVASCRIPT - COMPLETE
-====================================== */
+/* ==================================================
+   MY PRAYER - QIBLA / CAMPUS
+   CAMPUS.JS - COMPLETE ULTIMATE EDITION (WITH FALLBACK LOCATION)
+================================================== */
 
-"use strict";
-
-
-/* ======================================
-   KAABA
-====================================== */
-
+/* ==================================================
+   QIBLA CONSTANTS
+================================================== */
 const KAABA_LATITUDE = 21.422487;
 const KAABA_LONGITUDE = 39.826206;
 
+/* ==================================================
+   DEFAULT LOCATION (ADILPUR, GHOTKI)
+   Agar GPS fail ho jaye to yeh use hoga
+================================================== */
+const DEFAULT_LATITUDE = 28.0065;   // Adilpur/ Ghotki
+const DEFAULT_LONGITUDE = 69.3167;  // Adilpur/ Ghotki
+const DEFAULT_LOCATION_NAME = "Adilpur, Ghotki";
 
-/* ======================================
+/* ==================================================
    GLOBAL VARIABLES
-====================================== */
-
+================================================== */
 let currentLatitude = null;
 let currentLongitude = null;
 
-let qiblaBearing = null;
+let currentQiblaBearing = null;
+let currentDistance = null;
 
 let currentHeading = null;
 
-let campusMap = null;
+let qiblaMap = null;
 
 let userMarker = null;
 let kaabaMarker = null;
 let qiblaLine = null;
 
-let compassActive = false;
-let orientationListening = false;
-let locationWatchId = null;
+let compassListening = false;
+let compassHandler = null;
 
-let orientationEventType = null;
+/* ==================================================
+   DOM ELEMENTS
+================================================== */
+const locationName = document.getElementById("locationName");
+const locationStatus = document.getElementById("locationStatus");
+const locationRefreshBtn = document.getElementById("locationRefreshBtn");
 
+const qiblaDegree = document.getElementById("qiblaDegree");
+const qiblaBearingLive = document.getElementById("qiblaBearingLive");
+const qiblaStatus = document.getElementById("qiblaStatus");
+const qiblaArrow = document.getElementById("qiblaArrow");
+const compassMessage = document.getElementById("compassMessage");
+const calibrateBtn = document.getElementById("calibrateBtn");
 
-/* ======================================
-   ELEMENTS
-====================================== */
+const bearingValue = document.getElementById("bearingValue");
+const distanceValue = document.getElementById("distanceValue");
+const latitudeValue = document.getElementById("latitudeValue");
+const longitudeValue = document.getElementById("longitudeValue");
 
-const locationName =
-    document.getElementById("locationName");
+const directionText = document.getElementById("directionText");
+const directionDescription = document.getElementById("directionDescription");
 
-const locationStatus =
-    document.getElementById("locationStatus");
+const mapLocationBtn = document.getElementById("mapLocationBtn");
 
-const qiblaDegree =
-    document.getElementById("qiblaDegree");
+const campusMessage = document.getElementById("campusMessage");
+const campusMessageTitle = document.getElementById("campusMessageTitle");
+const campusMessageText = document.getElementById("campusMessageText");
+const campusMessageBtn = document.getElementById("campusMessageBtn");
 
-const qiblaBearingLive =
-    document.getElementById("qiblaBearingLive");
+const campusHomeBtn = document.getElementById("campusHomeBtn");
+const campusSettingsBtn = document.getElementById("campusSettingsBtn");
+const campusSettingsPanel = document.getElementById("campusSettingsPanel");
+const closeCampusSettingsBtn = document.getElementById("closeCampusSettingsBtn");
+const settingsCalibrateBtn = document.getElementById("settingsCalibrateBtn");
+const settingsLocationBtn = document.getElementById("settingsLocationBtn");
 
-const qiblaArrow =
-    document.getElementById("qiblaArrow");
+/* ==================================================
+   NAVIGATION ELEMENTS
+================================================== */
+const moreNavBtn = document.getElementById("moreNavBtn");
+const moreMenu = document.getElementById("moreMenu");
+const moreBackLink = document.getElementById("moreBackLink");
+const moreBackText = document.getElementById("moreBackText");
 
-const qiblaStatus =
-    document.getElementById("qiblaStatus");
-
-const compassMessage =
-    document.getElementById("compassMessage");
-
-const bearingValue =
-    document.getElementById("bearingValue");
-
-const distanceValue =
-    document.getElementById("distanceValue");
-
-const latitudeValue =
-    document.getElementById("latitudeValue");
-
-const longitudeValue =
-    document.getElementById("longitudeValue");
-
-const directionText =
-    document.getElementById("directionText");
-
-const directionDescription =
-    document.getElementById("directionDescription");
-
-const campusMessage =
-    document.getElementById("campusMessage");
-
-const campusMessageTitle =
-    document.getElementById("campusMessageTitle");
-
-const campusMessageText =
-    document.getElementById("campusMessageText");
-
-const campusMessageBtn =
-    document.getElementById("campusMessageBtn");
-
-const campusSettingsPanel =
-    document.getElementById("campusSettingsPanel");
-
-const campusHomeBtn =
-    document.getElementById("campusHomeBtn");
-
-const campusSettingsBtn =
-    document.getElementById("campusSettingsBtn");
-
-const closeCampusSettingsBtn =
-    document.getElementById("closeCampusSettingsBtn");
-
-const locationRefreshBtn =
-    document.getElementById("locationRefreshBtn");
-
-const mapLocationBtn =
-    document.getElementById("mapLocationBtn");
-
-const calibrateBtn =
-    document.getElementById("calibrateBtn");
-
-const settingsCalibrateBtn =
-    document.getElementById("settingsCalibrateBtn");
-
-const settingsLocationBtn =
-    document.getElementById("settingsLocationBtn");
-
-
-/* ======================================
-   START
-====================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        initializeCampus();
-
-    }
-);
-
-
-/* ======================================
-   INITIALIZE
-====================================== */
-
-function initializeCampus() {
-
-    console.log(
-        "My Prayer Qibla started"
-    );
-
-
-    initializeMap();
-
-    requestLocation();
-
-    setupCampusButtons();
-
-    setupCompass();
-
-    setupThemeSupport();
-
+/* ==================================================
+   UTILITY MATH FUNCTIONS
+================================================== */
+function normalizeAngle(angle){
+    angle = Number(angle);
+    if(isNaN(angle)){ return 0; }
+    angle = angle % 360;
+    if(angle < 0){ angle += 360; }
+    return angle;
 }
 
-
-/* ======================================
-   BUTTONS
-====================================== */
-
-function setupCampusButtons() {
-
-
-    /* HOME */
-
-    if (campusHomeBtn) {
-
-        campusHomeBtn.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "../index.html";
-
-            }
-        );
-
-    }
-
-
-    /* SETTINGS */
-
-    if (campusSettingsBtn) {
-
-        campusSettingsBtn.addEventListener(
-            "click",
-            function () {
-
-                openCampusSettings();
-
-            }
-        );
-
-    }
-
-
-    /* CLOSE SETTINGS */
-
-    if (closeCampusSettingsBtn) {
-
-        closeCampusSettingsBtn.addEventListener(
-            "click",
-            function () {
-
-                closeCampusSettings();
-
-            }
-        );
-
-    }
-
-
-    /* REFRESH LOCATION */
-
-    if (locationRefreshBtn) {
-
-        locationRefreshBtn.addEventListener(
-            "click",
-            function () {
-
-                requestLocation();
-
-            }
-        );
-
-    }
-
-
-    /* MAP LOCATION */
-
-    if (mapLocationBtn) {
-
-        mapLocationBtn.addEventListener(
-            "click",
-            function () {
-
-                centerMapOnUser();
-
-            }
-        );
-
-    }
-
-
-    /* CALIBRATE / ENABLE */
-
-    if (calibrateBtn) {
-
-        calibrateBtn.addEventListener(
-            "click",
-            function () {
-
-                calibrateCompass();
-
-            }
-        );
-
-    }
-
-
-    /* SETTINGS CALIBRATE */
-
-    if (settingsCalibrateBtn) {
-
-        settingsCalibrateBtn.addEventListener(
-            "click",
-            function () {
-
-                calibrateCompass();
-
-                closeCampusSettings();
-
-            }
-        );
-
-    }
-
-
-    /* SETTINGS LOCATION */
-
-    if (settingsLocationBtn) {
-
-        settingsLocationBtn.addEventListener(
-            "click",
-            function () {
-
-                requestLocation();
-
-                closeCampusSettings();
-
-            }
-        );
-
-    }
-
-
-    /* RETRY */
-
-    if (campusMessageBtn) {
-
-        campusMessageBtn.addEventListener(
-            "click",
-            function () {
-
-                hideCampusMessage();
-
-                requestLocation();
-
-                calibrateCompass();
-
-            }
-        );
-
-    }
-
+function angleDifference(a, b){
+    let difference = normalizeAngle(a) - normalizeAngle(b);
+    if(difference > 180){ difference -= 360; }
+    if(difference < -180){ difference += 360; }
+    return difference;
 }
 
+function calculateQiblaBearing(latitude, longitude){
+    const lat1 = latitude * Math.PI / 180;
+    const lat2 = KAABA_LATITUDE * Math.PI / 180;
+    const deltaLongitude = (KAABA_LONGITUDE - longitude) * Math.PI / 180;
 
-/* ======================================
-   LOCATION
-====================================== */
+    const y = Math.sin(deltaLongitude) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLongitude);
 
-function requestLocation() {
+    let bearing = Math.atan2(y, x) * 180 / Math.PI;
+    bearing = normalizeAngle(bearing);
+    return bearing;
+}
 
-    if (!navigator.geolocation) {
+function calculateDistance(latitude, longitude){
+    const earthRadius = 6371; // Kilometers
+    const lat1 = latitude * Math.PI / 180;
+    const lat2 = KAABA_LATITUDE * Math.PI / 180;
+    const deltaLat = (KAABA_LATITUDE - latitude) * Math.PI / 180;
+    const deltaLon = (KAABA_LONGITUDE - longitude) * Math.PI / 180;
 
-        showCampusMessage(
-            "Location Not Supported",
-            "Your browser does not support location services."
-        );
+    const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+              Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return earthRadius * c;
+}
 
+function getDirectionName(bearing){
+    const directions = ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"];
+    const index = Math.round(bearing / 45) % 8;
+    return directions[index];
+}
+
+/* ==================================================
+   LOCATION ERROR & MESSAGE
+================================================== */
+function showLocationError(message){
+    if(locationStatus){ locationStatus.textContent = message; }
+    showCampusMessage("Location Required", message);
+}
+
+function showCampusMessage(title, message){
+    if(campusMessageTitle){ campusMessageTitle.textContent = title; }
+    if(campusMessageText){ campusMessageText.textContent = message; }
+    if(campusMessage){ campusMessage.style.display = "block"; }
+}
+
+function hideCampusMessage(){
+    if(campusMessage){ campusMessage.style.display = "none"; }
+}
+
+/* ==================================================
+   GET LOCATION (WITH FALLBACK TO ADILPUR)
+================================================== */
+function requestLocation(){
+    hideCampusMessage();
+    
+    // Agar browser geolocation support nahi karta, toh direct fallback use karo
+    if(!navigator.geolocation){
+        useFallbackLocation("Geolocation not supported, using default location (Adilpur)");
         return;
-
     }
 
-
-    locationName.textContent =
-        "Finding your location...";
-
-    locationStatus.textContent =
-        "Requesting GPS permission";
-
+    if(locationName){ locationName.textContent = "Finding your location..."; }
+    if(locationStatus){ locationStatus.textContent = "Please wait..."; }
 
     navigator.geolocation.getCurrentPosition(
+        function(position){
+            currentLatitude = position.coords.latitude;
+            currentLongitude = position.coords.longitude;
 
-        handleLocationSuccess,
+            updateLocationData();
+            updateQiblaData();
+            updateMap();
+            getLocationName();
+        },
+        function(error){
+            let message = "Unable to get your location.";
+            if(error.code === 1){ message = "Location permission was denied. Using default location (Adilpur)."; }
+            else if(error.code === 2){ message = "Your location is currently unavailable. Using default location (Adilpur)."; }
+            else if(error.code === 3){ message = "Location request timed out. Using default location (Adilpur)."; }
+            
+            // Error par Default Adilpur coordinates set kar do
+            useFallbackLocation(message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+}
 
-        handleLocationError,
+/* ==================================================
+   FALLBACK FUNCTION (ADILPUR)
+================================================== */
+function useFallbackLocation(message){
+    if(locationStatus){ locationStatus.textContent = message; }
+    
+    // Set default coordinates for Adilpur
+    currentLatitude = DEFAULT_LATITUDE;
+    currentLongitude = DEFAULT_LONGITUDE;
 
-        {
-            enableHighAccuracy: true,
-            timeout: 15000,
-            maximumAge: 30000
+    if(locationName){ locationName.textContent = DEFAULT_LOCATION_NAME; }
+
+    updateLocationData();
+    updateQiblaData();
+    updateMap();
+}
+
+/* ==================================================
+   UPDATE LOCATION & QIBLA DATA
+================================================== */
+function updateLocationData(){
+    if(currentLatitude === null || currentLongitude === null){ return; }
+    if(latitudeValue){ latitudeValue.textContent = currentLatitude.toFixed(6); }
+    if(longitudeValue){ longitudeValue.textContent = currentLongitude.toFixed(6); }
+}
+
+function updateQiblaData(){
+    if(currentLatitude === null || currentLongitude === null){ return; }
+
+    currentQiblaBearing = calculateQiblaBearing(currentLatitude, currentLongitude);
+    currentDistance = calculateDistance(currentLatitude, currentLongitude);
+
+    if(bearingValue){ bearingValue.textContent = Math.round(currentQiblaBearing) + "°"; }
+    if(qiblaBearingLive){ qiblaBearingLive.textContent = "Qibla Bearing: " + Math.round(currentQiblaBearing) + "°"; }
+
+    // Distance Display (Ab yeh 3100 km hi dikhayega jab Adilpur par hoga)
+    if(distanceValue){
+        // Agar 1000 km se zyada hai toh "km" mein dikhao, warna "m" mein
+        if(currentDistance >= 1000){
+            distanceValue.textContent = Math.round(currentDistance) + " km"; 
+        } else {
+            distanceValue.textContent = Math.round(currentDistance * 1000) + " m";
         }
-
-    );
-
-}
-
-
-/* ======================================
-   LOCATION SUCCESS
-====================================== */
-
-function handleLocationSuccess(position) {
-
-    currentLatitude =
-        position.coords.latitude;
-
-    currentLongitude =
-        position.coords.longitude;
-
-
-    console.log(
-        "Latitude:",
-        currentLatitude
-    );
-
-
-    console.log(
-        "Longitude:",
-        currentLongitude
-    );
-
-
-    updateLocationValues();
-
-    calculateQibla();
-
-    updateMap();
-
-    reverseGeocodeLocation();
-
-}
-
-
-/* ======================================
-   LOCATION ERROR
-====================================== */
-
-function handleLocationError(error) {
-
-    console.log(
-        "Location error:",
-        error
-    );
-
-
-    let message =
-        "Unable to get your location.";
-
-
-    if (error.code === 1) {
-
-        message =
-            "Location permission was denied. Please allow location access.";
-
     }
 
+    const direction = getDirectionName(currentQiblaBearing);
+    if(directionText){ directionText.textContent = Math.round(currentQiblaBearing) + "° " + direction; }
+    if(directionDescription){ directionDescription.textContent = "The Kaaba is approximately " + Math.round(currentQiblaBearing) + "° from your current location."; }
+    if(qiblaStatus){ qiblaStatus.innerHTML = '<i class="fa-solid fa-compass"></i> Ready'; }
 
-    if (error.code === 2) {
-
-        message =
-            "Your location could not be determined.";
-
-    }
-
-
-    if (error.code === 3) {
-
-        message =
-            "Location request timed out. Please try again.";
-
-    }
-
-
-    locationName.textContent =
-        "Location unavailable";
-
-
-    locationStatus.textContent =
-        message;
-
-
-    showCampusMessage(
-        "Location Required",
-        message
-    );
-
+    updateCompassArrow();
 }
 
+/* ==================================================
+   LOCATION NAME (REVERSE GEOCODING)
+================================================== */
+async function getLocationName(){
+    if(currentLatitude === null || currentLongitude === null){ return; }
 
-/* ======================================
-   UPDATE LOCATION
-====================================== */
-
-function updateLocationValues() {
-
-    if (currentLatitude === null ||
-        currentLongitude === null) {
-
+    // Agar default location use ho rahi hai toh naam change nahi karna
+    if(currentLatitude === DEFAULT_LATITUDE && currentLongitude === DEFAULT_LONGITUDE){
+        if(locationName){ locationName.textContent = DEFAULT_LOCATION_NAME; }
         return;
-
     }
 
+    try{
+        const response = await fetch(
+            "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + currentLatitude +
+            "&lon=" + currentLongitude + "&zoom=10&addressdetails=1",
+            { headers: { "Accept-Language": "en" } }
+        );
 
-    latitudeValue.textContent =
-        currentLatitude.toFixed(5);
+        if(!response.ok){ throw new Error("Location lookup failed"); }
 
+        const data = await response.json();
+        const address = data.address || {};
 
-    longitudeValue.textContent =
-        currentLongitude.toFixed(5);
+        const name = address.village || address.town || address.city || address.municipality || address.county || address.state || "Current Location";
 
-
-    locationName.textContent =
-        "Current Location";
-
-
-    locationStatus.textContent =
-        "GPS location detected";
-
+        if(locationName){ locationName.textContent = name; }
+        if(locationStatus){ locationStatus.textContent = "Location found"; }
+    }
+    catch(error){
+        console.log("Location name error:", error);
+        if(locationName){ locationName.textContent = "Current Location"; }
+    }
 }
 
+/* ==================================================
+   MAP INITIALIZE & UPDATE
+================================================== */
+function initializeMap(){
+    const mapElement = document.getElementById("qiblaMap");
+    if(!mapElement || typeof L === "undefined"){ return; }
 
-/* ======================================
-   QIBLA CALCULATION
-====================================== */
+    qiblaMap = L.map(mapElement).setView([KAABA_LATITUDE, KAABA_LONGITUDE], 4);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(qiblaMap);
 
-function calculateQibla() {
-
-    if (
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        return;
-
-    }
-
-
-    const lat1 =
-        degreesToRadians(
-            currentLatitude
-        );
-
-
-    const lon1 =
-        degreesToRadians(
-            currentLongitude
-        );
-
-
-    const lat2 =
-        degreesToRadians(
-            KAABA_LATITUDE
-        );
-
-
-    const lon2 =
-        degreesToRadians(
-            KAABA_LONGITUDE
-        );
-
-
-    const deltaLongitude =
-        lon2 - lon1;
-
-
-    const y =
-        Math.sin(deltaLongitude) *
-        Math.cos(lat2);
-
-
-    const x =
-        Math.cos(lat1) *
-        Math.sin(lat2)
-        -
-        Math.sin(lat1) *
-        Math.cos(lat2) *
-        Math.cos(deltaLongitude);
-
-
-    let bearing =
-        radiansToDegrees(
-            Math.atan2(y, x)
-        );
-
-
-    bearing =
-        normalizeDegree(bearing);
-
-
-    qiblaBearing =
-        bearing;
-
-
-    updateQiblaUI();
-
-    updateDistance();
-
-    updateDirectionText();
-
-    updateMap();
-
+    const kaabaIcon = L.divIcon({ className: "kaaba-map-marker", html: '<i class="fa-solid fa-kaaba"></i>', iconSize: [36, 36], iconAnchor: [18, 18] });
+    kaabaMarker = L.marker([KAABA_LATITUDE, KAABA_LONGITUDE], { icon: kaabaIcon }).addTo(qiblaMap).bindPopup("<strong>Kaaba</strong><br>Masjid al-Haram, Makkah");
 }
 
+function updateMap(){
+    if(!qiblaMap || currentLatitude === null || currentLongitude === null){ return; }
 
-/* ======================================
-   UPDATE QIBLA UI
-====================================== */
+    const userLatLng = [currentLatitude, currentLongitude];
 
-function updateQiblaUI() {
-
-    if (qiblaBearing === null) {
-
-        return;
-
+    if(userMarker){
+        userMarker.setLatLng(userLatLng);
+    } else {
+        const userIcon = L.divIcon({ className: "user-map-marker", html: '<i class="fa-solid fa-location-dot"></i>', iconSize: [36, 36], iconAnchor: [18, 18] });
+        userMarker = L.marker(userLatLng, { icon: userIcon }).addTo(qiblaMap).bindPopup("Your Location");
     }
 
+    if(qiblaLine){ qiblaMap.removeLayer(qiblaLine); }
+    qiblaLine = L.polyline([userLatLng, [KAABA_LATITUDE, KAABA_LONGITUDE]], { color: "#d4af37", weight: 4, opacity: .85, dashArray: "10,8" }).addTo(qiblaMap);
 
-    const roundedQibla =
-        Math.round(qiblaBearing);
-
-
-    bearingValue.textContent =
-        roundedQibla + "°";
-
-
-    if (qiblaBearingLive) {
-
-        qiblaBearingLive.textContent =
-            "Qibla Bearing: " +
-            roundedQibla +
-            "°";
-
-    }
-
-
-    updateArrow();
-
-
-    if (currentHeading === null) {
-
-        qiblaStatus.innerHTML =
-            '<i class="fa-solid fa-compass"></i> Ready';
-
-    }
-
+    const bounds = L.latLngBounds([userLatLng, [KAABA_LATITUDE, KAABA_LONGITUDE]]);
+    qiblaMap.fitBounds(bounds, { padding: [35, 35] });
 }
 
-
-/* ======================================
-   LIVE PHONE HEADING
-====================================== */
-
-function updateHeadingUI() {
-
-    if (currentHeading === null) {
-
-        return;
-
-    }
-
-
-    const roundedHeading =
-        Math.round(
-            normalizeDegree(
-                currentHeading
-            )
-        );
-
-
-    /*
-       IMPORTANT:
-
-       Ye ab Qibla bearing nahi hai.
-
-       Ye phone ki LIVE heading hai.
-
-       Phone ghumega:
-       263 → 265 → 270
-       ya
-       263 → 250 → 240
-
-       0 se 359 tak continuously chalega.
-    */
-
-    if (qiblaDegree) {
-
-        qiblaDegree.textContent =
-            roundedHeading;
-
-    }
-
-
-    updateArrow();
-
-    updateCompassStatus();
-
+function goToMyLocation(){
+    if(!qiblaMap || currentLatitude === null || currentLongitude === null){ requestLocation(); return; }
+    qiblaMap.setView([currentLatitude, currentLongitude], 16, { animate: true });
+    if(userMarker){ userMarker.openPopup(); }
 }
 
+/* ==================================================
+   COMPASS ARROW & ORIENTATION
+================================================== */
+function updateCompassArrow(){
+    if(currentQiblaBearing === null || currentHeading === null){ return; }
 
-/* ======================================
-   QIBLA ARROW
-====================================== */
+    const rotation = angleDifference(currentQiblaBearing, currentHeading);
+    if(qiblaArrow){ qiblaArrow.style.transform = "rotate(" + rotation + "deg)"; }
+    if(qiblaDegree){ qiblaDegree.textContent = Math.round(normalizeAngle(currentHeading)); }
 
-function updateArrow() {
-
-    if (
-        !qiblaArrow ||
-        qiblaBearing === null ||
-        currentHeading === null
-    ) {
-
-        return;
-
+    if(compassMessage){
+        if(Math.abs(rotation) <= 5){ compassMessage.textContent = "You are facing the Qibla"; }
+        else if(rotation > 0){ compassMessage.textContent = "Turn right toward the Qibla"; }
+        else{ compassMessage.textContent = "Turn left toward the Qibla"; }
     }
-
-
-    /*
-       Qibla bearing = fixed direction
-       from current GPS location.
-
-       Current heading = phone direction.
-
-       Difference = arrow ko kitna rotate
-       karna hai taake Qibla ki taraf point kare.
-    */
-
-    const relativeAngle =
-        shortestAngleDifference(
-            currentHeading,
-            qiblaBearing
-        );
-
-
-    qiblaArrow.style.transform =
-        "translate(-50%, -50%) rotate(" +
-        relativeAngle +
-        "deg)";
-
 }
 
-
-/* ======================================
-   COMPASS SETUP
-====================================== */
-
-function setupCompass() {
-
-    if (
-        typeof DeviceOrientationEvent ===
-        "undefined"
-    ) {
-
-        compassMessage.textContent =
-            "Device compass is not supported";
-
-        return;
-
-    }
-
-
-    /*
-       iPhone / iOS permission user gesture
-       se leni hoti hai.
-
-       Android / other devices par
-       direct listener start ho sakta hai.
-    */
-
-    if (
-        typeof DeviceOrientationEvent.requestPermission !==
-        "function"
-    ) {
-
-        startCompassListeners();
-
-    }
-
-
-    else {
-
-        compassMessage.textContent =
-            "Tap Enable / Calibrate Compass";
-
-    }
-
-}
-
-
-/* ======================================
-   START COMPASS LISTENERS
-====================================== */
-
-function startCompassListeners() {
-
-    if (orientationListening) {
-
-        return;
-
-    }
-
-
-    orientationListening = true;
-
-    compassActive = true;
-
-
-    /*
-       First preference:
-       deviceorientationabsolute
-
-       Isme magnetic/absolute heading
-       milne ka chance zyada hota hai.
-    */
-
-    if ("ondeviceorientationabsolute" in window) {
-
-        window.addEventListener(
-            "deviceorientationabsolute",
-            handleDeviceOrientation,
-            true
-        );
-
-        orientationEventType =
-            "deviceorientationabsolute";
-
-    }
-
-
-    /*
-       Fallback
-    */
-
-    else {
-
-        window.addEventListener(
-            "deviceorientation",
-            handleDeviceOrientation,
-            true
-        );
-
-        orientationEventType =
-            "deviceorientation";
-
-    }
-
-
-    compassMessage.textContent =
-        "Move your phone to find the Qibla";
-
-
-    console.log(
-        "Compass listener started:",
-        orientationEventType
-    );
-
-}
-
-
-/* ======================================
-   DEVICE ORIENTATION
-====================================== */
-
-function handleDeviceOrientation(event) {
-
+function handleOrientation(event){
     let heading = null;
+    if(typeof event.webkitCompassHeading === "number"){ heading = event.webkitCompassHeading; }
+    else if(typeof event.alpha === "number"){ heading = 360 - event.alpha; }
 
-
-    /*
-       iPhone / iPad
-    */
-
-    if (
-        typeof event.webkitCompassHeading ===
-        "number" &&
-        !Number.isNaN(
-            event.webkitCompassHeading
-        )
-    ) {
-
-        heading =
-            event.webkitCompassHeading;
-
-    }
-
-
-    /*
-       Android / Standard Device Orientation
-    */
-
-    else if (
-        typeof event.alpha ===
-        "number" &&
-        !Number.isNaN(event.alpha)
-    ) {
-
-        /*
-           alpha clockwise rotation hota hai.
-
-           Compass heading ke liye:
-           360 - alpha
-        */
-
-        heading =
-            360 - event.alpha;
-
-    }
-
-
-    if (heading === null) {
-
-        return;
-
-    }
-
-
-    currentHeading =
-        normalizeDegree(heading);
-
-
-    /*
-       LIVE 0-359° update
-    */
-
-    updateHeadingUI();
-
+    if(heading === null || isNaN(heading)){ return; }
+    currentHeading = normalizeAngle(heading);
+    updateCompassArrow();
 }
 
-
-/* ======================================
-   COMPASS STATUS
-====================================== */
-
-function updateCompassStatus() {
-
-    if (!compassMessage) {
-
-        return;
-
-    }
-
-
-    if (
-        qiblaBearing === null ||
-        currentHeading === null
-    ) {
-
-        return;
-
-    }
-
-
-    const difference =
-        shortestAngleDifference(
-            currentHeading,
-            qiblaBearing
-        );
-
-
-    if (
-        Math.abs(difference) <= 5
-    ) {
-
-        compassMessage.textContent =
-            "You are facing the Qibla";
-
-
-        qiblaStatus.innerHTML =
-            '<i class="fa-solid fa-kaaba"></i> Qibla Found';
-
-    }
-
-
-    else {
-
-        const direction =
-            difference > 0
-                ? "right"
-                : "left";
-
-
-        compassMessage.textContent =
-            "Rotate your phone " +
-            direction +
-            " toward the arrow";
-
-
-        qiblaStatus.innerHTML =
-            '<i class="fa-solid fa-compass"></i> Searching';
-
-    }
-
-}
-
-
-/* ======================================
-   CALIBRATION / PERMISSION
-====================================== */
-
-async function calibrateCompass() {
-
-    if (
-        typeof DeviceOrientationEvent ===
-        "undefined"
-    ) {
-
-        compassMessage.textContent =
-            "Device compass is not supported";
-
-        return;
-
-    }
-
-
-    qiblaStatus.innerHTML =
-        '<i class="fa-solid fa-rotate"></i> Enabling';
-
-
-    compassMessage.textContent =
-        "Please allow compass permission";
-
-
-    /*
-       iOS permission
-    */
-
-    if (
-        typeof DeviceOrientationEvent.requestPermission ===
-        "function"
-    ) {
-
-        try {
-
-            const permission =
-                await DeviceOrientationEvent
-                    .requestPermission();
-
-
-            if (
-                permission ===
-                "granted"
-            ) {
-
-                startCompassListeners();
-
-                compassMessage.textContent =
-                    "Compass enabled. Rotate your phone.";
-
-                qiblaStatus.innerHTML =
-                    '<i class="fa-solid fa-compass"></i> Ready';
-
+async function startCompass(){
+    if(compassListening){ return; }
+    try{
+        if(typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function"){
+            const permission = await DeviceOrientationEvent.requestPermission();
+            if(permission !== "granted"){
+                if(compassMessage){ compassMessage.textContent = "Compass permission was denied."; }
+                return;
             }
-
-            else {
-
-                compassMessage.textContent =
-                    "Compass permission was denied.";
-
-                qiblaStatus.innerHTML =
-                    '<i class="fa-solid fa-circle-exclamation"></i> Permission';
-
-            }
-
         }
+        compassHandler = handleOrientation;
+        window.addEventListener("deviceorientation", compassHandler, true);
+        compassListening = true;
+        if(qiblaStatus){ qiblaStatus.innerHTML = '<i class="fa-solid fa-compass"></i> Live'; }
+        if(compassMessage){ compassMessage.textContent = "Move your phone to find the Qibla"; }
+        if(calibrateBtn){ calibrateBtn.innerHTML = '<i class="fa-solid fa-compass"></i> Compass Enabled'; }
+    }
+    catch(error){
+        console.log("Compass permission error:", error);
+        if(compassMessage){ compassMessage.textContent = "Unable to start compass."; }
+    }
+}
 
-        catch (error) {
+function stopCompass(){
+    if(compassListening && compassHandler){ window.removeEventListener("deviceorientation", compassHandler, true); }
+    compassListening = false;
+    compassHandler = null;
+}
 
-            console.log(
-                "Compass permission error:",
-                error
-            );
+function calibrateCompass(){ startCompass(); }
 
-            compassMessage.textContent =
-                "Unable to enable compass.";
+/* ==================================================
+   SETTINGS PANEL
+================================================== */
+function openCampusSettings(){
+    closeMoreMenu();
+    if(campusSettingsPanel){ campusSettingsPanel.style.display = "block"; }
+}
 
+function closeCampusSettings(){
+    if(campusSettingsPanel){ campusSettingsPanel.style.display = "none"; }
+}
+
+function setupCampusButtons(){
+    // Home
+    if(campusHomeBtn){
+        campusHomeBtn.addEventListener("click", function(){ closeMoreMenu(); window.location.href = "../index.html"; });
+    }
+
+    // Refresh Location
+    if(locationRefreshBtn){
+        locationRefreshBtn.addEventListener("click", function(){ closeMoreMenu(); requestLocation(); });
+    }
+
+    // Map Location
+    if(mapLocationBtn){
+        mapLocationBtn.addEventListener("click", function(){ closeMoreMenu(); goToMyLocation(); });
+    }
+
+    // Calibrate
+    if(calibrateBtn){
+        calibrateBtn.addEventListener("click", function(){ closeMoreMenu(); calibrateCompass(); });
+    }
+
+    // Message Try Again
+    if(campusMessageBtn){
+        campusMessageBtn.addEventListener("click", function(){ hideCampusMessage(); requestLocation(); });
+    }
+
+    // Settings
+    if(campusSettingsBtn){
+        campusSettingsBtn.addEventListener("click", function(){ closeMoreMenu(); openCampusSettings(); });
+    }
+
+    // Close Settings
+    if(closeCampusSettingsBtn){
+        closeCampusSettingsBtn.addEventListener("click", function(){ closeCampusSettings(); });
+    }
+
+    // Settings Calibrate
+    if(settingsCalibrateBtn){
+        settingsCalibrateBtn.addEventListener("click", function(){ closeCampusSettings(); calibrateCompass(); });
+    }
+
+    // Settings Location
+    if(settingsLocationBtn){
+        settingsLocationBtn.addEventListener("click", function(){ closeCampusSettings(); requestLocation(); });
+    }
+
+    const settingsOverlay = document.querySelector(".settings-overlay");
+    if(settingsOverlay){
+        settingsOverlay.addEventListener("click", function(){ closeCampusSettings(); });
+    }
+}
+
+/* ==================================================
+   MORE NAVIGATION
+================================================== */
+function setupMoreNavigation(){
+    if(!moreNavBtn || !moreMenu){ return; }
+
+    moreNavBtn.addEventListener("click", function(event){
+        event.stopPropagation();
+        moreMenu.classList.toggle("show");
+    });
+
+    moreMenu.addEventListener("click", function(event){ event.stopPropagation(); });
+
+    document.addEventListener("click", function(){ closeMoreMenu(); });
+    document.addEventListener("touchstart", function(event){
+        if(!moreMenu.contains(event.target) && !moreNavBtn.contains(event.target)){
+            closeMoreMenu();
         }
+    }, { passive: true });
 
-        return;
-
-    }
-
-
-    /*
-       Android / other browsers
-    */
-
-    startCompassListeners();
-
-
-    compassMessage.textContent =
-        "Compass enabled. Rotate your phone.";
-
-    qiblaStatus.innerHTML =
-        '<i class="fa-solid fa-compass"></i> Ready';
-
+    setupPreviousPage();
 }
 
-
-/* ======================================
-   DISTANCE
-====================================== */
-
-function updateDistance() {
-
-    if (
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        return;
-
-    }
-
-
-    const distance =
-        calculateDistance(
-
-            currentLatitude,
-            currentLongitude,
-
-            KAABA_LATITUDE,
-            KAABA_LONGITUDE
-
-        );
-
-
-    distanceValue.textContent =
-        formatDistance(distance);
-
+function closeMoreMenu(){
+    if(moreMenu){ moreMenu.classList.remove("show"); }
 }
 
+function setupPreviousPage(){
+    if(!moreBackLink || !moreBackText){ return; }
+    const referrer = document.referrer || "";
+    let pageName = "";
+    let pageUrl = "";
 
-/* ======================================
-   HAVERSINE
-====================================== */
+    if(referrer.includes("/dua/") || referrer.includes("duas.html")){ pageName = "Duas"; pageUrl = "../dua/duas.html"; }
+    else if(referrer.includes("/quran/") || referrer.includes("quran.html")){ pageName = "Quran"; pageUrl = "../quran/quran.html"; }
+    else if(referrer.includes("/names/") || referrer.includes("names.html")){ pageName = "99 Names"; pageUrl = "../names/names.html"; }
+    else if(referrer.includes("/tasbeeh/") || referrer.includes("tasbeeh.html")){ pageName = "Tasbeeh"; pageUrl = "../tasbeeh/tasbeeh.html"; }
+    else if(referrer.includes("index.html") || referrer.endsWith("/")){ pageName = "Home"; pageUrl = "../index.html"; }
 
-function calculateDistance(
-    lat1,
-    lon1,
-    lat2,
-    lon2
-) {
-
-    const earthRadius =
-        6371;
-
-
-    const dLat =
-        degreesToRadians(
-            lat2 - lat1
-        );
-
-
-    const dLon =
-        degreesToRadians(
-            lon2 - lon1
-        );
-
-
-    const a =
-        Math.sin(dLat / 2) *
-        Math.sin(dLat / 2)
-        +
-        Math.cos(
-            degreesToRadians(lat1)
-        )
-        *
-        Math.cos(
-            degreesToRadians(lat2)
-        )
-        *
-        Math.sin(dLon / 2)
-        *
-        Math.sin(dLon / 2);
-
-
-    const c =
-        2 *
-        Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1 - a)
-        );
-
-
-    return earthRadius * c;
-
+    if(pageName && pageUrl){
+        moreBackText.textContent = "Back to " + pageName;
+        moreBackLink.href = pageUrl;
+        moreBackLink.style.display = "flex";
+    } else {
+        moreBackLink.style.display = "none";
+    }
 }
 
-
-/* ======================================
-   FORMAT DISTANCE
-====================================== */
-
-function formatDistance(distance) {
-
-    if (distance < 1) {
-
-        return Math.round(
-            distance * 1000
-        ) + " m";
-
-    }
-
-
-    return Math.round(distance)
-        .toLocaleString() +
-        " km";
-
+/* ==================================================
+   THEME SUPPORT
+================================================== */
+function setupThemeSupport(){
+    const savedTheme = localStorage.getItem("appTheme");
+    if(savedTheme && document.body){ document.body.dataset.theme = savedTheme; }
 }
 
-
-/* ======================================
-   DIRECTION TEXT
-====================================== */
-
-function updateDirectionText() {
-
-    if (qiblaBearing === null) {
-
-        return;
-
+/* ==================================================
+   COMPASS SETUP
+================================================== */
+function setupCompass(){
+    if(typeof DeviceOrientationEvent !== "undefined"){
+        window.addEventListener("deviceorientation", function(){
+            if(!compassListening){ return; }
+        }, true);
     }
-
-
-    const direction =
-        getCompassDirection(
-            qiblaBearing
-        );
-
-
-    directionText.textContent =
-        direction;
-
-
-    directionDescription.textContent =
-        "The Kaaba is approximately " +
-        Math.round(qiblaBearing) +
-        "° from North.";
-
 }
 
-
-/* ======================================
-   COMPASS DIRECTION
-====================================== */
-
-function getCompassDirection(degree) {
-
-    const directions = [
-
-        "North",
-        "North-East",
-        "East",
-        "South-East",
-        "South",
-        "South-West",
-        "West",
-        "North-West"
-
-    ];
-
-
-    const index =
-        Math.round(
-            degree / 45
-        ) % 8;
-
-
-    return directions[index];
-
-}
-
-
-/* ======================================
-   MAP INITIALIZATION
-====================================== */
-
-function initializeMap() {
-
-    const mapElement =
-        document.getElementById(
-            "qiblaMap"
-        );
-
-
-    if (
-        !mapElement ||
-        typeof L === "undefined"
-    ) {
-
-        console.log(
-            "Map library not available"
-        );
-
-        return;
-
-    }
-
-
-    campusMap =
-        L.map(
-            mapElement
-        ).setView(
-
-            [
-                KAABA_LATITUDE,
-                KAABA_LONGITUDE
-            ],
-
-            4
-
-        );
-
-
-    L.tileLayer(
-
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
-        {
-            maxZoom: 19,
-
-            attribution:
-                "&copy; OpenStreetMap contributors"
-        }
-
-    ).addTo(
-        campusMap
-    );
-
-
-    kaabaMarker =
-        L.marker(
-
-            [
-                KAABA_LATITUDE,
-                KAABA_LONGITUDE
-            ]
-
-        ).addTo(
-            campusMap
-        );
-
-
-    kaabaMarker.bindPopup(
-        "<strong>Kaaba</strong><br>Masjid al-Haram, Makkah"
-    );
-
-}
-
-
-/* ======================================
-   UPDATE MAP
-====================================== */
-
-function updateMap() {
-
-    if (!campusMap) {
-
-        return;
-
-    }
-
-
-    if (
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        return;
-
-    }
-
-
-    const userPosition = [
-
-        currentLatitude,
-        currentLongitude
-
-    ];
-
-
-    if (!userMarker) {
-
-        userMarker =
-            L.marker(
-                userPosition
-            ).addTo(
-                campusMap
-            );
-
-
-        userMarker.bindPopup(
-            "<strong>Your Location</strong>"
-        );
-
-    }
-
-    else {
-
-        userMarker.setLatLng(
-            userPosition
-        );
-
-    }
-
-
-    drawQiblaLine();
-
-
-    const bounds =
-        L.latLngBounds(
-
-            userPosition,
-
-            [
-                KAABA_LATITUDE,
-                KAABA_LONGITUDE
-            ]
-
-        );
-
-
-    campusMap.fitBounds(
-        bounds,
-        {
-            padding: [35, 35]
-        }
-    );
-
-}
-
-
-/* ======================================
-   DRAW QIBLA LINE
-====================================== */
-
-function drawQiblaLine() {
-
-    if (!campusMap) {
-
-        return;
-
-    }
-
-
-    if (
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        return;
-
-    }
-
-
-    const points = [
-
-        [
-            currentLatitude,
-            currentLongitude
-        ],
-
-        [
-            KAABA_LATITUDE,
-            KAABA_LONGITUDE
-        ]
-
-    ];
-
-
-    if (qiblaLine) {
-
-        qiblaLine.setLatLngs(
-            points
-        );
-
-    }
-
-    else {
-
-        qiblaLine =
-            L.polyline(
-
-                points,
-
-                {
-                    weight: 3,
-                    opacity: 0.85,
-                    dashArray: "8 8"
+/* ==================================================
+   STOP/START COMPASS ON PAGE VISIBILITY
+================================================== */
+document.addEventListener("visibilitychange", function(){
+    if(document.hidden){ stopCompass(); }
+});
+
+window.addEventListener("pageshow", function(){
+    if(currentQiblaBearing !== null){ startCompass(); }
+});
+
+/* ==================================================
+   DOUBLE TAP TO CHANGE LOCATION NAME (MANUAL OVERRIDE)
+================================================== */
+let lastTapTime = 0;
+
+if(locationName){
+    locationName.addEventListener("click", function() {
+        const currentTime = new Date().getTime();
+        const timeSinceLastTap = currentTime - lastTapTime;
+
+        if(timeSinceLastTap < 400 && timeSinceLastTap > 0) {
+            const userLocation = prompt("Apni location ka naam likhein (Jaise: Adilpur):", locationName.textContent);
+            if(userLocation && userLocation.trim() !== "") {
+                locationName.textContent = userLocation.trim();
+                localStorage.setItem("manualLocationName", userLocation.trim());
+                if(locationStatus){
+                    locationStatus.textContent = "Manually Updated";
                 }
-
-            ).addTo(
-                campusMap
-            );
-
-    }
-
-}
-
-
-/* ======================================
-   CENTER MAP
-====================================== */
-
-function centerMapOnUser() {
-
-    if (
-        !campusMap ||
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        requestLocation();
-
-        return;
-
-    }
-
-
-    campusMap.setView(
-
-        [
-            currentLatitude,
-            currentLongitude
-        ],
-
-        15
-
-    );
-
-
-    if (userMarker) {
-
-        userMarker.openPopup();
-
-    }
-
-}
-
-
-/* ======================================
-   REVERSE GEOCODING
-====================================== */
-
-function reverseGeocodeLocation() {
-
-    if (
-        currentLatitude === null ||
-        currentLongitude === null
-    ) {
-
-        return;
-
-    }
-
-
-    const url =
-        "https://nominatim.openstreetmap.org/reverse" +
-        "?format=jsonv2" +
-        "&lat=" +
-        encodeURIComponent(
-            currentLatitude
-        ) +
-        "&lon=" +
-        encodeURIComponent(
-            currentLongitude
-        );
-
-
-    fetch(url)
-
-        .then(
-            function (response) {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Location lookup failed"
-                    );
-
-                }
-
-                return response.json();
-
             }
-        )
-
-        .then(
-            function (data) {
-
-                if (
-                    data &&
-                    data.display_name
-                ) {
-
-                    const address =
-                        data.address || {};
-
-
-                    const city =
-                        address.city ||
-                        address.town ||
-                        address.village ||
-                        address.county ||
-                        "Current Location";
-
-
-                    locationName.textContent =
-                        city;
-
-
-                    locationStatus.textContent =
-                        "Location detected";
-
-                }
-
-            }
-        )
-
-        .catch(
-            function (error) {
-
-                console.log(
-                    "Reverse geocoding error:",
-                    error
-                );
-
-
-                locationName.textContent =
-                    "Current Location";
-
-
-                locationStatus.textContent =
-                    "GPS location detected";
-
-            }
-        );
-
-}
-
-
-/* ======================================
-   SETTINGS
-====================================== */
-
-function openCampusSettings() {
-
-    if (!campusSettingsPanel) {
-
-        return;
-
-    }
-
-
-    campusSettingsPanel.style.display =
-        "block";
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-function closeCampusSettings() {
-
-    if (!campusSettingsPanel) {
-
-        return;
-
-    }
-
-
-    campusSettingsPanel.style.display =
-        "none";
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* ======================================
-   CAMPUS MESSAGE
-====================================== */
-
-function showCampusMessage(
-    title,
-    message
-) {
-
-    if (!campusMessage) {
-
-        return;
-
-    }
-
-
-    campusMessageTitle.textContent =
-        title;
-
-
-    campusMessageText.textContent =
-        message;
-
-
-    campusMessage.style.display =
-        "block";
-
-}
-
-
-function hideCampusMessage() {
-
-    if (!campusMessage) {
-
-        return;
-
-    }
-
-
-    campusMessage.style.display =
-        "none";
-
-}
-
-
-/* ======================================
-   THEME
-====================================== */
-
-function setupThemeSupport() {
-
-    const savedTheme =
-        localStorage.getItem(
-            "theme"
-        );
-
-
-    if (
-        savedTheme === "dark" ||
-        savedTheme === "dark-mode"
-    ) {
-
-        document.body.classList.add(
-            "dark-mode"
-        );
-
-    }
-
-
-    window.addEventListener(
-        "storage",
-        function (event) {
-
-            if (
-                event.key === "theme"
-            ) {
-
-                applyCampusTheme(
-                    event.newValue
-                );
-
-            }
-
         }
-    );
+        lastTapTime = currentTime;
+    });
 
+    const savedName = localStorage.getItem("manualLocationName");
+    if(savedName) {
+        locationName.textContent = savedName;
+    }
 }
 
-
-/* ======================================
-   APPLY THEME
-====================================== */
-
-function applyCampusTheme(theme) {
-
-    if (
-        theme === "dark" ||
-        theme === "dark-mode"
-    ) {
-
-        document.body.classList.add(
-            "dark-mode"
-        );
-
-    }
-
-    else {
-
-        document.body.classList.remove(
-            "dark-mode"
-        );
-
-    }
-
+/* ==================================================
+   INITIALIZE APP
+================================================== */
+function initializeCampus(){
+    console.log("My Prayer Qibla started");
+    initializeMap();
+    setupCampusButtons();
+    setupMoreNavigation();
+    setupCompass();
+    setupThemeSupport();
+    requestLocation();
 }
 
-
-/* ======================================
-   MATH
-====================================== */
-
-function degreesToRadians(degrees) {
-
-    return degrees *
-        Math.PI /
-        180;
-
+/* ==================================================
+   START APP
+================================================== */
+if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", initializeCampus);
+} else {
+    initializeCampus();
 }
-
-
-function radiansToDegrees(radians) {
-
-    return radians *
-        180 /
-        Math.PI;
-
-}
-
-
-function normalizeDegree(degree) {
-
-    degree =
-        degree % 360;
-
-
-    if (degree < 0) {
-
-        degree += 360;
-
-    }
-
-
-    return degree;
-
-}
-
-
-/* ======================================
-   SHORTEST ANGLE
-====================================== */
-
-function shortestAngleDifference(
-    from,
-    to
-) {
-
-    let difference =
-        normalizeDegree(to) -
-        normalizeDegree(from);
-
-
-    if (difference > 180) {
-
-        difference -= 360;
-
-    }
-
-
-    if (difference < -180) {
-
-        difference += 360;
-
-    }
-
-
-    return difference;
-
-}
-
-
-/* ======================================
-   PAGE VISIBILITY
-====================================== */
-
-document.addEventListener(
-    "visibilitychange",
-    function () {
-
-        if (document.hidden) {
-
-            console.log(
-                "Campus page hidden"
-            );
-
-        }
-
-        else {
-
-            console.log(
-                "Campus page active"
-            );
-
-        }
-
-    }
-);
-
-
-/* ======================================
-   CLEANUP
-====================================== */
-
-window.addEventListener(
-    "beforeunload",
-    function () {
-
-        if (
-            locationWatchId !== null
-        ) {
-
-            navigator.geolocation.clearWatch(
-                locationWatchId
-            );
-
-        }
-
-
-        if (
-            orientationListening &&
-            orientationEventType
-        ) {
-
-            window.removeEventListener(
-                orientationEventType,
-                handleDeviceOrientation,
-                true
-            );
-
-        }
-
-    }
-);
-
-
-/* ======================================
-   END
-====================================== */
