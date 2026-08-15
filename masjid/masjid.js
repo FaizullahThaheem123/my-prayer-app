@@ -1,6 +1,22 @@
 /* ======================================
-   MASJID.JS - WITH IN-PAGE MAP & FULL CRUD
+   MASJID.JS - REALTIME DATABASE VERSION (CARD FREE)
 ====================================== */
+
+// 🔥 آپ کا وہی Firebase Config جو آپ نے پہلے کاپی کیا تھا
+const firebaseConfig = {
+  apiKey: "AIzaSyBdwVNsajqJ8hjbYeMGGPc0SUXNuHh2MaE",
+  authDomain: "myprayerapp-55983.firebaseapp.com",
+  projectId: "myprayerapp-55983",
+  storageBucket: "myprayerapp-55983.firebasestorage.app",
+  messagingSenderId: "812310728557",
+  appId: "1:812310728557:web:28d1bcfb133960292b1464",
+  measurementId: "G-8ZV46PJE31"
+};
+
+// Firebase Init (Realtime Database کے لیے)
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database(); // یہاں Firestore کی بجائے database() ہے
+const auth = firebase.auth();
 
 // --- Constants ---
 const DUPLICATE_DISTANCE = 500; // meters
@@ -38,15 +54,79 @@ const settingsBtn = document.getElementById('settingsBtn');
 let currentLat = null, currentLng = null, allMosques = [];
 let generatedOtp = null, isOtpVerified = false, editingId = null;
 let map = null, userMarker = null, mosqueMarkers = [];
+let currentUserUid = null;
 
-// --- Local Storage ---
-function loadMosques() {
-    const data = localStorage.getItem('masjidData');
-    if (data) { try { allMosques = JSON.parse(data); } catch(e) { allMosques = []; } }
+// --- Firebase Auth (Anonymous) ---
+async function initAuth() {
+    try {
+        await auth.signInAnonymously();
+        const user = auth.currentUser;
+        if (user) currentUserUid = user.uid;
+    } catch (e) { console.error("Auth error:", e); }
 }
-function saveMosques() { localStorage.setItem('masjidData', JSON.stringify(allMosques)); }
 
-// --- Location ---
+// --- Load Mosques from Realtime Database ---
+function loadMosques() {
+    const mosquesRef = db.ref('mosques');
+    mosquesRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        allMosques = [];
+        if (data) {
+            // Realtime Database ڈیٹا کو آبجیکٹ میں دیتا ہے، اسے ارے میں بدلیں
+            Object.keys(data).forEach(key => {
+                allMosques.push({ id: key, ...data[key] });
+            });
+        }
+        renderAll();
+    }, (error) => {
+        console.error("Load error:", error);
+    });
+}
+
+// --- Save/Update to Realtime Database ---
+async function saveMosqueToRTDB(name, address, uName, fName, phone, photo) {
+    const mosqueData = {
+        name, address, uName, fName, phone, photo,
+        lat: currentLat, lng: currentLng,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        createdBy: currentUserUid
+    };
+
+    if (editingId) {
+        // Update existing
+        await db.ref('mosques/' + editingId).update(mosqueData);
+        showToast("✅ Mosque updated!");
+    } else {
+        // Add new (push generates a unique ID automatically)
+        await db.ref('mosques').push(mosqueData);
+        showToast("✅ Mosque added!");
+    }
+    editingId = null;
+    modal.classList.remove('active');
+    resetOtpState();
+}
+
+// --- Delete from Realtime Database ---
+async function deleteMosque(id) {
+    try {
+        const snapshot = await db.ref('mosques/' + id).once('value');
+        const data = snapshot.val();
+        if (!data) return;
+        
+        // Security check: creator match karna zaroori hai
+        if (data.createdBy === currentUserUid) {
+            await db.ref('mosques/' + id).remove();
+            showToast("✅ Mosque deleted.");
+        } else {
+            showToast("❌ You don't have permission to delete this mosque.");
+        }
+    } catch (e) {
+        console.error("Delete error:", e);
+        showToast("Error deleting mosque.");
+    }
+}
+
+// --- Location (Same as before) ---
 function requestLocation() {
     locationText.textContent = "Fetching GPS...";
     if (!navigator.geolocation) { useFallback("Geolocation not supported."); return; }
@@ -65,7 +145,7 @@ function useFallback(msg) {
 function onReady() {
     fetchLocationName();
     initMap();
-    renderAll();
+    loadMosques(); // Realtime Database سے لوڈ ہوگا
 }
 async function fetchLocationName() {
     if (currentLat === DEFAULT_LAT && currentLng === DEFAULT_LNG) {
@@ -76,7 +156,6 @@ async function fetchLocationName() {
         if (!res.ok) throw new Error();
         const data = await res.json(); const addr = data.address || {};
         let name = addr.village || addr.town || addr.city || addr.municipality || addr.county || addr.state || "Current Location";
-        // Adilpur fix
         if (currentLat && currentLng) {
             const dist = Math.sqrt(Math.pow(currentLat - DEFAULT_LAT, 2) + Math.pow(currentLng - DEFAULT_LNG, 2));
             if (dist < 0.12 && name.toLowerCase() === "ghotki") name = "Adilpur, Ghotki";
@@ -93,23 +172,18 @@ function getDistance(lat1, lng1, lat2, lng2) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)) * 1000;
 }
 
-// --- MAP INITIALIZATION ---
+// --- Map ---
 function initMap() {
     if (!mapContainer || typeof L === 'undefined') return;
     if (map) { map.remove(); map = null; }
     map = L.map(mapContainer).setView([currentLat, currentLng], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-    // User marker
     userMarker = L.marker([currentLat, currentLng], { icon: L.divIcon({ className: '', html: '<i class="fa-solid fa-location-dot" style="color:#d4af37;font-size:24px;"></i>', iconSize: [24,24], iconAnchor: [12,12] }) }).addTo(map);
-    // Update mosque markers
     updateMapMarkers();
 }
 function updateMapMarkers() {
     if (!map) return;
-    // Remove old markers
-    mosqueMarkers.forEach(m => map.removeLayer(m));
-    mosqueMarkers = [];
-    // Add new markers
+    mosqueMarkers.forEach(m => map.removeLayer(m)); mosqueMarkers = [];
     allMosques.forEach(m => {
         const marker = L.marker([m.lat, m.lng], { icon: L.divIcon({ className: '', html: '<i class="fa-solid fa-mosque" style="color:#d4af37;font-size:20px;"></i>', iconSize: [20,20], iconAnchor: [10,10] }) }).addTo(map);
         marker.bindPopup(`<b>${m.name}</b><br>${m.address}`);
@@ -117,7 +191,7 @@ function updateMapMarkers() {
     });
 }
 
-// --- RENDER MOSQUES ---
+// --- Render List ---
 function renderAll() {
     renderMosques();
     updateMapMarkers();
@@ -138,22 +212,21 @@ function renderMosques() {
                     <h3>${m.name}</h3>
                     <p>${m.address}</p>
                     <span class="distance">${distStr} away</span>
-                    <small style="color:#777;font-size:10px;">Added by: ${m.userName || 'Anonymous'}</small>
+                    <small style="color:#777;font-size:10px;">Added by: ${m.uName || 'Anonymous'}</small>
                 </div>
                 <div class="actions">
-                    <button class="directions-btn" data-lat="${m.lat}" data-lng="${m.lng}" title="View on Map"><i class="fa-solid fa-location-arrow"></i></button>
-                    <button class="edit-btn" data-id="${m.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="delete-btn" data-id="${m.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    <button class="directions-btn" data-lat="${m.lat}" data-lng="${m.lng}"><i class="fa-solid fa-location-arrow"></i></button>
+                    ${m.createdBy === currentUserUid ? `
+                    <button class="edit-btn" data-id="${m.id}"><i class="fa-solid fa-pen"></i></button>
+                    <button class="delete-btn" data-id="${m.id}"><i class="fa-solid fa-trash"></i></button>
+                    ` : ''}
                 </div>
             </div>
         `;
     });
     mosqueList.innerHTML = html;
-    // Attach events
     document.querySelectorAll('.directions-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (map) map.setView([this.dataset.lat, this.dataset.lng], 15);
-        });
+        btn.addEventListener('click', function() { if (map) map.setView([this.dataset.lat, this.dataset.lng], 15); });
     });
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -162,8 +235,8 @@ function renderMosques() {
             const m = allMosques.find(x => x.id === id);
             if (!m) return;
             mosqueName.value = m.name; mosqueAddress.value = m.address;
-            userName.value = m.userName || ''; fatherName.value = m.fatherName || '';
-            phoneNumber.value = m.phoneNumber || '';
+            userName.value = m.uName || ''; fatherName.value = m.fName || '';
+            phoneNumber.value = m.phone || '';
             modalTitle.textContent = "Edit Mosque"; editingId = id;
             modal.classList.add('active'); resetOtpState();
         });
@@ -172,22 +245,18 @@ function renderMosques() {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
             if (confirm("Are you sure you want to delete this mosque?")) {
-                allMosques = allMosques.filter(x => x.id !== this.dataset.id);
-                saveMosques(); renderAll();
-                showToast("✅ Mosque deleted.");
+                deleteMosque(this.dataset.id);
             }
         });
     });
 }
 
-// --- OTP Reset ---
+// --- OTP & Form Logic ---
 function resetOtpState() {
     generatedOtp = null; isOtpVerified = false;
     submitBtn.disabled = true; otpInput.disabled = true;
     otpInput.value = ''; otpStatus.textContent = '';
 }
-
-// --- Event Listeners ---
 function setupListeners() {
     addBtn.addEventListener('click', function() {
         if (currentLat === null || currentLng === null) { showToast("Please wait for GPS."); return; }
@@ -197,9 +266,8 @@ function setupListeners() {
     });
     closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
     modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.remove('active'); });
-    refreshBtn.addEventListener('click', function() { renderAll(); showToast("Refreshed."); });
+    refreshBtn.addEventListener('click', function() { loadMosques(); showToast("Refreshed."); });
 
-    // OTP
     sendOtpBtn.addEventListener('click', function() {
         const phone = phoneNumber.value.trim();
         if (phone.length < 10) { showToast("Enter a valid phone number first."); return; }
@@ -221,62 +289,33 @@ function setupListeners() {
         }
     });
 
-    // Submit
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (!isOtpVerified) { showToast("Verify phone number first."); return; }
         const name = mosqueName.value.trim(), address = mosqueAddress.value.trim();
         const uName = userName.value.trim(), fName = fatherName.value.trim(), phone = phoneNumber.value.trim();
         if (!name || !address || !uName || !fName || !phone) { showToast("Fill all fields."); return; }
-        if (!editingId) {
-            const dup = allMosques.some(m => m.name.toLowerCase() === name.toLowerCase() && getDistance(currentLat, currentLng, m.lat, m.lng) < DUPLICATE_DISTANCE);
-            if (dup) { showToast("Duplicate mosque within 500m."); return; }
-        }
+        
         const fileInput = mosquePhoto;
         let photoData = null;
         if (fileInput.files && fileInput.files[0]) {
             const file = fileInput.files[0];
-            if (file.size > 2 * 1024 * 1024) { showToast("Image < 2MB."); return; }
+            if (file.size > 1 * 1024 * 1024) { showToast("Image < 1MB."); return; }
             const reader = new FileReader();
-            reader.onload = function(e) { photoData = e.target.result; saveMosque(name, address, uName, fName, phone, photoData); };
+            reader.onload = function(e) { photoData = e.target.result; saveMosqueToRTDB(name, address, uName, fName, phone, photoData); };
             reader.readAsDataURL(file);
         } else {
-            saveMosque(name, address, uName, fName, phone, null);
+            saveMosqueToRTDB(name, address, uName, fName, phone, null);
         }
     });
 }
 
-function saveMosque(name, address, uName, fName, phone, photo) {
-    if (editingId) {
-        const idx = allMosques.findIndex(m => m.id === editingId);
-        if (idx !== -1) {
-            allMosques[idx].name = name; allMosques[idx].address = address;
-            allMosques[idx].userName = uName; allMosques[idx].fatherName = fName;
-            allMosques[idx].phoneNumber = phone;
-            if (photo) allMosques[idx].photo = photo;
-        }
-        showToast("✅ Mosque updated!");
-    } else {
-        allMosques.push({
-            id: Date.now().toString() + Math.random().toString(36).substr(2,5),
-            name, address, lat: currentLat, lng: currentLng, photo,
-            userName: uName, fatherName: fName, phoneNumber: phone,
-            createdAt: new Date().toISOString()
-        });
-        showToast("✅ Mosque added!");
-    }
-    saveMosques(); renderAll(); modal.classList.remove('active'); resetOtpState(); editingId = null;
-    modalTitle.textContent = "Add Mosque";
-}
-
-// --- Toast ---
 function showToast(msg) {
     toast.textContent = msg; toast.classList.add('show');
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// --- More Menu ---
 function setupMoreNav() {
     if (!moreNavBtn || !moreMenu) return;
     moreNavBtn.addEventListener('click', function(e) { e.stopPropagation(); moreMenu.classList.toggle('show'); });
@@ -288,7 +327,7 @@ function setupMoreNav() {
 
 // --- Init ---
 document.addEventListener('DOMContentLoaded', function() {
-    loadMosques();
+    initAuth();
     requestLocation();
     setupListeners();
     setupMoreNav();
