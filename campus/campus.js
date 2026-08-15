@@ -1,5 +1,5 @@
 /* ==================================================
-   CAMPUS.JS - COMPLETE ULTIMATE EDITION
+   CAMPUS.JS - COMPLETE ULTIMATE EDITION (GPS FIXED)
 ================================================== */
 
 const KAABA_LATITUDE = 21.422487;
@@ -35,6 +35,7 @@ const settingsCalibrateBtn = document.getElementById("settingsCalibrateBtn");
 const settingsLocationBtn = document.getElementById("settingsLocationBtn");
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
+const liveHeading = document.getElementById("liveHeading"); // نیا ڈیجیٹل ہیڈنگ
 
 // ======================================
 // UTILITY FUNCTIONS
@@ -58,19 +59,46 @@ function getDirectionName(b){ const dirs = ["North","North-East","East","South-E
 function showLocationError(m){ if(campusMessageTitle) campusMessageTitle.textContent = "Location Required"; if(campusMessageText) campusMessageText.textContent = m; if(campusMessage) campusMessage.style.display = "block"; }
 function hideCampusMessage(){ if(campusMessage) campusMessage.style.display = "none"; }
 
+// ======================================
+// REQUEST LOCATION (FIXED: فوراً فال بیک)
+// ======================================
 function requestLocation(){
     hideCampusMessage();
-    if(!navigator.geolocation){ useFallbackLocation("Geolocation not supported"); return; }
-    if(locationName) locationName.textContent = "Finding...";
+    if(!navigator.geolocation){
+        useFallbackLocation("Geolocation not supported. Using Adilpur.");
+        return;
+    }
+    if(locationName) locationName.textContent = "Finding GPS...";
+    
+    // اگر 5 سیکنڈ میں GPS نہیں ملا تو خود بخود Adilpur سیٹ ہو جائے
+    const timeoutId = setTimeout(() => {
+        if(currentLatitude === null) {
+            useFallbackLocation("GPS timeout. Using Adilpur.");
+        }
+    }, 5000);
+
     navigator.geolocation.getCurrentPosition(
-        (pos) => { currentLatitude = pos.coords.latitude; currentLongitude = pos.coords.longitude; updateAll(); getLocationName(); },
-        () => { useFallbackLocation("GPS Error. Using Adilpur."); },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        (pos) => {
+            clearTimeout(timeoutId);
+            currentLatitude = pos.coords.latitude;
+            currentLongitude = pos.coords.longitude;
+            updateAll();
+            getLocationName();
+        },
+        (error) => {
+            clearTimeout(timeoutId);
+            let msg = "GPS Error. Using Adilpur.";
+            if(error.code === 1) msg = "Permission denied. Using Adilpur.";
+            else if(error.code === 2) msg = "Position unavailable. Using Adilpur.";
+            useFallbackLocation(msg);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
 }
 
 function useFallbackLocation(msg){
-    currentLatitude = DEFAULT_LATITUDE; currentLongitude = DEFAULT_LONGITUDE;
+    currentLatitude = DEFAULT_LATITUDE;
+    currentLongitude = DEFAULT_LONGITUDE;
     if(locationName) locationName.textContent = DEFAULT_LOCATION_NAME;
     updateAll();
 }
@@ -102,20 +130,12 @@ async function getLocationName(){
         if(!res.ok) throw new Error();
         const data = await res.json(); const addr = data.address || {};
         let name = addr.village || addr.town || addr.city || addr.municipality || addr.county || addr.state || "Current Location";
-
-        // *** FIX: Adilpur/Ghotki کا مسئلہ حل کرنا ***
+        // Adilpur Fix
         if (currentLatitude && currentLongitude) {
-            // Adilpur کے کوآرڈینیٹس
-            const adilpurLat = 28.0065;
-            const adilpurLng = 69.3167;
-            // موجودہ لوکیشن سے Adilpur کا تخمینی فاصلہ (ڈگریوں میں)
-            const distanceInDeg = Math.sqrt(Math.pow(currentLatitude - adilpurLat, 2) + Math.pow(currentLongitude - adilpurLng, 2));
-            // 1 ڈگری تقریباً 111 کلومیٹر کے برابر ہوتی ہے، اس لیے 0.1 ڈگری ~ 11 کلومیٹر
-            if (distanceInDeg < 0.12 && name.toLowerCase() === "ghotki") {
-                name = "Adilpur, Ghotki";
-            }
+            const adilpurLat = 28.0065, adilpurLng = 69.3167;
+            const dist = Math.sqrt(Math.pow(currentLatitude - adilpurLat, 2) + Math.pow(currentLongitude - adilpurLng, 2));
+            if (dist < 0.12 && name.toLowerCase() === "ghotki") name = "Adilpur, Ghotki";
         }
-
         if(locationName) locationName.textContent = name;
     } catch(e){ if(locationName) locationName.textContent = "Current Location"; }
 }
@@ -146,20 +166,19 @@ function goToMyLocation(){
 }
 
 // ======================================
-// COMPASS LOGIC
+// COMPASS LOGIC (Live Heading Added)
 // ======================================
 function updateCompassArrow(){
     if(currentQiblaBearing === null || currentHeading === null) return;
     const rotation = angleDifference(currentQiblaBearing, currentHeading);
     if(qiblaArrow) qiblaArrow.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
     if(qiblaDegree) qiblaDegree.textContent = Math.round(normalizeAngle(currentHeading));
+    // Live Heading Update
+    if(liveHeading) liveHeading.textContent = Math.round(normalizeAngle(currentHeading));
     if(compassMessage) {
         if(Math.abs(rotation) <= 3) compassMessage.textContent = "You are facing the Qibla!";
         else if(rotation > 0) compassMessage.textContent = "Turn right toward the Qibla";
         else compassMessage.textContent = "Turn left toward the Qibla";
- const liveHeading = document.getElementById("liveHeading");
-    if(liveHeading) {
-        liveHeading.textContent = Math.round(normalizeAngle(currentHeading));
     }
 }
 
