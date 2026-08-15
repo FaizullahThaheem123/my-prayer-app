@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="masjid.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -36,12 +41,12 @@
         <button id="refreshBtn" class="secondary-btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
     </div>
 
-    <!-- IN-PAGE MAP (Leaflet) -->
+    <!-- IN-PAGE MAP -->
     <div id="mapContainer" class="map-container"></div>
 
     <!-- MOSQUE LIST -->
     <div id="mosqueList" class="mosque-list">
-        <div class="loading-msg">No mosques added yet. Tap "Add New Mosque" to add one.</div>
+        <div class="loading-msg">Loading mosques...</div>
     </div>
 
     <!-- ADD/EDIT MOSQUE MODAL -->
@@ -86,7 +91,7 @@
                 <div class="form-group">
                     <label>Upload Photo (optional)</label>
                     <input type="file" id="mosquePhoto" accept="image/*">
-                    <small>Max 2MB</small>
+                    <small>Max 1MB (Firebase limit)</small>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn" disabled>Save Mosque</button>
