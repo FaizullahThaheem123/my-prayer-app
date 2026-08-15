@@ -3,297 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1a1a1a">
+<meta name="theme-color" content="#121212">
 <title>Qibla - My Prayer</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="campus.css">
 </head>
-
 <body>
 
 <div class="campus-page">
 
-<!-- HEADER (Left: Title, Right: Makkah Image) -->
-<header class="campus-header">
-    <div class="campus-header-title">
-        <h1><i class="fa-solid fa-compass"></i> Qibla</h1>
-        <p>Find the direction of the Kaaba</p>
-    </div>
-
-    <div class="campus-header-image">
-        <img src="../images/makkah.png" alt="Makkah">
-    </div>
-</header>
-
-<!-- LOCATION CARD -->
-<section class="location-card">
-    <div class="location-icon">
-        <i class="fa-solid fa-location-dot"></i>
-    </div>
-
-    <div class="location-text">
-        <span>Current Location</span>
-        <strong id="locationName">Finding your location...</strong>
-        <small id="locationStatus">Please allow location access</small>
-    </div>
-
-    <button id="locationRefreshBtn" class="location-refresh-btn" aria-label="Refresh Location">
-        <i class="fa-solid fa-rotate"></i>
-    </button>
-</section>
-
-<!-- QIBLA COMPASS CARD -->
-<section class="qibla-arrow-card">
-    <div class="section-heading">
-        <div>
-            <span>LIVE COMPASS</span>
-            <h2>Qibla Compass</h2>
+    <!-- HEADER (Title Left, Image Right) -->
+    <header class="campus-header">
+        <div class="campus-header-title">
+            <h1><i class="fa-solid fa-compass"></i> Qibla</h1>
+            <p>Find the direction of the Kaaba</p>
         </div>
-
-        <div id="qiblaStatus" class="status-badge">
-            <i class="fa-solid fa-compass"></i> Ready
+        <div class="campus-header-image">
+            <img src="../images/makkah.png" alt="Makkah">
         </div>
-    </div>
+    </header>
 
-    <div class="qibla-degree">
-        <strong id="qiblaDegree">--</strong>
-        <span>° Phone Heading</span>
-    </div>
-
-    <div id="qiblaBearingLive" class="qibla-bearing-live">
-        Qibla Bearing: --
-    </div>
+    <!-- LOCATION CARD -->
+    <section class="location-card">
+        <div class="location-icon">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="location-text">
+            <span>Current Location</span>
+            <strong id="locationName">Finding your location...</strong>
+        </div>
+        <button id="locationRefreshBtn" class="location-refresh-btn" aria-label="Refresh Location">
+            <i class="fa-solid fa-rotate"></i>
+        </button>
+    </section>
 
     <div id="compassArea" class="compass-area">
-        <div class="compass-ring">
-            <div class="compass-direction north">N</div>
-            <div class="compass-direction east">E</div>
-            <div class="compass-direction south">S</div>
-            <div class="compass-direction west">W</div>
+    
+    <!-- *** یہ ایک لائن شامل کریں (باقی سب ویسے ہی) *** -->
+    <img src="campusimage.png" alt="Qibla Compass" class="compass-bg-img">
+    
+    
+    <div class="compass-ring">
+        <div class="compass-direction north">N</div>
+        <div class="compass-direction east">E</div>
+        <div class="compass-direction south">S</div>
+        <div class="compass-direction west">W</div>
+        
+        <div class="degree-markers"></div>
 
-            <div class="compass-degree degree-0">0°</div>
-            <div class="compass-degree degree-90">90°</div>
-            <div class="compass-degree degree-180">180°</div>
-            <div class="compass-degree degree-270">270°</div>
-
-            <!-- DIGITAL ARROW (SVG) -->
-            <div id="qiblaArrow" class="cmp-digital-arrow">
-                <svg viewBox="0 0 40 100" class="cmp-arrow-svg">
-                    <defs>
-                        <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff3b30;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff9800;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <polygon points="18,0 22,0 16,100 24,100" fill="url(#arrowGrad)" />
-                    <circle cx="20" cy="50" r="16" fill="#08131d" stroke="#ff3b30" stroke-width="2" />
-                    <circle cx="20" cy="50" r="5" fill="#ffffff" />
-                </svg>
-            </div>
-
-            <div class="compass-center">
-                <i class="fa-solid fa-location-crosshairs"></i>
-            </div>
-        </div>
-    </div>
-
-    <p id="compassMessage" class="compass-message">
-        Move your phone to find the Qibla
-    </p>
-
-    <button id="calibrateBtn" class="calibrate-btn">
-        <i class="fa-solid fa-compass"></i>
-        Enable / Calibrate Compass
-    </button>
-</section>
-
-<!-- QIBLA INFO CARD -->
-<section class="qibla-info-card">
-    <div class="info-card-title">
-        <i class="fa-solid fa-kaaba"></i>
-        <div>
-            <strong>Kaaba</strong>
-            <span>Masjid al-Haram, Makkah</span>
-        </div>
-    </div>
-
-    <div class="info-grid">
-        <div class="info-item">
-            <i class="fa-solid fa-compass"></i>
-            <span>Qibla Bearing</span>
-            <strong id="bearingValue">--</strong>
+        <!-- COMPASS NEEDLE -->
+        <div id="qiblaArrow" class="cmp-needle">
+            <div class="needle-head"></div>
+            <div class="needle-tail"></div>
         </div>
 
-        <div class="info-item">
-            <i class="fa-solid fa-location-arrow"></i>
-            <span>Distance to Kaaba</span>
-            <strong id="distanceValue">--</strong>
-        </div>
+        <!-- CENTER KAABA -->
+        <div class="kaaba-center-box"></div>
 
-        <div class="info-item">
-            <i class="fa-solid fa-globe"></i>
-            <span>Latitude</span>
-            <strong id="latitudeValue">--</strong>
-        </div>
-
-        <div class="info-item">
-            <i class="fa-solid fa-globe"></i>
-            <span>Longitude</span>
-            <strong id="longitudeValue">--</strong>
-        </div>
-    </div>
-</section>
-
-<!-- MAP SECTION -->
-<section class="qibla-map-section">
-    <div class="section-heading">
-        <div>
-            <span>MAP VIEW</span>
-            <h2>Qibla Map</h2>
-        </div>
-
-        <button id="mapLocationBtn" class="map-location-btn" aria-label="My Location">
-            <i class="fa-solid fa-location-crosshairs"></i>
-        </button>
-    </div>
-
-    <div id="qiblaMap" class="qibla-map"></div>
-
-    <div class="map-legend">
-        <div class="legend-item">
-            <span class="legend-dot user-dot"></span>
-            Your Location
-        </div>
-        <div class="legend-item">
-            <span class="legend-dot kaaba-dot"></span>
-            Kaaba
-        </div>
-        <div class="legend-item">
-            <span class="legend-line"></span>
-            Qibla Direction
-        </div>
-    </div>
-</section>
-
-<!-- DIRECTION CARD -->
-<section class="direction-card">
-    <div class="direction-icon">
-        <i class="fa-solid fa-route"></i>
-    </div>
-
-    <div class="direction-content">
-        <span>Your Qibla Direction</span>
-        <strong id="directionText">Calculating...</strong>
-        <p id="directionDescription">The Qibla direction will appear here.</p>
-    </div>
-</section>
-
-<!-- HELP -->
-<section class="compass-help">
-    <div class="help-icon">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-    </div>
-
-    <div>
-        <strong>How to use Qibla Compass</strong>
-        <p>
-            Keep your phone flat and away from metal objects. Slowly rotate your phone
-            until the arrow points toward the Kaaba.
-        </p>
-    </div>
-</section>
-
-<!-- ERROR MESSAGE -->
-<section id="campusMessage" class="campus-message" style="display:none;">
-    <i class="fa-solid fa-circle-exclamation"></i>
-    <strong id="campusMessageTitle">Location Required</strong>
-    <p id="campusMessageText">Please allow location access to find the Qibla.</p>
-    <button id="campusMessageBtn">Try Again</button>
-</section>
-
-<!-- SETTINGS PANEL -->
-<div id="campusSettingsPanel" class="campus-settings-panel" style="display:none;">
-    <div class="settings-overlay"></div>
-
-    <div class="settings-sheet">
-        <div class="settings-header">
-            <h2>Qibla Settings</h2>
-            <button id="closeCampusSettingsBtn" class="close-settings-btn" aria-label="Close">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <div class="setting-row">
-            <div>
-                <strong>Compass Calibration</strong>
-                <span>Improve direction accuracy</span>
-            </div>
-            <button id="settingsCalibrateBtn" class="setting-action-btn">Calibrate</button>
-        </div>
-
-        <div class="setting-row">
-            <div>
-                <strong>Refresh Location</strong>
-                <span>Get your current location again</span>
-            </div>
-            <button id="settingsLocationBtn" class="setting-action-btn">Refresh</button>
-        </div>
+        <div class="compass-pivot"></div>
     </div>
 </div>
 
-<!-- BOTTOM NAVIGATION (EXACTLY AS BEFORE) -->
-<nav class="bottom-nav">
-    <a href="../index.html" class="nav-home" data-section="Home" data-url="../index.html">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </a>
+    <!-- INFO CARDS -->
+    <section class="info-card-section">
+        <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-compass"></i></div>
+            <div>
+                <span>Qibla Bearing</span>
+                <strong id="bearingValue">--</strong>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-location-arrow"></i></div>
+            <div>
+                <span>Distance to Kaaba</span>
+                <strong id="distanceValue">--</strong>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-globe"></i></div>
+            <div>
+                <span>Latitude</span>
+                <strong id="latitudeValue">--</strong>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-globe"></i></div>
+            <div>
+                <span>Longitude</span>
+                <strong id="longitudeValue">--</strong>
+            </div>
+        </div>
+    </section>
 
-    <div class="more-nav">
-        <button type="button" class="more-nav-btn active" id="moreNavBtn">
-            <i class="fa-solid fa-ellipsis"></i>
-            <span>More</span>
-        </button>
+    <!-- MAP VIEW -->
+    <section class="map-section">
+        <div class="map-header">
+            <h3>MAP VIEW</h3>
+            <button id="mapLocationBtn" class="map-location-btn"><i class="fa-solid fa-location-crosshairs"></i></button>
+        </div>
+        <div id="qiblaMap" class="qibla-map"></div>
+    </section>
 
-        <div class="more-menu" id="moreMenu">
-            <a href="#" id="moreBackLink" style="display:none;">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span id="moreBackText">Back</span>
-            </a>
+    <!-- ERROR MESSAGE -->
+    <section id="campusMessage" class="campus-message" style="display:none;">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <strong id="campusMessageTitle">Location Required</strong>
+        <p id="campusMessageText">Please allow location access to find the Qibla.</p>
+        <button id="campusMessageBtn">Try Again</button>
+    </section>
 
-            <a href="../dua/duas.html" data-section="Duas" data-url="../dua/duas.html">
-                <i class="fa-solid fa-hands-praying"></i>
-                <span>Duas</span>
-            </a>
-
-            <a href="campus.html" class="active" data-section="Qibla" data-url="campus.html">
-                <i class="fa-solid fa-compass"></i>
-                <span>Qibla</span>
-            </a>
-
-            <a href="../quran/quran.html" data-section="Quran" data-url="../quran/quran.html">
-                <i class="fa-solid fa-book-quran"></i>
-                <span>Quran</span>
-            </a>
-
-            <a href="../names/names.html" data-section="99 Names" data-url="../names/names.html">
-                <i class="fa-solid fa-star-and-crescent"></i>
-                <span>99 Names</span>
-            </a>
-
-            <a href="../tasbeeh/tasbeeh.html" data-section="Tasbeeh" data-url="../tasbeeh/tasbeeh.html">
-                <i class="fa-solid fa-ring"></i>
-                <span>Tasbeeh</span>
-            </a>
-
-            <button type="button" id="campusSettingsBtn">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </button>
+    <!-- SETTINGS PANEL -->
+    <div id="campusSettingsPanel" class="campus-settings-panel" style="display:none;">
+        <div class="settings-overlay"></div>
+        <div class="settings-sheet">
+            <div class="settings-header">
+                <h2>Qibla Settings</h2>
+                <button id="closeCampusSettingsBtn" class="close-settings-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <strong>Compass Calibration</strong>
+                    <span>Improve direction accuracy</span>
+                </div>
+                <button id="settingsCalibrateBtn" class="setting-action-btn">Calibrate</button>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <strong>Refresh Location</strong>
+                    <span>Get your current location again</span>
+                </div>
+                <button id="settingsLocationBtn" class="setting-action-btn">Refresh</button>
+            </div>
         </div>
     </div>
-</nav>
+
+    <!-- BOTTOM NAVIGATION (UNIFIED) -->
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <div class="more-nav">
+            <button type="button" class="more-nav-btn active" id="moreNavBtn">
+                <i class="fa-solid fa-ellipsis"></i>
+                <span>More</span>
+            </button>
+
+            <div class="more-menu" id="moreMenu">
+                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="campus.html" class="active"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                <button type="button" id="campusSettingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            </div>
+        </div>
+    </nav>
+
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="campus.js"></script>

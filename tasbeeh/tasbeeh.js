@@ -26,6 +26,7 @@ const completed100 = document.getElementById("completed100");
 // MORE MENU ELEMENTS
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
+const settingsBtn = document.getElementById("settingsBtn");
 
 // ======================================
 // VARIABLES
@@ -201,6 +202,16 @@ document.addEventListener("touchstart", (event)=>{
         moreMenu.classList.remove("show");
     }
 }, { passive: true });
+
+// ======================================
+// SETTINGS BUTTON (NEW)
+// ======================================
+if(settingsBtn){
+    settingsBtn.addEventListener("click", ()=>{
+        moreMenu.classList.remove("show");
+        alert("Settings will be available in the next update.");
+    });
+}
 
 // ======================================
 // APP START

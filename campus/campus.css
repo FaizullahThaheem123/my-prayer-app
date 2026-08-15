@@ -1,6 +1,5 @@
 /* ======================================
-   MY PRAYER - CAMPUS / QIBLA
-   ULTIMATE 3D METALLIC DESIGN
+   MY PRAYER - CAMPUS (NEW DARK 3D THEME)
 ====================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
@@ -20,7 +19,7 @@ body{
     padding:0;
     padding-bottom:75px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(145deg, #0f0f0f, #1e1e1e, #2a2a2a);
+    background: #121212;
     color:#e0e0e0;
     min-height:100vh;
 }
@@ -30,695 +29,459 @@ body{
     max-width:430px;
     min-height:100vh;
     margin:0 auto;
-    background: radial-gradient(circle at top, #2c2c2c, #111);
+    background: #121212;
     position:relative;
     overflow-x:hidden;
-    padding: 0 10px;
+    padding: 0 12px;
 }
 
 /* ======================================
-   HEADER (METALLIC)
+   HEADER (FIXED: Glass, Gold Border, Shadow)
 ====================================== */
 .campus-header{
     width:100%;
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
+    display: flex !important;
+    justify-content: space-between !important;
     align-items: center !important;
-    padding: 18px 13px;
-    background: rgba(30,30,30,0.9) !important;
-    backdrop-filter: blur(8px);
+    padding: 18px 5px 12px;
+    background: rgba(40,40,40,0.9) !important;
+    backdrop-filter: blur(10px);
     border-bottom: 2px solid #d4af37 !important;
-    border-radius: 16px 16px 24px 24px !important;
-    position:sticky;
-    top:0;
-    z-index:100;
     box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    border-radius: 16px 16px 24px 24px !important;
+    margin-bottom: 10px;
 }
-
-.campus-header .campus-header-btn{
-    display:none !important;
-}
-
-.campus-header-title{
-    text-align: left !important;
-    padding-right: 10px;
-}
-
 .campus-header-title h1{
     font-size:26px;
-    line-height:1.2;
     font-weight:800;
     color:#d4af37;
-    text-shadow: 0 2px 10px rgba(212,175,55,0.3);
+    text-shadow: 0 2px 8px rgba(212,175,55,0.2);
 }
-
 .campus-header-title h1 i{
     margin-right:8px;
 }
-
 .campus-header-title p{
-    margin-top:2px;
     font-size:11px;
     font-weight:500;
     color:#aaa;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Right side Makkah Image - with glow */
+/* HEADER IMAGE (FIXED: Gold Border & Glow) */
 .campus-header-image {
     width: 48px;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    border: 2px solid #d4af37;
     border-radius: 50%;
-    padding: 2px;
+    border: 2px solid #d4af37;
     box-shadow: 0 0 20px rgba(212,175,55,0.3);
     background: #111;
 }
 .campus-header-image img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     object-fit: cover;
-    display: block;
+    border-radius: 50%;
 }
 
 /* ======================================
-   ALL CARDS - METALLIC GLASSMORPHISM
+   CARDS (FIXED: Added inset 3D glow)
 ====================================== */
 .location-card,
-.qibla-arrow-card,
-.qibla-info-card,
-.qibla-map-section,
-.direction-card,
-.compass-help,
+.qibla-card,
+.info-card-section,
+.map-section,
 .campus-message{
     width:100%;
     margin: 12px auto;
-    background: rgba(40,40,40,0.7);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(212,175,55,0.25);
+    background: rgba(30,30,30,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
     border-radius: 20px;
-    padding: 18px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 16px;
     animation: fadeInUp 0.6s ease forwards;
     opacity: 0;
 }
 
-.location-card { animation-delay: 0.1s; }
-.qibla-arrow-card { animation-delay: 0.2s; }
-.qibla-info-card { animation-delay: 0.3s; }
-.qibla-map-section { animation-delay: 0.4s; }
-.direction-card { animation-delay: 0.5s; }
-.compass-help { animation-delay: 0.6s; }
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.location-card:hover,
-.qibla-arrow-card:hover,
-.direction-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.2);
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ======================================
    LOCATION CARD
 ====================================== */
+.location-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    animation-delay: 0.1s;
+}
 .location-icon{
-    width:48px;
-    height:48px;
-    border-radius:14px;
-    background: linear-gradient(145deg, #d4af37, #b08a2e);
-    color:#111;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
     flex-shrink:0;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
 }
-
-.location-text span{
-    font-size:11px;
-    font-weight:600;
-    color:#999;
+.location-text{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
-
-.location-text strong{
-    font-size:16px;
-    color:#fff;
-    font-weight:700;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
+.location-text span{ font-size: 10px; color: #888; }
+.location-text strong{ font-size: 15px; color: #fff; font-weight: 600; }
 .location-refresh-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:12px;
-    background:#2a2a2a;
-    color:#d4af37;
-    cursor:pointer;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.05);
+    border: none; border-radius: 50%;
+    color: #888; cursor: pointer;
     transition: 0.3s;
-    border: 1px solid #d4af37;
 }
-.location-refresh-btn:hover{
-    background:#d4af37;
-    color:#111;
-    transform: rotate(90deg);
-}
+.location-refresh-btn:hover{ color: #d4af37; transform: rotate(90deg); }
 
 /* ======================================
    QIBLA COMPASS CARD
 ====================================== */
-.section-heading span{
-    font-size:10px;
-    font-weight:800;
-    color:#888;
-    letter-spacing:1px;
+.qibla-card{
+    animation-delay: 0.2s;
+    padding: 18px;
 }
-.section-heading h2{
-    margin-top:2px;
-    font-size:22px;
-    color:#d4af37;
-    text-shadow: 0 2px 8px rgba(212,175,55,0.2);
+.qibla-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
 }
-
-.status-badge{
-    padding:6px 14px;
-    border-radius:20px;
-    background:#2a2a2a;
-    color:#d4af37;
-    font-size:9px;
-    font-weight:700;
-    border: 1px solid #d4af37;
+.qibla-title-group span{
+    font-size: 9px; font-weight: 700; color: #888; letter-spacing: 2px;
 }
-
-.qibla-degree{
-    display:flex;
-    align-items:baseline;
-    justify-content:center;
-    gap:6px;
-    margin-top:12px;
-    padding:8px 20px;
-    width:max-content;
-    margin-left:auto;
-    margin-right:auto;
-    background: #0a0a0a;
-    border-radius:12px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 0 1px #d4af37, 0 0 20px rgba(212,175,55,0.2);
+.qibla-title-group h2{
+    font-size: 20px; font-weight: 700; color: #fff; margin: 2px 0 0;
+}
+.live-badge{
+    background: #1b5e20; color: #66bb6a;
+    padding: 4px 12px; border-radius: 12px;
+    font-size: 10px; font-weight: 700;
 }
 
-.qibla-degree strong{
-    font-size:36px;
-    line-height:1;
-    font-weight:800;
-    font-family:"Courier New", monospace;
-    letter-spacing:1px;
-    color:#ffcb47;
-    text-shadow:0 0 15px rgba(255,203,71,0.5);
-    min-width:72px;
-    text-align:right;
+/* COMPASS WRAPPER */
+.qibla-compass-wrapper{
+    position: relative;
+    text-align: center;
+    margin: 10px 0;
 }
 
-.qibla-degree span{
-    font-size:12px;
-    color:#aaa;
-    font-weight:700;
-}
-
-.qibla-bearing-live{
-    text-align:center;
-    margin-top:6px;
-    color:#aaa;
-    font-size:12px;
-    font-weight:600;
-}
-
-/* ======================================
-   3D METALLIC COMPASS (EXACTLY LIKE YOUR IMAGE)
-====================================== */
 .compass-area {
-    width: 280px;
-    height: 280px;
-    margin: 15px auto 10px;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
 }
 
 .compass-ring {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50%;
     position: relative;
-    background: linear-gradient(160deg, #c0c0c0, #888888, #666666, #999999);
-    padding: 12px;
-    box-shadow: 
-        inset 0 -8px 15px rgba(0,0,0,0.9),
-        inset 0 8px 15px rgba(255,255,255,0.4),
-        0 0 0 4px #222,
-        0 10px 40px rgba(0,0,0,0.8);
-    box-sizing: border-box;
-}
-
-.compass-ring::before {
-    content: "";
-    position: absolute;
-    top: 12px; left: 12px; right: 12px; bottom: 12px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, #3a4a5a, #0a121a);
-    box-shadow: inset 0 0 60px rgba(0,0,0,0.95);
-    z-index: 1;
-}
-
-/* 3D Kaaba on Top */
-.compass-ring::after {
-    content: "";
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%) rotate(15deg);
-    width: 44px;
-    height: 44px;
-    background: #111;
-    z-index: 15;
-    border: 3px solid #d4af37;
-    box-shadow: 
-        inset 0 0 30px rgba(0,0,0,0.9),
-        0 10px 30px rgba(0,0,0,0.6);
-    border-radius: 3px;
-}
-.compass-ring::after::before {
-    content: "";
-    position: absolute;
-    top: 6px; left: 6px; right: 6px; bottom: 6px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: radial-gradient(circle, #1a1a1a, #0a0a0a);
+    border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.6);
 }
 
 /* Directions */
 .compass-direction {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Times New Roman', serif;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
     z-index: 2;
-    font-size: 18px;
+    font-size: 16px;
 }
-.compass-direction.north { top: 18px; left: 50%; transform: translateX(-50%); color: #ff3b30; font-size: 26px; }
-.compass-direction.east { right: 18px; top: 50%; transform: translateY(-50%); }
-.compass-direction.south { bottom: 18px; left: 50%; transform: translateX(-50%); }
-.compass-direction.west { left: 18px; top: 50%; transform: translateY(-50%); }
+.compass-direction.north { top: 8px; left: 50%; transform: translateX(-50%); color: #66bb6a; font-size: 22px; }
+.compass-direction.east { right: 8px; top: 50%; transform: translateY(-50%); }
+.compass-direction.south { bottom: 8px; left: 50%; transform: translateX(-50%); }
+.compass-direction.west { left: 8px; top: 50%; transform: translateY(-50%); }
 
-/* Degree Markers */
-.compass-degree {
-    position: absolute;
-    font-size: 9px;
-    font-weight: bold;
-    color: rgba(255,255,255,0.4);
-    z-index: 2;
-    font-family: 'Courier New', monospace;
-}
-.degree-0 { top: 38px; left: 50%; transform: translateX(-50%); }
-.degree-90 { right: 38px; top: 50%; transform: translateY(-50%); }
-.degree-180 { bottom: 38px; left: 50%; transform: translateX(-50%); }
-.degree-270 { left: 38px; top: 50%; transform: translateY(-50%); }
-
-/* 3D Needle (Red & White) */
-.qibla-arrow {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    width: 8px;
-    height: 120px;
-    z-index: 10;
-    transform-origin: center center;
-    transition: transform 0.1s linear;
-}
-
-.qibla-arrow::before {
-    content: "";
-    position: absolute;
-    left: 50%; bottom: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to bottom, #ff3b30, #cc0000);
-    border-radius: 4px 4px 0 0;
-    box-shadow: 0 0 15px rgba(255, 59, 48, 0.6);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-bottom: none;
-}
-
-.qibla-arrow::after {
-    content: "";
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, #ddd, #fff);
-    border-radius: 0 0 4px 4px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-top: none;
-}
-
-/* Center Pivot */
-.compass-center {
+/* Centered Kaaba Box */
+.kaaba-center-box {
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    width: 24px; height: 24px;
-    background: radial-gradient(circle, #f0f0f0, #666);
+    width: 38px; height: 38px;
+    background: #0a0a0a;
+    border: 2px solid #d4af37;
+    border-radius: 2px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 4px 15px rgba(212,175,55,0.3);
+    z-index: 12;
+}
+
+/* Compass Pivot */
+.compass-pivot {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px; height: 12px;
+    background: #d4af37;
     border-radius: 50%;
-    border: 2px solid #888;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.6);
+    border: 2px solid #1a1a1a;
     z-index: 20;
 }
-.compass-center i { display: none; }
+
+/* 3D Digital Needle */
+.cmp-needle {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 6px; height: 80px;
+    z-index: 10;
+    transform-origin: center center;
+    transition: transform 0.08s linear;
+}
+.cmp-needle .needle-head {
+    position: absolute;
+    left: 0; bottom: 50%;
+    width: 100%; height: 50%;
+    background: linear-gradient(to bottom, #4caf50, #2e7d32);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+}
+.cmp-needle .needle-tail {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 50%;
+    background: #fff;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+/* Bearing Display */
+.bearing-display {
+    text-align: center;
+    margin-top: 10px;
+}
+.bearing-display strong{
+    font-size: 34px;
+    font-weight: 800;
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212,175,55,0.3);
+}
+.bearing-display span{
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
 
 .compass-message{
-    text-align:center;
-    min-height:20px;
-    margin-top:8px;
-    color:#aaa;
-    font-size:12px;
-    font-weight:600;
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin-top: 6px;
 }
 
 .calibrate-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    width:100%;
-    height:44px;
-    margin-top:12px;
-    border:none;
-    border-radius:14px;
-    background: linear-gradient(145deg, #d4af37, #b08a2e);
-    color:#111;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow: 0 6px 20px rgba(212,175,55,0.4);
-    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; height: 42px;
+    margin-top: 12px;
+    border: none; border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: #fff; font-weight: 600; font-size: 13px;
+    cursor: pointer; transition: 0.3s;
 }
-.calibrate-btn:hover{
-    transform: scale(1.02);
-    box-shadow: 0 8px 30px rgba(212,175,55,0.6);
-}
-.calibrate-btn:active{
-    transform:scale(.98);
-}
+.calibrate-btn:hover{ background: rgba(255,255,255,0.2); }
 
 /* ======================================
-   INFO CARD
+   INFO CARDS (4 Grid)
 ====================================== */
-.info-card-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding-bottom:12px;
-    border-bottom:1px solid rgba(212,175,55,0.2);
+.info-card-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    animation-delay: 0.3s;
 }
-.info-card-title > i{
-    width:44px;
-    height:44px;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: linear-gradient(145deg, #d4af37, #b08a2e);
-    color:#111;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+.info-item {
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.info-card-title strong{ font-size:16px; color:#fff; }
-.info-card-title span{ font-size:11px; color:#aaa; }
-
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:12px;
+.info-item .info-icon{
+    width: 36px; height: 36px;
+    background: rgba(212,175,55,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #d4af37;
 }
-.info-item{
-    padding:12px;
-    background:rgba(50,50,50,0.5);
-    backdrop-filter: blur(5px);
-    border-radius:14px;
-    display:grid;
-    grid-template-columns:28px 1fr;
-    column-gap:8px;
-    align-items:center;
-    border: 1px solid rgba(212,175,55,0.1);
-}
-.info-item i{ grid-row:1 / 3; color:#d4af37; font-size:18px; }
-.info-item span{ font-size:10px; color:#999; font-weight:600; }
-.info-item strong{ margin-top:2px; font-size:14px; color:#fff; font-weight:700; }
+.info-item span{ display: block; font-size: 10px; color: #888; }
+.info-item strong{ display: block; font-size: 15px; color: #fff; margin-top: 2px; }
 
 /* ======================================
-   MAP SECTION
+   MAP VIEW
 ====================================== */
+.map-section{
+    padding: 16px;
+    animation-delay: 0.4s;
+}
+.map-header{
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.map-header h3{ font-size: 13px; font-weight: 600; color: #fff; }
 .map-location-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:12px;
-    background:#2a2a2a;
-    color:#d4af37;
-    cursor:pointer;
-    transition: 0.3s;
-    border: 1px solid #d4af37;
-}
-.map-location-btn:hover{
-    background:#d4af37;
-    color:#111;
+    background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
+    width: 32px; height: 32px; color: #d4af37; cursor: pointer;
 }
 .qibla-map{
-    width:100%;
-    height:220px;
-    margin-top:12px;
-    border-radius:16px;
-    overflow:hidden;
-    border: 2px solid #d4af37;
-    box-shadow: inset 0 2px 15px rgba(0,0,0,0.8);
+    width: 100%; height: 180px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
 }
-.map-legend{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; font-size:10px; color:#aaa; font-weight:600; }
-.legend-item{ display:flex; align-items:center; gap:5px; }
-.legend-dot{ width:10px; height:10px; border-radius:50%; }
-.user-dot{ background:#d4af37; }
-.kaaba-dot{ background:#fff; }
-.legend-line{ width:20px; height:3px; border-radius:5px; background:#d4af37; }
 
 /* ======================================
-   DIRECTION & HELP
-====================================== */
-.direction-icon{
-    width:44px;
-    height:44px;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: linear-gradient(145deg, #d4af37, #b08a2e);
-    color:#111;
-    flex-shrink:0;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
-}
-.direction-content strong{ font-size:16px; color:#d4af37; }
-
-.compass-help{
-    background:rgba(40,40,40,0.8);
-    border: 1px solid rgba(212,175,55,0.25);
-    border-radius:18px;
-}
-.help-icon{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    background:#2a2a2a;
-    color:#d4af37;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border: 1px solid #d4af37;
-}
-.compass-help strong{ color:#d4af37; font-size:13px; }
-
-/* ======================================
-   SETTINGS PANEL (Dark Metallic)
+   SETTINGS PANEL
 ====================================== */
 .campus-settings-panel{
-    position:fixed;
-    inset:0;
-    z-index:10000;
-    display:none;
+    position:fixed; inset:0; z-index:10000; display:none;
 }
 .settings-overlay{
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
+    position:absolute; inset:0; background:rgba(0,0,0,0.8); backdrop-filter: blur(4px);
 }
 .settings-sheet{
-    position:absolute;
-    left:50%;
-    bottom:0;
-    transform:translateX(-50%);
-    width:100%;
-    max-width:430px;
-    padding:20px 16px;
-    background:rgba(30,30,30,0.98);
-    backdrop-filter: blur(20px);
-    border-radius:30px 30px 0 0;
-    box-shadow: 0 -15px 40px rgba(0,0,0,0.8);
-    border-top: 2px solid #d4af37;
-    animation: slideUp 0.4s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+    width:100%; max-width:430px; padding:20px 16px;
+    background:rgba(30,30,30,0.98); backdrop-filter: blur(20px);
+    border-radius:24px 24px 0 0; border-top: 2px solid #d4af37;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
 }
-@keyframes slideUp {
-    from { transform: translateX(-50%) translateY(100%); }
-    to { transform: translateX(-50%) translateY(0); }
-}
-.settings-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.settings-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; }
 .settings-header h2{ font-size:20px; color:#d4af37; font-weight:700; }
-.close-settings-btn{
-    width:40px; height:40px; border:none; border-radius:50%;
-    background:#2a2a2a; color:#aaa; cursor:pointer; transition:0.3s; border: 1px solid #d4af37;
-}
+.close-settings-btn{ width:36px; height:36px; border:none; border-radius:50%; background:#2a2a2a; color:#aaa; cursor:pointer; }
 .close-settings-btn:hover{ background:#d4af37; color:#111; }
 
-.setting-row{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-top:1px solid rgba(212,175,55,0.1); }
+.setting-row{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-top:1px solid rgba(255,255,255,0.05); }
 .setting-row strong{ font-size:14px; color:#fff; }
-.setting-row span{ font-size:11px; color:#aaa; }
+.setting-row span{ font-size:11px; color:#888; }
 .setting-action-btn{
-    height:38px; padding:0 16px; border:none; border-radius:12px;
-    background:#d4af37; color:#111; font-size:12px; font-weight:700; cursor:pointer; transition:0.3s;
+    padding:8px 16px; border:none; border-radius:8px;
+    background:#d4af37; color:#111; font-size:12px; font-weight:700; cursor:pointer;
 }
-.setting-action-btn:hover{ background:#b08a2e; }
 
 /* ======================================
-   BOTTOM NAV (Dark Theme)
+   BOTTOM NAV (UNIFIED)
 ====================================== */
 .bottom-nav{
-    position:fixed !important;
-    left:50% !important;
-    transform:translateX(-50%) !important;
-    bottom:0 !important;
-    width:100% !important;
-    max-width:430px !important;
-    height:58px !important;
-    display:flex !important;
-    justify-content:space-around !important;
-    align-items:center !important;
-    padding:7px 4px !important;
-    background:rgba(20,20,20,0.95) !important;
-    backdrop-filter: blur(15px);
-    border-top: 2px solid #d4af37 !important;
-    border-radius:24px 24px 0 0 !important;
-    box-shadow: 0 -8px 30px rgba(0,0,0,0.8) !important;
-    z-index:9999 !important;
-    gap:0 !important;
+    position:fixed !important; left:50% !important; bottom:0 !important;
+    transform:translateX(-50%) !important; width:100% !important; max-width:430px !important; height:55px !important;
+    display:flex !important; justify-content:space-around !important; align-items:center !important;
+    padding:6px 4px !important; background:rgba(15,15,15,0.95) !important; backdrop-filter: blur(15px) !important;
+    border-top: 2px solid #d4af37 !important; border-radius:24px 24px 0 0 !important;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.8) !important; z-index:9999 !important;
 }
 .bottom-nav > a, .more-nav{ flex:1 !important; min-width:0 !important; }
-.more-nav{ position:relative; display:flex; align-items:center; justify-content:center; }
-
-.more-nav-btn{
-    width:100%;
-    min-height:50px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    border:none;
-    background:transparent;
-    color:#aaa;
-    font-size:10px;
-    cursor:pointer;
-    font-family:inherit;
-    transition: 0.3s;
-}
-.more-nav-btn i{ font-size:16px; }
-.more-nav-btn span{ font-size:9px; white-space:nowrap; }
-.more-nav-btn:hover{ color:#d4af37; transform: translateY(-2px); }
-
-.bottom-nav a{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-decoration:none; font-size:10px; color:#aaa; transition:.3s; min-width:0; }
+.bottom-nav a{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-decoration:none; font-size:10px; color:#aaa; transition:.3s; }
 .bottom-nav i{ font-size:16px; }
 .bottom-nav span{ white-space:nowrap; font-size:9px; }
 .bottom-nav a.active{ color:#d4af37; font-weight:700; transform: translateY(-2px); }
 
+.more-nav{ position:relative; display:flex; align-items:center; justify-content:center; }
+.more-nav-btn{ width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:transparent; color:#aaa; font-size:9px; cursor:pointer; transition:0.3s; }
+.more-nav-btn:hover{ color:#d4af37; }
+.more-nav-btn i{ font-size:16px; }
+.more-nav-btn span{ font-size:9px; white-space:nowrap; }
+
 .more-menu{
-    position:absolute;
-    right:0;
-    bottom:62px;
-    width:165px;
-    padding:8px;
-    display:none;
-    flex-direction:column;
-    gap:5px;
-    background:rgba(20,20,20,0.98);
-    backdrop-filter: blur(20px);
-    border:1px solid #d4af37;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.8);
-    z-index:10001;
-    animation: fadeInScale 0.2s ease forwards;
-}
-@keyframes fadeInScale {
-    from { opacity:0; transform: scale(0.9) translateY(10px); }
-    to { opacity:1; transform: scale(1) translateY(0); }
+    position:absolute; right:0; bottom:60px; width:165px; padding:8px;
+    display:none; flex-direction:column; gap:5px;
+    background:rgba(15,15,15,0.98); backdrop-filter: blur(20px);
+    border:1px solid #d4af37; border-radius:16px; box-shadow:0 15px 40px rgba(0,0,0,0.8); z-index:10001;
 }
 .more-menu.show{ display:flex !important; }
 .more-menu a, .more-menu button{
-    width:100%; min-height:40px; display:flex; align-items:center; gap:10px; padding:8px 12px; border:none; border-radius:12px; background:transparent; color:#ddd; text-decoration:none; font-size:12px; cursor:pointer; text-align:left; font-family:inherit; transition:0.2s;
+    width:100%; min-height:38px; display:flex; align-items:center; gap:10px; padding:6px 10px;
+    border:none; border-radius:8px; background:transparent; color:#ddd; text-decoration:none; font-size:12px; cursor:pointer; text-align:left; transition:0.2s;
 }
-.more-menu a i, .more-menu button i{ width:20px; color:#d4af37; text-align:center; }
-.more-menu a:hover, .more-menu button:hover{ background:#2a2a2a; color:#d4af37; }
+.more-menu a i, .more-menu button i{ width:18px; text-align:center; color:#d4af37; }
+.more-menu a:hover, .more-menu button:hover{ background:rgba(212,175,55,0.15); color:#fff; }
+.more-menu a.active{ background:rgba(212,175,55,0.2); color:#d4af37; }
+
+@media(max-width:430px){ .compass-area{ width:200px; height:200px; } .cmp-needle{ height:70px; } .kaaba-center-box{ width:34px; height:34px; } }
 
 /* ======================================
-   MESSAGE & RESPONSIVE
+   نئی کمپاس تصویر سیٹ کرنا (باقی HTML محفوظ)
 ====================================== */
-.campus-message{
-    background:rgba(40,40,40,0.9);
-    border: 1px solid #e53935;
-}
-.campus-message > i{ color:#e53935; }
-.campus-message strong{ color:#e53935; }
-#campusMessageBtn{ background:#d4af37; color:#111; }
 
-@media(max-width:430px){
-    .campus-header{ padding:14px 10px !important; }
-    .campus-header-title h1{ font-size:22px; }
-    .campus-header-title p{ font-size:10px; }
-    
-    .location-card, .qibla-arrow-card, .qibla-info-card, .qibla-map-section, .direction-card, .compass-help, .campus-message{ margin:8px 0; padding:14px; }
-    .compass-area{ width:230px; height:230px; }
-    .compass-ring{ width:100%; }
-    .qibla-degree strong{ font-size:30px; }
-    .bottom-nav{ height:55px !important; }
-    .more-menu{ width:155px; bottom:58px; }
+/* کمپاس ایریا کا سائز */
+.compass-area {
+    position: relative;
+    width: 260px; 
+    height: 260px; 
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* نئی تصویر کو بیک گراؤنڈ میں رکھیں */
+.compass-bg-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    z-index: 1;  /* تصویر سوئی کے پیچھے رہے گی */
+    pointer-events: none; /* کلکس کو سوئی تک جانے دے */
+}
+
+/* پرانی CSS رنگ کو چھپا دیں تاکہ صرف تصویر دکھے */
+.compass-ring, 
+.compass-ring::before, 
+.compass-ring::after, 
+.compass-direction, 
+.degree-markers, 
+.kaaba-center-box, 
+.compass-pivot {
+    display: none !important;
+}
+
+/* سوئی (Needle) کو تصویر کے بالکل اوپر رکھیں */
+.cmp-needle {
+    z-index: 10 !important;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 6px; height: 80px;
+    transition: transform 0.08s linear;
+    transform-origin: center center;
+}
+
+/* سوئی کے رنگ ویسے ہی رکھیں (سبز اور سفید) */
+.cmp-needle .needle-head {
+    position: absolute;
+    left: 0; bottom: 50%;
+    width: 100%; height: 50%;
+    background: linear-gradient(to bottom, #4caf50, #2e7d32);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+}
+.cmp-needle .needle-tail {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 50%;
+    background: #fff;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }

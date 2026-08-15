@@ -11,22 +11,18 @@
 
 <div class="tasbeeh-app">
 
-    <!-- ========================= -->
     <!-- HEADER (Title Left, Image Right) -->
-    <!-- ========================= -->
     <header class="tasbeeh-header">
         <div class="header-title">
             <h1><i class="fa-solid fa-ring"></i> Digital Tasbeeh</h1>
             <p>Count your Dhikr with focus and peace</p>
         </div>
         <div class="tasbeeh-header-image">
-        <img src="tasbeeh.jpg" alt="Tasbeeh">
+            <img src="tasbeeh.jpg" alt="Tasbeeh">
         </div>
     </header>
 
-    <!-- ========================= -->
     <!-- DHIKR SECTION -->
-    <!-- ========================= -->
     <section class="dhikr-section">
         <select id="dhikrSelect">
             <option value="0">Bismillah</option>
@@ -65,18 +61,14 @@
         <div id="dhikrMeaning">اللہ کے نام سے۔</div>
     </section>
 
-    <!-- ========================= -->
     <!-- TARGET BUTTONS -->
-    <!-- ========================= -->
     <section class="target-section">
         <button class="target-btn active" data-target="33">33</button>
         <button class="target-btn" data-target="99">99</button>
         <button class="target-btn" data-target="100">100</button>
     </section>
 
-    <!-- ========================= -->
     <!-- INFO CARDS -->
-    <!-- ========================= -->
     <section class="info-section">
         <div class="info-card">
             <span class="info-label">Target</span>
@@ -92,18 +84,14 @@
         </div>
     </section>
 
-    <!-- ========================= -->
     <!-- PROGRESS BAR -->
-    <!-- ========================= -->
     <section class="progress-section">
         <div class="progress-track">
             <div id="progressBar" class="progress-fill"></div>
         </div>
     </section>
 
-    <!-- ========================= -->
     <!-- STATISTICS -->
-    <!-- ========================= -->
     <section class="stats-section">
         <div class="stat-card">
             <span class="stat-number" id="completed33">0</span>
@@ -119,9 +107,7 @@
         </div>
     </section>
 
-    <!-- ========================= -->
     <!-- ACTION BUTTONS -->
-    <!-- ========================= -->
     <section class="action-section">
         <button id="countBtn" class="count-btn">
             <i class="fa-solid fa-hand-pointer"></i> TAP TO COUNT
@@ -131,9 +117,7 @@
         </button>
     </section>
 
-    <!-- ========================== -->
     <!-- BOTTOM NAV (Home + More) -->
-    <!-- ========================== -->
     <nav class="bottom-nav">
         <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
 
@@ -142,15 +126,19 @@
                 <i class="fa-solid fa-ellipsis"></i><span>More</span>
             </button>
             <div class="more-menu" id="moreMenu">
+
+
                 <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
                 <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
                 <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
                 <a href="tasbeeh.html" class="active"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
                 <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-            </div>
+                <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+
+           
         </div>
     </nav>
-
+           
 </div>
 
 <script src="tasbeeh.js"></script>
