@@ -485,3 +485,77 @@ body{
     border-radius: 0 0 3px 3px;
     box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
+
+/* ======================================
+   نئی کمپاس تصویر سیٹ کرنا (FIXED: سوئی دکھنے کے لیے)
+====================================== */
+
+/* کمپاس ایریا کا سائز */
+.compass-area {
+    position: relative;
+    width: 260px; 
+    height: 260px; 
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* نئی تصویر کو بیک گراؤنڈ میں رکھیں */
+.compass-bg-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* پرانی رنگ کی رِنگ کو چھپانا نہیں، بلکہ شفاف کرنا ہے تاکہ سوئی دکھے */
+.compass-ring {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0;
+    z-index: 1;
+    display: block !important; /* سوئی کو دکھانے کے لیے ضروری ہے */
+}
+
+/* صرف غیر ضروری ڈیکوریشنز چھپائیں، سوئی نہیں */
+.compass-ring .compass-direction,
+.compass-ring .degree-markers,
+.compass-ring .kaaba-center-box,
+.compass-ring .compass-pivot {
+    display: none !important;
+}
+
+/* سوئی (Needle) کو تصویر کے بالکل اوپر رکھیں */
+.cmp-needle {
+    display: block !important;
+    z-index: 10 !important;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 6px; height: 80px;
+    transition: transform 0.08s linear;
+    transform-origin: center center;
+}
+
+/* سوئی کے رنگ ویسے ہی رکھیں (سبز اور سفید) */
+.cmp-needle .needle-head {
+    position: absolute;
+    left: 0; bottom: 50%;
+    width: 100%; height: 50%;
+    background: linear-gradient(to bottom, #4caf50, #2e7d32);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+}
+.cmp-needle .needle-tail {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 50%;
+    background: #fff;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}

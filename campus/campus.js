@@ -101,7 +101,21 @@ async function getLocationName(){
         const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${currentLatitude}&lon=${currentLongitude}&zoom=10&addressdetails=1`, { headers: { "Accept-Language": "en" } });
         if(!res.ok) throw new Error();
         const data = await res.json(); const addr = data.address || {};
-        const name = addr.village || addr.town || addr.city || addr.municipality || addr.county || addr.state || "Current Location";
+        let name = addr.village || addr.town || addr.city || addr.municipality || addr.county || addr.state || "Current Location";
+
+        // *** FIX: Adilpur/Ghotki کا مسئلہ حل کرنا ***
+        if (currentLatitude && currentLongitude) {
+            // Adilpur کے کوآرڈینیٹس
+            const adilpurLat = 28.0065;
+            const adilpurLng = 69.3167;
+            // موجودہ لوکیشن سے Adilpur کا تخمینی فاصلہ (ڈگریوں میں)
+            const distanceInDeg = Math.sqrt(Math.pow(currentLatitude - adilpurLat, 2) + Math.pow(currentLongitude - adilpurLng, 2));
+            // 1 ڈگری تقریباً 111 کلومیٹر کے برابر ہوتی ہے، اس لیے 0.1 ڈگری ~ 11 کلومیٹر
+            if (distanceInDeg < 0.12 && name.toLowerCase() === "ghotki") {
+                name = "Adilpur, Ghotki";
+            }
+        }
+
         if(locationName) locationName.textContent = name;
     } catch(e){ if(locationName) locationName.textContent = "Current Location"; }
 }
