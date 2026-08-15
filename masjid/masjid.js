@@ -1,300 +1,295 @@
 /* ======================================
-   MASJID.JS - NEARBY MOSQUES SYSTEM (NAV FIXED)
+   MASJID.JS - WITH IN-PAGE MAP & FULL CRUD
 ====================================== */
 
-// ========== CONSTANTS ==========
-const MAX_DISTANCE_ADD = 100; // meters
+// --- Constants ---
 const DUPLICATE_DISTANCE = 500; // meters
 const DEFAULT_LAT = 28.0065;
 const DEFAULT_LNG = 69.3167;
 const DEFAULT_LOCATION = "Adilpur, Ghotki";
 
-// ========== DOM REFS ==========
+// --- DOM Elements ---
 const locationText = document.getElementById('locationText');
 const addBtn = document.getElementById('addMosqueBtn');
 const refreshBtn = document.getElementById('refreshBtn');
 const mosqueList = document.getElementById('mosqueList');
+const mapContainer = document.getElementById('mapContainer');
 const modal = document.getElementById('addModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 const form = document.getElementById('addMosqueForm');
+const modalTitle = document.getElementById('modalTitle');
 const mosqueName = document.getElementById('mosqueName');
 const mosqueAddress = document.getElementById('mosqueAddress');
+const userName = document.getElementById('userName');
+const fatherName = document.getElementById('fatherName');
+const phoneNumber = document.getElementById('phoneNumber');
 const mosquePhoto = document.getElementById('mosquePhoto');
-const gpsStatus = document.getElementById('gpsStatus');
+const submitBtn = document.getElementById('submitBtn');
+const otpInput = document.getElementById('otpInput');
+const sendOtpBtn = document.getElementById('sendOtpBtn');
+const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+const otpStatus = document.getElementById('otpStatus');
 const toast = document.getElementById('toast');
-
-// MORE MENU ELEMENTS
 const moreNavBtn = document.getElementById('moreNavBtn');
 const moreMenu = document.getElementById('moreMenu');
 const settingsBtn = document.getElementById('settingsBtn');
 
-// ========== STATE ==========
-let currentLat = null;
-let currentLng = null;
-let currentLocationName = DEFAULT_LOCATION;
-let allMosques = [];
+// --- State ---
+let currentLat = null, currentLng = null, allMosques = [];
+let generatedOtp = null, isOtpVerified = false, editingId = null;
+let map = null, userMarker = null, mosqueMarkers = [];
 
-// ========== INIT ==========
-document.addEventListener('DOMContentLoaded', function() {
-    loadMosquesFromStorage();
-    requestLocation();
-    setupEventListeners();
-    setupMoreNav(); // نیویگیشن سیٹ اپ
-});
-
-// ========== LOCAL STORAGE ==========
-function loadMosquesFromStorage() {
+// --- Local Storage ---
+function loadMosques() {
     const data = localStorage.getItem('masjidData');
-    if (data) {
-        try {
-            allMosques = JSON.parse(data);
-        } catch(e) {
-            allMosques = [];
-        }
-    }
+    if (data) { try { allMosques = JSON.parse(data); } catch(e) { allMosques = []; } }
 }
+function saveMosques() { localStorage.setItem('masjidData', JSON.stringify(allMosques)); }
 
-function saveMosques() {
-    localStorage.setItem('masjidData', JSON.stringify(allMosques));
-}
-
-// ========== LOCATION ==========
+// --- Location ---
 function requestLocation() {
     locationText.textContent = "Fetching GPS...";
-    if (!navigator.geolocation) {
-        useFallbackLocation("Geolocation not supported.");
-        return;
-    }
-    
-    const timeoutId = setTimeout(() => {
-        if (currentLat === null) {
-            useFallbackLocation("GPS timeout. Using Adilpur.");
-        }
-    }, 5000);
-
+    if (!navigator.geolocation) { useFallback("Geolocation not supported."); return; }
+    const timeout = setTimeout(() => { if (currentLat === null) useFallback("GPS timeout."); }, 5000);
     navigator.geolocation.getCurrentPosition(
-        function(pos) {
-            clearTimeout(timeoutId);
-            currentLat = pos.coords.latitude;
-            currentLng = pos.coords.longitude;
-            onLocationReady();
-        },
-        function(error) {
-            clearTimeout(timeoutId);
-            let msg = "GPS error. Using default.";
-            if (error.code === 1) msg = "Permission denied. Using Adilpur.";
-            else if (error.code === 2) msg = "Position unavailable. Using Adilpur.";
-            useFallbackLocation(msg);
-        },
+        (pos) => { clearTimeout(timeout); currentLat = pos.coords.latitude; currentLng = pos.coords.longitude; onReady(); },
+        () => { clearTimeout(timeout); useFallback("GPS error."); },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
 }
-
-function useFallbackLocation(msg) {
-    currentLat = DEFAULT_LAT;
-    currentLng = DEFAULT_LNG;
+function useFallback(msg) {
+    currentLat = DEFAULT_LAT; currentLng = DEFAULT_LNG;
     locationText.textContent = msg + " " + DEFAULT_LOCATION;
-    onLocationReady();
+    onReady();
 }
-
-function onLocationReady() {
+function onReady() {
     fetchLocationName();
-    renderMosques();
+    initMap();
+    renderAll();
 }
-
 async function fetchLocationName() {
     if (currentLat === DEFAULT_LAT && currentLng === DEFAULT_LNG) {
-        locationText.textContent = "📍 " + DEFAULT_LOCATION;
-        return;
+        locationText.textContent = "📍 " + DEFAULT_LOCATION; return;
     }
     try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${currentLat}&lon=${currentLng}&zoom=10&addressdetails=1`, {
-            headers: { "Accept-Language": "en" }
-        });
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${currentLat}&lon=${currentLng}&zoom=10&addressdetails=1`, { headers: { "Accept-Language": "en" } });
         if (!res.ok) throw new Error();
-        const data = await res.json();
-        const addr = data.address || {};
-        
+        const data = await res.json(); const addr = data.address || {};
         let name = addr.village || addr.town || addr.city || addr.municipality || addr.county || addr.state || "Current Location";
-
-        // Adilpur Fix
+        // Adilpur fix
         if (currentLat && currentLng) {
-            const adilpurLat = 28.0065;
-            const adilpurLng = 69.3167;
-            const distanceInDeg = Math.sqrt(Math.pow(currentLat - adilpurLat, 2) + Math.pow(currentLng - adilpurLng, 2));
-            if (distanceInDeg < 0.12 && name.toLowerCase() === "ghotki") {
-                name = "Adilpur, Ghotki";
-            }
+            const dist = Math.sqrt(Math.pow(currentLat - DEFAULT_LAT, 2) + Math.pow(currentLng - DEFAULT_LNG, 2));
+            if (dist < 0.12 && name.toLowerCase() === "ghotki") name = "Adilpur, Ghotki";
         }
-
         locationText.textContent = "📍 " + name;
-    } catch(e) {
-        locationText.textContent = "📍 Current Location";
-    }
+    } catch(e) { locationText.textContent = "📍 Current Location"; }
 }
 
-// ========== DISTANCE HELPER ==========
+// --- Distance Helper ---
 function getDistance(lat1, lng1, lat2, lng2) {
     const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLng = (lng2 - lng1) * Math.PI / 180;
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLng/2) * Math.sin(dLng/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c * 1000; // meters
+    const dLat = (lat2 - lat1) * Math.PI / 180; const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng/2) * Math.sin(dLng/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)) * 1000;
 }
 
-// ========== RENDER MOSQUES ==========
+// --- MAP INITIALIZATION ---
+function initMap() {
+    if (!mapContainer || typeof L === 'undefined') return;
+    if (map) { map.remove(); map = null; }
+    map = L.map(mapContainer).setView([currentLat, currentLng], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+    // User marker
+    userMarker = L.marker([currentLat, currentLng], { icon: L.divIcon({ className: '', html: '<i class="fa-solid fa-location-dot" style="color:#d4af37;font-size:24px;"></i>', iconSize: [24,24], iconAnchor: [12,12] }) }).addTo(map);
+    // Update mosque markers
+    updateMapMarkers();
+}
+function updateMapMarkers() {
+    if (!map) return;
+    // Remove old markers
+    mosqueMarkers.forEach(m => map.removeLayer(m));
+    mosqueMarkers = [];
+    // Add new markers
+    allMosques.forEach(m => {
+        const marker = L.marker([m.lat, m.lng], { icon: L.divIcon({ className: '', html: '<i class="fa-solid fa-mosque" style="color:#d4af37;font-size:20px;"></i>', iconSize: [20,20], iconAnchor: [10,10] }) }).addTo(map);
+        marker.bindPopup(`<b>${m.name}</b><br>${m.address}`);
+        mosqueMarkers.push(marker);
+    });
+}
+
+// --- RENDER MOSQUES ---
+function renderAll() {
+    renderMosques();
+    updateMapMarkers();
+}
 function renderMosques() {
     if (currentLat === null || currentLng === null) return;
-    const list = document.getElementById('mosqueList');
-    if (!allMosques.length) {
-        list.innerHTML = `<div class="loading-msg">No mosques added yet. Tap "Add New Mosque" to add one.</div>`;
-        return;
-    }
-    const withDistance = allMosques.map(m => {
-        const dist = getDistance(currentLat, currentLng, m.lat, m.lng);
-        return { ...m, distance: dist };
-    });
-    withDistance.sort((a,b) => a.distance - b.distance);
+    if (!allMosques.length) { mosqueList.innerHTML = `<div class="loading-msg">No mosques added yet.</div>`; return; }
+    const withDist = allMosques.map(m => ({ ...m, distance: getDistance(currentLat, currentLng, m.lat, m.lng) }));
+    withDist.sort((a,b) => a.distance - b.distance);
     let html = '';
-    withDistance.forEach(m => {
+    withDist.forEach(m => {
         const distStr = m.distance < 1000 ? Math.round(m.distance) + ' m' : (m.distance/1000).toFixed(1) + ' km';
         const imgSrc = m.photo || 'https://via.placeholder.com/56/2a2a2a/d4af37?text=Mosque';
         html += `
-            <div class="mosque-card">
-                <img src="${imgSrc}" alt="${m.name}" class="mosque-img" onerror="this.src='https://via.placeholder.com/56/2a2a2a/d4af37?text=Mosque'">
+            <div class="mosque-card" data-id="${m.id}">
+                <img src="${imgSrc}" class="mosque-img" onerror="this.src='https://via.placeholder.com/56/2a2a2a/d4af37?text=Mosque'">
                 <div class="mosque-info">
                     <h3>${m.name}</h3>
                     <p>${m.address}</p>
                     <span class="distance">${distStr} away</span>
+                    <small style="color:#777;font-size:10px;">Added by: ${m.userName || 'Anonymous'}</small>
                 </div>
-                <button class="directions-btn" data-lat="${m.lat}" data-lng="${m.lng}">
-                    <i class="fa-solid fa-location-arrow"></i> Route
-                </button>
+                <div class="actions">
+                    <button class="directions-btn" data-lat="${m.lat}" data-lng="${m.lng}" title="View on Map"><i class="fa-solid fa-location-arrow"></i></button>
+                    <button class="edit-btn" data-id="${m.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="delete-btn" data-id="${m.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
             </div>
         `;
     });
-    list.innerHTML = html;
+    mosqueList.innerHTML = html;
+    // Attach events
     document.querySelectorAll('.directions-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const lat = this.dataset.lat;
-            const lng = this.dataset.lng;
-            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-            window.open(url, '_blank');
+            if (map) map.setView([this.dataset.lat, this.dataset.lng], 15);
+        });
+    });
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const id = this.dataset.id;
+            const m = allMosques.find(x => x.id === id);
+            if (!m) return;
+            mosqueName.value = m.name; mosqueAddress.value = m.address;
+            userName.value = m.userName || ''; fatherName.value = m.fatherName || '';
+            phoneNumber.value = m.phoneNumber || '';
+            modalTitle.textContent = "Edit Mosque"; editingId = id;
+            modal.classList.add('active'); resetOtpState();
+        });
+    });
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (confirm("Are you sure you want to delete this mosque?")) {
+                allMosques = allMosques.filter(x => x.id !== this.dataset.id);
+                saveMosques(); renderAll();
+                showToast("✅ Mosque deleted.");
+            }
         });
     });
 }
 
-// ========== ADD MOSQUE LOGIC ==========
-function setupEventListeners() {
+// --- OTP Reset ---
+function resetOtpState() {
+    generatedOtp = null; isOtpVerified = false;
+    submitBtn.disabled = true; otpInput.disabled = true;
+    otpInput.value = ''; otpStatus.textContent = '';
+}
+
+// --- Event Listeners ---
+function setupListeners() {
     addBtn.addEventListener('click', function() {
-        if (currentLat === null || currentLng === null) {
-            showToast("Please wait for GPS to be ready.");
-            return;
-        }
+        if (currentLat === null || currentLng === null) { showToast("Please wait for GPS."); return; }
+        modalTitle.textContent = "Add Mosque"; editingId = null;
+        form.reset(); resetOtpState(); mosquePhoto.value = '';
         modal.classList.add('active');
-        gpsStatus.innerHTML = `<i class="fa-solid fa-check-circle" style="color:#4caf50;"></i> GPS locked at your current location.`;
-        form.reset();
-        mosquePhoto.value = '';
     });
-
     closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) modal.classList.remove('active');
+    modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.remove('active'); });
+    refreshBtn.addEventListener('click', function() { renderAll(); showToast("Refreshed."); });
+
+    // OTP
+    sendOtpBtn.addEventListener('click', function() {
+        const phone = phoneNumber.value.trim();
+        if (phone.length < 10) { showToast("Enter a valid phone number first."); return; }
+        generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        otpInput.disabled = false; otpInput.focus();
+        showToast(`📱 Code sent! (Mock: ${generatedOtp})`);
+        otpStatus.textContent = `Code sent (${generatedOtp})`; otpStatus.style.color = '#4caf50';
+    });
+    verifyOtpBtn.addEventListener('click', function() {
+        const entered = otpInput.value.trim();
+        if (!generatedOtp || !entered) { otpStatus.textContent = "Send code first."; otpStatus.style.color = '#e53935'; return; }
+        if (entered === generatedOtp) {
+            isOtpVerified = true; submitBtn.disabled = false;
+            otpStatus.textContent = "✅ Verified! You can save."; otpStatus.style.color = '#4caf50';
+            otpInput.disabled = true;
+        } else {
+            isOtpVerified = false; submitBtn.disabled = true;
+            otpStatus.textContent = "❌ Incorrect code."; otpStatus.style.color = '#e53935';
+        }
     });
 
-    refreshBtn.addEventListener('click', function() {
-        renderMosques();
-        showToast("Refreshed list.");
-    });
-
+    // Submit
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const name = mosqueName.value.trim();
-        const address = mosqueAddress.value.trim();
-        if (!name || !address) {
-            showToast("Please fill in all required fields.");
-            return;
+        if (!isOtpVerified) { showToast("Verify phone number first."); return; }
+        const name = mosqueName.value.trim(), address = mosqueAddress.value.trim();
+        const uName = userName.value.trim(), fName = fatherName.value.trim(), phone = phoneNumber.value.trim();
+        if (!name || !address || !uName || !fName || !phone) { showToast("Fill all fields."); return; }
+        if (!editingId) {
+            const dup = allMosques.some(m => m.name.toLowerCase() === name.toLowerCase() && getDistance(currentLat, currentLng, m.lat, m.lng) < DUPLICATE_DISTANCE);
+            if (dup) { showToast("Duplicate mosque within 500m."); return; }
         }
-
-        const duplicate = allMosques.some(m => {
-            if (m.name.toLowerCase() !== name.toLowerCase()) return false;
-            const dist = getDistance(currentLat, currentLng, m.lat, m.lng);
-            return dist < DUPLICATE_DISTANCE;
-        });
-        if (duplicate) {
-            showToast("A mosque with this name already exists within 500 meters.");
-            return;
-        }
-
         const fileInput = mosquePhoto;
         let photoData = null;
         if (fileInput.files && fileInput.files[0]) {
             const file = fileInput.files[0];
-            if (file.size > 2 * 1024 * 1024) {
-                showToast("Image size must be less than 2MB.");
-                return;
-            }
+            if (file.size > 2 * 1024 * 1024) { showToast("Image < 2MB."); return; }
             const reader = new FileReader();
-            reader.onload = function(e) {
-                photoData = e.target.result;
-                saveMosque(name, address, photoData);
-            };
+            reader.onload = function(e) { photoData = e.target.result; saveMosque(name, address, uName, fName, phone, photoData); };
             reader.readAsDataURL(file);
         } else {
-            saveMosque(name, address, null);
+            saveMosque(name, address, uName, fName, phone, null);
         }
     });
 }
 
-function saveMosque(name, address, photo) {
-    const newMosque = {
-        id: Date.now().toString() + Math.random().toString(36).substr(2,5),
-        name: name,
-        address: address,
-        lat: currentLat,
-        lng: currentLng,
-        photo: photo,
-        createdAt: new Date().toISOString()
-    };
-    allMosques.push(newMosque);
-    saveMosques();
-    renderMosques();
-    modal.classList.remove('active');
-    showToast("✅ Mosque added successfully!");
+function saveMosque(name, address, uName, fName, phone, photo) {
+    if (editingId) {
+        const idx = allMosques.findIndex(m => m.id === editingId);
+        if (idx !== -1) {
+            allMosques[idx].name = name; allMosques[idx].address = address;
+            allMosques[idx].userName = uName; allMosques[idx].fatherName = fName;
+            allMosques[idx].phoneNumber = phone;
+            if (photo) allMosques[idx].photo = photo;
+        }
+        showToast("✅ Mosque updated!");
+    } else {
+        allMosques.push({
+            id: Date.now().toString() + Math.random().toString(36).substr(2,5),
+            name, address, lat: currentLat, lng: currentLng, photo,
+            userName: uName, fatherName: fName, phoneNumber: phone,
+            createdAt: new Date().toISOString()
+        });
+        showToast("✅ Mosque added!");
+    }
+    saveMosques(); renderAll(); modal.classList.remove('active'); resetOtpState(); editingId = null;
+    modalTitle.textContent = "Add Mosque";
 }
 
-// ========== TOAST ==========
+// --- Toast ---
 function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
+    toast.textContent = msg; toast.classList.add('show');
     clearTimeout(toast._timer);
-    toast._timer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// ========== MORE MENU SETUP ==========
+// --- More Menu ---
 function setupMoreNav() {
     if (!moreNavBtn || !moreMenu) return;
-    
-    moreNavBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        moreMenu.classList.toggle('show');
-    });
-
+    moreNavBtn.addEventListener('click', function(e) { e.stopPropagation(); moreMenu.classList.toggle('show'); });
     document.addEventListener('click', function(e) {
-        if (!moreMenu.contains(e.target) && !moreNavBtn.contains(e.target)) {
-            moreMenu.classList.remove('show');
-        }
+        if (!moreMenu.contains(e.target) && !moreNavBtn.contains(e.target)) moreMenu.classList.remove('show');
     });
-
-    if (settingsBtn) {
-        settingsBtn.addEventListener('click', function() {
-            moreMenu.classList.remove('show');
-            alert("Settings will be available in the next update.");
-        });
-    }
+    if (settingsBtn) settingsBtn.addEventListener('click', function() { moreMenu.classList.remove('show'); alert("Settings coming soon."); });
 }
+
+// --- Init ---
+document.addEventListener('DOMContentLoaded', function() {
+    loadMosques();
+    requestLocation();
+    setupListeners();
+    setupMoreNav();
+});

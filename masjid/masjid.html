@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#121212">
     <title>Nearby Mosques - My Prayer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="masjid.css">
 </head>
 <body>
@@ -35,16 +36,19 @@
         <button id="refreshBtn" class="secondary-btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
     </div>
 
+    <!-- IN-PAGE MAP (Leaflet) -->
+    <div id="mapContainer" class="map-container"></div>
+
     <!-- MOSQUE LIST -->
     <div id="mosqueList" class="mosque-list">
-        <div class="loading-msg">Loading mosques...</div>
+        <div class="loading-msg">No mosques added yet. Tap "Add New Mosque" to add one.</div>
     </div>
 
-    <!-- ADD MOSQUE MODAL -->
+    <!-- ADD/EDIT MOSQUE MODAL -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Mosque</h2>
+                <h2 id="modalTitle">Add Mosque</h2>
                 <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="addMosqueForm">
@@ -56,18 +60,36 @@
                     <label>Address *</label>
                     <input type="text" id="mosqueAddress" required placeholder="Street, City, Country">
                 </div>
+                
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" id="userName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Your Father's Name *</label>
+                    <input type="text" id="fatherName" required placeholder="Enter your father's name">
+                </div>
+                <div class="form-group">
+                    <label>Your Phone Number *</label>
+                    <input type="tel" id="phoneNumber" required placeholder="03XX-XXXXXXX">
+                </div>
+
+                <div class="otp-section">
+                    <div class="otp-row">
+                        <input type="text" id="otpInput" placeholder="Enter 4-digit OTP" maxlength="4" disabled>
+                        <button type="button" id="sendOtpBtn" class="otp-btn">Send Code</button>
+                    </div>
+                    <button type="button" id="verifyOtpBtn" class="verify-btn">Verify OTP</button>
+                    <span id="otpStatus" class="otp-status"></span>
+                </div>
+
                 <div class="form-group">
                     <label>Upload Photo (optional)</label>
                     <input type="file" id="mosquePhoto" accept="image/*">
                     <small>Max 2MB</small>
                 </div>
-                <div class="form-group">
-                    <label>Your current location will be used as mosque location.</label>
-                    <div class="gps-status" id="gpsStatus">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i> Acquiring GPS...
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn">Save Mosque</button>
+
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>Save Mosque</button>
             </form>
         </div>
     </div>
@@ -75,21 +97,12 @@
     <!-- MESSAGE TOAST -->
     <div id="toast" class="toast"></div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
-        <a href="../index.html" class="nav-home">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></a>
         <div class="more-nav">
-            <button type="button" class="more-nav-btn active" id="moreNavBtn">
-                <i class="fa-solid fa-ellipsis"></i>
-                <span>More</span>
-            </button>
-
+            <button type="button" class="more-nav-btn active" id="moreNavBtn"><i class="fa-solid fa-ellipsis"></i><span>More</span></button>
             <div class="more-menu" id="moreMenu">
-                <!-- تمام لنکس، بشمول مسجد -->
                 <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
                 <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
                 <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
@@ -103,6 +116,7 @@
 
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="masjid.js"></script>
 </body>
 </html>
