@@ -487,6 +487,33 @@ body{
 }
 
 /* ======================================
+   نیا ڈیجیٹل ہیڈنگ ڈسپلے (Live Heading)
+====================================== */
+.digital-heading-box {
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+}
+.digital-heading-box span {
+    font-size: 48px;
+    font-weight: 800;
+    color: #d4af37;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    background: rgba(20, 20, 20, 0.7);
+    padding: 4px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    display: inline-block;
+    min-width: 100px;
+    backdrop-filter: blur(4px);
+}
+.digital-heading-box small {
+    font-size: 20px;
+    color: #aaa;
+    margin-left: 2px;
+}
+
+/* ======================================
    نئی کمپاس تصویر سیٹ کرنا (FIXED: سوئی دکھنے کے لیے)
 ====================================== */
 

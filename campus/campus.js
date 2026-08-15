@@ -157,6 +157,9 @@ function updateCompassArrow(){
         if(Math.abs(rotation) <= 3) compassMessage.textContent = "You are facing the Qibla!";
         else if(rotation > 0) compassMessage.textContent = "Turn right toward the Qibla";
         else compassMessage.textContent = "Turn left toward the Qibla";
+ const liveHeading = document.getElementById("liveHeading");
+    if(liveHeading) {
+        liveHeading.textContent = Math.round(normalizeAngle(currentHeading));
     }
 }
 
