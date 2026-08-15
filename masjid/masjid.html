@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
+    <title>Nearby Mosques - My Prayer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="masjid.css">
+</head>
+<body>
+
+<div class="masjid-page">
+
+    <!-- HEADER -->
+    <header class="masjid-header">
+        <div class="header-left">
+            <h1><i class="fa-solid fa-mosque"></i> Masjid</h1>
+            <p>Find & add nearby mosques</p>
+        </div>
+        <div class="header-right">
+            <img src="../images/makkah.png" alt="Makkah" class="header-img">
+        </div>
+    </header>
+
+    <!-- LOCATION STATUS -->
+    <div class="location-status" id="locationStatus">
+        <i class="fa-solid fa-location-dot"></i>
+        <span id="locationText">Fetching your location...</span>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="action-buttons">
+        <button id="addMosqueBtn" class="main-btn"><i class="fa-solid fa-plus"></i> Add New Mosque</button>
+        <button id="refreshBtn" class="secondary-btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    </div>
+
+    <!-- MOSQUE LIST -->
+    <div id="mosqueList" class="mosque-list">
+        <div class="loading-msg">Loading mosques...</div>
+    </div>
+
+    <!-- ADD MOSQUE MODAL -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Mosque</h2>
+                <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="addMosqueForm">
+                <div class="form-group">
+                    <label>Mosque Name *</label>
+                    <input type="text" id="mosqueName" required placeholder="e.g. Faisal Mosque">
+                </div>
+                <div class="form-group">
+                    <label>Address *</label>
+                    <input type="text" id="mosqueAddress" required placeholder="Street, City, Country">
+                </div>
+                <div class="form-group">
+                    <label>Upload Photo (optional)</label>
+                    <input type="file" id="mosquePhoto" accept="image/*">
+                    <small>Max 2MB</small>
+                </div>
+                <div class="form-group">
+                    <label>Your current location will be used as mosque location.</label>
+                    <div class="gps-status" id="gpsStatus">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i> Acquiring GPS...
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Save Mosque</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MESSAGE TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="../index.html" class="nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <div class="more-nav">
+            <button type="button" class="more-nav-btn active" id="moreNavBtn">
+                <i class="fa-solid fa-ellipsis"></i>
+                <span>More</span>
+            </button>
+
+            <div class="more-menu" id="moreMenu">
+                <!-- تمام لنکس، بشمول مسجد -->
+                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                <a href="masjid.html" class="active"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+                <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+<script src="masjid.js"></script>
+</body>
+</html>
