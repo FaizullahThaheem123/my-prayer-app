@@ -12,127 +12,84 @@
 <body>
 
 <div class="app">
+    <section id="homeScreen">
 
-    <!-- ===========================
-         HEADER (CLEAN + DUA BOY)
-    ============================ -->
-       <header class="header index-header">
-        <div class="header-left">
-            <h1 class="app-title">My Prayer</h1>
-            <p class="app-subtitle">Your daily companion</p>
-        </div>
-        <div class="header-right">
-            <span class="dua-text">Dua</span>
-            <img class="header-dua" src="images/dua.jpg" alt="Dua">
-        </div>
-    </header>
-    <!-- ===========================
-         LOCATION & GREETING CARD
-    ============================ -->
-    <div class="header-card header-card-bottom">
-        <div class="welcome-location">
-            <p class="welcome-text">Assalamu Alaikum 👋</p>
-            <p class="location" id="locationName">📍 Adil Pur</p>
-        </div>
-    </div>
+        <!-- =========================
+             HEADER (ROUNDED CORNERS, NOT STICKY)
+        ========================== -->
+        <header class="header index-header">
+            <div class="header-left">
+                <h1 class="app-title">My Prayer</h1>
+                <p class="app-subtitle">Your daily companion</p>
+            </div>
+            <div class="header-right">
+                <span class="dua-text">Dua</span>
+                <img class="header-dua" src="images/dua.jpg" alt="Dua">
+            </div>
+        </header>
 
-    <!-- ===========================
-         DATE CARD
-    ============================ -->
-    <section class="date-box">
-        <div class="date-place date-makkah">
-            <img src="images/makkah.png" alt="Makkah">
+        <!-- =========================
+             BLUE CARD (ROUNDED)
+        ========================== -->
+        <div class="header-card header-card-bottom">
+            <div class="welcome-location">
+                <p class="welcome-text">Assalamu Alaikum 👋</p>
+                <p class="location" id="locationName">📍</p>
+            </div>
+            
         </div>
-        <div class="date-content">
-            <h3 id="date">Loading Date...</h3>
-            <p id="islamic-date">Loading Islamic Date...</p>
+
+        <!-- =========================
+             DATE CARD
+        ========================== -->
+        <section class="date-box">
+            <div class="date-place date-makkah"><img src="images/makkah.png" alt="Makkah"></div>
+            <div class="date-content">
+                <h3 id="date">Loading Date...</h3>
+                <p id="islamic-date">Loading Islamic Date...</p>
+            </div>
+            <div class="date-place date-madinah"><img src="images/madinah.png" alt="Madinah"></div>
+        </section>
+
+        <!-- =========================
+             LIVE CLOCK (SAME WIDTH)
+        ========================== -->
+        <section class="clock-box">
+            <h1 id="clock">00:00:00</h1>
+            <p>Current Time</p>
+        </section>
+
+        <!-- =========================
+             NEXT PRAYER (SAME WIDTH)
+        ========================== -->
+        <div class="next-prayer">
+            <div class="next-prayer-row">
+                <span class="next-prayer-label">Next Prayer</span>
+                <span class="next-prayer-label">Left Time</span>
+                <span class="next-prayer-label">Jamaat</span>
+            </div>
+            <div class="next-prayer-row">
+                <span id="nextPrayerName" class="next-prayer-value">Maghrib</span>
+                <span id="countdown" class="next-prayer-value">01:25:40</span>
+                <span id="nextPrayerJamaat" class="next-prayer-value">07:15 PM</span>
+            </div>
         </div>
-        <div class="date-place date-madinah">
-            <img src="images/madinah.png" alt="Madinah">
-        </div>
+
+        <!-- =========================
+             5 PRAYER CARDS (SLIGHTLY LARGER)
+        ========================== -->
+        <div class="prayer-card"><div class="prayer-icon">🌅</div><div class="prayer-info"><h3>Fajr</h3><b id="fajr">Loading...</b><span class="jamaat-icon">🕌</span><small id="fajrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Fajr')"><i class="fa-solid fa-pen"></i></button></div>
+        <div class="prayer-card"><div class="prayer-icon">☀️</div><div class="prayer-info"><h3>Dhuhr</h3><b id="dhuhr">Loading...</b><span class="jamaat-icon">🕌</span><small id="dhuhrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Dhuhr')"><i class="fa-solid fa-pen"></i></button></div>
+        <div class="prayer-card"><div class="prayer-icon">🌇</div><div class="prayer-info"><h3>Asr</h3><b id="asr">Loading...</b><span class="jamaat-icon">🕌</span><small id="asrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Asr')"><i class="fa-solid fa-pen"></i></button></div>
+        <div class="prayer-card"><div class="prayer-icon">🌙</div><div class="prayer-info"><h3>Maghrib</h3><b id="maghrib">Loading...</b><span class="jamaat-icon">🕌</span><small id="maghribJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Maghrib')"><i class="fa-solid fa-pen"></i></button></div>
+        <div class="prayer-card"><div class="prayer-icon">🌌</div><div class="prayer-info"><h3>Isha</h3><b id="isha">Loading...</b><span class="jamaat-icon">🕌</span><small id="ishaJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Isha')"><i class="fa-solid fa-pen"></i></button></div>
+
     </section>
 
-    <!-- ===========================
-         LIVE CLOCK
-    ============================ -->
-    <section class="clock-box">
-        <h1 id="clock">00:00:00</h1>
-        <p>Current Time</p>
-    </section>
-
-    <!-- ==========================
-         NEXT PRAYER
-    =========================== -->
-    <div class="next-prayer">
-        <div class="next-prayer-row">
-            <span class="next-prayer-label">Next Prayer</span>
-            <span class="next-prayer-label">Left Time</span>
-            <span class="next-prayer-label">Jamaat</span>
-        </div>
-        <div class="next-prayer-row">
-            <span id="nextPrayerName" class="next-prayer-value">Maghrib</span>
-            <span id="countdown" class="next-prayer-value">01:25:40</span>
-            <span id="nextPrayerJamaat" class="next-prayer-value">07:15 PM</span>
-        </div>
-    </div>
-
-    <!-- ==========================
-         PRAYER CARDS
-    =========================== -->
-    <div class="prayer-card">
-        <div class="prayer-icon">🌅</div>
-        <div class="prayer-info">
-            <h3>Fajr</h3>
-            <b id="fajr">Loading...</b>
-            <span class="jamaat-icon">🕌</span>
-            <small id="fajrJamaat">Jamaat Loading...</small>
-        </div>
-        <button class="edit-jamaat" onclick="editJamaat('Fajr')"><i class="fa-solid fa-pen"></i></button>
-    </div>
-    <div class="prayer-card">
-        <div class="prayer-icon">☀️</div>
-        <div class="prayer-info">
-            <h3>Dhuhr</h3>
-            <b id="dhuhr">Loading...</b>
-            <span class="jamaat-icon">🕌</span>
-            <small id="dhuhrJamaat">Jamaat Loading...</small>
-        </div>
-        <button class="edit-jamaat" onclick="editJamaat('Dhuhr')"><i class="fa-solid fa-pen"></i></button>
-    </div>
-    <div class="prayer-card">
-        <div class="prayer-icon">🌇</div>
-        <div class="prayer-info">
-            <h3>Asr</h3>
-            <b id="asr">Loading...</b>
-            <span class="jamaat-icon">🕌</span>
-            <small id="asrJamaat">Jamaat Loading...</small>
-        </div>
-        <button class="edit-jamaat" onclick="editJamaat('Asr')"><i class="fa-solid fa-pen"></i></button>
-    </div>
-    <div class="prayer-card">
-        <div class="prayer-icon">🌙</div>
-        <div class="prayer-info">
-            <h3>Maghrib</h3>
-            <b id="maghrib">Loading...</b>
-            <span class="jamaat-icon">🕌</span>
-            <small id="maghribJamaat">Jamaat Loading...</small>
-        </div>
-        <button class="edit-jamaat" onclick="editJamaat('Maghrib')"><i class="fa-solid fa-pen"></i></button>
-    </div>
-    <div class="prayer-card">
-        <div class="prayer-icon">🌌</div>
-        <div class="prayer-info">
-            <h3>Isha</h3>
-            <b id="isha">Loading...</b>
-            <span class="jamaat-icon">🕌</span>
-            <small id="ishaJamaat">Jamaat Loading...</small>
-        </div>
-        <button class="edit-jamaat" onclick="editJamaat('Isha')"><i class="fa-solid fa-pen"></i></button>
-    </div>
-
-    <!-- ===========================
-         BOTTOM NAVIGATION
-    ============================ -->
+    <!-- =========================
+         BOTTOM NAVIGATION (FIXED)
+         ONLY HOME & MORE
+    ========================== -->
     <nav class="bottom-nav">
         <!-- HOME -->
         <a href="index.html" class="nav-item active">
@@ -140,39 +97,39 @@
             <span>Home</span>
         </a>
 
-        <!-- MORE -->
+        <!-- MORE BUTTON -->
         <div class="more-nav">
             <button type="button" class="more-nav-btn" id="moreNavBtn">
                 <i class="fa-solid fa-ellipsis"></i>
                 <span>More</span>
             </button>
             <div class="more-menu" id="moreMenu">
-                <a href="quran/quran.html"><i class="fa-solid fa-book-quran"></i> <span>Quran</span></a>
-                <a href="dua/duas.html"><i class="fa-solid fa-hands-praying"></i> <span>Duas</span></a>
-                <a href="names/names.html"><i class="fa-solid fa-star-and-crescent"></i> <span>99 Names</span></a>
-                <a href="tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i> <span>Tasbeeh</span></a>
-                <a href="campus/campus.html"><i class="fa-solid fa-graduation-cap"></i> <span>Campus</span></a>
+                <a href="quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                <a href="tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
             </div>
         </div>
     </nav>
 
-    <!-- FLOATING BUTTON -->
-    <button class="floating-btn" id="notificationBtn" title="Prayer Notifications">
-        <i class="fa-solid fa-bell"></i>
-    </button>
+    <!-- =========================
+         FLOATING BUTTON
+    ========================== -->
+    <button class="floating-btn" id="notificationBtn"><i class="fa-solid fa-bell"></i></button>
 
-    <!-- LOADING SCREEN -->
-    <div id="loadingScreen">
-        <div class="loader"></div>
-        <h3>My Prayer</h3>
-        <p>Loading...</p>
-    </div>
+    <!-- =========================
+         LOADING SCREEN
+    ========================== -->
+    <div id="loadingScreen"><div class="loader"></div><h3>My Prayer</h3><p>Loading...</p></div>
 
-    <!-- MODALS -->
+    <!-- =========================
+         MODALS
+    ========================== -->
     <div id="jamaatModal" class="modal">
         <div class="modal-content">
-            <h2>Edit Jamaat Time</h2>
-            <p id="selectedPrayer">Prayer</p>
+            <h2>Edit Jamaat Time</h2><p id="selectedPrayer">Prayer</p>
             <input type="time" id="jamaatTimeInput">
             <div class="modal-buttons">
                 <button class="save-btn" onclick="saveJamaatTime()">Save</button>
@@ -183,8 +140,7 @@
 
     <div id="notificationModal" class="modal">
         <div class="modal-content">
-            <h2>Prayer Notifications</h2>
-            <p>Enable notifications to receive prayer reminders.</p>
+            <h2>Prayer Notifications</h2><p>Enable notifications to receive prayer reminders.</p>
             <div class="modal-buttons">
                 <button class="save-btn" id="enableNotification">Enable</button>
                 <button class="cancel-btn" onclick="closeNotificationModal()">Close</button>
@@ -192,7 +148,9 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- =========================
+         FOOTER
+    ========================== -->
     <footer class="app-footer">
         <p>My Prayer v1.0.0</p>
         <small>© 2026 My Prayer. All Rights Reserved.</small>
