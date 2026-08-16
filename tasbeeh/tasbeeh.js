@@ -1,5 +1,5 @@
 // ======================================
-// MY PRAYER - DIGITAL TASBEEH (COMBINED STATS + RESET ALL)
+// MY PRAYER - DIGITAL TASBEEH (COMBINED STATS)
 // ======================================
 
 // ======================================
@@ -18,7 +18,7 @@ const progressBar = document.getElementById("progressBar");
 
 const countBtn = document.getElementById("countBtn");
 const resetBtn = document.getElementById("resetBtn");
-const resetAllBtn = document.getElementById("resetAllBtn"); // New Button
+const resetAllBtn = document.getElementById("resetAllBtn");
 
 // Combined Stats Elements
 const dailyCount = document.getElementById("dailyCount");
@@ -245,21 +245,17 @@ resetBtn.addEventListener("click", ()=>{
 });
 
 // ======================================
-// NEW "RESET ALL" BUTTON LOGIC
+// "RESET ALL" BUTTON
 // ======================================
 resetAllBtn.addEventListener("click", ()=>{
     if(!confirm("Are you sure you want to reset EVERYTHING (Daily, Weekly, Monthly, and Lifetime stats)?")) return;
     
-    // 1. Reset current count
     count = 0;
-    
-    // 2. Reset lifetime stats
     stats = { completed33: 0, completed99: 0, completed100: 0 };
     completed33.textContent = '0';
     completed99.textContent = '0';
     completed100.textContent = '0';
     
-    // 3. Reset period stats
     const today = getToday();
     const weekStart = getWeekStart();
     const monthStart = getMonthStart();
@@ -267,11 +263,8 @@ resetAllBtn.addEventListener("click", ()=>{
     periodStats.weekly = { count: 0, weekStart: weekStart };
     periodStats.monthly = { count: 0, monthStart: monthStart };
     
-    // 4. Update UI
     updateScreen();
     updatePeriodUI();
-    
-    // 5. Save all data
     saveData();
     savePeriodStats();
     
