@@ -1,5 +1,5 @@
 // ======================================
-// MY PRAYER - DIGITAL TASBEEH
+// MY PRAYER - DIGITAL TASBEEH (WITH PERIOD STATS)
 // ======================================
 
 // ======================================
@@ -23,6 +23,11 @@ const completed33 = document.getElementById("completed33");
 const completed99 = document.getElementById("completed99");
 const completed100 = document.getElementById("completed100");
 
+// Period Stats Elements
+const dailyCount = document.getElementById("dailyCount");
+const weeklyCount = document.getElementById("weeklyCount");
+const monthlyCount = document.getElementById("monthlyCount");
+
 // MORE MENU ELEMENTS
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
@@ -34,6 +39,13 @@ const settingsBtn = document.getElementById("settingsBtn");
 let count = 0;
 let target = 33;
 let stats = { completed33: 0, completed99: 0, completed100: 0 };
+
+// Period Stats (Daily, Weekly, Monthly)
+let periodStats = {
+    daily: { count: 0, date: getToday() },
+    weekly: { count: 0, weekStart: getWeekStart() },
+    monthly: { count: 0, monthStart: getMonthStart() }
+};
 
 // ======================================
 // DHIKR LIST
@@ -73,7 +85,65 @@ const dhikrList = [
 ];
 
 // ======================================
-// UPDATE SCREEN
+// PERIOD STATS HELPERS
+// ======================================
+function getToday() {
+    return new Date().toISOString().split('T')[0];
+}
+
+function getWeekStart() {
+    const now = new Date();
+    const day = now.getDay();
+    const diff = (day === 0 ? 6 : day - 1); // Monday as start
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - diff);
+    return monday.toISOString().split('T')[0];
+}
+
+function getMonthStart() {
+    const now = new Date();
+    return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-01';
+}
+
+function loadPeriodStats() {
+    const saved = localStorage.getItem("tasbeehPeriodStats");
+    if (saved) {
+        try {
+            periodStats = JSON.parse(saved);
+        } catch(e) {}
+    }
+    // Check resets
+    const today = getToday();
+    if (periodStats.daily.date !== today) {
+        periodStats.daily.count = 0;
+        periodStats.daily.date = today;
+    }
+    const weekStart = getWeekStart();
+    if (periodStats.weekly.weekStart !== weekStart) {
+        periodStats.weekly.count = 0;
+        periodStats.weekly.weekStart = weekStart;
+    }
+    const monthStart = getMonthStart();
+    if (periodStats.monthly.monthStart !== monthStart) {
+        periodStats.monthly.count = 0;
+        periodStats.monthly.monthStart = monthStart;
+    }
+    updatePeriodUI();
+    savePeriodStats();
+}
+
+function savePeriodStats() {
+    localStorage.setItem("tasbeehPeriodStats", JSON.stringify(periodStats));
+}
+
+function updatePeriodUI() {
+    dailyCount.textContent = periodStats.daily.count;
+    weeklyCount.textContent = periodStats.weekly.count;
+    monthlyCount.textContent = periodStats.monthly.count;
+}
+
+// ======================================
+// EXISTING FUNCTIONS
 // ======================================
 function updateScreen(){
     countValue.textContent = count;
@@ -84,18 +154,12 @@ function updateScreen(){
     progressBar.style.width = percent + "%";
 }
 
-// ======================================
-// CHANGE DHIKR
-// ======================================
 dhikrSelect.addEventListener("change", ()=>{
     const value = dhikrSelect.value;
     arabicDhikr.textContent = dhikrList[value].arabic;
     dhikrMeaning.textContent = dhikrList[value].meaning;
 });
 
-// ======================================
-// TARGET BUTTONS
-// ======================================
 targetButtons.forEach(button=>{
     button.addEventListener("click", ()=>{
         targetButtons.forEach(btn=> btn.classList.remove("active"));
@@ -106,9 +170,6 @@ targetButtons.forEach(button=>{
     });
 });
 
-// ======================================
-// COUNT FUNCTION
-// ======================================
 function increaseCount(){
     if(count >= target) return;
     count++;
@@ -124,6 +185,13 @@ function increaseCount(){
 
     if(count === target){
         checkCompleted();
+        // Increment period stats
+        periodStats.daily.count++;
+        periodStats.weekly.count++;
+        periodStats.monthly.count++;
+        updatePeriodUI();
+        savePeriodStats();
+
         setTimeout(()=>{
             count = 0;
             updateScreen();
@@ -135,9 +203,6 @@ function increaseCount(){
 }
 countBtn.addEventListener("click", increaseCount);
 
-// ======================================
-// TARGET COMPLETED
-// ======================================
 function checkCompleted(){
     if(target === 33) stats.completed33++;
     else if(target === 99) stats.completed99++;
@@ -148,9 +213,6 @@ function checkCompleted(){
     alert("🤲 Alhamdulillah!\n\nTarget Completed!");
 }
 
-// ======================================
-// SAVE & LOAD DATA
-// ======================================
 function saveData(){
     localStorage.setItem("tasbeehCount", count);
     localStorage.setItem("tasbeehTarget", target);
@@ -176,9 +238,6 @@ function loadData(){
     updateScreen();
 }
 
-// ======================================
-// RESET
-// ======================================
 resetBtn.addEventListener("click", ()=>{
     if(!confirm("Reset current Tasbeeh?")) return;
     count = 0;
@@ -203,9 +262,6 @@ document.addEventListener("touchstart", (event)=>{
     }
 }, { passive: true });
 
-// ======================================
-// SETTINGS BUTTON (NEW)
-// ======================================
 if(settingsBtn){
     settingsBtn.addEventListener("click", ()=>{
         moreMenu.classList.remove("show");
@@ -219,4 +275,5 @@ if(settingsBtn){
 window.addEventListener("DOMContentLoaded", ()=>{
     loadData();
     updateScreen();
+    loadPeriodStats();
 });

@@ -1,5 +1,5 @@
 /* ======================================
-   MY PRAYER - DIGITAL TASBEEH (3D METALLIC)
+   MY PRAYER - DIGITAL TASBEEH (3D METALLIC) WITH PERIOD STATS
 ======================================= */
 
 *{
@@ -39,9 +39,7 @@ body{
 
 .tasbeeh-app::-webkit-scrollbar{ display:none; }
 
-/* ===========================
-   HEADER (Title Left, Image Right)
-=========================== */
+/* HEADER */
 .tasbeeh-header{
     display:flex;
     align-items:center;
@@ -54,7 +52,6 @@ body{
     border:1px solid rgba(212,175,55,0.25);
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
 }
-
 .header-title{
     flex:1;
     text-align:left;
@@ -75,7 +72,6 @@ body{
     margin-top:2px;
     color:#aaa;
 }
-
 .tasbeeh-header-image{
     width:50px;
     height:50px;
@@ -98,9 +94,7 @@ body{
     border-radius:50%;
 }
 
-/* ===========================
-   DHIKR SECTION
-=========================== */
+/* DHIKR */
 .dhikr-section{
     text-align:center;
     margin-bottom:14px;
@@ -121,7 +115,6 @@ body{
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 #dhikrSelect option{ color:#111; background:#d4af37; }
-
 #arabicDhikr{
     font-size:34px;
     line-height:1.2;
@@ -140,9 +133,7 @@ body{
     text-align:center;
 }
 
-/* ===========================
-   TARGET BUTTONS
-=========================== */
+/* TARGET BUTTONS */
 .target-section{
     display:flex;
     justify-content:center;
@@ -172,9 +163,40 @@ body{
     box-shadow:0 0 30px rgba(212,175,55,0.4);
 }
 
-/* ===========================
-   INFO CARDS
-=========================== */
+/* PERIOD STATS (Daily, Weekly, Monthly) */
+.period-stats{
+    display:flex;
+    justify-content:space-around;
+    gap:8px;
+    margin-bottom:12px;
+}
+.period-item{
+    flex:1;
+    text-align:center;
+    background: rgba(40,40,40,0.7);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(212,175,55,0.15);
+    border-radius:12px;
+    padding:6px 4px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    transition:.3s;
+}
+.period-item .period-label{
+    display:block;
+    font-size:9px;
+    color:#aaa;
+    font-weight:500;
+    letter-spacing:1px;
+    margin-bottom:2px;
+}
+.period-item .period-number{
+    display:block;
+    font-size:20px;
+    font-weight:700;
+    color:#d4af37;
+}
+
+/* INFO CARDS */
 .info-section{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -203,9 +225,7 @@ body{
 }
 .count-card.active-count .info-value{ color:#fff; }
 
-/* ===========================
-   PROGRESS BAR
-=========================== */
+/* PROGRESS BAR */
 .progress-section{ margin-bottom:14px; }
 .progress-track{
     width:100%;
@@ -224,9 +244,7 @@ body{
     transition:.4s ease;
 }
 
-/* ===========================
-   STATISTICS
-=========================== */
+/* STATISTICS */
 .stats-section{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -244,9 +262,7 @@ body{
 .stat-number{ display:block; font-size:20px; font-weight:600; color:#d4af37; margin-bottom:2px; }
 .stat-title{ font-size:13px; opacity:0.8; color:#aaa; }
 
-/* ===========================
-   ACTION BUTTONS
-=========================== */
+/* ACTION BUTTONS */
 .action-section{ display:flex; flex-direction:column; gap:10px; margin-bottom:5px; }
 .count-btn{
     width:100%;
@@ -281,9 +297,7 @@ body{
 .reset-btn:hover{ background:rgba(212,175,55,0.2); border-color:#d4af37; }
 .reset-btn:active{ transform:scale(.97); }
 
-/* ===========================
-   BOTTOM NAV (Home + More)
-=========================== */
+/* BOTTOM NAV */
 .bottom-nav{
     position:fixed;
     left:50%;
@@ -370,9 +384,7 @@ body{
 .more-menu a:hover, .more-menu button:hover{ background:rgba(212,175,55,0.15); color:#fff; }
 .more-menu a.active{ background:rgba(212,175,55,0.2); color:#d4af37; font-weight:700; }
 
-/* ===========================
-   COUNT ANIMATION
-=========================== */
+/* COUNT ANIMATION */
 .count-pop{
     animation:countPop .20s ease;
 }
@@ -382,14 +394,13 @@ body{
     100%{ transform:scale(1); }
 }
 
-/* ===========================
-   MOBILE RESPONSIVE
-=========================== */
+/* MOBILE */
 @media(max-width:480px){
     .header-title h1{ font-size:18px; }
     #arabicDhikr{ font-size:28px; }
     .target-btn{ width:70px; height:70px; font-size:20px; }
     .target-section{ gap:15px; }
     .info-value{ font-size:20px; }
-    .more-menu{ width:160px; }
+    .period-item .period-number{ font-size:18px; }
+    .period-item .period-label{ font-size:8px; }
 }

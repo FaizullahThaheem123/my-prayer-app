@@ -68,6 +68,22 @@
         <button class="target-btn" data-target="100">100</button>
     </section>
 
+    <!-- PERIOD STATS (Daily, Weekly, Monthly) -->
+    <div class="period-stats">
+        <div class="period-item">
+            <span class="period-label">Today</span>
+            <span class="period-number" id="dailyCount">0</span>
+        </div>
+        <div class="period-item">
+            <span class="period-label">Week</span>
+            <span class="period-number" id="weeklyCount">0</span>
+        </div>
+        <div class="period-item">
+            <span class="period-label">Month</span>
+            <span class="period-number" id="monthlyCount">0</span>
+        </div>
+    </div>
+
     <!-- INFO CARDS -->
     <section class="info-section">
         <div class="info-card">
@@ -91,7 +107,7 @@
         </div>
     </section>
 
-    <!-- STATISTICS -->
+    <!-- STATISTICS (Lifetime) -->
     <section class="stats-section">
         <div class="stat-card">
             <span class="stat-number" id="completed33">0</span>
@@ -120,14 +136,11 @@
     <!-- BOTTOM NAV (Home + More) -->
     <nav class="bottom-nav">
         <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
-
         <div class="more-nav">
             <button type="button" class="more-nav-btn active" id="moreNavBtn">
                 <i class="fa-solid fa-ellipsis"></i><span>More</span>
             </button>
             <div class="more-menu" id="moreMenu">
-
-
                 <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
                 <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
                 <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
@@ -135,11 +148,10 @@
                 <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
                 <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
                 <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
-
-           
+            </div>
         </div>
     </nav>
-           
+
 </div>
 
 <script src="tasbeeh.js"></script>
