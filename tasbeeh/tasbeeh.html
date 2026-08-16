@@ -91,7 +91,7 @@
         </div>
     </section>
 
-    <!-- COMBINED STATS (Daily, Weekly, Monthly + 33, 99, 100) -->
+    <!-- COMBINED STATS (Today, Week, Month + 33x, 99x, 100x) -->
     <section class="combined-stats">
         <!-- Row 1: Period Stats -->
         <div class="stat-item">
@@ -124,12 +124,20 @@
 
     <!-- ACTION BUTTONS -->
     <section class="action-section">
+        <!-- TAP TO COUNT -->
         <button id="countBtn" class="count-btn">
             <i class="fa-solid fa-hand-pointer"></i> TAP TO COUNT
         </button>
-        <button id="resetBtn" class="reset-btn">
-            <i class="fa-solid fa-rotate-left"></i> RESET
-        </button>
+        
+        <!-- RESET CONTAINER (50% + 50%) -->
+        <div class="reset-container">
+            <button id="resetBtn" class="reset-btn half-width">
+                <i class="fa-solid fa-rotate-left"></i> RESET
+            </button>
+            <button id="resetAllBtn" class="reset-btn half-width reset-all-btn">
+                <i class="fa-solid fa-trash"></i> RESET ALL
+            </button>
+        </div>
     </section>
 
     <!-- BOTTOM NAV (Home + More) -->

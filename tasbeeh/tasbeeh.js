@@ -1,5 +1,5 @@
 // ======================================
-// MY PRAYER - DIGITAL TASBEEH (COMBINED STATS)
+// MY PRAYER - DIGITAL TASBEEH (COMBINED STATS + RESET ALL)
 // ======================================
 
 // ======================================
@@ -18,8 +18,9 @@ const progressBar = document.getElementById("progressBar");
 
 const countBtn = document.getElementById("countBtn");
 const resetBtn = document.getElementById("resetBtn");
+const resetAllBtn = document.getElementById("resetAllBtn"); // New Button
 
-// Combined Stats Elements (6 items)
+// Combined Stats Elements
 const dailyCount = document.getElementById("dailyCount");
 const weeklyCount = document.getElementById("weeklyCount");
 const monthlyCount = document.getElementById("monthlyCount");
@@ -93,7 +94,7 @@ function getToday() {
 function getWeekStart() {
     const now = new Date();
     const day = now.getDay();
-    const diff = (day === 0 ? 6 : day - 1);
+    const diff = (day === 0 ? 6 : day - 1); // Monday as start
     const monday = new Date(now);
     monday.setDate(now.getDate() - diff);
     return monday.toISOString().split('T')[0];
@@ -241,6 +242,40 @@ resetBtn.addEventListener("click", ()=>{
     count = 0;
     updateScreen();
     saveData();
+});
+
+// ======================================
+// NEW "RESET ALL" BUTTON LOGIC
+// ======================================
+resetAllBtn.addEventListener("click", ()=>{
+    if(!confirm("Are you sure you want to reset EVERYTHING (Daily, Weekly, Monthly, and Lifetime stats)?")) return;
+    
+    // 1. Reset current count
+    count = 0;
+    
+    // 2. Reset lifetime stats
+    stats = { completed33: 0, completed99: 0, completed100: 0 };
+    completed33.textContent = '0';
+    completed99.textContent = '0';
+    completed100.textContent = '0';
+    
+    // 3. Reset period stats
+    const today = getToday();
+    const weekStart = getWeekStart();
+    const monthStart = getMonthStart();
+    periodStats.daily = { count: 0, date: today };
+    periodStats.weekly = { count: 0, weekStart: weekStart };
+    periodStats.monthly = { count: 0, monthStart: monthStart };
+    
+    // 4. Update UI
+    updateScreen();
+    updatePeriodUI();
+    
+    // 5. Save all data
+    saveData();
+    savePeriodStats();
+    
+    alert("✅ All stats have been reset.");
 });
 
 // ======================================
