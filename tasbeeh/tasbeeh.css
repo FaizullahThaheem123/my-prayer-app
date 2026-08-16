@@ -1,5 +1,5 @@
 /* ======================================
-   MY PRAYER - DIGITAL TASBEEH (3D METALLIC) WITH PERIOD STATS
+   MY PRAYER - DIGITAL TASBEEH (3D METALLIC) 
 ======================================= */
 
 *{
@@ -163,40 +163,7 @@ body{
     box-shadow:0 0 30px rgba(212,175,55,0.4);
 }
 
-/* PERIOD STATS (Daily, Weekly, Monthly) */
-.period-stats{
-    display:flex;
-    justify-content:space-around;
-    gap:8px;
-    margin-bottom:12px;
-}
-.period-item{
-    flex:1;
-    text-align:center;
-    background: rgba(40,40,40,0.7);
-    backdrop-filter:blur(8px);
-    border:1px solid rgba(212,175,55,0.15);
-    border-radius:12px;
-    padding:6px 4px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.3);
-    transition:.3s;
-}
-.period-item .period-label{
-    display:block;
-    font-size:9px;
-    color:#aaa;
-    font-weight:500;
-    letter-spacing:1px;
-    margin-bottom:2px;
-}
-.period-item .period-number{
-    display:block;
-    font-size:20px;
-    font-weight:700;
-    color:#d4af37;
-}
-
-/* INFO CARDS */
+/* INFO CARDS (Target, Count, Progress) */
 .info-section{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -244,26 +211,39 @@ body{
     transition:.4s ease;
 }
 
-/* STATISTICS */
-.stats-section{
+/* COMBINED STATS (3x2 GRID) */
+.combined-stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:8px;
     margin-bottom:14px;
 }
-.stat-card{
-    background: rgba(40,40,40,0.8);
-    backdrop-filter:blur(12px);
+.stat-item{
+    background: rgba(40,40,40,0.7);
+    backdrop-filter:blur(8px);
     border:1px solid rgba(212,175,55,0.15);
-    border-radius:16px;
-    padding:12px 6px;
+    border-radius:10px;
+    padding:8px 4px;
     text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
 }
-.stat-number{ display:block; font-size:20px; font-weight:600; color:#d4af37; margin-bottom:2px; }
-.stat-title{ font-size:13px; opacity:0.8; color:#aaa; }
+.stat-item .stat-label{
+    display:block;
+    font-size:9px;
+    color:#aaa;
+    font-weight:500;
+    letter-spacing:1px;
+    margin-bottom:2px;
+}
+.stat-item .stat-number{
+    display:block;
+    font-size:20px;
+    font-weight:700;
+    color:#d4af37;
+}
 
 /* ACTION BUTTONS */
-.action-section{ display:flex; flex-direction:column; gap:10px; margin-bottom:5px; }
+.action-section{ display:flex; flex-direction:column; gap:10px; }
 .count-btn{
     width:100%;
     height:56px;
@@ -401,6 +381,6 @@ body{
     .target-btn{ width:70px; height:70px; font-size:20px; }
     .target-section{ gap:15px; }
     .info-value{ font-size:20px; }
-    .period-item .period-number{ font-size:18px; }
-    .period-item .period-label{ font-size:8px; }
+    .stat-item .stat-number{ font-size:18px; }
+    .stat-item .stat-label{ font-size:8px; }
 }

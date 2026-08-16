@@ -68,23 +68,7 @@
         <button class="target-btn" data-target="100">100</button>
     </section>
 
-    <!-- PERIOD STATS (Daily, Weekly, Monthly) -->
-    <div class="period-stats">
-        <div class="period-item">
-            <span class="period-label">Today</span>
-            <span class="period-number" id="dailyCount">0</span>
-        </div>
-        <div class="period-item">
-            <span class="period-label">Week</span>
-            <span class="period-number" id="weeklyCount">0</span>
-        </div>
-        <div class="period-item">
-            <span class="period-label">Month</span>
-            <span class="period-number" id="monthlyCount">0</span>
-        </div>
-    </div>
-
-    <!-- INFO CARDS -->
+    <!-- INFO CARDS (Target, Count, Progress) -->
     <section class="info-section">
         <div class="info-card">
             <span class="info-label">Target</span>
@@ -107,19 +91,34 @@
         </div>
     </section>
 
-    <!-- STATISTICS (Lifetime) -->
-    <section class="stats-section">
-        <div class="stat-card">
+    <!-- COMBINED STATS (Daily, Weekly, Monthly + 33, 99, 100) -->
+    <section class="combined-stats">
+        <!-- Row 1: Period Stats -->
+        <div class="stat-item">
+            <span class="stat-label">Today</span>
+            <span class="stat-number" id="dailyCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Week</span>
+            <span class="stat-number" id="weeklyCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Month</span>
+            <span class="stat-number" id="monthlyCount">0</span>
+        </div>
+        
+        <!-- Row 2: Lifetime Stats -->
+        <div class="stat-item">
+            <span class="stat-label">×33</span>
             <span class="stat-number" id="completed33">0</span>
-            <span class="stat-title">×33</span>
         </div>
-        <div class="stat-card">
+        <div class="stat-item">
+            <span class="stat-label">×99</span>
             <span class="stat-number" id="completed99">0</span>
-            <span class="stat-title">×99</span>
         </div>
-        <div class="stat-card">
+        <div class="stat-item">
+            <span class="stat-label">×100</span>
             <span class="stat-number" id="completed100">0</span>
-            <span class="stat-title">×100</span>
         </div>
     </section>
 

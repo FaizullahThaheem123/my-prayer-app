@@ -1,5 +1,5 @@
 // ======================================
-// MY PRAYER - DIGITAL TASBEEH (WITH PERIOD STATS)
+// MY PRAYER - DIGITAL TASBEEH (COMBINED STATS)
 // ======================================
 
 // ======================================
@@ -19,14 +19,13 @@ const progressBar = document.getElementById("progressBar");
 const countBtn = document.getElementById("countBtn");
 const resetBtn = document.getElementById("resetBtn");
 
-const completed33 = document.getElementById("completed33");
-const completed99 = document.getElementById("completed99");
-const completed100 = document.getElementById("completed100");
-
-// Period Stats Elements
+// Combined Stats Elements (6 items)
 const dailyCount = document.getElementById("dailyCount");
 const weeklyCount = document.getElementById("weeklyCount");
 const monthlyCount = document.getElementById("monthlyCount");
+const completed33 = document.getElementById("completed33");
+const completed99 = document.getElementById("completed99");
+const completed100 = document.getElementById("completed100");
 
 // MORE MENU ELEMENTS
 const moreNavBtn = document.getElementById("moreNavBtn");
@@ -94,7 +93,7 @@ function getToday() {
 function getWeekStart() {
     const now = new Date();
     const day = now.getDay();
-    const diff = (day === 0 ? 6 : day - 1); // Monday as start
+    const diff = (day === 0 ? 6 : day - 1);
     const monday = new Date(now);
     monday.setDate(now.getDate() - diff);
     return monday.toISOString().split('T')[0];
@@ -112,7 +111,6 @@ function loadPeriodStats() {
             periodStats = JSON.parse(saved);
         } catch(e) {}
     }
-    // Check resets
     const today = getToday();
     if (periodStats.daily.date !== today) {
         periodStats.daily.count = 0;
