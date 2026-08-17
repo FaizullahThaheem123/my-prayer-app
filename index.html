@@ -32,12 +32,12 @@
             <div class="greeting-row">
                 <p class="welcome-text">Assalamu Alaikum </p>
                 <p class="location" id="locationName">📍 Adilpur</p>
-            </div>
-            <div class="time-row">
-                <span id="liveTimeDisplay">11:50:10 PM</span>
-            </div>
         </div>
-
+         <div class="time-row">
+    <span id="liveTimeDisplay">11:50:10</span>
+    <span class="ampm-text">PM</span>
+</div>
+</div>
         <!-- DATE CARD -->
         <section class="date-box">
             <div class="date-place date-makkah"><img src="images/makkah.png" alt="Makkah"></div>
@@ -77,12 +77,71 @@
             </div>
         </div>
 
-        <!-- 5 PRAYER CARDS -->
-        <div class="prayer-card"><div class="prayer-icon">🌅</div><div class="prayer-info"><h3>Fajr</h3><b id="fajr">Loading...</b><span class="jamaat-icon">🕌</span><small id="fajrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Fajr')"><i class="fa-solid fa-pen"></i></button></div>
-        <div class="prayer-card"><div class="prayer-icon">☀️</div><div class="prayer-info"><h3>Dhuhr</h3><b id="dhuhr">Loading...</b><span class="jamaat-icon">🕌</span><small id="dhuhrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Dhuhr')"><i class="fa-solid fa-pen"></i></button></div>
-        <div class="prayer-card"><div class="prayer-icon">🌇</div><div class="prayer-info"><h3>Asr</h3><b id="asr">Loading...</b><span class="jamaat-icon">🕌</span><small id="asrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Asr')"><i class="fa-solid fa-pen"></i></button></div>
-        <div class="prayer-card"><div class="prayer-icon">🌙</div><div class="prayer-info"><h3>Maghrib</h3><b id="maghrib">Loading...</b><span class="jamaat-icon">🕌</span><small id="maghribJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Maghrib')"><i class="fa-solid fa-pen"></i></button></div>
-        <div class="prayer-card"><div class="prayer-icon">🌌</div><div class="prayer-info"><h3>Isha</h3><b id="isha">Loading...</b><span class="jamaat-icon">🕌</span><small id="ishaJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Isha')"><i class="fa-solid fa-pen"></i></button></div>
+      <!-- 5 PRAYER CARDS -->
+<div class="prayer-card">
+    <div class="prayer-icon">🌅</div>
+    <div class="prayer-info">
+        <h3>Fajr</h3>
+        <div class="times-center-group">
+            <b id="fajr">Loading...</b>
+            <span class="jamaat-icon">🕌</span>
+            <small id="fajrJamaat">Jamaat Loading...</small>
+        </div>
+    </div>
+    <button class="edit-jamaat" onclick="editJamaat('Fajr')"><i class="fa-solid fa-pen"></i></button>
+</div>
+
+<div class="prayer-card">
+    <div class="prayer-icon">☀️</div>
+    <div class="prayer-info">
+        <h3>Dhuhr</h3>
+        <div class="times-center-group">
+            <b id="dhuhr">Loading...</b>
+            <span class="jamaat-icon">🕌</span>
+            <small id="dhuhrJamaat">Jamaat Loading...</small>
+        </div>
+    </div>
+    <button class="edit-jamaat" onclick="editJamaat('Dhuhr')"><i class="fa-solid fa-pen"></i></button>
+</div>
+
+<div class="prayer-card">
+    <div class="prayer-icon">🌇</div>
+    <div class="prayer-info">
+        <h3>Asr</h3>
+        <div class="times-center-group">
+            <b id="asr">Loading...</b>
+            <span class="jamaat-icon">🕌</span>
+            <small id="asrJamaat">Jamaat Loading...</small>
+        </div>
+    </div>
+    <button class="edit-jamaat" onclick="editJamaat('Asr')"><i class="fa-solid fa-pen"></i></button>
+</div>
+
+<div class="prayer-card">
+    <div class="prayer-icon">🌙</div>
+    <div class="prayer-info">
+        <h3>Maghrib</h3>
+        <div class="times-center-group">
+            <b id="maghrib">Loading...</b>
+            <span class="jamaat-icon">🕌</span>
+            <small id="maghribJamaat">Jamaat Loading...</small>
+        </div>
+    </div>
+    <button class="edit-jamaat" onclick="editJamaat('Maghrib')"><i class="fa-solid fa-pen"></i></button>
+</div>
+
+<div class="prayer-card">
+    <div class="prayer-icon">🌌</div>
+    <div class="prayer-info">
+        <h3>Isha</h3>
+        <div class="times-center-group">
+            <b id="isha">Loading...</b>
+            <span class="jamaat-icon">🕌</span>
+            <small id="ishaJamaat">Jamaat Loading...</small>
+        </div>
+    </div>
+    <button class="edit-jamaat" onclick="editJamaat('Isha')"><i class="fa-solid fa-pen"></i></button>
+</div>
 
         <!-- MORE GRID -->
         <div class="more-grid-wrapper">

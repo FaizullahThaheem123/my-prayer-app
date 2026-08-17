@@ -95,6 +95,7 @@ body {
     background: #111;
 }
 
+
 /* BLUE CARD (Time & AM/PM fixed below) */
 .header-card-bottom {
     width: calc(100% - 20px);
@@ -106,7 +107,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* تبدیلی: اس سے ٹائم کو بائیں طرف کھسکنے کا موقع ملتا ہے */
     align-items: center;
 }
 
@@ -115,6 +116,7 @@ body {
     flex-direction: column;
     justify-content: center;
     gap: 2px;
+    flex-shrink: 0; /* اس سے بائیں والا حصہ سکڑے گا نہیں */
 }
 
 .header-card-bottom .greeting-row .welcome-text {
@@ -122,6 +124,7 @@ body {
     font-weight: 800;
     color: var(--primary);
     margin: 0;
+    white-space: nowrap; /* تبدیلی 1: یہ Assalamu Alaikum کو ایک ہی لائن میں رکھے گا */
 }
 
 .header-card-bottom .greeting-row .location {
@@ -136,10 +139,14 @@ body {
 
 .header-card-bottom .time-row {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    line-height: 1.2;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    margin-left: 1%; /* تبدیلی 2: ٹائم کو دائیں سے ہٹا کر تقریباً 30% بائیں جانب لانے کے لیے */
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 1px;
 }
 
 #liveTimeDisplay {
@@ -184,11 +191,13 @@ body {
 }
 
 .date-place img {
-    width: 44px;
+    width: 44px;      /* سائز بالکل ویسا ہی رکھا (نہ بڑا نہ چھوٹا) */
     height: 44px;
-    border-radius: 10px;
+    border-radius: 50%; /* اب تصویر بالکل گول ہو جائے گی جیسے اوپر والی تصویر */
     object-fit: cover;
-    border: 2px solid rgba(212, 175, 55, 0.3);
+    background: #111;  /* تصویر کے اندر کی سفید/خالی جگہ کو مکمل طور پر ہٹا دیا */
+    border: 2px solid var(--primary); /* ہیڈر والی تصویر کی طرح تھیم رنگ کا بورڈر */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); /* ہیڈر والی تصویر کا سا شائو (Glow) */
 }
 
 .date-content {
@@ -211,7 +220,7 @@ body {
 }
 
 .date-box p {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--primary);
     font-weight: 600;
     margin: 0;
@@ -288,11 +297,9 @@ body {
     transform: scale(1.1);
 }
 
- /* ==========================================
-   5 PRAYER CARDS
-   NAME LEFT - TIMES PERFECTLY CENTER
+/* ==========================================
+   5 PRAYER CARDS (FINAL PERFECT FIX)
 ========================================== */
-
 .prayer-card {
     display: flex;
     align-items: center;
@@ -309,109 +316,65 @@ body {
     overflow: hidden;
 }
 
-
-/* ==========================================
-   PRAYER ICON
-========================================== */
-
 .prayer-icon {
     font-size: 14px;
     margin-right: 6px;
     flex-shrink: 0;
 }
 
-
-/* ==========================================
-   PRAYER INFORMATION
-========================================== */
-
+/* === درمیانی ڈبہ === */
 .prayer-info {
     flex: 1;
     display: flex;
     align-items: center;
     min-width: 0;
     height: 100%;
-    position: relative;
+    position: relative; /* اس سے اندر والی چیزوں کو سینٹر کرنا ممکن ہوگا */
 }
 
-
-/* ==========================================
-   PRAYER NAME - LEFT
-========================================== */
-
+/* نماز کا نام (ہمیشہ بالکل بائیں) */
 .prayer-info h3 {
     font-size: 14px;
     color: var(--primary);
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
-    margin-right: auto;
-    margin-left: 6px;
+    margin-right: auto; /* یہ نام کو بائیں طرف دھکیل دے گا */
 }
 
-
-/* ==========================================
-   CENTER TIMES GROUP
-   AZAN + JAMAAT ICON + JAMAAT TIME
-========================================== */
-
-.center-times-group {
+/* یہ وہ گروپ ہے جو عین سینٹر میں جائے گا (اذان, آئیکن, جماعت) */
+.times-center-group {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-
     position: absolute;
     left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
+    transform: translateX(-50%); /* یہ گروپ کو بالکل درمیان میں لاک کر دے گا */
     white-space: nowrap;
 }
 
-
-/* ==========================================
-   AZAN TIME
-========================================== */
-
-.prayer-info b {
+.times-center-group b {
+    display: block;
     font-size: 12px;
-    color: var(--text);
+    color: var(--primary); /* اب یہ تھیم کے ساتھ رنگ بدلے گا */
     line-height: 1;
-    white-space: nowrap;
 }
 
-
-/* ==========================================
-   JAMAAT ICON
-========================================== */
-
-.jamaat-icon {
+.times-center-group .jamaat-icon {
     font-size: 14px;
     color: var(--primary);
     text-align: center;
-    flex-shrink: 0;
 }
 
-
-/* ==========================================
-   JAMAAT TIME
-========================================== */
-
-.prayer-info small {
+.times-center-group small {
+    display: block;
+    color: var(--primary); /* تھیم کے ساتھ رنگ بدلے گا */
     font-size: 12px;
-    color: var(--primary);
     font-weight: 600;
     line-height: 1;
-    white-space: nowrap;
 }
 
-
-/* ==========================================
-   EDIT JAMAAT BUTTON
-========================================== */
-
+/* Edit بٹن (ہمیشہ بالکل دائیں) */
 .edit-jamaat {
     width: 24px;
     height: 24px;
@@ -425,7 +388,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: 10px;
+    margin-left: auto; /* یہ بٹن کو دائیں طرف دھکیل دے گا */
     transition: .3s;
 }
 

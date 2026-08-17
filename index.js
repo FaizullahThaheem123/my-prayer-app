@@ -25,12 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateClock(){
     const now = new Date();
-    liveTimeDisplay.innerHTML = now.toLocaleTimeString([], { 
+    // 12 گھنٹے کا وقت لیکن بغیر AM/PM کے (صرف 11:50:10) نکالے گا
+    const timeStr = now.toLocaleTimeString([], { 
         hour: "2-digit", 
         minute: "2-digit", 
         second: "2-digit", 
-        hour12: true 
+        hour12: false 
     });
+    
+    // وقت کو اسپین میں ڈالیں
+    document.getElementById("liveTimeDisplay").textContent = timeStr;
+
+    // AM یا PM کو الگ سے سیٹ کریں
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    document.querySelector(".ampm-text").textContent = ampm;
 }
 
 function loadTodayDate(){
