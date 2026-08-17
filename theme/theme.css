@@ -1,0 +1,157 @@
+/* ======================================
+   GLOBAL THEME CSS - SHARED ACROSS ALL PAGES
+====================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+:root {
+    /* DEFAULT GOLD THEME */
+    --primary: #d4af37;
+    --bg: #1a1a1a;
+    --card: #2a2a2a;
+    --text: #e0e0e0;
+}
+
+body{
+    margin:0;
+    padding:0;
+    padding-bottom:75px;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height:100vh;
+}
+
+/* ======================================
+   THEMES PAGE SPECIFIC STYLES
+====================================== */
+
+.themes-page{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:0 auto;
+    background: var(--bg);
+    position:relative;
+    overflow-x:hidden;
+    padding: 0 12px;
+}
+
+.themes-header{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5px 12px;
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px 16px 24px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    margin-bottom: 12px;
+}
+.header-left h1{
+    font-size:26px;
+    font-weight:800;
+    color:var(--primary);
+    text-shadow: 0 2px 8px rgba(212,175,55,0.2);
+}
+.header-left h1 i{ margin-right:8px; }
+.header-left p{
+    font-size:11px;
+    font-weight:500;
+    color:#aaa;
+}
+.back-btn{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.1);
+    border:1px solid rgba(212,175,55,0.3);
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:20px;
+    transition:0.3s;
+}
+.back-btn:hover{
+    background:var(--primary);
+    color:#111;
+}
+
+/* THEME GRID - 4 COLUMNS */
+.theme-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 کالم میں کارڈز */
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.theme-card{
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.theme-card:hover{
+    transform: translateY(-4px);
+    border-color: var(--primary);
+}
+.theme-card.active{
+    border-color: var(--primary);
+    background: rgba(212,175,55,0.1);
+    box-shadow: 0 0 20px rgba(212,175,55,0.2);
+}
+
+.theme-preview{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.theme-name{
+    font-size: 10px;
+    font-weight: 600;
+    color: #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.theme-card.active .theme-name{
+    color: var(--primary);
+}
+
+/* RESPONSIVE */
+@media(max-width:430px){
+    .theme-grid{
+        gap: 8px;
+    }
+    .theme-preview{
+        width: 38px;
+        height: 38px;
+    }
+    .theme-name{
+        font-size: 9px;
+    }
+}

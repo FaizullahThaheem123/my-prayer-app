@@ -1,44 +1,36 @@
 "use strict";
 let prayerTimes = {}; let jamaatTimes = {}; let currentPrayer = "";
-const clock = document.getElementById("clock");
 const date = document.getElementById("date");
 const islamicDate = document.getElementById("islamic-date");
 const locationName = document.getElementById("locationName");
 const countdown = document.getElementById("countdown");
+const liveTimeDisplay = document.getElementById("liveTimeDisplay");
 
-// MORE MENU ELEMENTS
-const moreNavBtn = document.getElementById("moreNavBtn");
-const moreMenu = document.getElementById("moreMenu");
+// More Menu Elements
 const settingsBtn = document.getElementById("settingsBtn");
+const themesBtn = document.getElementById("themesBtn");
 
 document.addEventListener("DOMContentLoaded", () => {
     updateClock(); setInterval(updateClock,1000);
     loadTodayDate(); loadSavedJamaat();
     detectLocation();
 
-    // More Menu Logic
-    if(moreNavBtn && moreMenu) {
-        moreNavBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            moreMenu.classList.toggle("show");
-        });
-        document.addEventListener("click", (e) => {
-            if(!moreMenu.contains(e.target) && !moreNavBtn.contains(e.target)) {
-                moreMenu.classList.remove("show");
-            }
-        });
-    }
     if(settingsBtn) {
         settingsBtn.addEventListener("click", () => {
-            moreMenu.classList.remove("show");
             alert("Settings will be available in the next update.");
         });
     }
+   
 });
 
 function updateClock(){
     const now = new Date();
-    clock.innerHTML = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    liveTimeDisplay.innerHTML = now.toLocaleTimeString([], { 
+        hour: "2-digit", 
+        minute: "2-digit", 
+        second: "2-digit", 
+        hour12: true 
+    });
 }
 
 function loadTodayDate(){
@@ -161,13 +153,55 @@ function updateJamaatUI(){
     });
 }
 
+// Notification Button (Inside the Next Prayer card)
+const notificationBtn = document.getElementById("notificationBtn");
 const notificationModal = document.getElementById("notificationModal");
-const notificationButton = document.getElementById("notificationBtn");
 const enableNotification = document.getElementById("enableNotification");
-notificationButton.addEventListener("click",()=>{ notificationModal.style.display = "flex"; });
-function closeNotificationModal(){ notificationModal.style.display = "none"; }
-enableNotification.addEventListener("click",async()=>{ if(!("Notification" in window)){ alert("Notification is not supported."); return; } const permission = await Notification.requestPermission(); if(permission === "granted"){ alert("Prayer Notifications Enabled."); }else{ alert("Notification Permission Denied."); } closeNotificationModal(); });
 
-window.addEventListener("click",(event)=>{ if(event.target === notificationModal){ closeNotificationModal(); } if(event.target === document.getElementById("jamaatModal")){ closeJamaatModal(); } });
+if(notificationBtn) {
+    notificationBtn.addEventListener("click",()=>{
+        notificationModal.style.display = "flex";
+    });
+}
+
+function closeNotificationModal(){ notificationModal.style.display = "none"; }
+
+enableNotification.addEventListener("click",async()=>{
+    if(!("Notification" in window)){
+        alert("Notification is not supported.");
+        return;
+    }
+    const permission = await Notification.requestPermission();
+    if(permission === "granted"){
+        alert("Prayer Notifications Enabled.");
+    }else{
+        alert("Notification Permission Denied.");
+    }
+    closeNotificationModal();
+});
+
+window.addEventListener("click",(event)=>{
+    if(event.target === notificationModal){ closeNotificationModal(); }
+    if(event.target === document.getElementById("jamaatModal")){ closeJamaatModal(); }
+});
 window.addEventListener("load",()=>{ setTimeout(()=>{ document.getElementById("loadingScreen").style.display="none"; },1200); });
 setInterval(()=>{ if(Object.keys(prayerTimes).length>0){ calculateNextPrayer(); } },60000);
+
+// ======================================
+// LOAD THEME ON INDEX PAGE
+// ======================================
+function loadThemeOnIndex() {
+    const savedTheme = localStorage.getItem('appTheme');
+    if (savedTheme) {
+        // We need to apply CSS variables. We'll use the same theme list as themes.js.
+        // Since we can't duplicate the list, we can apply a class to body.
+        // Instead of CSS variables, we can add a class to body like 'theme-gold', etc.
+        // We'll define classes in a global CSS file (like index.css) for each theme.
+        document.body.className = 'theme-' + savedTheme;
+    } else {
+        document.body.className = 'theme-gold';
+    }
+}
+
+// Call this at the start of DOMContentLoaded
+loadThemeOnIndex();

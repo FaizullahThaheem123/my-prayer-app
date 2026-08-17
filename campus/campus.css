@@ -1,588 +1,157 @@
 /* ======================================
-   MY PRAYER - CAMPUS (NEW DARK 3D THEME)
+   MY PRAYER - CAMPUS (NEW DARK 3D THEME) (VARIABLES FIXED)
 ====================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
 body{
-    margin:0;
-    padding:0;
-    padding-bottom:75px;
-    font-family: 'Poppins', sans-serif;
-    background: #121212;
-    color:#e0e0e0;
-    min-height:100vh;
+    margin:0; padding:0; padding-bottom:75px; font-family: 'Poppins', sans-serif;
+    background: var(--bg); color:var(--text); min-height:100vh;
 }
-
 .campus-page{
-    width:100%;
-    max-width:430px;
-    min-height:100vh;
-    margin:0 auto;
-    background: #121212;
-    position:relative;
-    overflow-x:hidden;
-    padding: 0 12px;
+    width:100%; max-width:430px; min-height:100vh; margin:0 auto;
+    background: var(--bg); position:relative; overflow-x:hidden; padding: 0 12px;
 }
 
-/* ======================================
-   HEADER (FIXED: Glass, Gold Border, Shadow)
-====================================== */
+/* HEADER */
 .campus-header{
-    width:100%;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 18px 5px 12px;
-    background: rgba(40,40,40,0.9) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid #d4af37 !important;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-    border-radius: 16px 16px 24px 24px !important;
-    margin-bottom: 10px;
+    width:100%; display: flex !important; justify-content: space-between !important; align-items: center !important;
+    padding: 18px 5px 12px; background: var(--card) !important; backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary) !important; box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    border-radius: 16px 16px 24px 24px !important; margin-bottom: 10px;
 }
-.campus-header-title h1{
-    font-size:26px;
-    font-weight:800;
-    color:#d4af37;
-    text-shadow: 0 2px 8px rgba(212,175,55,0.2);
-}
-.campus-header-title h1 i{
-    margin-right:8px;
-}
-.campus-header-title p{
-    font-size:11px;
-    font-weight:500;
-    color:#aaa;
-}
-
-/* HEADER IMAGE (FIXED: Gold Border & Glow) */
+.campus-header-title h1{ font-size:26px; font-weight:800; color:var(--primary); text-shadow: 0 2px 8px rgba(212,175,55,0.2); }
+.campus-header-title h1 i{ margin-right:8px; }
+.campus-header-title p{ font-size:11px; font-weight:500; color:#aaa; }
 .campus-header-image {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid #d4af37;
-    box-shadow: 0 0 20px rgba(212,175,55,0.3);
-    background: #111;
+    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+    border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(212,175,55,0.3); background: #111;
 }
-.campus-header-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
+.campus-header-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-/* ======================================
-   CARDS (FIXED: Added inset 3D glow)
-====================================== */
-.location-card,
-.qibla-card,
-.info-card-section,
-.map-section,
-.campus-message{
-    width:100%;
-    margin: 12px auto;
-    background: rgba(30,30,30,0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-    border-radius: 20px;
-    padding: 16px;
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
+/* CARDS */
+.location-card, .qibla-card, .info-card-section, .map-section, .campus-message{
+    width:100%; margin: 12px auto; background: var(--card); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    border-radius: 20px; padding: 16px; animation: fadeInUp 0.6s ease forwards; opacity: 0;
 }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ======================================
-   LOCATION CARD
-====================================== */
-.location-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    animation-delay: 0.1s;
-}
-.location-icon{
-    width: 42px; height: 42px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #d4af37;
-    flex-shrink:0;
-}
-.location-text{
-    flex:1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
+/* LOCATION CARD */
+.location-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; animation-delay: 0.1s; }
+.location-icon{ width: 42px; height: 42px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink:0; }
+.location-text{ flex:1; display: flex; flex-direction: column; gap: 2px; }
 .location-text span{ font-size: 10px; color: #888; }
 .location-text strong{ font-size: 15px; color: #fff; font-weight: 600; }
-.location-refresh-btn{
-    width: 32px; height: 32px;
-    background: rgba(255,255,255,0.05);
-    border: none; border-radius: 50%;
-    color: #888; cursor: pointer;
-    transition: 0.3s;
-}
-.location-refresh-btn:hover{ color: #d4af37; transform: rotate(90deg); }
+.location-refresh-btn{ width: 32px; height: 32px; background: rgba(255,255,255,0.05); border: none; border-radius: 50%; color: #888; cursor: pointer; transition: 0.3s; }
+.location-refresh-btn:hover{ color: var(--primary); transform: rotate(90deg); }
 
-/* ======================================
-   QIBLA COMPASS CARD
-====================================== */
-.qibla-card{
-    animation-delay: 0.2s;
-    padding: 18px;
-}
-.qibla-heading{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-.qibla-title-group span{
-    font-size: 9px; font-weight: 700; color: #888; letter-spacing: 2px;
-}
-.qibla-title-group h2{
-    font-size: 20px; font-weight: 700; color: #fff; margin: 2px 0 0;
-}
-.live-badge{
-    background: #1b5e20; color: #66bb6a;
-    padding: 4px 12px; border-radius: 12px;
-    font-size: 10px; font-weight: 700;
-}
+/* QIBLA COMPASS CARD */
+.qibla-card{ animation-delay: 0.2s; padding: 18px; }
+.qibla-heading{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.qibla-title-group span{ font-size: 9px; font-weight: 700; color: #888; letter-spacing: 2px; }
+.qibla-title-group h2{ font-size: 20px; font-weight: 700; color: #fff; margin: 2px 0 0; }
+.live-badge{ background: #1b5e20; color: #66bb6a; padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 700; }
 
-/* COMPASS WRAPPER */
-.qibla-compass-wrapper{
-    position: relative;
-    text-align: center;
-    margin: 10px 0;
-}
+.qibla-compass-wrapper{ position: relative; text-align: center; margin: 10px 0; }
 
-.compass-area {
-    width: 220px;
-    height: 220px;
-    margin: 0 auto;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.compass-ring {
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    position: relative;
-    background: radial-gradient(circle, #1a1a1a, #0a0a0a);
-    border: 3px solid rgba(255,255,255,0.2);
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.6);
-}
-
-/* Directions */
-.compass-direction {
-    position: absolute;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-    z-index: 2;
-    font-size: 16px;
-}
+.compass-area { width: 220px; height: 220px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center; }
+.compass-ring { width: 100%; height: 100%; border-radius: 50%; position: relative; background: radial-gradient(circle, var(--card), var(--bg)); border: 3px solid rgba(255,255,255,0.2); box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.6); }
+.compass-direction { position: absolute; font-family: 'Poppins', sans-serif; font-weight: 700; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.9); z-index: 2; font-size: 16px; }
 .compass-direction.north { top: 8px; left: 50%; transform: translateX(-50%); color: #66bb6a; font-size: 22px; }
 .compass-direction.east { right: 8px; top: 50%; transform: translateY(-50%); }
 .compass-direction.south { bottom: 8px; left: 50%; transform: translateX(-50%); }
 .compass-direction.west { left: 8px; top: 50%; transform: translateY(-50%); }
 
-/* Centered Kaaba Box */
-.kaaba-center-box {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: 38px; height: 38px;
-    background: #0a0a0a;
-    border: 2px solid #d4af37;
-    border-radius: 2px;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 4px 15px rgba(212,175,55,0.3);
-    z-index: 12;
-}
+.kaaba-center-box { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 38px; height: 38px; background: #0a0a0a; border: 2px solid var(--primary); border-radius: 2px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 4px 15px rgba(212,175,55,0.3); z-index: 12; }
+.compass-pivot { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: var(--primary); border-radius: 50%; border: 2px solid var(--card); z-index: 20; }
+.cmp-needle { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); width: 6px; height: 80px; z-index: 10; transform-origin: center center; transition: transform 0.08s linear; }
+.cmp-needle .needle-head { position: absolute; left: 0; bottom: 50%; width: 100%; height: 50%; background: linear-gradient(to bottom, #4caf50, #2e7d32); border-radius: 3px 3px 0 0; box-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
+.cmp-needle .needle-tail { position: absolute; left: 0; top: 50%; width: 100%; height: 50%; background: #fff; border-radius: 0 0 3px 3px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-/* Compass Pivot */
-.compass-pivot {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px; height: 12px;
-    background: #d4af37;
-    border-radius: 50%;
-    border: 2px solid #1a1a1a;
-    z-index: 20;
-}
+/* BEARING DISPLAY */
+.bearing-display { text-align: center; margin-top: 10px; }
+.bearing-display strong{ font-size: 34px; font-weight: 800; color: var(--primary); text-shadow: 0 0 15px rgba(212,175,55,0.3); }
+.bearing-display span{ font-size: 16px; font-weight: 600; color: #fff; }
 
-/* 3D Digital Needle */
-.cmp-needle {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    width: 6px; height: 80px;
-    z-index: 10;
-    transform-origin: center center;
-    transition: transform 0.08s linear;
-}
-.cmp-needle .needle-head {
-    position: absolute;
-    left: 0; bottom: 50%;
-    width: 100%; height: 50%;
-    background: linear-gradient(to bottom, #4caf50, #2e7d32);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
-}
-.cmp-needle .needle-tail {
-    position: absolute;
-    left: 0; top: 50%;
-    width: 100%; height: 50%;
-    background: #fff;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
-}
-
-/* Bearing Display */
-.bearing-display {
-    text-align: center;
-    margin-top: 10px;
-}
-.bearing-display strong{
-    font-size: 34px;
-    font-weight: 800;
-    color: #d4af37;
-    text-shadow: 0 0 15px rgba(212,175,55,0.3);
-}
-.bearing-display span{
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-}
-
-.compass-message{
-    text-align: center;
-    color: #888;
-    font-size: 12px;
-    margin-top: 6px;
-}
-
-.calibrate-btn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%; height: 42px;
-    margin-top: 12px;
-    border: none; border-radius: 12px;
-    background: rgba(255,255,255,0.1);
-    color: #fff; font-weight: 600; font-size: 13px;
-    cursor: pointer; transition: 0.3s;
-}
+.compass-message{ text-align: center; color: #888; font-size: 12px; margin-top: 6px; }
+.calibrate-btn{ display: flex; align-items: center; justify-content: center; width: 100%; height: 42px; margin-top: 12px; border: none; border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.3s; }
 .calibrate-btn:hover{ background: rgba(255,255,255,0.2); }
 
-/* ======================================
-   INFO CARDS (4 Grid)
-====================================== */
-.info-card-section{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 16px;
-    animation-delay: 0.3s;
-}
-.info-item {
-    background: rgba(255,255,255,0.05);
-    padding: 12px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.info-item .info-icon{
-    width: 36px; height: 36px;
-    background: rgba(212,175,55,0.15);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    color: #d4af37;
-}
+/* INFO CARDS */
+.info-card-section{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; animation-delay: 0.3s; }
+.info-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 14px; display: flex; align-items: center; gap: 10px; }
+.info-item .info-icon{ width: 36px; height: 36px; background: rgba(212,175,55,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
 .info-item span{ display: block; font-size: 10px; color: #888; }
 .info-item strong{ display: block; font-size: 15px; color: #fff; margin-top: 2px; }
 
-/* ======================================
-   MAP VIEW
-====================================== */
-.map-section{
-    padding: 16px;
-    animation-delay: 0.4s;
-}
-.map-header{
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
-}
+/* MAP */
+.map-section{ padding: 16px; animation-delay: 0.4s; }
+.map-header{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .map-header h3{ font-size: 13px; font-weight: 600; color: #fff; }
-.map-location-btn{
-    background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
-    width: 32px; height: 32px; color: #d4af37; cursor: pointer;
-}
-.qibla-map{
-    width: 100%; height: 180px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-}
+.map-location-btn{ background: rgba(255,255,255,0.1); border: none; border-radius: 8px; width: 32px; height: 32px; color: var(--primary); cursor: pointer; }
+.qibla-map{ width: 100%; height: 180px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
 
-/* ======================================
-   SETTINGS PANEL
-====================================== */
-.campus-settings-panel{
-    position:fixed; inset:0; z-index:10000; display:none;
-}
-.settings-overlay{
-    position:absolute; inset:0; background:rgba(0,0,0,0.8); backdrop-filter: blur(4px);
-}
-.settings-sheet{
-    position:absolute; left:50%; bottom:0; transform:translateX(-50%);
-    width:100%; max-width:430px; padding:20px 16px;
-    background:rgba(30,30,30,0.98); backdrop-filter: blur(20px);
-    border-radius:24px 24px 0 0; border-top: 2px solid #d4af37;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
-}
+/* SETTINGS PANEL */
+.campus-settings-panel{ position:fixed; inset:0; z-index:10000; display:none; }
+.settings-overlay{ position:absolute; inset:0; background:rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
+.settings-sheet{ position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:100%; max-width:430px; padding:20px 16px; background:var(--card); backdrop-filter: blur(20px); border-radius:24px 24px 0 0; border-top: 2px solid var(--primary); box-shadow: 0 -10px 30px rgba(0,0,0,0.6); }
 .settings-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; }
-.settings-header h2{ font-size:20px; color:#d4af37; font-weight:700; }
+.settings-header h2{ font-size:20px; color:var(--primary); font-weight:700; }
 .close-settings-btn{ width:36px; height:36px; border:none; border-radius:50%; background:#2a2a2a; color:#aaa; cursor:pointer; }
-.close-settings-btn:hover{ background:#d4af37; color:#111; }
-
+.close-settings-btn:hover{ background:var(--primary); color:#111; }
 .setting-row{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-top:1px solid rgba(255,255,255,0.05); }
 .setting-row strong{ font-size:14px; color:#fff; }
 .setting-row span{ font-size:11px; color:#888; }
-.setting-action-btn{
-    padding:8px 16px; border:none; border-radius:8px;
-    background:#d4af37; color:#111; font-size:12px; font-weight:700; cursor:pointer;
-}
+.setting-action-btn{ padding:8px 16px; border:none; border-radius:8px; background:var(--primary); color:#111; font-size:12px; font-weight:700; cursor:pointer; }
 
-/* ======================================
-   BOTTOM NAV (UNIFIED)
-====================================== */
+/* BOTTOM NAV */
 .bottom-nav{
-    position:fixed !important; left:50% !important; bottom:0 !important;
-    transform:translateX(-50%) !important; width:100% !important; max-width:430px !important; height:55px !important;
+    position:fixed !important; left:50% !important; bottom:0 !important; transform:translateX(-50%) !important;
+    width:100% !important; max-width:430px !important; height:55px !important;
     display:flex !important; justify-content:space-around !important; align-items:center !important;
-    padding:6px 4px !important; background:rgba(15,15,15,0.95) !important; backdrop-filter: blur(15px) !important;
-    border-top: 2px solid #d4af37 !important; border-radius:24px 24px 0 0 !important;
+    padding:6px 4px !important; background:var(--card) !important; backdrop-filter: blur(15px) !important;
+    border-top: 2px solid var(--primary) !important; border-radius:24px 24px 0 0 !important;
     box-shadow: 0 -8px 30px rgba(0,0,0,0.8) !important; z-index:9999 !important;
 }
 .bottom-nav > a, .more-nav{ flex:1 !important; min-width:0 !important; }
-.bottom-nav a{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-decoration:none; font-size:10px; color:#aaa; transition:.3s; }
+.bottom-nav a{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-decoration:none; font-size:10px; color:var(--text); transition:.3s; }
 .bottom-nav i{ font-size:16px; }
 .bottom-nav span{ white-space:nowrap; font-size:9px; }
-.bottom-nav a.active{ color:#d4af37; font-weight:700; transform: translateY(-2px); }
+.bottom-nav a.active{ color:var(--primary); font-weight:700; transform: translateY(-2px); }
 
 .more-nav{ position:relative; display:flex; align-items:center; justify-content:center; }
-.more-nav-btn{ width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:transparent; color:#aaa; font-size:9px; cursor:pointer; transition:0.3s; }
-.more-nav-btn:hover{ color:#d4af37; }
+.more-nav-btn{ width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:transparent; color:var(--text); font-size:9px; cursor:pointer; transition:0.3s; }
+.more-nav-btn:hover{ color:var(--primary); }
 .more-nav-btn i{ font-size:16px; }
 .more-nav-btn span{ font-size:9px; white-space:nowrap; }
 
 .more-menu{
-    position:absolute; right:0; bottom:60px; width:165px; padding:8px;
-    display:none; flex-direction:column; gap:5px;
-    background:rgba(15,15,15,0.98); backdrop-filter: blur(20px);
-    border:1px solid #d4af37; border-radius:16px; box-shadow:0 15px 40px rgba(0,0,0,0.8); z-index:10001;
+    position:absolute; right:0; bottom:60px; width:165px; padding:8px; display:none; flex-direction:column; gap:5px;
+    background:var(--card); backdrop-filter: blur(20px); border:1px solid var(--primary); border-radius:16px; box-shadow:0 15px 40px rgba(0,0,0,0.8); z-index:10001;
 }
 .more-menu.show{ display:flex !important; }
 .more-menu a, .more-menu button{
     width:100%; min-height:38px; display:flex; align-items:center; gap:10px; padding:6px 10px;
-    border:none; border-radius:8px; background:transparent; color:#ddd; text-decoration:none; font-size:12px; cursor:pointer; text-align:left; transition:0.2s;
+    border:none; border-radius:8px; background:transparent; color:var(--text); text-decoration:none; font-size:12px; cursor:pointer; text-align:left; transition:0.2s;
 }
-.more-menu a i, .more-menu button i{ width:18px; text-align:center; color:#d4af37; }
+.more-menu a i, .more-menu button i{ width:18px; text-align:center; color:var(--primary); }
 .more-menu a:hover, .more-menu button:hover{ background:rgba(212,175,55,0.15); color:#fff; }
-.more-menu a.active{ background:rgba(212,175,55,0.2); color:#d4af37; }
+.more-menu a.active{ background:rgba(212,175,55,0.2); color:var(--primary); }
 
+/* RESPONSIVE */
 @media(max-width:430px){ .compass-area{ width:200px; height:200px; } .cmp-needle{ height:70px; } .kaaba-center-box{ width:34px; height:34px; } }
 
-/* ======================================
-   نئی کمپاس تصویر سیٹ کرنا (باقی HTML محفوظ)
-====================================== */
+.compass-area { position: relative; width: 260px; height: 260px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+.compass-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; pointer-events: none; }
+.compass-ring { background: transparent !important; border: none !important; box-shadow: none !important; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; display: block !important; }
+.compass-ring .compass-direction, .compass-ring .degree-markers, .compass-ring .kaaba-center-box, .compass-ring .compass-pivot { display: none !important; }
+.cmp-needle { display: block !important; z-index: 10 !important; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); width: 6px; height: 80px; transition: transform 0.08s linear; transform-origin: center center; }
+.cmp-needle .needle-head { position: absolute; left: 0; bottom: 50%; width: 100%; height: 50%; background: linear-gradient(to bottom, #4caf50, #2e7d32); border-radius: 3px 3px 0 0; box-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
+.cmp-needle .needle-tail { position: absolute; left: 0; top: 50%; width: 100%; height: 50%; background: #fff; border-radius: 0 0 3px 3px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-/* کمپاس ایریا کا سائز */
-.compass-area {
-    position: relative;
-    width: 260px; 
-    height: 260px; 
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* نئی تصویر کو بیک گراؤنڈ میں رکھیں */
-.compass-bg-img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: contain;
-    z-index: 1;  /* تصویر سوئی کے پیچھے رہے گی */
-    pointer-events: none; /* کلکس کو سوئی تک جانے دے */
-}
-
-/* پرانی CSS رنگ کو چھپا دیں تاکہ صرف تصویر دکھے */
-.compass-ring, 
-.compass-ring::before, 
-.compass-ring::after, 
-.compass-direction, 
-.degree-markers, 
-.kaaba-center-box, 
-.compass-pivot {
-    display: none !important;
-}
-
-/* سوئی (Needle) کو تصویر کے بالکل اوپر رکھیں */
-.cmp-needle {
-    z-index: 10 !important;
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    width: 6px; height: 80px;
-    transition: transform 0.08s linear;
-    transform-origin: center center;
-}
-
-/* سوئی کے رنگ ویسے ہی رکھیں (سبز اور سفید) */
-.cmp-needle .needle-head {
-    position: absolute;
-    left: 0; bottom: 50%;
-    width: 100%; height: 50%;
-    background: linear-gradient(to bottom, #4caf50, #2e7d32);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
-}
-.cmp-needle .needle-tail {
-    position: absolute;
-    left: 0; top: 50%;
-    width: 100%; height: 50%;
-    background: #fff;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
-}
-
-/* ======================================
-   نیا ڈیجیٹل ہیڈنگ ڈسپلے (Live Heading)
-====================================== */
-.digital-heading-box {
-    text-align: center;
-    margin-bottom: 8px;
-    font-family: 'Courier New', monospace;
-}
-.digital-heading-box span {
-    font-size: 48px;
-    font-weight: 800;
-    color: #d4af37;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    background: rgba(20, 20, 20, 0.7);
-    padding: 4px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    display: inline-block;
-    min-width: 100px;
-    backdrop-filter: blur(4px);
-}
-.digital-heading-box small {
-    font-size: 20px;
-    color: #aaa;
-    margin-left: 2px;
-}
-
-/* ======================================
-   نئی کمپاس تصویر سیٹ کرنا (FIXED: سوئی دکھنے کے لیے)
-====================================== */
-
-/* کمپاس ایریا کا سائز */
-.compass-area {
-    position: relative;
-    width: 260px; 
-    height: 260px; 
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* نئی تصویر کو بیک گراؤنڈ میں رکھیں */
-.compass-bg-img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: contain;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* پرانی رنگ کی رِنگ کو چھپانا نہیں، بلکہ شفاف کرنا ہے تاکہ سوئی دکھے */
-.compass-ring {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    width: 100%; height: 100%;
-    position: absolute; top: 0; left: 0;
-    z-index: 1;
-    display: block !important; /* سوئی کو دکھانے کے لیے ضروری ہے */
-}
-
-/* صرف غیر ضروری ڈیکوریشنز چھپائیں، سوئی نہیں */
-.compass-ring .compass-direction,
-.compass-ring .degree-markers,
-.compass-ring .kaaba-center-box,
-.compass-ring .compass-pivot {
-    display: none !important;
-}
-
-/* سوئی (Needle) کو تصویر کے بالکل اوپر رکھیں */
-.cmp-needle {
-    display: block !important;
-    z-index: 10 !important;
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    width: 6px; height: 80px;
-    transition: transform 0.08s linear;
-    transform-origin: center center;
-}
-
-/* سوئی کے رنگ ویسے ہی رکھیں (سبز اور سفید) */
-.cmp-needle .needle-head {
-    position: absolute;
-    left: 0; bottom: 50%;
-    width: 100%; height: 50%;
-    background: linear-gradient(to bottom, #4caf50, #2e7d32);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
-}
-.cmp-needle .needle-tail {
-    position: absolute;
-    left: 0; top: 50%;
-    width: 100%; height: 50%;
-    background: #fff;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
-}
+.digital-heading-box { text-align: center; margin-bottom: 8px; font-family: 'Courier New', monospace; }
+.digital-heading-box span { font-size: 48px; font-weight: 800; color: var(--primary); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); background: rgba(20, 20, 20, 0.7); padding: 4px 16px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.3); display: inline-block; min-width: 100px; backdrop-filter: blur(4px); }
+.digital-heading-box small { font-size: 20px; color: #aaa; margin-left: 2px; }

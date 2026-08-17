@@ -6,6 +6,7 @@
     <title>My Prayer</title>
     <meta name="theme-color" content="#0B1622">
     <link rel="stylesheet" href="index.css">
+     <link rel="stylesheet" href="theme/theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -14,9 +15,7 @@
 <div class="app">
     <section id="homeScreen">
 
-        <!-- =========================
-             HEADER (ROUNDED CORNERS, NOT STICKY)
-        ========================== -->
+        <!-- HEADER -->
         <header class="header index-header">
             <div class="header-left">
                 <h1 class="app-title">My Prayer</h1>
@@ -28,20 +27,18 @@
             </div>
         </header>
 
-        <!-- =========================
-             BLUE CARD (ROUNDED)
-        ========================== -->
+        <!-- BLUE CARD -->
         <div class="header-card header-card-bottom">
-            <div class="welcome-location">
+            <div class="greeting-row">
                 <p class="welcome-text">Assalamu Alaikum 👋</p>
-                <p class="location" id="locationName">📍</p>
+                <p class="location" id="locationName">📍 Adilpur</p>
             </div>
-            
+            <div class="time-row">
+                <span id="liveTimeDisplay">11:50:10 PM</span>
+            </div>
         </div>
 
-        <!-- =========================
-             DATE CARD
-        ========================== -->
+        <!-- DATE CARD -->
         <section class="date-box">
             <div class="date-place date-makkah"><img src="images/makkah.png" alt="Makkah"></div>
             <div class="date-content">
@@ -51,83 +48,64 @@
             <div class="date-place date-madinah"><img src="images/madinah.png" alt="Madinah"></div>
         </section>
 
-        <!-- =========================
-             LIVE CLOCK (SAME WIDTH)
-        ========================== -->
-        <section class="clock-box">
-            <h1 id="clock">00:00:00</h1>
-            <p>Current Time</p>
-        </section>
-
-        <!-- =========================
-             NEXT PRAYER (SAME WIDTH)
-        ========================== -->
-        <div class="next-prayer">
-            <div class="next-prayer-row">
-                <span class="next-prayer-label">Next Prayer</span>
-                <span class="next-prayer-label">Left Time</span>
-                <span class="next-prayer-label">Jamaat</span>
-            </div>
-            <div class="next-prayer-row">
-                <span id="nextPrayerName" class="next-prayer-value">Maghrib</span>
-                <span id="countdown" class="next-prayer-value">01:25:40</span>
-                <span id="nextPrayerJamaat" class="next-prayer-value">07:15 PM</span>
+        <!-- ========================================== -->
+        <!-- NEXT PRAYER 4-CARD GRID                    -->
+        <!-- ========================================== -->
+        <div class="next-prayer-grid-wrapper">
+            <div class="next-prayer-grid">
+                <!-- Card 1: Next Prayer -->
+                <div class="np-card">
+                    <span class="np-label">Next Prayer</span>
+                    <span class="np-value" id="nextPrayerName">Maghrib</span>
+                </div>
+                <!-- Card 2: Left Time -->
+                <div class="np-card">
+                    <span class="np-label">Left Time</span>
+                    <span class="np-value" id="countdown">01:25:40</span>
+                </div>
+                <!-- Card 3: Jamaat -->
+                <div class="np-card">
+                    <span class="np-label">Jamaat</span>
+                    <span class="np-value" id="nextPrayerJamaat">07:15 PM</span>
+                </div>
+                <!-- Card 4: Alarm -->
+                <div class="np-card np-alarm-card">
+                    <button id="notificationBtn" class="np-alarm-btn">
+                        <i class="fa-solid fa-bell"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- =========================
-             5 PRAYER CARDS (SLIGHTLY LARGER)
-        ========================== -->
+        <!-- 5 PRAYER CARDS -->
         <div class="prayer-card"><div class="prayer-icon">🌅</div><div class="prayer-info"><h3>Fajr</h3><b id="fajr">Loading...</b><span class="jamaat-icon">🕌</span><small id="fajrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Fajr')"><i class="fa-solid fa-pen"></i></button></div>
         <div class="prayer-card"><div class="prayer-icon">☀️</div><div class="prayer-info"><h3>Dhuhr</h3><b id="dhuhr">Loading...</b><span class="jamaat-icon">🕌</span><small id="dhuhrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Dhuhr')"><i class="fa-solid fa-pen"></i></button></div>
         <div class="prayer-card"><div class="prayer-icon">🌇</div><div class="prayer-info"><h3>Asr</h3><b id="asr">Loading...</b><span class="jamaat-icon">🕌</span><small id="asrJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Asr')"><i class="fa-solid fa-pen"></i></button></div>
         <div class="prayer-card"><div class="prayer-icon">🌙</div><div class="prayer-info"><h3>Maghrib</h3><b id="maghrib">Loading...</b><span class="jamaat-icon">🕌</span><small id="maghribJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Maghrib')"><i class="fa-solid fa-pen"></i></button></div>
         <div class="prayer-card"><div class="prayer-icon">🌌</div><div class="prayer-info"><h3>Isha</h3><b id="isha">Loading...</b><span class="jamaat-icon">🕌</span><small id="ishaJamaat">Jamaat Loading...</small></div><button class="edit-jamaat" onclick="editJamaat('Isha')"><i class="fa-solid fa-pen"></i></button></div>
 
-    </section>
-
-    <!-- =========================
-         BOTTOM NAVIGATION (FIXED)
-         ONLY HOME & MORE
-    ========================== -->
-    <nav class="bottom-nav">
-        <!-- HOME -->
-        <a href="index.html" class="nav-item active">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-
-        <!-- MORE BUTTON -->
-        <div class="more-nav">
-            <button type="button" class="more-nav-btn" id="moreNavBtn">
-                <i class="fa-solid fa-ellipsis"></i>
-                <span>More</span>
-            </button>
-            <div class="more-menu" id="moreMenu">
+        <!-- MORE GRID -->
+        <div class="more-grid-wrapper">
+            <div class="more-grid">
                 <a href="quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
                 <a href="dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
                 <a href="names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
                 <a href="tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
                 <a href="campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
                 <a href="masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+                <a href="theme/theme.html"><i class="fa-solid fa-palette"></i><span>Themes</span></a>
+
                 <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
             </div>
+            <div class="version-text">My Prayer v1.0.0</div>
         </div>
-    </nav>
 
-    <!-- =========================
-         FLOATING BUTTON
-    ========================== -->
-    <button class="floating-btn" id="notificationBtn"><i class="fa-solid fa-bell"></i></button>
+    </section>
 
-    <!-- =========================
-         LOADING SCREEN
-    ========================== -->
+    <!-- LOADING SCREEN -->
     <div id="loadingScreen"><div class="loader"></div><h3>My Prayer</h3><p>Loading...</p></div>
 
-    <!-- =========================
-         MODALS
-    ========================== -->
+    <!-- MODALS -->
     <div id="jamaatModal" class="modal">
         <div class="modal-content">
             <h2>Edit Jamaat Time</h2><p id="selectedPrayer">Prayer</p>
@@ -149,16 +127,9 @@
         </div>
     </div>
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
-    <footer class="app-footer">
-        <p>My Prayer v1.0.0</p>
-        <small>© 2026 My Prayer. All Rights Reserved.</small>
-    </footer>
-
 </div>
 
 <script src="index.js"></script>
+<script src="theme/theme.js"></script>
 </body>
 </html>
