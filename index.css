@@ -1,18 +1,39 @@
 /* ==========================================
             MY PRAYER APP (FULL 3D METALLIC THEME)
 ========================================== */
-*{ margin:0; padding:0; box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
-body{
-    font-family:'Poppins',sans-serif;
+:root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --text: #e6e6e6;
+    --primary: #d4af37;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
     background: var(--bg);
     color: var(--text);
-    min-height:100vh; overflow-x:hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
-.app{
-    width:100%; max-width:500px; margin:auto;
-    min-height:100vh; background:transparent;
-    position:relative; padding-bottom:95px;
+
+.app {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    min-height: 100vh;
+    background: transparent;
+    position: relative;
+    padding-bottom: 95px;
 }
 
 /* HEADER */
@@ -25,93 +46,200 @@ body{
     justify-content: space-between;
     border-radius: 20px;
     margin: 10px 10px 4px 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
     border-bottom: 2px solid var(--primary);
 }
-.index-header .header-left { display: flex; flex-direction: column; gap: 2px; }
+
+.index-header .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .index-header .app-title {
-    font-size: 22px; font-weight: 800;
-    color: var(--primary); line-height: 1.1;
-    text-shadow: 0 2px 8px rgba(212,175,55,0.2);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
 }
-.index-header .app-subtitle { font-size: 11px; color: #aaa; font-weight: 500; }
-.index-header .header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+.index-header .app-subtitle {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 500;
+}
+
+.index-header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
 .index-header .dua-text {
-    font-size: 14px; font-weight: 600; color: var(--primary); white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    white-space: nowrap;
 }
+
 .index-header .header-dua {
-    width: 34px; height: 34px; border-radius: 50%; object-fit: cover; display: block;
-    border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
     background: #111;
 }
 
-/* BLUE CARD */
+/* BLUE CARD (Time & AM/PM fixed below) */
 .header-card-bottom {
     width: calc(100% - 20px);
     margin: 4px 10px;
     height: 80px;
-    padding: 8px 16px;
+    padding: 0 16px;
     background: var(--card);
-    border: 1px solid rgba(212,175,55,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    align-items: center !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .header-card-bottom .greeting-row {
-    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
 }
+
 .header-card-bottom .greeting-row .welcome-text {
-    font-size: 15px; font-weight: 700; color: #fff; margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0;
 }
+
 .header-card-bottom .greeting-row .location {
-    font-size: 13px; font-weight: 500; color: #ccc; margin: 0;
-    text-overflow: ellipsis; overflow: hidden; max-width: 120px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 120px;
 }
+
 .header-card-bottom .time-row {
-    display: flex; align-items: center; justify-content: flex-end;
-    width: 100%; font-size: 26px; font-weight: 700;
-    color: var(--primary); letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+#liveTimeDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#liveTimeDisplay .ampm {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: -2px;
 }
 
 /* DATE CARD */
-.date-box{
-    margin: 4px 10px; padding: 5px 8px;
+.date-box {
+    margin: 4px 10px;
+    padding: 5px 8px;
     background: var(--card);
-    border: 1px solid rgba(212,175,55,0.2);
-    border-radius:13px; text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-    display:flex; align-items:center; justify-content:space-between; min-height:54px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 13px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 54px;
 }
-.date-place{ width:44px; height:44px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.date-place img{ width:44px; height:44px; border-radius:10px; object-fit:cover; border: 2px solid rgba(212,175,55,0.3); }
-.date-content{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0; padding:0 5px; }
-.date-box h3{ font-size:15px; color:var(--primary); margin:0 0 2px 0; font-weight:600; line-height:1.1; white-space:nowrap; }
-.date-box p{ font-size:14px; color:var(--primary); font-weight:600; margin:0; line-height:1.1; white-space:nowrap; }
 
-/* ================================================ */
-/* NEXT PRAYER 4-CARD GRID                        */
-/* ================================================ */
+.date-place {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.date-place img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.date-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 0 5px;
+}
+
+.date-box h3 {
+    font-size: 15px;
+    color: var(--primary);
+    margin: 0 0 2px 0;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.date-box p {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* NEXT PRAYER 4-CARD GRID */
 .next-prayer-grid-wrapper {
     width: calc(100% - 20px);
     margin: 4px 10px;
     background: var(--card);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(212,175,55,0.25);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: 12px;
     padding: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
 .next-prayer-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     align-items: stretch;
 }
+
 .np-card {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 8px 4px;
     display: flex;
@@ -121,21 +249,25 @@ body{
     text-align: center;
     gap: 2px;
 }
+
 .np-card .np-label {
     font-size: 9px;
     color: #aaa;
     font-weight: 500;
     letter-spacing: 1px;
 }
+
 .np-card .np-value {
     font-size: 13px;
     font-weight: 700;
     color: var(--primary);
 }
+
 .np-alarm-card {
-    background: rgba(212,175,55,0.1);
-    border: 1px solid rgba(212,175,55,0.3);
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
 }
+
 .np-alarm-btn {
     background: var(--primary);
     border: none;
@@ -148,40 +280,158 @@ body{
     color: #111;
     cursor: pointer;
     font-size: 13px;
-    box-shadow: 0 2px 8px rgba(212,175,55,0.3);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
     transition: 0.3s;
 }
-.np-alarm-btn:hover { transform: scale(1.1); }
 
-/* 5 PRAYER CARDS */
+.np-alarm-btn:hover {
+    transform: scale(1.1);
+}
+
+ /* ==========================================
+   5 PRAYER CARDS
+   NAME LEFT - TIMES PERFECTLY CENTER
+========================================== */
+
 .prayer-card {
-    display: flex; align-items: center;
-    width: calc(100% - 20px); margin: 2px 10px;
-    height: 45px; min-height: 45px;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 20px);
+    margin: 2px 10px;
+    height: 45px;
+    min-height: 45px;
     background: var(--card);
-    border-radius: 10px; padding: 0 10px;
+    border-radius: 10px;
+    padding: 0 10px;
     border-left: 3px solid var(--primary);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-    transition: .3s; overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: .3s;
+    overflow: hidden;
 }
-.prayer-icon { font-size: 14px; margin-right: 6px; flex-shrink: 0; }
+
+
+/* ==========================================
+   PRAYER ICON
+========================================== */
+
+.prayer-icon {
+    font-size: 14px;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   PRAYER INFORMATION
+========================================== */
+
 .prayer-info {
-    flex: 1; display: grid;
-    grid-template-columns: 70px 85px 30px minmax(75px, 1fr);
-    column-gap: 8px;
-    align-items: center; min-width: 0; height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    height: 100%;
+    position: relative;
 }
-.prayer-info h3 { font-size: 14px; color: var(--primary); font-weight: 700; line-height: 1; white-space: nowrap; }
-.prayer-info b { display: block; font-size: 12px; color: #ddd; line-height: 1; white-space: nowrap; }
-.jamaat-icon { font-size: 14px; color: var(--primary); text-align: center; }
-.prayer-info small { display: block; color: var(--primary); font-size: 12px; font-weight: 600; line-height: 1; white-space: nowrap; }
+
+
+/* ==========================================
+   PRAYER NAME - LEFT
+========================================== */
+
+.prayer-info h3 {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    margin-right: auto;
+    margin-left: 6px;
+}
+
+
+/* ==========================================
+   CENTER TIMES GROUP
+   AZAN + JAMAAT ICON + JAMAAT TIME
+========================================== */
+
+.center-times-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   AZAN TIME
+========================================== */
+
+.prayer-info b {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   JAMAAT ICON
+========================================== */
+
+.jamaat-icon {
+    font-size: 14px;
+    color: var(--primary);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   JAMAAT TIME
+========================================== */
+
+.prayer-info small {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   EDIT JAMAAT BUTTON
+========================================== */
+
 .edit-jamaat {
-    width: 24px; height: 24px; border: none; border-radius: 5px;
-    background: var(--primary); color: #111; cursor: pointer; font-size: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-left: 12px; transition: .3s;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary);
+    color: #111;
+    cursor: pointer;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 10px;
+    transition: .3s;
 }
-.edit-jamaat:hover { background: #f3d56a; }
+
+.edit-jamaat:hover {
+    background: #f3d56a;
+}
 
 /* MORE GRID */
 .more-grid-wrapper {
@@ -189,75 +439,232 @@ body{
     margin: 10px auto;
     background: var(--card);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(212,175,55,0.25);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: 20px;
     padding: 15px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
 .more-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
 }
-.more-grid a, .more-grid button {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; background: rgba(255,255,255,0.05);
-    border-radius: 12px; padding: 10px 4px; transition: 0.3s;
-    border: none; color: #e0e0e0; cursor: pointer; font-family: inherit;
-    font-size: 11px; gap: 4px;
+
+.more-grid a,
+.more-grid button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 10px 4px;
+    transition: 0.3s;
+    border: none;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    gap: 10px;
 }
-.more-grid a i, .more-grid button i { color: var(--primary); font-size: 20px; }
-.more-grid a:hover, .more-grid button:hover { background: rgba(212,175,55,0.2); transform: translateY(-2px); color: #fff; }
+
+.more-grid a i,
+.more-grid button i {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.more-grid a:hover,
+.more-grid button:hover {
+    background: rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
 .version-text {
-    text-align: center; color: #888; font-size: 12px; font-weight: 500;
-    margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(212,175,55,0.1);
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
 }
 
 /* LOADING SCREEN */
-#loadingScreen{
-    position:fixed; inset:0; background:#111; display:flex;
-    flex-direction:column; justify-content:center; align-items:center; z-index:9999;
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
-.loader{
-    width:60px; height:60px; border:6px solid #333; border-top:6px solid var(--primary); border-radius:50%;
-    animation:spin 1s linear infinite; margin-bottom:20px;
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #333;
+    border-top: 6px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
 }
-@keyframes spin{ 0%{ transform:rotate(0deg); } 100%{ transform:rotate(360deg); } }
-#loadingScreen h3{ color:var(--primary); font-size:24px; margin-bottom:8px; text-shadow: 0 2px 8px rgba(212,175,55,0.2); }
-#loadingScreen p{ color:#aaa; font-size:15px; }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loadingScreen h3 {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+#loadingScreen p {
+    color: #aaa;
+    font-size: 15px;
+}
 
 /* MODALS */
-.modal{
-    position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none;
-    justify-content:center; align-items:center; padding:20px; z-index:2000;
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 2000;
 }
-.modal-content{
-    width:100%; max-width:380px; background: var(--card);
-    border: 1px solid var(--primary); border-radius:20px; padding:25px; text-align:center;
-    animation:popup .25s ease; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+
+.modal-content {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    animation: popup .25s ease;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
-@keyframes popup{ from{ opacity:0; transform:scale(.9); } to{ opacity:1; transform:scale(1); } }
-.modal-content h2{ color:var(--primary); margin-bottom:10px; }
-.modal-content p{ color:#ddd; margin-bottom:18px; line-height:1.6; }
-.modal-content input{ width:100%; padding:12px; border:1px solid #555; border-radius:12px; outline:none; font-size:16px; margin-bottom:20px; background:#222; color:#fff; }
-.modal-content input:focus{ border-color:var(--primary); }
-.modal-buttons{ display:flex; gap:12px; }
-.modal-buttons button{ flex:1; padding:12px; border:none; border-radius:12px; cursor:pointer; font-size:15px; font-weight:600; }
-.save-btn{ background:var(--primary); color:#111; } .save-btn:hover{ background:#f3d56a; }
-.cancel-btn{ background:#333; color:#fff; } .cancel-btn:hover{ background:#444; }
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    color: #ddd;
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background: #222;
+    color: #fff;
+}
+
+.modal-content input:focus {
+    border-color: var(--primary);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.save-btn {
+    background: var(--primary);
+    color: #111;
+}
+
+.save-btn:hover {
+    background: #f3d56a;
+}
+
+.cancel-btn {
+    background: #333;
+    color: #fff;
+}
+
+.cancel-btn:hover {
+    background: #444;
+}
 
 /* RESPONSIVE */
-@media (max-width:480px){
-    .index-header{ padding: 12px 16px 6px; }
-    .index-header .app-title{ font-size: 20px; }
-    .index-header .app-subtitle{ font-size: 10px; }
-    .more-grid-wrapper{ padding: 12px; }
-    .more-grid{ gap: 4px; }
-    .more-grid a, .more-grid button{ font-size: 10px; padding: 8px 2px; }
-    .more-grid a i, .more-grid button i{ font-size: 18px; }
-    .prayer-info { grid-template-columns: 50px 75px 25px minmax(65px, 1fr); }
+@media (max-width: 480px) {
+    .index-header {
+        padding: 12px 16px 6px;
+    }
+    .index-header .app-title {
+        font-size: 20px;
+    }
+    .index-header .app-subtitle {
+        font-size: 10px;
+    }
+    .more-grid-wrapper {
+        padding: 12px;
+    }
+    .more-grid {
+        gap: 4px;
+    }
+    .more-grid a,
+    .more-grid button {
+        font-size: 10px;
+        padding: 8px 2px;
+    }
+    .more-grid a i,
+    .more-grid button i {
+        font-size: 18px;
+    }
 }
-.prayer-card.active{ border:2px solid var(--primary); background:rgba(212,175,55,0.15); border-left-color: var(--primary); }
-.prayer-card.active h3{ color:var(--primary); }
 
+.prayer-card.active {
+    border: 2px solid var(--primary);
+    background: rgba(212, 175, 55, 0.15);
+    border-left-color: var(--primary);
+}
 
+.prayer-card.active h3 {
+    color: var(--primary);
+}
