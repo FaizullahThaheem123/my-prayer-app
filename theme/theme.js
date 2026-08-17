@@ -1,5 +1,6 @@
 /* ======================================
    MY PRAYER - THEMES (50 UNIQUE COLORS)
+   AUTO-REDIRECT TO HOME ON SELECT
 ====================================== */
 
 const themes = [
@@ -95,12 +96,13 @@ function renderThemes() {
     });
 }
 
-// Select theme
+// Select theme - NOW AUTOMATICALLY REDIRECTS TO HOME
 function selectTheme(themeId) {
     currentTheme = themeId;
     localStorage.setItem("appTheme", themeId);
     applyTheme(themeId);
-    renderThemes();
+    // *** Redirect to Home immediately after selection ***
+    window.location.href = "../index.html";
 }
 
 // On page load
