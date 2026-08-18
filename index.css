@@ -85,8 +85,8 @@ body {
 }
 
 .index-header .header-dua {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
@@ -95,76 +95,190 @@ body {
     background: #111;
 }
 
+/* ==========================================
+   BLUE CARD
+   SAME SIZE - TWO SEPARATE MINI CARDS
+========================================== */
 
-/* BLUE CARD (Time & AM/PM fixed below) */
 .header-card-bottom {
     width: calc(100% - 20px);
     margin: 4px 10px;
     height: 80px;
     padding: 0 16px;
+
     background: var(--card);
+
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
     display: flex;
-    justify-content: flex-start; /* تبدیلی: اس سے ٹائم کو بائیں طرف کھسکنے کا موقع ملتا ہے */
     align-items: center;
+    justify-content: center;
 }
 
+
+/* ==========================================
+   TWO MINI CARDS CONTAINER
+========================================== */
+
 .header-card-bottom .greeting-row {
+    width: 100%;
+    height: 58px;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    gap: 8px;
+}
+
+
+/* ==========================================
+   LEFT MINI CARD
+   ASSALAMUALAIKUM + LOCATION
+========================================== */
+
+.header-card-bottom .greeting-mini-card {
+    width: 50%;
+    height: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2px;
-    flex-shrink: 0; /* اس سے بائیں والا حصہ سکڑے گا نہیں */
+    align-items: flex-start;
+
+    padding: 0 12px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    border-radius: 9px;
+
+    box-sizing: border-box;
 }
 
-.header-card-bottom .greeting-row .welcome-text {
+
+/* ==========================================
+   WELCOME TEXT
+========================================== */
+
+.header-card-bottom .greeting-mini-card .welcome-text {
     font-size: 15px;
     font-weight: 800;
+
     color: var(--primary);
+
     margin: 0;
-    white-space: nowrap; /* تبدیلی 1: یہ Assalamu Alaikum کو ایک ہی لائن میں رکھے گا */
+
+    white-space: nowrap;
 }
 
-.header-card-bottom .greeting-row .location {
+
+/* ==========================================
+   LOCATION
+========================================== */
+
+.header-card-bottom .greeting-mini-card .location {
     font-size: 12px;
     font-weight: 500;
+
     color: var(--text);
-    margin: 0;
-    text-overflow: ellipsis;
+
+    margin: 2px 0 0 0;
+
+    white-space: nowrap;
+
     overflow: hidden;
+
+    text-overflow: ellipsis;
+
     max-width: 120px;
 }
 
-.header-card-bottom .time-row {
+
+/* ==========================================
+   RIGHT MINI CARD
+   TIME
+========================================== */
+
+.header-card-bottom .time-mini-card {
+    width: 50%;
+    height: 100%;
+
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    width: 50%;
-    margin-left: 1%; /* تبدیلی 2: ٹائم کو دائیں سے ہٹا کر تقریباً 30% بائیں جانب لانے کے لیے */
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    border-radius: 9px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   TIME ROW
+========================================== */
+
+.header-card-bottom .time-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    margin: 0;
+
     font-size: 26px;
+
     font-weight: 700;
+
     color: var(--primary);
+
     letter-spacing: 1px;
 }
+
+
+/* ==========================================
+   LIVE TIME
+========================================== */
 
 #liveTimeDisplay {
     display: flex;
+
     flex-direction: column;
-    align-items: flex-end;
+
+    align-items: center;
+
     color: var(--primary);
+
     font-size: 24px;
+
     font-weight: 700;
+
     letter-spacing: 1px;
 }
 
-#liveTimeDisplay .ampm {
+
+/* ==========================================
+   AM / PM
+========================================== */
+
+.header-card-bottom .ampm-text {
     font-size: 11px;
     font-weight: 600;
-    color: var(--text);
-    margin-top: -2px;
+
+    color: var(--primary);
+
+    margin-left: 4px;
 }
+
 
 /* DATE CARD */
 .date-box {
