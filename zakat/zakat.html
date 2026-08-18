@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="theme-color"
+        content="#d4af37">
+
+    <title>Zakat Calculator - My Prayer</title>
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- ZAKAT CSS -->
+    <link
+        rel="stylesheet"
+        href="zakat.css">
+
+    <!-- EXISTING THEME -->
+    <link
+        rel="stylesheet"
+        href="../theme/theme.css">
+
+<script>
+(function () {
+    const savedTheme = localStorage.getItem("appTheme");
+
+    const themeColors = {
+        "gold": "#d4af37",
+        "royal-blue": "#1565c0",
+        "emerald": "#00897b",
+        "forest": "#1b5e20",
+        "navy": "#0d47a1",
+        "violet": "#7b1fa2",
+        "wine": "#880e4f",
+        "olive": "#33691e",
+        "ruby": "#c62828",
+        "orange": "#e65100",
+        "teal": "#00838f",
+        "pink": "#c2185b",
+        "sky": "#0288d1",
+        "lime": "#827717",
+        "copper": "#b87333",
+        "silver": "#9e9e9e",
+        "cyan": "#00bcd4",
+        "indigo": "#283593",
+        "brown": "#4e342e",
+        "crimson": "#dc143c",
+        "coral": "#ff6f61",
+        "peach": "#ffb74d",
+        "mint": "#4dd0e1",
+        "lavender": "#ba68c8",
+        "burgundy": "#800020",
+        "mustard": "#ffdb58",
+        "sage": "#8a9a5b",
+        "stone": "#607d8b",
+        "cobalt": "#0047ab",
+        "turquoise": "#00ced1",
+        "chocolate": "#d2691e",
+        "plum": "#8e4585",
+        "slate": "#708090",
+        "amber": "#ffbf00",
+        "fuchsia": "#ff00ff",
+        "aqua": "#00ffff",
+        "magenta": "#ff00a0",
+        "periwinkle": "#ccccff",
+        "jade": "#00a86b",
+        "sand": "#c2b280",
+        "rust": "#b7410e",
+        "charcoal": "#36454f",
+        "cream": "#fffdd0",
+        "rose-gold": "#b76e79",
+        "steel": "#4682b4",
+        "mahogany": "#c04000",
+        "cardinal": "#c41e3a",
+        "maroon": "#800000",
+        "chartreuse": "#7fff00",
+        "neon-blue": "#1f51ff"
+    };
+
+    if (savedTheme && themeColors[savedTheme]) {
+        document.documentElement.style.setProperty(
+            "--primary",
+            themeColors[savedTheme]
+        );
+    }
+})();
+</script>
+
+</head>
+
+<body>
+
+<div class="zakat-page">
+
+    <!-- ==========================
+         HEADER
+    ========================== -->
+
+    <header class="zakat-header">
+
+        <div class="zakat-header-icon">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+
+        <div>
+            <h1>Zakat Calculator</h1>
+
+            <p>
+                Calculate your Zakat easily and accurately
+            </p>
+        </div>
+
+
+    </header>
+
+
+    <!-- ==========================
+         LIVE RATE STATUS
+    ========================== -->
+
+    <section class="rate-status-card">
+
+        <div class="rate-status-left">
+
+            <i class="fa-solid fa-signal"></i>
+
+            <div>
+                <strong>Live Market Rates</strong>
+
+                <span id="rateStatus">
+                    Updating rates...
+                </span>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            id="refreshRatesBtn"
+            class="refresh-rate-btn">
+
+            <i class="fa-solid fa-rotate"></i>
+
+            Refresh
+
+        </button>
+
+    </section>
+
+
+    <!-- ==========================
+         LIVE METAL RATES
+    ========================== -->
+
+    <section class="metal-rates-card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-coins"></i>
+
+            <h2>Current Gold & Silver Rates</h2>
+
+        </div>
+
+
+        <div class="metal-rate-grid">
+
+            <!-- GOLD -->
+
+            <div class="metal-rate gold-rate">
+
+                <div class="metal-icon">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+
+                <div>
+
+                    <span>24K Gold</span>
+
+                    <strong id="goldRateDisplay">
+                        Loading...
+                    </strong>
+
+                    <small>
+                        per tola
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- SILVER -->
+
+            <div class="metal-rate silver-rate">
+
+                <div class="metal-icon">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+
+                <div>
+
+                    <span>Silver</span>
+
+                    <strong id="silverRateDisplay">
+                        Loading...
+                    </strong>
+
+                    <small>
+                        per tola
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="rate-updated">
+
+            <i class="fa-regular fa-clock"></i>
+
+            Last updated:
+
+            <span id="rateUpdated">
+                --
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================
+         MAIN CALCULATOR
+    ========================== -->
+
+    <main class="zakat-card">
+
+        <div class="calculator-title">
+
+            <div class="title-icon">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+
+            <div>
+
+                <h2>Your Zakatable Assets</h2>
+
+                <p>
+                    Enter your current values below
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             GOLD SECTION
+        ========================== -->
+
+        <div class="asset-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon gold">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+
+                <div>
+
+                    <h3>Gold</h3>
+
+                    <p>
+                        Enter your gold weight
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-row">
+
+                <div class="input-group">
+
+                    <label for="goldPurity">
+                        Gold Purity
+                    </label>
+
+                    <select id="goldPurity">
+
+                        <option value="24">
+                            24K Gold
+                        </option>
+
+                        <option value="22">
+                            22K Gold
+                        </option>
+
+                        <option value="21">
+                            21K Gold
+                        </option>
+
+                        <option value="18">
+                            18K Gold
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="goldWeight">
+                        Weight
+                    </label>
+
+                    <div class="input-with-unit">
+
+                        <input
+                            type="number"
+                            id="goldWeight"
+                            min="0"
+                            step="0.01"
+                            placeholder="0">
+
+                        <span>grams</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculated-value">
+
+                <span>
+                    Gold Value
+                </span>
+
+                <strong id="goldValue">
+                    Rs 0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             SILVER SECTION
+        ========================== -->
+
+        <div class="asset-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon silver">
+                    <i class="fa-solid fa-ring"></i>
+                </div>
+
+                <div>
+
+                    <h3>Silver</h3>
+
+                    <p>
+                        Enter your silver weight
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="silverWeight">
+                    Silver Weight
+                </label>
+
+                <div class="input-with-unit">
+
+                    <input
+                        type="number"
+                        id="silverWeight"
+                        min="0"
+                        step="0.01"
+                        placeholder="0">
+
+                    <span>grams</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculated-value">
+
+                <span>
+                    Silver Value
+                </span>
+
+                <strong id="silverValue">
+                    Rs 0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             CASH SECTION
+        ========================== -->
+
+        <div class="asset-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon cash">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+
+                <div>
+
+                    <h3>Cash & Bank</h3>
+
+                    <p>
+                        Money currently in your possession
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-row">
+
+                <div class="input-group">
+
+                    <label for="cashAmount">
+                        Cash
+                    </label>
+
+                    <div class="input-with-prefix">
+
+                        <span>Rs</span>
+
+                        <input
+                            type="number"
+                            id="cashAmount"
+                            min="0"
+                            step="1"
+                            placeholder="0">
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="bankAmount">
+                        Bank Balance
+                    </label>
+
+                    <div class="input-with-prefix">
+
+                        <span>Rs</span>
+
+                        <input
+                            type="number"
+                            id="bankAmount"
+                            min="0"
+                            step="1"
+                            placeholder="0">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             BUSINESS SECTION
+        ========================== -->
+
+        <div class="asset-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon business">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+
+                <div>
+
+                    <h3>Business Assets</h3>
+
+                    <p>
+                        Current value of Zakatable business stock
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="businessAmount">
+                    Business / Trading Stock
+                </label>
+
+                <div class="input-with-prefix">
+
+                    <span>Rs</span>
+
+                    <input
+                        type="number"
+                        id="businessAmount"
+                        min="0"
+                        step="1"
+                        placeholder="0">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             OTHER ASSETS
+        ========================== -->
+
+        <div class="asset-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon other">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <div>
+
+                    <h3>Other Zakatable Assets</h3>
+
+                    <p>
+                        Other eligible money/assets
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="otherAmount">
+                    Other Assets
+                </label>
+
+                <div class="input-with-prefix">
+
+                    <span>Rs</span>
+
+                    <input
+                        type="number"
+                        id="otherAmount"
+                        min="0"
+                        step="1"
+                        placeholder="0">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             LIABILITIES
+        ========================== -->
+
+        <div class="asset-section debt-section">
+
+            <div class="asset-heading">
+
+                <div class="asset-heading-icon debt">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+
+                <div>
+
+                    <h3>Liabilities / Debt</h3>
+
+                    <p>
+                        Eligible amount to deduct
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="debtAmount">
+                    Payable Debt
+                </label>
+
+                <div class="input-with-prefix">
+
+                    <span>Rs</span>
+
+                    <input
+                        type="number"
+                        id="debtAmount"
+                        min="0"
+                        step="1"
+                        placeholder="0">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             NISAB
+        ========================== -->
+
+        <div class="nisab-section">
+
+            <div class="nisab-heading">
+
+                <div>
+
+                    <h3>
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        Nisab
+                    </h3>
+
+                    <p>
+                        Select the Nisab basis
+                    </p>
+
+                </div>
+
+                <div class="nisab-toggle">
+
+                    <button
+                        type="button"
+                        class="nisab-btn active"
+                        data-nisab="silver">
+
+                        Silver
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="nisab-btn"
+                        data-nisab="gold">
+
+                        Gold
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="nisab-info">
+
+                <div>
+
+                    <span>
+                        Nisab Threshold
+                    </span>
+
+                    <strong id="nisabAmount">
+                        Rs 0
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong
+                        id="nisabStatus"
+                        class="status-pending">
+
+                        Enter your assets
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             RESULT
+        ========================== -->
+
+        <div class="result-section">
+
+            <div class="result-row">
+
+                <span>
+                    Total Assets
+                </span>
+
+                <strong id="totalAssets">
+                    Rs 0
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Less: Liabilities
+                </span>
+
+                <strong id="totalDebt">
+                    Rs 0
+                </strong>
+
+            </div>
+
+
+            <div class="result-row total-wealth">
+
+                <span>
+                    Zakatable Wealth
+                </span>
+
+                <strong id="zakatableWealth">
+                    Rs 0
+                </strong>
+
+            </div>
+
+
+            <div class="zakat-final">
+
+                <div class="zakat-final-icon">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Your Zakat Due
+                    </span>
+
+                    <strong id="zakatAmount">
+                        Rs 0
+                    </strong>
+
+                    <small>
+                        Zakat rate: 2.5%
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================
+             DISCLAIMER
+        ========================== -->
+
+        <div class="zakat-note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <p>
+                This calculator is a general calculation tool.
+                For personal Zakat matters, verify your assets,
+                debts and Nisab with a qualified scholar.
+            </p>
+
+        </div>
+
+    </main>
+
+<!-- ==========================
+     BOTTOM NAVIGATION
+========================== -->
+
+<nav class="zakat-bottom-nav">
+
+    <a href="../index.html" class="zakat-home-link">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+</nav>
+    <!-- ==========================
+         FOOTER
+    ========================== -->
+
+    <footer class="zakat-footer">
+
+        <p>
+            My Prayer • Zakat Calculator
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="zakat.js"></script>
+
+</body>
+
+</html>
