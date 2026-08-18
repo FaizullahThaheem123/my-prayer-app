@@ -7,6 +7,73 @@
     <title>My Prayer | Daily Duas</title>
     <link rel="stylesheet" href="duas.css">
     <link rel="stylesheet" href="../theme/theme.css">
+
+<script>
+(function () {
+    const savedTheme = localStorage.getItem("appTheme");
+
+    const themeColors = {
+        "gold": "#d4af37",
+        "royal-blue": "#1565c0",
+        "emerald": "#00897b",
+        "forest": "#1b5e20",
+        "navy": "#0d47a1",
+        "violet": "#7b1fa2",
+        "wine": "#880e4f",
+        "olive": "#33691e",
+        "ruby": "#c62828",
+        "orange": "#e65100",
+        "teal": "#00838f",
+        "pink": "#c2185b",
+        "sky": "#0288d1",
+        "lime": "#827717",
+        "copper": "#b87333",
+        "silver": "#9e9e9e",
+        "cyan": "#00bcd4",
+        "indigo": "#283593",
+        "brown": "#4e342e",
+        "crimson": "#dc143c",
+        "coral": "#ff6f61",
+        "peach": "#ffb74d",
+        "mint": "#4dd0e1",
+        "lavender": "#ba68c8",
+        "burgundy": "#800020",
+        "mustard": "#ffdb58",
+        "sage": "#8a9a5b",
+        "stone": "#607d8b",
+        "cobalt": "#0047ab",
+        "turquoise": "#00ced1",
+        "chocolate": "#d2691e",
+        "plum": "#8e4585",
+        "slate": "#708090",
+        "amber": "#ffbf00",
+        "fuchsia": "#ff00ff",
+        "aqua": "#00ffff",
+        "magenta": "#ff00a0",
+        "periwinkle": "#ccccff",
+        "jade": "#00a86b",
+        "sand": "#c2b280",
+        "rust": "#b7410e",
+        "charcoal": "#36454f",
+        "cream": "#fffdd0",
+        "rose-gold": "#b76e79",
+        "steel": "#4682b4",
+        "mahogany": "#c04000",
+        "cardinal": "#c41e3a",
+        "maroon": "#800000",
+        "chartreuse": "#7fff00",
+        "neon-blue": "#1f51ff"
+    };
+
+    if (savedTheme && themeColors[savedTheme]) {
+        document.documentElement.style.setProperty(
+            "--primary",
+            themeColors[savedTheme]
+        );
+    }
+})();
+</script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -24,7 +91,7 @@
             <div class="duas-header">
                 <!-- TITLE -->
                 <div class="duas-header-title">
-                    <h1>🤲 Daily Duas</h1>
+                    <h1> Daily Duas</h1>
                     <p>Read authentic daily duas</p>
                 </div>
 
@@ -154,6 +221,8 @@
     </nav>
     
      </div>
+
+
 
     <script src="duas.js"></script>
 <script src="../theme/theme.js"></script>
