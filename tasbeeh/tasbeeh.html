@@ -72,9 +72,6 @@
 })();
 </script>
 
-<script src="tasbeeh.js"></script>
-<script src="../theme/theme.js"></script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
@@ -212,27 +209,90 @@
         </div>
     </section>
 
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-        <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
-        <div class="more-nav">
-            <button type="button" class="more-nav-btn active" id="moreNavBtn">
-                <i class="fa-solid fa-ellipsis"></i><span>More</span>
+</div> <!-- ===== یہاں مین کنٹینر بند ہوتا ہے، اس کے بعد Nav شروع ہوتا ہے ===== -->
+
+<!-- ======================================
+     BOTTOM NAVIGATION (کنٹینر سے باہر)
+====================================== -->
+
+<nav class="bottom-nav">
+
+    <!-- HOME -->
+    <a href="../index.html" class="nav-home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+
+    <!-- MORE -->
+    <div class="more-nav">
+
+        <button
+            type="button"
+            class="more-nav-btn active"
+            id="moreNavBtn">
+
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>More</span>
+
+        </button>
+
+
+        <div class="more-menu" id="moreMenu">
+
+            <a href="../quran/quran.html">
+                <i class="fa-solid fa-book-quran"></i>
+                <span>Quran</span>
+            </a>
+
+            <a href="../dua/duas.html">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>Duas</span>
+            </a>
+
+            <a href="../names/names.html">
+                <i class="fa-solid fa-star-and-crescent"></i>
+                <span>99 Names</span>
+            </a>
+
+            <a href="../tasbeeh/tasbeeh.html">
+                <i class="fa-solid fa-ring"></i>
+                <span>Tasbeeh</span>
+            </a>
+
+            <a href="../campus/campus.html">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Campus</span>
+            </a>
+
+            <a href="../masjid/masjid.html">
+                <i class="fa-solid fa-mosque"></i>
+                <span>Masjid</span>
+            </a>
+
+            <!-- CALENDAR -->
+            <a href="../calendar/calendar.html" class="active">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Calendar</span>
+            </a>
+
+            <!-- SETTINGS -->
+            <button
+                type="button"
+                id="settingsBtn">
+
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+
             </button>
-            <div class="more-menu" id="moreMenu">
-                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
-                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-                <a href="tasbeeh.html" class="active"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-                <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
-                <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
-            </div>
+
         </div>
-    </nav>
 
-</div>
+    </div>
 
+</nav>
+
+<!-- اسکرپٹس کنٹینر سے بالکل باہر، آخر میں -->
 <script src="tasbeeh.js"></script>
 <script src="../theme/theme.js"></script>
 </body>

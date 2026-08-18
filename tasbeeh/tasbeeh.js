@@ -274,25 +274,45 @@ resetAllBtn.addEventListener("click", ()=>{
 // ======================================
 // MORE MENU LOGIC
 // ======================================
-moreNavBtn.addEventListener("click", (event)=>{
-    event.stopPropagation();
-    moreMenu.classList.toggle("show");
-});
 
-document.addEventListener("click", ()=>{
-    moreMenu.classList.remove("show");
-});
-document.addEventListener("touchstart", (event)=>{
-    if(!moreMenu.contains(event.target) && !moreNavBtn.contains(event.target)){
-        moreMenu.classList.remove("show");
-    }
-}, { passive: true });
+if (moreNavBtn && moreMenu) {
 
-if(settingsBtn){
-    settingsBtn.addEventListener("click", ()=>{
-        moreMenu.classList.remove("show");
-        alert("Settings will be available in the next update.");
+    moreNavBtn.addEventListener("click", function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        moreMenu.classList.toggle("show");
+
     });
+
+    moreMenu.addEventListener("click", function(event) {
+
+        event.stopPropagation();
+
+    });
+
+    document.addEventListener("click", function() {
+
+        moreMenu.classList.remove("show");
+
+    });
+
+}
+
+if (settingsBtn) {
+
+    settingsBtn.addEventListener("click", function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        moreMenu.classList.remove("show");
+
+        alert("Settings will be available in the next update.");
+
+    });
+
 }
 
 // ======================================
