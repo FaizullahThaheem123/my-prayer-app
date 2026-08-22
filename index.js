@@ -24,22 +24,36 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function updateClock(){
+
     const now = new Date();
-    // 12 گھنٹے کا وقت لیکن بغیر AM/PM کے (صرف 11:50:10) نکالے گا
-    const timeStr = now.toLocaleTimeString([], { 
-        hour: "2-digit", 
-        minute: "2-digit", 
-        second: "2-digit", 
-        hour12: false 
-    });
-    
-    // وقت کو اسپین میں ڈالیں
+
+    let hours = now.getHours();
+
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+
+    if(hours === 0){
+        hours = 12;
+    }
+
+    const timeStr =
+        String(hours).padStart(2, "0") +
+        ":" +
+        minutes +
+        ":" +
+        seconds;
+
+    // Time display
     document.getElementById("liveTimeDisplay").textContent = timeStr;
 
-    // AM یا PM کو الگ سے سیٹ کریں
-    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    // AM / PM separate display
     document.querySelector(".ampm-text").textContent = ampm;
 }
+
 
 function loadTodayDate(){
     const today = new Date();
@@ -67,38 +81,246 @@ function detectLocation(){
 }
 
 async function getPrayerTimes(latitude, longitude){
-    try{
-        const response = await fetch(`https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`);
-        const result = await response.json();
-        prayerTimes = result.data.timings;
-        try{
-            const locRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`);
-            const locData = await locRes.json();
-            const address = locData.address || {};
-            const name = address.village || address.town || address.city || address.county || "Adilpur, Ghotki";
-            locationName.innerHTML = "📍 " + name;
-        } catch{ locationName.innerHTML = "📍 Adilpur, Ghotki"; }
 
-        islamicDate.innerHTML = result.data.date.hijri.weekday.en + ", " + result.data.date.hijri.day + " " + result.data.date.hijri.month.en + " " + result.data.date.hijri.year + " AH";
-        showPrayerTimes(); calculateNextPrayer();
+    try{
+
+        /* ======================================
+           SAVE HOME LIVE LOCATION
+           MASJID PAGE WILL USE THE SAME LOCATION
+        ====================================== */
+
+        localStorage.setItem(
+            "userLatitude",
+            String(latitude)
+        );
+
+        localStorage.setItem(
+            "userLongitude",
+            String(longitude)
+        );
+
+
+        /* ======================================
+           GET PRAYER TIMES
+        ====================================== */
+
+        const response =
+            await fetch(
+                `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`
+            );
+
+
+        const result =
+            await response.json();
+
+
+        prayerTimes =
+            result.data.timings;
+
+
+        /* ======================================
+           GET LOCATION NAME
+        ====================================== */
+
+        try{
+
+            const locRes =
+                await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+                );
+
+
+            const locData =
+                await locRes.json();
+
+
+            const address =
+                locData.address || {};
+
+
+            const name =
+                address.village ||
+                address.town ||
+                address.city ||
+                address.municipality ||
+                address.county ||
+                "Adilpur, Ghotki";
+
+
+            locationName.innerHTML =
+                "📍 " + name;
+
+
+            /* SAVE SAME LOCATION NAME */
+
+            localStorage.setItem(
+                "userLocationName",
+                name
+            );
+
+
+        }catch(error){
+
+            console.log(
+                "Location name error:",
+                error
+            );
+
+
+            locationName.innerHTML =
+                "📍 Adilpur, Ghotki";
+
+
+            localStorage.setItem(
+                "userLocationName",
+                "Adilpur, Ghotki"
+            );
+
+        }
+
+
+      /* ======================================
+   SAVE LIVE MAGHRIB
+====================================== */
+
+if(
+    result.data.timings &&
+    result.data.timings.Maghrib
+){
+
+    localStorage.setItem(
+        "liveMaghribAzan",
+        result.data.timings.Maghrib
+    );
+
+    /* ======================================
+       AUTO MAGHRIB JAMAAT
+       MAGHRIB AZAN + 3 MINUTES
+    ====================================== */
+
+    const parts = result.data.timings.Maghrib.split(":");
+
+    let hours = parseInt(parts[0]);
+    let minutes = parseInt(parts[1]);
+
+    minutes += 3;
+
+    if(minutes >= 60){
+        minutes -= 60;
+        hours += 1;
     }
-    catch(error){ console.log(error); }
+
+    if(hours >= 24){
+        hours = 0;
+    }
+
+    const autoMaghribJamaat =
+        String(hours).padStart(2,"0") +
+        ":" +
+        String(minutes).padStart(2,"0");
+
+    jamaatTimes["Maghrib"] = autoMaghribJamaat;
+
+    localStorage.setItem(
+        "jamaatTimes",
+        JSON.stringify(jamaatTimes)
+    );
+
+    updateJamaatUI();
+}
+
+        /* ======================================
+           ISLAMIC DATE
+        ====================================== */
+
+        islamicDate.innerHTML =
+            result.data.date.hijri.weekday.en +
+            ", " +
+            result.data.date.hijri.day +
+            " " +
+            result.data.date.hijri.month.en +
+            " " +
+            result.data.date.hijri.year +
+            " AH";
+
+
+        /* ======================================
+           UPDATE PRAYER UI
+        ====================================== */
+
+        showPrayerTimes();
+
+        calculateNextPrayer();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Prayer Times Error:",
+            error
+        );
+
+    }
+
 }
 
 function showPrayerTimes(){
+
     function formatPrayerTime(time){
+
         if(!time) return "--:--";
+
         const parts = time.split(":");
-        let hours = parseInt(parts[0]); const minutes = parts[1];
+
+        let hours = parseInt(parts[0]);
+        const minutes = parts[1];
+
         const ampm = hours >= 12 ? "PM" : "AM";
-        hours = hours % 12; if(hours === 0){ hours = 12; }
-        return String(hours).padStart(2,"0") + ":" + minutes + " " + ampm;
+
+        hours = hours % 12;
+
+        if(hours === 0){
+            hours = 12;
+        }
+
+        return String(hours).padStart(2,"0") +
+               ":" +
+               minutes +
+               " " +
+               ampm;
     }
-    document.getElementById("fajr").innerHTML = formatPrayerTime(prayerTimes.Fajr);
-    document.getElementById("dhuhr").innerHTML = formatPrayerTime(prayerTimes.Dhuhr);
-    document.getElementById("asr").innerHTML = formatPrayerTime(prayerTimes.Asr);
-    document.getElementById("maghrib").innerHTML = formatPrayerTime(prayerTimes.Maghrib);
-    document.getElementById("isha").innerHTML = formatPrayerTime(prayerTimes.Isha);
+
+
+    document.getElementById("fajr").innerHTML =
+        formatPrayerTime(prayerTimes.Fajr);
+
+    document.getElementById("dhuhr").innerHTML =
+        formatPrayerTime(prayerTimes.Dhuhr);
+
+    document.getElementById("asr").innerHTML =
+        formatPrayerTime(prayerTimes.Asr);
+
+    document.getElementById("maghrib").innerHTML =
+        formatPrayerTime(prayerTimes.Maghrib);
+
+    document.getElementById("isha").innerHTML =
+        formatPrayerTime(prayerTimes.Isha);
+
+
+    /* ======================================
+       SAVE LIVE MAGHRIB AZAN FOR MASJID PAGE
+    ====================================== */
+
+    if(prayerTimes.Maghrib){
+
+        localStorage.setItem(
+            "liveMaghribAzan",
+            prayerTimes.Maghrib
+        );
+
+    }
+
 }
 
 function calculateNextPrayer(){
