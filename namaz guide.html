@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ur" class="notranslate" translate="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#072418">
+  <title>Namaz Guide - Step by Step Namaz Seekhein (Roman Urdu)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="namaz guide.css">
+</head>
+<body class="notranslate" translate="no">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <div class="logo">🕌</div>
+        <div>
+          <h1>Namaz Guide</h1>
+          <span>Mukammal Namaz Guide (Roman Urdu + Audio)</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="offlineDownloadBtn" class="offline-btn">⬇ Offline Save Karein</button>
+        <button id="themeToggle" class="icon-btn" title="Toggle Theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="container">
+    
+    <!-- HERO BANNER -->
+    <section class="hero-card">
+      <div class="hero-text">
+        <span class="badge">Assalamu Alaikum Wa Rahmatullah</span>
+        <h2>Namaz Ko <strong>Step by Step</strong> Aasani Se Seekhein</h2>
+        <p>Wudu, 5 Waqt Ki Namazein, Dua-e-Qunoot, Janazah, Eid Aur Zaruri Masail Ki Roman Urdu Guide.</p>
+        <div class="hero-btns">
+          <button onclick="switchTab('steps')" class="start-btn">🧎 Namaz Seekhna Shuru Karein</button>
+          <button onclick="switchTab('duas')" class="outline-btn">🤲 Masnoon Duas</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('steps')">🧎 Namaz Ke Steps</button>
+      <button class="tab-btn" onclick="switchTab('prayers')">⏰ 5 Waqt Ki Namaz</button>
+      <button class="tab-btn" onclick="switchTab('wudu')">💧 Wudu Ka Tareeqa</button>
+      <button class="tab-btn" onclick="switchTab('duas')">🤲 Duas & Azkar</button>
+      <button class="tab-btn" onclick="switchTab('special')">🌙 Khas Namazein</button>
+      <button class="tab-btn" onclick="switchTab('masail')">📖 Zaruri Masail</button>
+    </nav>
+
+    <!-- TAB 1: STEPS -->
+    <section id="tab-steps" class="tab-content active">
+      <div class="section-title">
+        <h3>Namaz Ke Mukammal Steps (Takbeer Se Salam Tak)</h3>
+        <p>Kisi bhi step par click karke Arabic, Roman Urdu pronunciation aur Tarjuma check karein.</p>
+      </div>
+      <div class="steps-grid" id="stepsContainer"></div>
+    </section>
+
+    <!-- TAB 2: 5 DAILY PRAYERS -->
+    <section id="tab-prayers" class="tab-content">
+      <div class="section-title">
+        <h3>5 Waqt Ki Namazein Aur Unki Rakats Ki Detail</h3>
+      </div>
+      <div class="prayers-grid" id="prayersContainer"></div>
+    </section>
+
+    <!-- TAB 3: WUDU -->
+    <section id="tab-wudu" class="tab-content">
+      <div class="section-title">
+        <h3>Wudu Ka Masnoon Tareeqa (Farz Aur Sunnat)</h3>
+      </div>
+      <div class="wudu-grid" id="wuduContainer"></div>
+    </section>
+
+    <!-- TAB 4: DUAS -->
+    <section id="tab-duas" class="tab-content">
+      <div class="section-title">
+        <h3>Masnoon Duayein Aur Namaz Ke Azkar</h3>
+      </div>
+      <div class="duas-grid" id="duasContainer"></div>
+    </section>
+
+    <!-- TAB 5: SPECIAL PRAYERS -->
+    <section id="tab-special" class="tab-content">
+      <div class="section-title">
+        <h3>Janazah, Eid, Tahajjud Aur Witr Ka Tareeqa</h3>
+      </div>
+      <div class="special-grid" id="specialContainer"></div>
+    </section>
+
+    <!-- TAB 6: MASAIL -->
+    <section id="tab-masail" class="tab-content">
+      <div class="section-title">
+        <h3>Namaz Aur Taharat Ke Zaroori Masail</h3>
+      </div>
+      <div class="masail-grid" id="masailContainer"></div>
+    </section>
+
+  </main>
+
+  <!-- AUDIO PLAYER MODAL -->
+  <div id="audioModal" class="modal">
+    <div class="modal-card">
+      <button class="close-modal" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <span id="modalIcon" class="modal-icon">🧎</span>
+        <div>
+          <h4 id="modalTitle">Step Title</h4>
+          <span id="modalUrduTitle">Namaz Ki Niyyah</span>
+        </div>
+      </div>
+      <div class="arabic-box" id="modalArabic"></div>
+      <div class="transliteration-box" id="modalTransliteration"></div>
+      <div class="meaning-box">
+        <strong>Tarjuma & Explanation:</strong>
+        <p id="modalMeaning"></p>
+      </div>
+      <div class="audio-controls">
+        <button id="modalPlayBtn" class="play-btn">▶ Audio Suniye</button>
+        <span id="audioStatus">Arabic pronunciation aur recitation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">Offline Save Ho Gaya!</div>
+
+   <!-- ============================== -->
+  <!-- BOTTOM NAVIGATION (FIXED)     -->
+  <!-- ============================== -->
+  <nav class="bottom-nav">
+    <!-- صرف HOME باہر ہے (اب یہ درست ہے) -->
+    <a href="../index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+
+    <!-- MORE کے اندر باقی سب (Grid Style) -->
+    <div class="more-nav">
+      <button type="button" class="more-nav-btn" id="moreNavBtn">
+        <i class="fa-solid fa-grid-2"></i>
+        <span>More</span>
+      </button>
+      <div class="more-menu more-grid-menu" id="moreMenu">
+        
+        <a href="../quran/quran.html">
+          <i class="fa-solid fa-book-quran"></i>
+          <span>Quran</span>
+        </a>
+
+        <a href="../dua/duas.html">
+          <i class="fa-solid fa-hands-praying"></i>
+          <span>Duas</span>
+        </a>
+
+        <a href="../names/names.html">
+          <i class="fa-solid fa-star-and-crescent"></i>
+          <span>99 Names</span>
+        </a>
+
+        <a href="../tasbeeh/tasbeeh.html">
+          <i class="fa-solid fa-ring"></i>
+          <span>Tasbeeh</span>
+        </a>
+
+        <a href="../campus/campus.html">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Campus</span>
+        </a>
+
+        <a href="../masjid/masjid.html">
+          <i class="fa-solid fa-mosque"></i>
+          <span>Masjid</span>
+        </a>
+
+        <a href="../theme/theme.html">
+          <i class="fa-solid fa-palette"></i>
+          <span>Themes</span>
+        </a>
+
+        <a href="../calendar/calendar.html">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Calendar</span>
+        </a>
+
+        <a href="../age/age.html">
+          <i class="fa-solid fa-cake-candles"></i>
+          <span>Age</span>
+        </a>
+
+        <a href="../zakat/zakat.html">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <span>Zakat</span>
+        </a>
+
+        <!-- یہ خود Namaz Guide ہے (Active) -->
+        <a href="#" class="active">
+          <i class="fa-solid fa-person-praying"></i>
+          <span>Namaz Guide</span>
+        </a>
+
+        <button type="button" id="settingsBtn">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </button>
+
+        <div class="version-text" style="text-align:center; font-size:10px; color:var(--text-muted); padding:8px 0 0; opacity:0.6;">
+          My Prayer v1.0.0
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FontAwesome Icons (for bottom nav) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script src="namaz guide.js"></script>
+</body>
+</html>
