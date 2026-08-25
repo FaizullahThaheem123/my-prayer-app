@@ -13,10 +13,6 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- ============ تھیم لنک ============ -->
-  <link rel="stylesheet" href="../theme/theme.css">
-  <!-- ================================= -->
-  
   <!-- CSS Stylesheet Link -->
   <link rel="stylesheet" href="quran.css">
 </head>
@@ -354,41 +350,36 @@
       <button id="btn-player-close" class="btn-ctrl-close"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-   <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a href="../index.html" class="nav-home">
-    <i class="fa-solid fa-house"></i>
-    <span>Home</span>
-  </a>
-  <div class="more-nav">
-    <button type="button" class="more-nav-btn" id="moreNavBtn">
-      <i class="fa-solid fa-ellipsis"></i>
-      <span>More</span>
-    </button>
-    <div class="more-menu" id="moreMenu">
-      <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-      <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-      <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-      <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-      <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
-      <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-      <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-      <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <a href="../index.html" class="nav-home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <div class="more-nav">
+        <button type="button" class="more-nav-btn" id="moreNavBtn">
+          <i class="fa-solid fa-ellipsis"></i>
+          <span>More</span>
+        </button>
+        <div class="more-menu" id="moreMenu">
+          <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+          <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+          <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+          <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+          <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+          <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+          <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
+          <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- TOAST -->
+    <div id="toast-popup" class="toast-popup hidden">
+      <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+      <span id="toast-message">Notification</span>
     </div>
-  </div>
-</nav>
 
-  <!-- TOAST -->
-  <div id="toast-popup" class="toast-popup hidden">
-    <i class="fa-solid fa-circle-check" id="toast-icon"></i>
-    <span id="toast-message">Notification</span>
-  </div>
-
-  <!-- ============ تھیم اسکرپٹ ============ -->
-  <script src="../theme/theme.js"></script>
-  <!-- ====================================== -->
-
-  <!-- JAVASCRIPT LOGIC -->
-  <script src="quran.js"></script>
-</body>
+    <script src="quran.js"></script>
+  </body>
 </html>

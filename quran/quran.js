@@ -1,8 +1,6 @@
 /**
  * ============================================================================
- * القرآن الكريم — HOLY QURAN COMPLETE ENGINE (script.js)
- * Standalone Engine with 114 Surahs, 30 Paras, 8 Famous Qaris,
- * Complete Offline Downloads & Audio Streaming.
+ * القرآن الكريم — HOLY QURAN COMPLETE ENGINE
  * ============================================================================
  */
 
@@ -95,7 +93,7 @@
     { number: 82, englishName: "Al-Infitar", name: "الانْفِطَار", englishNameTranslation: "The Cleaving", numberOfAyahs: 19, revelationType: "meccan", urduName: "الانفطار", startJuz: 30, rukuCount: 1 },
     { number: 83, englishName: "Al-Mutaffifin", name: "المُطَفِّفِين", englishNameTranslation: "Defrauding", numberOfAyahs: 36, revelationType: "meccan", urduName: "المطففین", startJuz: 30, rukuCount: 1 },
     { number: 84, englishName: "Al-Inshiqaq", name: "الانْشِقَاق", englishNameTranslation: "The Splitting Open", numberOfAyahs: 25, revelationType: "meccan", urduName: "الانشقاق", startJuz: 30, rukuCount: 1 },
-    { number: 85, englishName: "Al-Buruj", name: "param", englishNameTranslation: "The Constellations", numberOfAyahs: 22, revelationType: "meccan", urduName: "البروج", startJuz: 30, rukuCount: 1 },
+    { number: 85, englishName: "Al-Buruj", name: "البروج", englishNameTranslation: "The Constellations", numberOfAyahs: 22, revelationType: "meccan", urduName: "البروج", startJuz: 30, rukuCount: 1 },
     { number: 86, englishName: "At-Tariq", name: "الطَّارِق", englishNameTranslation: "The Morning Star", numberOfAyahs: 17, revelationType: "meccan", urduName: "الطارق", startJuz: 30, rukuCount: 1 },
     { number: 87, englishName: "Al-A'la", name: "الأَعْلَى", englishNameTranslation: "The Most High", numberOfAyahs: 19, revelationType: "meccan", urduName: "الاعلیٰ", startJuz: 30, rukuCount: 1 },
     { number: 88, englishName: "Al-Ghashiyah", name: "الغَاشِيَة", englishNameTranslation: "The Overwhelming Event", numberOfAyahs: 26, revelationType: "meccan", urduName: "الغاشیہ", startJuz: 30, rukuCount: 1 },
@@ -111,7 +109,7 @@
     { number: 98, englishName: "Al-Bayyinah", name: "البَيِّنَة", englishNameTranslation: "The Clear Proof", numberOfAyahs: 8, revelationType: "medinan", urduName: "البینہ", startJuz: 30, rukuCount: 1 },
     { number: 99, englishName: "Az-Zalzalah", name: "الزَّلْزَلَة", englishNameTranslation: "The Earthquake", numberOfAyahs: 8, revelationType: "medinan", urduName: "الزلزلہ", startJuz: 30, rukuCount: 1 },
     { number: 100, englishName: "Al-Adiyat", name: "العَادِيَات", englishNameTranslation: "The Courser", numberOfAyahs: 11, revelationType: "meccan", urduName: "العادیات", startJuz: 30, rukuCount: 1 },
-    { number: 101, englishName: "Al-Qari'ah", name: "القَارِعَة", englishNameTranslation: "The Calamity", numberOfAyahs: 11, revelationType: "meccan", urduName: "القارaction", startJuz: 30, rukuCount: 1 },
+    { number: 101, englishName: "Al-Qari'ah", name: "القَارِعَة", englishNameTranslation: "The Calamity", numberOfAyahs: 11, revelationType: "meccan", urduName: "القارعة", startJuz: 30, rukuCount: 1 },
     { number: 102, englishName: "At-Takathur", name: "التَّكَاثُر", englishNameTranslation: "The Rivalry in World Increase", numberOfAyahs: 8, revelationType: "meccan", urduName: "التکاثر", startJuz: 30, rukuCount: 1 },
     { number: 103, englishName: "Al-Asr", name: "العَصْر", englishNameTranslation: "The Declining Day", numberOfAyahs: 3, revelationType: "meccan", urduName: "العصر", startJuz: 30, rukuCount: 1 },
     { number: 104, englishName: "Al-Humazah", name: "الهُمَزَة", englishNameTranslation: "The Traducer", numberOfAyahs: 9, revelationType: "meccan", urduName: "الہمزہ", startJuz: 30, rukuCount: 1 },
@@ -127,7 +125,7 @@
     { number: 114, englishName: "An-Nas", name: "النَّاس", englishNameTranslation: "Mankind", numberOfAyahs: 6, revelationType: "meccan", urduName: "الناس", startJuz: 30, rukuCount: 1 }
   ];
 
-  // --- 2. CORE DATA: 30 PARAS (JUZ) ---
+  // --- 2. 30 PARAS ---
   const PARAS_LIST = [
     { number: 1, name: "الم", englishName: "Alif Lam Meem", urduName: "الم", startSurahNumber: 1, startSurahName: "Al-Fatihah", startAyah: 1 },
     { number: 2, name: "سَيَقُولُ", englishName: "Sayaqool", urduName: "سیقول", startSurahNumber: 2, startSurahName: "Al-Baqarah", startAyah: 142 },
@@ -161,19 +159,19 @@
     { number: 30, name: "عَمَّ", englishName: "Amma Yatasa'aloon", urduName: "عم یتساءلون", startSurahNumber: 78, startSurahName: "An-Naba", startAyah: 1 }
   ];
 
-  // --- 3. 8 FAMOUS QARIS LIST ---
+  // --- 3. QARIS LIST ---
   const QARIS_LIST = [
-    { id: "ar.alafasy", name: "Mishary Rashid Alafasy", arabic: "مشاري راشد العفاسي", sub: "Most Popular World Reciter" },
-    { id: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais", arabic: "عبدالرحمن السديس", sub: "Imam of Masjid al-Haram Makkah" },
-    { id: "ar.husary", name: "Mahmoud Khalil Al-Husary", arabic: "محمود خليل الحصري", sub: "Master of Tajweed Rules" },
-    { id: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", arabic: "محمد صديق المنشاوي", sub: "Soulful Egyptian Master" },
-    { id: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", arabic: "ماهر المعيقلي", sub: "Imam of Masjid al-Haram" },
-    { id: "ar.abdulbasitmujawwad", name: "Abdul Basit Abdul Samad", arabic: "عبدالباسط عبدالصمد", sub: "Legendary Mujawwad Style" },
-    { id: "ar.saoodshuraym", name: "Sa'ud Ash-Shuraym", arabic: "سعود الشريم", sub: "Former Imam of Haram" },
-    { id: "ar.ahmedajamy", name: "Ahmed Al-Ajamy", arabic: "أحمد بن علي العجمي", sub: "Deep Resonant Voice" }
+    { id: "ar.alafasy", name: "Mishary Rashid Alafasy", arabic: "مشاري راشد العفاسي" },
+    { id: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais", arabic: "عبدالرحمن السديس" },
+    { id: "ar.husary", name: "Mahmoud Khalil Al-Husary", arabic: "محمود خليل الحصري" },
+    { id: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", arabic: "محمد صديق المنشاوي" },
+    { id: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", arabic: "ماهر المعيقلي" },
+    { id: "ar.abdulbasitmujawwad", name: "Abdul Basit Abdul Samad", arabic: "عبدالباسط عبدالصمد" },
+    { id: "ar.saoodshuraym", name: "Sa'ud Ash-Shuraym", arabic: "سعود الشريم" },
+    { id: "ar.ahmedajamy", name: "Ahmed Al-Ajamy", arabic: "أحمد بن علي العجمي" }
   ];
 
-  // --- 4. APP STATE ---
+  // --- 4. STATE ---
   const state = {
     currentView: "home",
     history: ["home"],
@@ -188,17 +186,16 @@
     theme: "light",
     bookmarks: [],
     lastRead: { surah: 1, ayah: 1, name: "Al-Fatihah", arName: "الفَاتِحَة" },
-    // Audio Player State
     isPlaying: false,
     audioInstance: new Audio(),
-    currentPlayingSurah: null,
     currentPlayingAyahIndex: 0,
     playbackSpeed: 1.0,
     isDownloadingText: false,
-    isDownloadingAudio: false
+    isDownloadingAudio: false,
+    audioCache: {}
   };
 
-  // --- 5. INITIALIZATION ---
+  // --- 5. INIT ---
   function init() {
     loadSettings();
     renderSurahsGrid(SURAHS_LIST);
@@ -207,8 +204,7 @@
     renderBookmarks();
     updateLastReadUI();
     setupEventListeners();
-    
-    // *** یہاں ڈاؤن لوڈ بٹنوں کے ایونٹ لسینرز لگے ہیں (اب یہ درست کام کریں گے) ***
+
     document.getElementById("btn-download-all-text")?.addEventListener("click", downloadAllQuranText);
     document.getElementById("btn-download-all-audio")?.addEventListener("click", downloadAllQuranAudio);
   }
@@ -217,20 +213,16 @@
     try {
       const savedTheme = localStorage.getItem("quran_theme") || "light";
       setTheme(savedTheme);
-
       const savedQari = localStorage.getItem("quran_qari") || "ar.alafasy";
       state.selectedQari = savedQari;
-
       const savedFontSize = localStorage.getItem("quran_font_size");
       if (savedFontSize) {
         state.fontSize = parseInt(savedFontSize);
         document.getElementById("range-font-size").value = state.fontSize;
         document.getElementById("font-size-label").innerText = state.fontSize + "px";
       }
-
       const savedBookmarks = localStorage.getItem("quran_bookmarks");
       if (savedBookmarks) state.bookmarks = JSON.parse(savedBookmarks);
-
       const savedLastRead = localStorage.getItem("quran_last_read");
       if (savedLastRead) state.lastRead = JSON.parse(savedLastRead);
     } catch (e) {
@@ -250,49 +242,36 @@
     }
   }
 
-  // --- 6. NAVIGATION & VIEWS ---
+  // --- 6. NAVIGATION ---
   function navigate(viewName) {
     state.currentView = viewName;
     state.history.push(viewName);
-
-    // Update screen views
     document.querySelectorAll(".view-screen").forEach(el => el.classList.remove("active"));
     const target = document.getElementById("view-" + viewName);
     if (target) target.classList.add("active");
-
-    // Update bottom nav
-    document.querySelectorAll(".bottom-nav .tab-item").forEach(el => el.classList.remove("active"));
-    const navBtn = Array.from(document.querySelectorAll(".bottom-nav .tab-item")).find(btn => 
-      btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(viewName)
-    );
-    if (navBtn) navBtn.classList.add("active");
-
-    // Show/hide top back button
     const backBtn = document.getElementById("btn-back");
     if (viewName === "home") {
       backBtn.classList.add("hidden");
     } else {
       backBtn.classList.remove("hidden");
     }
-
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function goBack() {
     if (state.history.length > 1) {
-      state.history.pop(); // pop current
-      const prev = state.history.pop(); // get previous
+      state.history.pop();
+      const prev = state.history.pop();
       navigate(prev || "home");
     } else {
       navigate("home");
     }
   }
 
-  // --- 7. RENDER SURAHS & PARAS ---
+  // --- 7. RENDER ---
   function renderSurahsGrid(list) {
     const grid = document.getElementById("surahs-grid");
     if (!grid) return;
-
     grid.innerHTML = list.map(s => `
       <div class="surah-card" onclick="quranApp.openSurah(${s.number})">
         <div class="surah-card-left">
@@ -313,7 +292,6 @@
   function renderParasGrid(list) {
     const grid = document.getElementById("paras-grid");
     if (!grid) return;
-
     grid.innerHTML = list.map(p => `
       <div class="para-card" onclick="quranApp.openPara(${p.number})">
         <div class="surah-card-left">
@@ -342,27 +320,20 @@
     });
   }
 
-  // --- 8. OPEN SURAH & LOAD VERSES ---
+  // --- 8. SURAH LOADING ---
   async function openSurah(surahNumber) {
     state.selectedSurah = surahNumber;
-    state.selectedJuz = null;
     const surah = SURAHS_LIST.find(s => s.number === surahNumber);
-
     document.getElementById("reader-title").innerText = `${surah.number}. Surah ${surah.englishName} (${surah.name})`;
     document.getElementById("reader-meta").innerText = `${surah.urduName} • ${surah.numberOfAyahs} Ayahs • ${surah.revelationType.toUpperCase()} • Juz ${surah.startJuz}`;
-
-    // Hide Bismillah for Surah 9 (At-Tawbah)
     const bismillahBox = document.getElementById("reader-bismillah-box");
     if (surahNumber === 9 || surahNumber === 1) {
       bismillahBox.classList.add("hidden");
     } else {
       bismillahBox.classList.remove("hidden");
     }
-
     navigate("reader");
     await fetchAndRenderSurah(surahNumber);
-
-    // Save Last Read
     state.lastRead = {
       surah: surah.number,
       ayah: 1,
@@ -383,46 +354,30 @@
 
   async function fetchAndRenderSurah(surahNumber) {
     const container = document.getElementById("ayahs-list-container");
-    container.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:var(--primary-600);"></i><p style="margin-top:10px; color:var(--text-muted);">Loading Surah Verses & Translations...</p></div>`;
-
+    container.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size:32px;"></i><p>Loading Surah...</p></div>`;
     try {
-      // 1. Fetch Arabic, Urdu & English
       const [resArabic, resUrdu, resEnglish] = await Promise.all([
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`).then(r => r.json()),
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ur.jalandhry`).then(r => r.json()),
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`).then(r => r.json())
       ]);
-
-      const arabicAyahs = resArabic.data.ayahs;
-      const urduAyahs = resUrdu.data.ayahs;
-      const englishAyahs = resEnglish.data.ayahs;
-
-      state.ayahsData = arabicAyahs.map((ayah, i) => ({
+      state.ayahsData = resArabic.data.ayahs.map((ayah, i) => ({
         number: ayah.number,
         numberInSurah: ayah.numberInSurah,
         text: ayah.text,
-        urdu: urduAyahs[i] ? urduAyahs[i].text : "",
-        english: englishAyahs[i] ? englishAyahs[i].text : "",
-        audio: `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3`
+        urdu: resUrdu.data.ayahs[i] ? resUrdu.data.ayahs[i].text : "",
+        english: resEnglish.data.ayahs[i] ? resEnglish.data.ayahs[i].text : ""
       }));
-
       renderAyahs();
     } catch (err) {
       console.error(err);
-      container.innerHTML = `
-        <div style="text-align:center; padding:40px; color:var(--rose-500);">
-          <i class="fa-solid fa-triangle-exclamation" style="font-size:32px;"></i>
-          <p style="margin-top:10px;">Failed to load online. Check your internet or download offline pack.</p>
-          <button class="btn-primary" onclick="quranApp.openSurah(${surahNumber})" style="margin-top:12px;">Retry</button>
-        </div>
-      `;
+      container.innerHTML = `<div style="text-align:center; padding:40px; color:#e11d48;"><p>Failed to load. Please check internet.</p><button class="btn-primary" onclick="quranApp.openSurah(${surahNumber})" style="margin-top:12px;">Retry</button></div>`;
     }
   }
 
   function renderAyahs() {
     const container = document.getElementById("ayahs-list-container");
     if (!container) return;
-
     container.innerHTML = state.ayahsData.map((ayah, idx) => `
       <div id="ayah-item-${idx}" class="ayah-card ${state.isPlaying && state.currentPlayingAyahIndex === idx ? 'playing' : ''}">
         <div class="ayah-card-top">
@@ -439,11 +394,9 @@
             </button>
           </div>
         </div>
-
         <div class="ayah-arabic-text font-arabic" style="font-size: ${state.fontSize}px;">
           ${ayah.text}
         </div>
-
         <div class="ayah-translations">
           <div class="trans-urdu font-urdu ${state.showUrdu ? '' : 'hidden'}">
             ${ayah.urdu}
@@ -456,7 +409,7 @@
     `).join("");
   }
 
-  // --- 9. AUDIO PLAYER SYSTEM ---
+  // --- 9. AUDIO PLAYER ---
   function playAyahAudio(index) {
     state.currentPlayingAyahIndex = index;
     const ayah = state.ayahsData[index];
@@ -464,14 +417,13 @@
 
     const surah = SURAHS_LIST.find(s => s.number === state.selectedSurah);
     const qari = QARIS_LIST.find(q => q.id === state.selectedQari);
+    const audioUrl = `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3`;
 
     document.getElementById("player-surah-name").innerText = `${surah.englishName} - Ayah ${ayah.numberInSurah}`;
     document.getElementById("player-reciter-name").innerText = qari.name;
+    document.getElementById("audio-player-bar").classList.remove("hidden");
 
-    const playerBar = document.getElementById("audio-player-bar");
-    playerBar.classList.remove("hidden");
-
-    state.audioInstance.src = ayah.audio;
+    state.audioInstance.src = audioUrl;
     state.audioInstance.playbackRate = state.playbackSpeed;
     state.audioInstance.play();
     state.isPlaying = true;
@@ -523,7 +475,7 @@
     }
   }
 
-  // --- 10. BOOKMARKS & HELPERS ---
+  // --- 10. BOOKMARKS ---
   function isBookmarked(surahNum, ayahNum) {
     return state.bookmarks.some(b => b.surahNumber === surahNum && b.ayahNumber === ayahNum);
   }
@@ -531,7 +483,6 @@
   function toggleBookmark(surahNum, ayahNum) {
     const surah = SURAHS_LIST.find(s => s.number === surahNum);
     const existingIndex = state.bookmarks.findIndex(b => b.surahNumber === surahNum && b.ayahNumber === ayahNum);
-
     if (existingIndex >= 0) {
       state.bookmarks.splice(existingIndex, 1);
       showToast("Bookmark removed");
@@ -553,12 +504,10 @@
   function renderBookmarks() {
     const list = document.getElementById("bookmarks-list");
     if (!list) return;
-
     if (state.bookmarks.length === 0) {
-      list.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">No bookmarks saved yet. Tap the bookmark icon on any ayah to save it here.</p>`;
+      list.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">No bookmarks saved yet.</p>`;
       return;
     }
-
     list.innerHTML = state.bookmarks.map(b => `
       <div class="surah-card" onclick="quranApp.openSurah(${b.surahNumber})">
         <div class="surah-card-left">
@@ -578,11 +527,8 @@
   function copyAyah(index) {
     const ayah = state.ayahsData[index];
     const surah = SURAHS_LIST.find(s => s.number === state.selectedSurah);
-    const textToCopy = `${ayah.text}\n\n[اردو ترجمہ]\n${ayah.urdu}\n\n[English Translation]\n${ayah.english}\n\n— Surah ${surah.englishName} (${surah.number}:${ayah.numberInSurah})`;
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      showToast("Ayah copied to clipboard!");
-    });
+    const text = `${ayah.text}\n\n[Urdu]\n${ayah.urdu}\n\n[English]\n${ayah.english}\n\n— Surah ${surah.englishName} (${surah.number}:${ayah.numberInSurah})`;
+    navigator.clipboard.writeText(text).then(() => showToast("Ayah copied!"));
   }
 
   function updateLastReadUI() {
@@ -612,10 +558,8 @@
   }
 
   // ============================================================
-  //  *** یہاں سے ڈاؤن لوڈ کے تمام فنکشنز شروع ہیں (اب یہ اندر ہیں) ***
+  //  DOWNLOAD TEXT
   // ============================================================
-
-  //  DOWNLOAD TEXT (All 114 Surahs with Urdu & English)
   async function downloadAllQuranText() {
     if (state.isDownloadingText) return;
     state.isDownloadingText = true;
@@ -663,14 +607,12 @@
 
       await saveQuranToIndexedDB(allData);
       localStorage.setItem("quran_offline_text", JSON.stringify(allData));
-
       document.getElementById("text-offline-status").innerHTML = '<i class="fa-solid fa-circle-check"></i> Downloaded';
       document.getElementById("text-offline-status").className = "status-tag status-done";
-
       showToast("✅ All 114 Surahs downloaded successfully!");
     } catch (err) {
       console.error(err);
-      showToast("❌ Download failed. Check internet and try again.");
+      showToast("❌ Download failed. Check internet.");
     } finally {
       state.isDownloadingText = false;
       btn.disabled = false;
@@ -679,7 +621,10 @@
     }
   }
 
-  //  DOWNLOAD FULL AUDIO (Selected Qari)
+  // ============================================================
+  //  DOWNLOAD AUDIO — DIRECT FETCH (بغیر پراکسی کے)
+  //  نوٹ: یہ صرف اس صورت میں کام کرے گا جب آپ local server یا GitHub Pages پر چلائیں
+  // ============================================================
   async function downloadAllQuranAudio() {
     if (state.isDownloadingAudio) return;
     state.isDownloadingAudio = true;
@@ -692,33 +637,84 @@
     const label = progressBar.querySelector(".progress-label");
 
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading Audio...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
     progressBar.classList.remove("hidden");
     fill.style.width = "0%";
     label.innerText = "0%";
 
     try {
       const total = SURAHS_LIST.length;
-      let completed = 0;
+      let successful = 0;
+      let downloadedSizeMB = 0;
       const audioBlobs = [];
+      const failedSurahs = [];
+      let totalSizeMB = 0;
 
+      // پہلے سائز کا اندازہ لگائیں (صرف موجودہ فائلوں کا)
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking files...';
       for (const surah of SURAHS_LIST) {
         const surahNumber = surah.number;
-        const response = await fetch(`https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`);
-        if (!response.ok) throw new Error(`Failed for surah ${surahNumber}`);
-        const blob = await response.blob();
-        audioBlobs.push({ surah: surahNumber, blob });
+        try {
+          const url = `https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`;
+          const response = await fetch(url, { method: 'HEAD' });
+          if (response.ok) {
+            const size = parseInt(response.headers.get('content-length') || '0');
+            totalSizeMB += size > 0 ? size / (1024 * 1024) : 5;
+          } else {
+            failedSurahs.push(surahNumber);
+          }
+        } catch (e) {
+          failedSurahs.push(surahNumber);
+        }
+      }
 
-        completed++;
-        const pct = Math.round((completed / total) * 100);
-        fill.style.width = pct + "%";
-        label.innerText = pct + "%";
+      if (totalSizeMB === 0) {
+        showToast(`❌ No audio files found for ${qari.name}. Try another reciter.`);
+        return;
+      }
+
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${totalSizeMB.toFixed(1)} MB...`;
+
+      // اب ڈاؤن لوڈ کریں
+      for (const surah of SURAHS_LIST) {
+        const surahNumber = surah.number;
+        if (failedSurahs.includes(surahNumber)) continue;
+
+        try {
+          const url = `https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`;
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const blob = await response.blob();
+          const sizeMB = blob.size / (1024 * 1024);
+          downloadedSizeMB += sizeMB;
+          audioBlobs.push({ surah: surahNumber, blob });
+          successful++;
+
+          const pct = Math.min(100, Math.round((downloadedSizeMB / totalSizeMB) * 100));
+          fill.style.width = pct + "%";
+          label.innerText = `${pct}% (${downloadedSizeMB.toFixed(1)} MB / ${totalSizeMB.toFixed(1)} MB)`;
+        } catch (err) {
+          console.warn(`Surah ${surahNumber} failed:`, err);
+          failedSurahs.push(surahNumber);
+        }
+      }
+
+      if (audioBlobs.length === 0) {
+        showToast("❌ No audio could be downloaded.");
+        return;
       }
 
       await saveAudioToIndexedDB(qariId, audioBlobs);
       localStorage.setItem("quran_offline_audio_qari", qariId);
 
-      showToast(`✅ Audio for all 114 Surahs (${qari.name}) downloaded!`);
+      let msg = `✅ ${audioBlobs.length} Surahs (${downloadedSizeMB.toFixed(1)} MB) downloaded for ${qari.name}!`;
+      if (failedSurahs.length > 0) {
+        msg += ` ⚠️ Skipped: ${failedSurahs.join(', ')}`;
+      }
+      showToast(msg);
+      fill.style.width = "100%";
+      label.innerText = `✅ Done! ${downloadedSizeMB.toFixed(1)} MB`;
+
     } catch (err) {
       console.error(err);
       showToast("❌ Audio download failed. Please check internet.");
@@ -726,11 +722,11 @@
       state.isDownloadingAudio = false;
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
-      setTimeout(() => progressBar.classList.add("hidden"), 2000);
+      setTimeout(() => progressBar.classList.add("hidden"), 3000);
     }
   }
 
-  //  INDEXEDDB HELPERS (for offline storage)
+  // --- INDEXEDDB HELPERS ---
   function openDB() {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open("QuranOfflineDB", 1);
@@ -770,36 +766,8 @@
     });
   }
 
-  //  RETRIEVE OFFLINE DATA (for reading without internet)
-  async function getOfflineQuranText() {
-    const db = await openDB();
-    const tx = db.transaction("text", "readonly");
-    const store = tx.objectStore("text");
-    const request = store.get("quran_text");
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result?.data || null);
-      request.onerror = reject;
-    });
-  }
-
-  async function getOfflineAudio(qariId) {
-    const db = await openDB();
-    const tx = db.transaction("audio", "readonly");
-    const store = tx.objectStore("audio");
-    const request = store.get(`audio_${qariId}`);
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result?.data || null);
-      request.onerror = reject;
-    });
-  }
-
-  // ============================================================
-  //  *** ڈاؤن لوڈ فنکشنز یہاں ختم ہوئے ***
-  // ============================================================
-
-  // --- 11. EVENT LISTENERS ---
+  // --- EVENT LISTENERS ---
   function setupEventListeners() {
-    // Top Nav buttons
     document.getElementById("btn-back")?.addEventListener("click", goBack);
     document.getElementById("btn-search-trigger")?.addEventListener("click", () => navigate("surahs"));
     document.getElementById("btn-downloads-trigger")?.addEventListener("click", () => navigate("downloads"));
@@ -809,15 +777,13 @@
       setTheme(next);
     });
 
-    // Resume reading button
     document.getElementById("btn-resume-reading")?.addEventListener("click", () => {
       openSurah(state.lastRead.surah);
     });
 
-    // Surah Search input
     document.getElementById("surah-search-input")?.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
-      const filtered = SURAHS_LIST.filter(s => 
+      const filtered = SURAHS_LIST.filter(s =>
         s.englishName.toLowerCase().includes(q) ||
         s.englishNameTranslation.toLowerCase().includes(q) ||
         s.urduName.includes(q) ||
@@ -827,7 +793,6 @@
       renderSurahsGrid(filtered);
     });
 
-    // Settings controls
     document.getElementById("select-settings-qari")?.addEventListener("change", (e) => {
       state.selectedQari = e.target.value;
       saveSettings();
@@ -855,7 +820,6 @@
       btn.addEventListener("click", () => setTheme(btn.getAttribute("data-theme")));
     });
 
-    // Audio Player Controls
     document.getElementById("btn-player-play-pause")?.addEventListener("click", togglePlayPause);
     document.getElementById("btn-player-close")?.addEventListener("click", () => {
       state.audioInstance.pause();
@@ -874,22 +838,18 @@
 
     document.getElementById("btn-reader-play-surah")?.addEventListener("click", playFullSurah);
 
-    // Audio Progress Update
     state.audioInstance.ontimeupdate = () => {
       const cur = state.audioInstance.currentTime;
       const dur = state.audioInstance.duration || 1;
       const slider = document.getElementById("player-seek-slider");
       if (slider) slider.value = (cur / dur) * 100;
-
       const formatTime = (sec) => {
         const m = Math.floor(sec / 60);
         const s = Math.floor(sec % 60);
         return `${m}:${s < 10 ? '0' : ''}${s}`;
       };
-      const curLabel = document.getElementById("player-current-time");
-      const totLabel = document.getElementById("player-total-time");
-      if (curLabel) curLabel.innerText = formatTime(cur);
-      if (totLabel && !isNaN(dur)) totLabel.innerText = formatTime(dur);
+      document.getElementById("player-current-time").innerText = formatTime(cur);
+      if (!isNaN(dur)) document.getElementById("player-total-time").innerText = formatTime(dur);
     };
 
     document.getElementById("player-seek-slider")?.addEventListener("input", (e) => {
@@ -904,9 +864,29 @@
       state.audioInstance.playbackRate = next;
       e.target.innerText = next + "x";
     });
+
+    // More Menu
+    const moreNavBtn = document.getElementById("moreNavBtn");
+    const moreMenu = document.getElementById("moreMenu");
+    const settingsBtn = document.getElementById("settingsBtn");
+
+    if (moreNavBtn && moreMenu) {
+      moreNavBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        moreMenu.classList.toggle("show");
+      });
+      document.addEventListener("click", () => moreMenu.classList.remove("show"));
+      moreMenu.addEventListener("click", (e) => e.stopPropagation());
+    }
+
+    if (settingsBtn) {
+      settingsBtn.addEventListener("click", () => {
+        moreMenu?.classList.remove("show");
+        navigate("settings");
+      });
+    }
   }
 
-  // Expose to Global QuranApp Window Object
   window.quranApp = {
     navigate,
     openSurah,
@@ -917,42 +897,9 @@
     setTheme
   };
 
-  // Run on DOM Ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
-  }
-})();
-
-// ==========================================
-// MORE MENU — QURAN PAGE (یہ باہر ہی رہے گا، اسے مت چھوئیں)
-// ==========================================
-
-(function() {
-  const moreNavBtn = document.getElementById('moreNavBtn');
-  const moreMenu = document.getElementById('moreMenu');
-  const settingsBtn = document.getElementById('settingsBtn');
-
-  if (moreNavBtn && moreMenu) {
-    moreNavBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      moreMenu.classList.toggle('show');
-    });
-
-    document.addEventListener('click', function() {
-      moreMenu.classList.remove('show');
-    });
-
-    moreMenu.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-  }
-
-  if (settingsBtn) {
-    settingsBtn.addEventListener('click', function() {
-      moreMenu.classList.remove('show');
-      alert('Settings will be available in the next update.');
-    });
   }
 })();
