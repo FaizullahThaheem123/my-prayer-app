@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../theme/theme.css">
   <link rel="stylesheet" href="namaz guide.css">
 </head>
 <body class="notranslate" translate="no">
@@ -134,43 +135,95 @@
   <!-- TOAST -->
   <div id="toast" class="toast">Offline Save Ho Gaya!</div>
 
-  <!-- ============================== -->
-  <!-- BOTTOM NAVIGATION (NEW)       -->
+   <!-- ============================== -->
+  <!-- BOTTOM NAVIGATION (FIXED)     -->
   <!-- ============================== -->
   <nav class="bottom-nav">
+    <!-- صرف HOME باہر ہے (اب یہ درست ہے) -->
     <a href="../index.html" class="nav-item">
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="../quran/quran.html" class="nav-item">
-      <i class="fa-solid fa-book-quran"></i>
-      <span>Quran</span>
-    </a>
-    <a href="#" class="nav-item active">
-      <i class="fa-solid fa-hands-praying"></i>
-      <span>Namaz</span>
-    </a>
+
+    <!-- MORE کے اندر باقی سب (Grid Style) -->
     <div class="more-nav">
       <button type="button" class="more-nav-btn" id="moreNavBtn">
-        <i class="fa-solid fa-ellipsis"></i>
+        <i class="fa-solid fa-grid-2"></i>
         <span>More</span>
       </button>
-      <div class="more-menu" id="moreMenu">
-        <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-        <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-        <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-        <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-        <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
-        <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-        <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-        <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+      <div class="more-menu more-grid-menu" id="moreMenu">
+        
+        <a href="../quran/quran.html">
+          <i class="fa-solid fa-book-quran"></i>
+          <span>Quran</span>
+        </a>
+
+        <a href="../dua/duas.html">
+          <i class="fa-solid fa-hands-praying"></i>
+          <span>Duas</span>
+        </a>
+
+        <a href="../names/names.html">
+          <i class="fa-solid fa-star-and-crescent"></i>
+          <span>99 Names</span>
+        </a>
+
+        <a href="../tasbeeh/tasbeeh.html">
+          <i class="fa-solid fa-ring"></i>
+          <span>Tasbeeh</span>
+        </a>
+
+        <a href="../campus/campus.html">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Campus</span>
+        </a>
+
+        <a href="../masjid/masjid.html">
+          <i class="fa-solid fa-mosque"></i>
+          <span>Masjid</span>
+        </a>
+
+        <a href="../theme/theme.html">
+          <i class="fa-solid fa-palette"></i>
+          <span>Themes</span>
+        </a>
+
+        <a href="../calendar/calendar.html">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Calendar</span>
+        </a>
+
+        <a href="../age/age.html">
+          <i class="fa-solid fa-cake-candles"></i>
+          <span>Age</span>
+        </a>
+
+        <a href="../zakat/zakat.html">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <span>Zakat</span>
+        </a>
+
+        <!-- یہ خود Namaz Guide ہے (Active) -->
+        <a href="#" class="active">
+          <i class="fa-solid fa-person-praying"></i>
+          <span>Namaz Guide</span>
+        </a>
+
+        <button type="button" id="settingsBtn">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </button>
+
+        <div class="version-text" style="text-align:center; font-size:10px; color:var(--text-muted); padding:8px 0 0; opacity:0.6;">
+          My Prayer v1.0.0
+        </div>
       </div>
     </div>
   </nav>
 
   <!-- FontAwesome Icons (for bottom nav) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+<script src="../theme/theme.js"></script>
   <script src="namaz guide.js"></script>
 </body>
 </html>

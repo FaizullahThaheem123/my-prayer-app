@@ -447,16 +447,13 @@ function showToast(msg) {
       e.stopPropagation();
       moreMenu.classList.toggle('show');
     });
-
     document.addEventListener('click', function() {
       moreMenu.classList.remove('show');
     });
-
     moreMenu.addEventListener('click', function(e) {
       e.stopPropagation();
     });
   }
-
   if (settingsBtn) {
     settingsBtn.addEventListener('click', function() {
       moreMenu.classList.remove('show');
