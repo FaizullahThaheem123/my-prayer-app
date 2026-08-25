@@ -207,6 +207,10 @@
     renderBookmarks();
     updateLastReadUI();
     setupEventListeners();
+    
+    // *** یہاں ڈاؤن لوڈ بٹنوں کے ایونٹ لسینرز لگے ہیں (اب یہ درست کام کریں گے) ***
+    document.getElementById("btn-download-all-text")?.addEventListener("click", downloadAllQuranText);
+    document.getElementById("btn-download-all-audio")?.addEventListener("click", downloadAllQuranAudio);
   }
 
   function loadSettings() {
@@ -607,6 +611,192 @@
     setTimeout(() => toast.classList.add("hidden"), 2500);
   }
 
+  // ============================================================
+  //  *** یہاں سے ڈاؤن لوڈ کے تمام فنکشنز شروع ہیں (اب یہ اندر ہیں) ***
+  // ============================================================
+
+  //  DOWNLOAD TEXT (All 114 Surahs with Urdu & English)
+  async function downloadAllQuranText() {
+    if (state.isDownloadingText) return;
+    state.isDownloadingText = true;
+
+    const btn = document.getElementById("btn-download-all-text");
+    const progressBar = document.getElementById("text-download-progress-bar");
+    const fill = progressBar.querySelector(".progress-bar-fill");
+    const label = progressBar.querySelector(".progress-label");
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
+    progressBar.classList.remove("hidden");
+    fill.style.width = "0%";
+    label.innerText = "0%";
+
+    try {
+      const total = SURAHS_LIST.length;
+      let completed = 0;
+      const allData = [];
+
+      for (const surah of SURAHS_LIST) {
+        const [resArabic, resUrdu, resEnglish] = await Promise.all([
+          fetch(`https://api.alquran.cloud/v1/surah/${surah.number}/quran-uthmani`).then(r => r.json()),
+          fetch(`https://api.alquran.cloud/v1/surah/${surah.number}/ur.jalandhry`).then(r => r.json()),
+          fetch(`https://api.alquran.cloud/v1/surah/${surah.number}/en.sahih`).then(r => r.json())
+        ]);
+
+        allData.push({
+          surah: surah.number,
+          name: surah.englishName,
+          arabicName: surah.name,
+          ayahs: resArabic.data.ayahs.map((a, i) => ({
+            number: a.numberInSurah,
+            arabic: a.text,
+            urdu: resUrdu.data.ayahs[i]?.text || "",
+            english: resEnglish.data.ayahs[i]?.text || ""
+          }))
+        });
+
+        completed++;
+        const pct = Math.round((completed / total) * 100);
+        fill.style.width = pct + "%";
+        label.innerText = pct + "%";
+      }
+
+      await saveQuranToIndexedDB(allData);
+      localStorage.setItem("quran_offline_text", JSON.stringify(allData));
+
+      document.getElementById("text-offline-status").innerHTML = '<i class="fa-solid fa-circle-check"></i> Downloaded';
+      document.getElementById("text-offline-status").className = "status-tag status-done";
+
+      showToast("✅ All 114 Surahs downloaded successfully!");
+    } catch (err) {
+      console.error(err);
+      showToast("❌ Download failed. Check internet and try again.");
+    } finally {
+      state.isDownloadingText = false;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-download"></i> Download All Quran Text';
+      setTimeout(() => progressBar.classList.add("hidden"), 2000);
+    }
+  }
+
+  //  DOWNLOAD FULL AUDIO (Selected Qari)
+  async function downloadAllQuranAudio() {
+    if (state.isDownloadingAudio) return;
+    state.isDownloadingAudio = true;
+
+    const qariId = document.getElementById("select-download-qari").value;
+    const qari = QARIS_LIST.find(q => q.id === qariId);
+    const btn = document.getElementById("btn-download-all-audio");
+    const progressBar = document.getElementById("audio-download-progress-bar");
+    const fill = progressBar.querySelector(".progress-bar-fill");
+    const label = progressBar.querySelector(".progress-label");
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading Audio...';
+    progressBar.classList.remove("hidden");
+    fill.style.width = "0%";
+    label.innerText = "0%";
+
+    try {
+      const total = SURAHS_LIST.length;
+      let completed = 0;
+      const audioBlobs = [];
+
+      for (const surah of SURAHS_LIST) {
+        const surahNumber = surah.number;
+        const response = await fetch(`https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`);
+        if (!response.ok) throw new Error(`Failed for surah ${surahNumber}`);
+        const blob = await response.blob();
+        audioBlobs.push({ surah: surahNumber, blob });
+
+        completed++;
+        const pct = Math.round((completed / total) * 100);
+        fill.style.width = pct + "%";
+        label.innerText = pct + "%";
+      }
+
+      await saveAudioToIndexedDB(qariId, audioBlobs);
+      localStorage.setItem("quran_offline_audio_qari", qariId);
+
+      showToast(`✅ Audio for all 114 Surahs (${qari.name}) downloaded!`);
+    } catch (err) {
+      console.error(err);
+      showToast("❌ Audio download failed. Please check internet.");
+    } finally {
+      state.isDownloadingAudio = false;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
+      setTimeout(() => progressBar.classList.add("hidden"), 2000);
+    }
+  }
+
+  //  INDEXEDDB HELPERS (for offline storage)
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open("QuranOfflineDB", 1);
+      request.onupgradeneeded = (ev) => {
+        const db = ev.target.result;
+        if (!db.objectStoreNames.contains("text")) {
+          db.createObjectStore("text", { keyPath: "id" });
+        }
+        if (!db.objectStoreNames.contains("audio")) {
+          db.createObjectStore("audio", { keyPath: "id" });
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async function saveQuranToIndexedDB(data) {
+    const db = await openDB();
+    const tx = db.transaction("text", "readwrite");
+    const store = tx.objectStore("text");
+    store.put({ id: "quran_text", data });
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = resolve;
+      tx.onerror = reject;
+    });
+  }
+
+  async function saveAudioToIndexedDB(qariId, audioBlobs) {
+    const db = await openDB();
+    const tx = db.transaction("audio", "readwrite");
+    const store = tx.objectStore("audio");
+    store.put({ id: `audio_${qariId}`, data: audioBlobs });
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = resolve;
+      tx.onerror = reject;
+    });
+  }
+
+  //  RETRIEVE OFFLINE DATA (for reading without internet)
+  async function getOfflineQuranText() {
+    const db = await openDB();
+    const tx = db.transaction("text", "readonly");
+    const store = tx.objectStore("text");
+    const request = store.get("quran_text");
+    return new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result?.data || null);
+      request.onerror = reject;
+    });
+  }
+
+  async function getOfflineAudio(qariId) {
+    const db = await openDB();
+    const tx = db.transaction("audio", "readonly");
+    const store = tx.objectStore("audio");
+    const request = store.get(`audio_${qariId}`);
+    return new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result?.data || null);
+      request.onerror = reject;
+    });
+  }
+
+  // ============================================================
+  //  *** ڈاؤن لوڈ فنکشنز یہاں ختم ہوئے ***
+  // ============================================================
+
   // --- 11. EVENT LISTENERS ---
   function setupEventListeners() {
     // Top Nav buttons
@@ -736,7 +926,7 @@
 })();
 
 // ==========================================
-// MORE MENU — QURAN PAGE
+// MORE MENU — QURAN PAGE (یہ باہر ہی رہے گا، اسے مت چھوئیں)
 // ==========================================
 
 (function() {
