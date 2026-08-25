@@ -192,7 +192,8 @@
     playbackSpeed: 1.0,
     isDownloadingText: false,
     isDownloadingAudio: false,
-    audioCache: {}
+    audioCache: {},
+    currentObjectURL: null
   };
 
   // --- 5. INIT ---
@@ -410,20 +411,38 @@
   }
 
   // --- 9. AUDIO PLAYER ---
-  function playAyahAudio(index) {
+  async function playAyahAudio(index) {
     state.currentPlayingAyahIndex = index;
     const ayah = state.ayahsData[index];
     if (!ayah) return;
 
     const surah = SURAHS_LIST.find(s => s.number === state.selectedSurah);
     const qari = QARIS_LIST.find(q => q.id === state.selectedQari);
-    const audioUrl = `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3`;
+    const onlineUrl = `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3`;
 
     document.getElementById("player-surah-name").innerText = `${surah.englishName} - Ayah ${ayah.numberInSurah}`;
     document.getElementById("player-reciter-name").innerText = qari.name;
     document.getElementById("audio-player-bar").classList.remove("hidden");
 
-    state.audioInstance.src = audioUrl;
+    // Purani offline blob URL ho to usko free kar dein (memory leak se bachne ke liye)
+    if (state.currentObjectURL) {
+      URL.revokeObjectURL(state.currentObjectURL);
+      state.currentObjectURL = null;
+    }
+
+    // Pehle offline (downloaded) audio check karein, warna online stream karein
+    let playUrl = onlineUrl;
+    try {
+      const cachedBlob = await getCachedAyahAudio(state.selectedQari, ayah.number);
+      if (cachedBlob) {
+        playUrl = URL.createObjectURL(cachedBlob);
+        state.currentObjectURL = playUrl;
+      }
+    } catch (err) {
+      console.warn("Offline audio check failed, streaming online instead:", err);
+    }
+
+    state.audioInstance.src = playUrl;
     state.audioInstance.playbackRate = state.playbackSpeed;
     state.audioInstance.play();
     state.isPlaying = true;
@@ -621,110 +640,119 @@
     }
   }
 
-  // ============================================================
-  //  DOWNLOAD AUDIO — DIRECT FETCH (بغیر پراکسی کے)
-  //  نوٹ: یہ صرف اس صورت میں کام کرے گا جب آپ local server یا GitHub Pages پر چلائیں
-  // ============================================================
-  async function downloadAllQuranAudio() {
-    if (state.isDownloadingAudio) return;
-    state.isDownloadingAudio = true;
+// ============================================================
+//  DOWNLOAD FULL AUDIO — Har Ayah ka audio IndexedDB mein Blob
+//  ki soorat mein save hota hai (wahi tareeqa jo player use karta
+//  hai), taake download hone ke baad offline bilkul theek chale.
+// ============================================================
+async function downloadAllQuranAudio() {
+  if (state.isDownloadingAudio) return;
+  state.isDownloadingAudio = true;
 
-    const qariId = document.getElementById("select-download-qari").value;
-    const qari = QARIS_LIST.find(q => q.id === qariId);
-    const btn = document.getElementById("btn-download-all-audio");
-    const progressBar = document.getElementById("audio-download-progress-bar");
-    const fill = progressBar.querySelector(".progress-bar-fill");
-    const label = progressBar.querySelector(".progress-label");
+  const qariId = document.getElementById("select-download-qari").value;
+  const qari = QARIS_LIST.find(q => q.id === qariId);
+  const btn = document.getElementById("btn-download-all-audio");
+  const progressBar = document.getElementById("audio-download-progress-bar");
+  const fill = progressBar.querySelector(".progress-bar-fill");
+  const label = progressBar.querySelector(".progress-label");
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
-    progressBar.classList.remove("hidden");
-    fill.style.width = "0%";
-    label.innerText = "0%";
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing...';
+  progressBar.classList.remove("hidden");
+  fill.style.width = "0%";
+  label.innerText = "0%";
 
-    try {
-      const total = SURAHS_LIST.length;
-      let successful = 0;
-      let downloadedSizeMB = 0;
-      const audioBlobs = [];
-      const failedSurahs = [];
-      let totalSizeMB = 0;
+  // Backup proxy (agar seedha fetch CORS ki wajah se fail ho)
+  const PROXY_URL = "https://corsproxy.io/?url=";
 
-      // پہلے سائز کا اندازہ لگائیں (صرف موجودہ فائلوں کا)
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking files...';
-      for (const surah of SURAHS_LIST) {
-        const surahNumber = surah.number;
-        try {
-          const url = `https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`;
-          const response = await fetch(url, { method: 'HEAD' });
-          if (response.ok) {
-            const size = parseInt(response.headers.get('content-length') || '0');
-            totalSizeMB += size > 0 ? size / (1024 * 1024) : 5;
-          } else {
-            failedSurahs.push(surahNumber);
-          }
-        } catch (e) {
-          failedSurahs.push(surahNumber);
-        }
+  async function fetchAudioBlob(url, retries = 2) {
+    // Pehle seedha fetch try karein (islamic.network CDN CORS allow karta hai)
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch(url);
+        if (response.ok) return await response.blob();
+        throw new Error(`HTTP ${response.status}`);
+      } catch (err) {
+        if (attempt === retries) break;
+        await new Promise(r => setTimeout(r, 800 * attempt));
       }
-
-      if (totalSizeMB === 0) {
-        showToast(`❌ No audio files found for ${qari.name}. Try another reciter.`);
-        return;
+    }
+    // Fallback: proxy ke zariye
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch(PROXY_URL + encodeURIComponent(url));
+        if (response.ok) return await response.blob();
+        throw new Error(`HTTP ${response.status}`);
+      } catch (err) {
+        if (attempt === retries) throw err;
+        await new Promise(r => setTimeout(r, 1200 * attempt));
       }
-
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${totalSizeMB.toFixed(1)} MB...`;
-
-      // اب ڈاؤن لوڈ کریں
-      for (const surah of SURAHS_LIST) {
-        const surahNumber = surah.number;
-        if (failedSurahs.includes(surahNumber)) continue;
-
-        try {
-          const url = `https://cdn.islamic.network/quran/audio/128/${qariId}/${surahNumber}.mp3`;
-          const response = await fetch(url);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const blob = await response.blob();
-          const sizeMB = blob.size / (1024 * 1024);
-          downloadedSizeMB += sizeMB;
-          audioBlobs.push({ surah: surahNumber, blob });
-          successful++;
-
-          const pct = Math.min(100, Math.round((downloadedSizeMB / totalSizeMB) * 100));
-          fill.style.width = pct + "%";
-          label.innerText = `${pct}% (${downloadedSizeMB.toFixed(1)} MB / ${totalSizeMB.toFixed(1)} MB)`;
-        } catch (err) {
-          console.warn(`Surah ${surahNumber} failed:`, err);
-          failedSurahs.push(surahNumber);
-        }
-      }
-
-      if (audioBlobs.length === 0) {
-        showToast("❌ No audio could be downloaded.");
-        return;
-      }
-
-      await saveAudioToIndexedDB(qariId, audioBlobs);
-      localStorage.setItem("quran_offline_audio_qari", qariId);
-
-      let msg = `✅ ${audioBlobs.length} Surahs (${downloadedSizeMB.toFixed(1)} MB) downloaded for ${qari.name}!`;
-      if (failedSurahs.length > 0) {
-        msg += ` ⚠️ Skipped: ${failedSurahs.join(', ')}`;
-      }
-      showToast(msg);
-      fill.style.width = "100%";
-      label.innerText = `✅ Done! ${downloadedSizeMB.toFixed(1)} MB`;
-
-    } catch (err) {
-      console.error(err);
-      showToast("❌ Audio download failed. Please check internet.");
-    } finally {
-      state.isDownloadingAudio = false;
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
-      setTimeout(() => progressBar.classList.add("hidden"), 3000);
     }
   }
+
+  // Har surah ke andar har ayah ka global number nikalte hain
+  const ayahJobs = [];
+  let globalAyahNumber = 1;
+  for (const surah of SURAHS_LIST) {
+    for (let i = 1; i <= surah.numberOfAyahs; i++) {
+      ayahJobs.push(globalAyahNumber);
+      globalAyahNumber++;
+    }
+  }
+
+  const total = ayahJobs.length;
+  let successful = 0;
+  let failed = 0;
+  const CONCURRENCY = 8;
+
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${qari.name}...`;
+
+  try {
+    const db = await openDB();
+
+    async function downloadOne(ayahNumber) {
+      const audioUrl = `https://cdn.islamic.network/quran/audio/128/${qariId}/${ayahNumber}.mp3`;
+      try {
+        const blob = await fetchAudioBlob(audioUrl, 2);
+        await putAyahAudioBlob(db, qariId, ayahNumber, blob);
+        successful++;
+      } catch (err) {
+        failed++;
+      }
+      const done = successful + failed;
+      const pct = Math.round((done / total) * 100);
+      fill.style.width = pct + "%";
+      label.innerText = `${pct}% (${done}/${total})`;
+    }
+
+    // Batches mein parallel download (taake speed theek rahe aur server pe load kam ho)
+    for (let i = 0; i < ayahJobs.length; i += CONCURRENCY) {
+      const batch = ayahJobs.slice(i, i + CONCURRENCY);
+      await Promise.all(batch.map(downloadOne));
+    }
+
+    localStorage.setItem("quran_offline_audio_qari", qariId);
+    localStorage.setItem("quran_audio_cached", failed === 0 ? "true" : "partial");
+
+    let msg = `✅ ${successful}/${total} Ayahs saved for ${qari.name} — ab offline chalega.`;
+    if (failed > 0) {
+      msg = `⚠️ ${successful}/${total} Ayahs saved. ${failed} download nahi ho sake — dobara try karein.`;
+    }
+    showToast(msg);
+
+    fill.style.width = "100%";
+    label.innerText = `✅ Done! ${successful}/${total}`;
+
+  } catch (err) {
+    console.error(err);
+    showToast("❌ Audio download failed. Check internet.");
+  } finally {
+    state.isDownloadingAudio = false;
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
+    setTimeout(() => progressBar.classList.add("hidden"), 3000);
+  }
+}
 
   // --- INDEXEDDB HELPERS ---
   function openDB() {
@@ -755,15 +783,31 @@
     });
   }
 
-  async function saveAudioToIndexedDB(qariId, audioBlobs) {
-    const db = await openDB();
-    const tx = db.transaction("audio", "readwrite");
-    const store = tx.objectStore("audio");
-    store.put({ id: `audio_${qariId}`, data: audioBlobs });
+  // Ek ayah ka audio Blob IndexedDB mein save karta hai
+  function putAyahAudioBlob(db, qariId, ayahNumber, blob) {
     return new Promise((resolve, reject) => {
+      const tx = db.transaction("audio", "readwrite");
+      const store = tx.objectStore("audio");
+      store.put({ id: `${qariId}_${ayahNumber}`, data: blob });
       tx.oncomplete = resolve;
-      tx.onerror = reject;
+      tx.onerror = () => reject(tx.error);
     });
+  }
+
+  // Player ke liye: agar ayah ka audio pehle se download ho chuka ho to Blob wapas deta hai
+  async function getCachedAyahAudio(qariId, ayahNumber) {
+    try {
+      const db = await openDB();
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction("audio", "readonly");
+        const store = tx.objectStore("audio");
+        const request = store.get(`${qariId}_${ayahNumber}`);
+        request.onsuccess = () => resolve(request.result ? request.result.data : null);
+        request.onerror = () => reject(request.error);
+      });
+    } catch (err) {
+      return null;
+    }
   }
 
   // --- EVENT LISTENERS ---
