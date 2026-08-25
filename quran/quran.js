@@ -641,9 +641,8 @@
   }
 
 // ============================================================
-//  DOWNLOAD FULL AUDIO — Har Ayah ka audio IndexedDB mein Blob
-//  ki soorat mein save hota hai (wahi tareeqa jo player use karta
-//  hai), taake download hone ke baad offline bilkul theek chale.
+//  DOWNLOAD FULL AUDIO — Har Ayah ka audio IndexedDB mein save hota hai
+//  Ab MB (Megabytes) ka bhi live hisaab dikhega.
 // ============================================================
 async function downloadAllQuranAudio() {
   if (state.isDownloadingAudio) return;
@@ -662,11 +661,10 @@ async function downloadAllQuranAudio() {
   fill.style.width = "0%";
   label.innerText = "0%";
 
-  // Backup proxy (agar seedha fetch CORS ki wajah se fail ho)
+  // Backup proxy
   const PROXY_URL = "https://corsproxy.io/?url=";
 
   async function fetchAudioBlob(url, retries = 2) {
-    // Pehle seedha fetch try karein (islamic.network CDN CORS allow karta hai)
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const response = await fetch(url);
@@ -677,7 +675,6 @@ async function downloadAllQuranAudio() {
         await new Promise(r => setTimeout(r, 800 * attempt));
       }
     }
-    // Fallback: proxy ke zariye
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const response = await fetch(PROXY_URL + encodeURIComponent(url));
@@ -690,7 +687,7 @@ async function downloadAllQuranAudio() {
     }
   }
 
-  // Har surah ke andar har ayah ka global number nikalte hain
+  // Har ayah ka global number nikalte hain
   const ayahJobs = [];
   let globalAyahNumber = 1;
   for (const surah of SURAHS_LIST) {
@@ -703,6 +700,12 @@ async function downloadAllQuranAudio() {
   const total = ayahJobs.length;
   let successful = 0;
   let failed = 0;
+
+  // ====== MB ka hisaab rakhne ke liye ======
+  let downloadedBytes = 0;
+  const AVG_AUDIO_SIZE = 45 * 1024; // ~45 KB per ayah (andaraz)
+  const totalBytesEstimate = total * AVG_AUDIO_SIZE;
+
   const CONCURRENCY = 8;
 
   btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${qari.name}...`;
@@ -716,16 +719,21 @@ async function downloadAllQuranAudio() {
         const blob = await fetchAudioBlob(audioUrl, 2);
         await putAyahAudioBlob(db, qariId, ayahNumber, blob);
         successful++;
+        downloadedBytes += blob.size; // Actual bytes add karein
       } catch (err) {
         failed++;
       }
       const done = successful + failed;
       const pct = Math.round((done / total) * 100);
+
+      // MB mein convert karein
+      const downloadedMB = (downloadedBytes / 1048576).toFixed(1);
+      const totalMB = (totalBytesEstimate / 1048576).toFixed(1);
+
       fill.style.width = pct + "%";
-      label.innerText = `${pct}% (${done}/${total})`;
+      label.innerText = `${pct}% (${done}/${total}) • ${downloadedMB} MB / ${totalMB} MB`;
     }
 
-    // Batches mein parallel download (taake speed theek rahe aur server pe load kam ho)
     for (let i = 0; i < ayahJobs.length; i += CONCURRENCY) {
       const batch = ayahJobs.slice(i, i + CONCURRENCY);
       await Promise.all(batch.map(downloadOne));
@@ -741,7 +749,7 @@ async function downloadAllQuranAudio() {
     showToast(msg);
 
     fill.style.width = "100%";
-    label.innerText = `✅ Done! ${successful}/${total}`;
+    label.innerText = `✅ Done! ${successful}/${total} • ${(downloadedBytes / 1048576).toFixed(1)} MB saved`;
 
   } catch (err) {
     console.error(err);
