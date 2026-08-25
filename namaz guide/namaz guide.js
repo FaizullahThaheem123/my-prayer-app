@@ -203,7 +203,7 @@ async function checkOfflineStatus() {
 async function downloadAllOffline() {
   const offlineBtn = document.getElementById('offlineDownloadBtn');
   if (!('caches' in window)) {
-    showToast('Arabic text aur roman urdu data offline save hai.');
+   
     return;
   }
 
@@ -236,13 +236,13 @@ async function downloadAllOffline() {
       offlineBtn.style.border = '1px solid #D4AF37';
       offlineBtn.disabled = false;
     }
-    showToast('Namaz Guide & All Audios Offline Save Ho Gayin!');
+   
   } catch (err) {
     if (offlineBtn) {
       offlineBtn.textContent = '⬇ Offline Save Karein';
       offlineBtn.disabled = false;
     }
-    showToast('Offline save mukammal ho gaya.');
+   
   }
 }
 
