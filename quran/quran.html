@@ -352,37 +352,39 @@
       <button id="btn-player-close" class="btn-ctrl-close"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-   <!-- ==========================================================
-     BOTTOM NAVIGATION (HOME + SEARCH + MORE)
+  <!-- ==========================================================
+     BOTTOM NAVIGATION (Home + Search + More)
 ========================================================== -->
 <nav class="bottom-nav">
-  <!-- 1. HOME -->
+  <!-- HOME -->
   <a href="../index.html" class="nav-item">
     <i class="fa-solid fa-house"></i>
     <span>Home</span>
   </a>
 
-  <!-- 2. SEARCH -->
+  <!-- SEARCH -->
   <button class="nav-item" id="searchNavBtn">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span>Search</span>
   </button>
 
-  <!-- 3. MORE (Grid Style - Andar Wala Design Same) -->
-  <div class="more-nav">
+ <!-- MORE (Bottom Sheet - Neeche se khulega) -->
+<div class="more-nav">
     <button type="button" class="more-nav-btn" id="moreNavBtn">
       <i class="fa-solid fa-ellipsis"></i>
       <span>More</span>
     </button>
 
-    <!-- More ka Grid Menu (Bilkul waise hi) -->
-    <div class="more-menu more-grid-menu" id="moreMenu">
-      <div class="more-menu-title">
+    <!-- More Sheet (Bottom se khulega) -->
+    <div class="more-menu" id="moreMenu">
+      <div class="more-menu-header">
         <span>All Features</span>
-        <button id="closeMoreMenuBtn" type="button"><i class="fa-solid fa-xmark"></i></button>
+        <button id="closeMoreMenuBtn" type="button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
-      <div class="more-menu-items">
+      <div class="more-menu-grid">
         <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
         <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
         <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
@@ -393,11 +395,8 @@
         <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
         <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
       </div>
-
-      <div class="more-menu-version">My Prayer v1.0.0</div>
     </div>
-  </div>
-</nav>
+</div>
 
     <!-- TOAST -->
     <div id="toast-popup" class="toast-popup hidden">

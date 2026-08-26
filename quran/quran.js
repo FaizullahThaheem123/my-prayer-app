@@ -207,38 +207,45 @@
     updateLastReadUI();
     setupEventListeners();
 
-  // More Menu - NAYA GRID SYSTEM
+// More Menu - Bottom Sheet Style
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
 const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
+// Open More Menu
 if (moreNavBtn && moreMenu) {
   moreNavBtn.addEventListener("click", () => {
     moreMenu.classList.add("show");
   });
-
-  if (closeMoreMenuBtn) {
-    closeMoreMenuBtn.addEventListener("click", () => {
-      moreMenu.classList.remove("show");
-    });
-  }
-
-  // Agar card ke bahar click ho toh band ho jaye (option A)
-  moreMenu.addEventListener("click", (event) => {
-    if (event.target === moreMenu) {
-      moreMenu.classList.remove("show");
-    }
-  });
-
-  // Settings button click
-  if (settingsBtn) {
-    settingsBtn.addEventListener("click", () => {
-      moreMenu.classList.remove("show");
-      navigate("settings");
-    });
-  }
 }
+
+// Close More Menu via X button
+if (closeMoreMenuBtn) {
+  closeMoreMenuBtn.addEventListener("click", () => {
+    moreMenu.classList.remove("show");
+  });
+}
+
+// Close if clicked outside (but not on More button)
+document.addEventListener("click", (e) => {
+  if (
+    moreMenu.classList.contains("show") &&
+    !moreMenu.contains(e.target) &&
+    !moreNavBtn.contains(e.target)
+  ) {
+    moreMenu.classList.remove("show");
+  }
+});
+
+// Settings button
+if (settingsBtn) {
+  settingsBtn.addEventListener("click", () => {
+    moreMenu.classList.remove("show");
+    navigate("settings");
+  });
+}
+
 // Search Button (Bottom Nav)
 document.getElementById("searchNavBtn")?.addEventListener("click", () => navigate("surahs"));
 
