@@ -1038,24 +1038,28 @@ body {
   background: var(--card-subtle);
   border-radius: 10px;
   height: 20px;
-  overflow: hidden;
+  overflow: visible; /* Label ko bahar nikalne ki ijazat */
   position: relative;
+  padding-bottom: 24px; /* Label ke liye neeche space */
 }
 
 .progress-bar-fill {
   background: var(--primary);
   height: 100%;
   transition: width 0.3s ease;
+  border-radius: 10px;
 }
 
 .progress-label {
   position: absolute;
-  top: 50%;
+  bottom: 0; /* Label bar ke bilkul neeche */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--text);
+  white-space: nowrap; /* Text ek line mein rahe */
+  overflow: visible;
 }
 
 /* ============================================================
