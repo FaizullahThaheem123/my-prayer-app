@@ -1,6 +1,7 @@
 /**
  * ============================================================================
  * القرآن الكريم — HOLY QURAN COMPLETE ENGINE
+ * (Bottom Nav: Home + Search + More)
  * ============================================================================
  */
 
@@ -206,6 +207,41 @@
     updateLastReadUI();
     setupEventListeners();
 
+  // More Menu - NAYA GRID SYSTEM
+const moreNavBtn = document.getElementById("moreNavBtn");
+const moreMenu = document.getElementById("moreMenu");
+const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+
+if (moreNavBtn && moreMenu) {
+  moreNavBtn.addEventListener("click", () => {
+    moreMenu.classList.add("show");
+  });
+
+  if (closeMoreMenuBtn) {
+    closeMoreMenuBtn.addEventListener("click", () => {
+      moreMenu.classList.remove("show");
+    });
+  }
+
+  // Agar card ke bahar click ho toh band ho jaye (option A)
+  moreMenu.addEventListener("click", (event) => {
+    if (event.target === moreMenu) {
+      moreMenu.classList.remove("show");
+    }
+  });
+
+  // Settings button click
+  if (settingsBtn) {
+    settingsBtn.addEventListener("click", () => {
+      moreMenu.classList.remove("show");
+      navigate("settings");
+    });
+  }
+}
+// Search Button (Bottom Nav)
+document.getElementById("searchNavBtn")?.addEventListener("click", () => navigate("surahs"));
+
     document.getElementById("btn-download-all-text")?.addEventListener("click", downloadAllQuranText);
     document.getElementById("btn-download-all-audio")?.addEventListener("click", downloadAllQuranAudio);
   }
@@ -251,10 +287,12 @@
     const target = document.getElementById("view-" + viewName);
     if (target) target.classList.add("active");
     const backBtn = document.getElementById("btn-back");
-    if (viewName === "home") {
-      backBtn.classList.add("hidden");
-    } else {
-      backBtn.classList.remove("hidden");
+    if (backBtn) {
+      if (viewName === "home") {
+        backBtn.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+      }
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -424,13 +462,11 @@
     document.getElementById("player-reciter-name").innerText = qari.name;
     document.getElementById("audio-player-bar").classList.remove("hidden");
 
-    // Purani offline blob URL ho to usko free kar dein (memory leak se bachne ke liye)
     if (state.currentObjectURL) {
       URL.revokeObjectURL(state.currentObjectURL);
       state.currentObjectURL = null;
     }
 
-    // Pehle offline (downloaded) audio check karein, warna online stream karein
     let playUrl = onlineUrl;
     try {
       const cachedBlob = await getCachedAyahAudio(state.selectedQari, ayah.number);
@@ -640,127 +676,120 @@
     }
   }
 
-// ============================================================
-//  DOWNLOAD FULL AUDIO — Har Ayah ka audio IndexedDB mein save hota hai
-//  Ab MB (Megabytes) ka bhi live hisaab dikhega.
-// ============================================================
-async function downloadAllQuranAudio() {
-  if (state.isDownloadingAudio) return;
-  state.isDownloadingAudio = true;
+  // ============================================================
+  //  DOWNLOAD FULL AUDIO
+  // ============================================================
+  async function downloadAllQuranAudio() {
+    if (state.isDownloadingAudio) return;
+    state.isDownloadingAudio = true;
 
-  const qariId = document.getElementById("select-download-qari").value;
-  const qari = QARIS_LIST.find(q => q.id === qariId);
-  const btn = document.getElementById("btn-download-all-audio");
-  const progressBar = document.getElementById("audio-download-progress-bar");
-  const fill = progressBar.querySelector(".progress-bar-fill");
-  const label = progressBar.querySelector(".progress-label");
+    const qariId = document.getElementById("select-download-qari").value;
+    const qari = QARIS_LIST.find(q => q.id === qariId);
+    const btn = document.getElementById("btn-download-all-audio");
+    const progressBar = document.getElementById("audio-download-progress-bar");
+    const fill = progressBar.querySelector(".progress-bar-fill");
+    const label = progressBar.querySelector(".progress-label");
 
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing...';
-  progressBar.classList.remove("hidden");
-  fill.style.width = "0%";
-  label.innerText = "0%";
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing...';
+    progressBar.classList.remove("hidden");
+    fill.style.width = "0%";
+    label.innerText = "0%";
 
-  // Backup proxy
-  const PROXY_URL = "https://corsproxy.io/?url=";
+    const PROXY_URL = "https://corsproxy.io/?url=";
 
-  async function fetchAudioBlob(url, retries = 2) {
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const response = await fetch(url);
-        if (response.ok) return await response.blob();
-        throw new Error(`HTTP ${response.status}`);
-      } catch (err) {
-        if (attempt === retries) break;
-        await new Promise(r => setTimeout(r, 800 * attempt));
+    async function fetchAudioBlob(url, retries = 2) {
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          const response = await fetch(url);
+          if (response.ok) return await response.blob();
+          throw new Error(`HTTP ${response.status}`);
+        } catch (err) {
+          if (attempt === retries) break;
+          await new Promise(r => setTimeout(r, 800 * attempt));
+        }
+      }
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          const response = await fetch(PROXY_URL + encodeURIComponent(url));
+          if (response.ok) return await response.blob();
+          throw new Error(`HTTP ${response.status}`);
+        } catch (err) {
+          if (attempt === retries) throw err;
+          await new Promise(r => setTimeout(r, 1200 * attempt));
+        }
       }
     }
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const response = await fetch(PROXY_URL + encodeURIComponent(url));
-        if (response.ok) return await response.blob();
-        throw new Error(`HTTP ${response.status}`);
-      } catch (err) {
-        if (attempt === retries) throw err;
-        await new Promise(r => setTimeout(r, 1200 * attempt));
+
+    const ayahJobs = [];
+    let globalAyahNumber = 1;
+    for (const surah of SURAHS_LIST) {
+      for (let i = 1; i <= surah.numberOfAyahs; i++) {
+        ayahJobs.push(globalAyahNumber);
+        globalAyahNumber++;
       }
     }
-  }
 
-  // Har ayah ka global number nikalte hain
-  const ayahJobs = [];
-  let globalAyahNumber = 1;
-  for (const surah of SURAHS_LIST) {
-    for (let i = 1; i <= surah.numberOfAyahs; i++) {
-      ayahJobs.push(globalAyahNumber);
-      globalAyahNumber++;
-    }
-  }
+    const total = ayahJobs.length;
+    let successful = 0;
+    let failed = 0;
 
-  const total = ayahJobs.length;
-  let successful = 0;
-  let failed = 0;
+    let downloadedBytes = 0;
+    const AVG_AUDIO_SIZE = 45 * 1024;
+    const totalBytesEstimate = total * AVG_AUDIO_SIZE;
 
-  // ====== MB ka hisaab rakhne ke liye ======
-  let downloadedBytes = 0;
-  const AVG_AUDIO_SIZE = 45 * 1024; // ~45 KB per ayah (andaraz)
-  const totalBytesEstimate = total * AVG_AUDIO_SIZE;
+    const CONCURRENCY = 8;
 
-  const CONCURRENCY = 8;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${qari.name}...`;
 
-  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading ${qari.name}...`;
+    try {
+      const db = await openDB();
 
-  try {
-    const db = await openDB();
-
-    async function downloadOne(ayahNumber) {
-      const audioUrl = `https://cdn.islamic.network/quran/audio/128/${qariId}/${ayahNumber}.mp3`;
-      try {
-        const blob = await fetchAudioBlob(audioUrl, 2);
-        await putAyahAudioBlob(db, qariId, ayahNumber, blob);
-        successful++;
-        downloadedBytes += blob.size; // Actual bytes add karein
-      } catch (err) {
-        failed++;
+      async function downloadOne(ayahNumber) {
+        const audioUrl = `https://cdn.islamic.network/quran/audio/128/${qariId}/${ayahNumber}.mp3`;
+        try {
+          const blob = await fetchAudioBlob(audioUrl, 2);
+          await putAyahAudioBlob(db, qariId, ayahNumber, blob);
+          successful++;
+          downloadedBytes += blob.size;
+        } catch (err) {
+          failed++;
+        }
+        const done = successful + failed;
+        const pct = Math.round((done / total) * 100);
+        const downloadedMB = (downloadedBytes / 1048576).toFixed(1);
+        const totalMB = (totalBytesEstimate / 1048576).toFixed(1);
+        fill.style.width = pct + "%";
+        label.innerText = `${pct}% (${done}/${total}) • ${downloadedMB} MB / ${totalMB} MB`;
       }
-      const done = successful + failed;
-      const pct = Math.round((done / total) * 100);
 
-      // MB mein convert karein
-      const downloadedMB = (downloadedBytes / 1048576).toFixed(1);
-      const totalMB = (totalBytesEstimate / 1048576).toFixed(1);
+      for (let i = 0; i < ayahJobs.length; i += CONCURRENCY) {
+        const batch = ayahJobs.slice(i, i + CONCURRENCY);
+        await Promise.all(batch.map(downloadOne));
+      }
 
-      fill.style.width = pct + "%";
-      label.innerText = `${pct}% (${done}/${total}) • ${downloadedMB} MB / ${totalMB} MB`;
+      localStorage.setItem("quran_offline_audio_qari", qariId);
+      localStorage.setItem("quran_audio_cached", failed === 0 ? "true" : "partial");
+
+      let msg = `✅ ${successful}/${total} Ayahs saved for ${qari.name} — ab offline chalega.`;
+      if (failed > 0) {
+        msg = `⚠️ ${successful}/${total} Ayahs saved. ${failed} download nahi ho sake — dobara try karein.`;
+      }
+      showToast(msg);
+
+      fill.style.width = "100%";
+      label.innerText = `✅ Done! ${successful}/${total} • ${(downloadedBytes / 1048576).toFixed(1)} MB saved`;
+
+    } catch (err) {
+      console.error(err);
+      showToast("❌ Audio download failed. Check internet.");
+    } finally {
+      state.isDownloadingAudio = false;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
+      setTimeout(() => progressBar.classList.add("hidden"), 3000);
     }
-
-    for (let i = 0; i < ayahJobs.length; i += CONCURRENCY) {
-      const batch = ayahJobs.slice(i, i + CONCURRENCY);
-      await Promise.all(batch.map(downloadOne));
-    }
-
-    localStorage.setItem("quran_offline_audio_qari", qariId);
-    localStorage.setItem("quran_audio_cached", failed === 0 ? "true" : "partial");
-
-    let msg = `✅ ${successful}/${total} Ayahs saved for ${qari.name} — ab offline chalega.`;
-    if (failed > 0) {
-      msg = `⚠️ ${successful}/${total} Ayahs saved. ${failed} download nahi ho sake — dobara try karein.`;
-    }
-    showToast(msg);
-
-    fill.style.width = "100%";
-    label.innerText = `✅ Done! ${successful}/${total} • ${(downloadedBytes / 1048576).toFixed(1)} MB saved`;
-
-  } catch (err) {
-    console.error(err);
-    showToast("❌ Audio download failed. Check internet.");
-  } finally {
-    state.isDownloadingAudio = false;
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down"></i> Download Selected Qari Audio';
-    setTimeout(() => progressBar.classList.add("hidden"), 3000);
   }
-}
 
   // --- INDEXEDDB HELPERS ---
   function openDB() {
@@ -791,7 +820,6 @@ async function downloadAllQuranAudio() {
     });
   }
 
-  // Ek ayah ka audio Blob IndexedDB mein save karta hai
   function putAyahAudioBlob(db, qariId, ayahNumber, blob) {
     return new Promise((resolve, reject) => {
       const tx = db.transaction("audio", "readwrite");
@@ -802,7 +830,6 @@ async function downloadAllQuranAudio() {
     });
   }
 
-  // Player ke liye: agar ayah ka audio pehle se download ho chuka ho to Blob wapas deta hai
   async function getCachedAyahAudio(qariId, ayahNumber) {
     try {
       const db = await openDB();
@@ -821,13 +848,12 @@ async function downloadAllQuranAudio() {
   // --- EVENT LISTENERS ---
   function setupEventListeners() {
     document.getElementById("btn-back")?.addEventListener("click", goBack);
-    document.getElementById("btn-search-trigger")?.addEventListener("click", () => navigate("surahs"));
+    
+    // Search Button (Bottom Nav)
+    document.getElementById("searchNavBtn")?.addEventListener("click", () => navigate("surahs"));
+    
+    // Downloads Button (Home Screen Nav Card se)
     document.getElementById("btn-downloads-trigger")?.addEventListener("click", () => navigate("downloads"));
-    document.getElementById("btn-theme-quick")?.addEventListener("click", () => {
-      const themes = ["light", "dark", "sepia"];
-      const next = themes[(themes.indexOf(state.theme) + 1) % themes.length];
-      setTheme(next);
-    });
 
     document.getElementById("btn-resume-reading")?.addEventListener("click", () => {
       openSurah(state.lastRead.surah);
@@ -955,3 +981,5 @@ async function downloadAllQuranAudio() {
     init();
   }
 })();
+
+
