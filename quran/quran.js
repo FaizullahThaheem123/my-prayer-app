@@ -246,7 +246,7 @@ if (settingsBtn) {
   });
 }
 
-// Search Button (Bottom Nav)
+// Search Button 
 document.getElementById("searchNavBtn")?.addEventListener("click", () => navigate("surahs"));
 
     document.getElementById("btn-download-all-text")?.addEventListener("click", downloadAllQuranText);

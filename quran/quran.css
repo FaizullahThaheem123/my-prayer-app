@@ -353,7 +353,7 @@ input:checked+.slider:before { transform: translateX(20px); }
 
 
 /* ==========================================================
-   MORE SHEET (Bottom Sheet Style)
+   MORE SHEET (Bottom  Style)
 ========================================================== */
 .more-sheet {
   position: fixed;
