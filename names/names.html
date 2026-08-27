@@ -74,8 +74,6 @@
 })();
 </script>
 
-<!-- یہاں سے ڈپلیکیٹ اسکرپٹس ہٹا دی گئی ہیں (names.js اور theme.js) -->
-
 </head>
 <body>
 
@@ -162,34 +160,46 @@
 </main>
 
 <!-- ======================================
-     BOTTOM NAV (ONLY HOME + MORE)
+     BOTTOM NAV (HOME + MORE) - QURAN STYLE
 ====================================== -->
 <nav class="bottom-nav">
-    <!-- Only Home remains outside -->
-    <a href="../index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <!-- HOME -->
+    <a href="../index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
 
-    <!-- Quran & Duas moved inside More -->
+    <!-- MORE (Quran Style - Bottom Sheet) -->
     <div class="more-nav">
         <button type="button" class="more-nav-btn active" id="moreNavBtn">
-            <i class="fa-solid fa-ellipsis"></i><span>More</span>
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>More</span>
         </button>
+
         <div class="more-menu" id="moreMenu">
-            <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
-            <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-            <a href="names.html" class="active"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-            <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-            <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-            <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
-            <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span> </a>
-            <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-            <button type="button" id="namesSettingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            <div class="more-menu-header">
+                <span>All Features</span>
+                <button id="closeMoreMenuBtn" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="more-menu-grid">
+                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+                <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+                <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
+                <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
+                <button type="button" id="namesSettingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            </div>
         </div>
     </div>
 </nav>
 
 </div>
 
-<!-- یہاں صرف ایک بار لوڈ ہوگا، بٹن بالکل کام کرے گا -->
 <script src="names.js"></script>
 <script src="../theme/theme.js"></script>
 </body>

@@ -1,5 +1,7 @@
 "use strict";
-let prayerTimes = {}; let jamaatTimes = {}; let currentPrayer = "";
+let prayerTimes = {};
+let jamaatTimes = {};
+let currentPrayer = "";
 const date = document.getElementById("date");
 const islamicDate = document.getElementById("islamic-date");
 const locationName = document.getElementById("locationName");
@@ -7,39 +9,63 @@ const countdown = document.getElementById("countdown");
 const liveTimeDisplay = document.getElementById("liveTimeDisplay");
 
 // More Menu Elements
+const moreNavBtn = document.getElementById("moreNavBtn");
+const moreMenu = document.getElementById("moreMenu");
+const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 const settingsBtn = document.getElementById("settingsBtn");
-const themesBtn = document.getElementById("themesBtn");
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateClock(); setInterval(updateClock,1000);
-    loadTodayDate(); loadSavedJamaat();
+    updateClock();
+    setInterval(updateClock, 1000);
+    loadTodayDate();
+    loadSavedJamaat();
     detectLocation();
 
-    if(settingsBtn) {
-        settingsBtn.addEventListener("click", () => {
-            alert("Settings will be available in the next update.");
+    // More Menu Logic (Quran Style)
+    if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
+
+        // Open More menu
+        moreNavBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.add("show");
         });
+
+        // Close with X button
+        closeMoreMenuBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", function(e) {
+            if (moreMenu.classList.contains("show") &&
+                !moreMenu.contains(e.target) &&
+                !moreNavBtn.contains(e.target)) {
+                moreMenu.classList.remove("show");
+            }
+        });
+
+        // Settings button inside More
+        if (settingsBtn) {
+            settingsBtn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                moreMenu.classList.remove("show");
+                alert("Settings will be available in the next update.");
+            });
+        }
     }
-   
 });
 
-function updateClock(){
-
+function updateClock() {
     const now = new Date();
-
     let hours = now.getHours();
-
     const minutes = String(now.getMinutes()).padStart(2, "0");
     const seconds = String(now.getSeconds()).padStart(2, "0");
-
     const ampm = hours >= 12 ? "PM" : "AM";
-
     hours = hours % 12;
-
-    if(hours === 0){
+    if (hours === 0) {
         hours = 12;
     }
-
     const timeStr =
         String(hours).padStart(2, "0") +
         ":" +
@@ -47,22 +73,23 @@ function updateClock(){
         ":" +
         seconds;
 
-    // Time display
     document.getElementById("liveTimeDisplay").textContent = timeStr;
-
-    // AM / PM separate display
     document.querySelector(".ampm-text").textContent = ampm;
 }
 
-
-function loadTodayDate(){
+function loadTodayDate() {
     const today = new Date();
-    date.innerHTML = today.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    date.innerHTML = today.toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
     islamicDate.innerHTML = "Loading Islamic Date...";
 }
 
-function detectLocation(){
-    if(!navigator.geolocation){
+function detectLocation() {
+    if (!navigator.geolocation) {
         locationName.innerHTML = "📍 Adilpur, Ghotki";
         getPrayerTimes(28.0065, 69.3167);
         return;
@@ -80,64 +107,33 @@ function detectLocation(){
     );
 }
 
-async function getPrayerTimes(latitude, longitude){
-
-    try{
-
+async function getPrayerTimes(latitude, longitude) {
+    try {
         /* ======================================
            SAVE HOME LIVE LOCATION
            MASJID PAGE WILL USE THE SAME LOCATION
         ====================================== */
-
-        localStorage.setItem(
-            "userLatitude",
-            String(latitude)
-        );
-
-        localStorage.setItem(
-            "userLongitude",
-            String(longitude)
-        );
-
+        localStorage.setItem("userLatitude", String(latitude));
+        localStorage.setItem("userLongitude", String(longitude));
 
         /* ======================================
            GET PRAYER TIMES
         ====================================== */
-
-        const response =
-            await fetch(
-                `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`
-            );
-
-
-        const result =
-            await response.json();
-
-
-        prayerTimes =
-            result.data.timings;
-
+        const response = await fetch(
+            `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`
+        );
+        const result = await response.json();
+        prayerTimes = result.data.timings;
 
         /* ======================================
            GET LOCATION NAME
         ====================================== */
-
-        try{
-
-            const locRes =
-                await fetch(
-                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-                );
-
-
-            const locData =
-                await locRes.json();
-
-
-            const address =
-                locData.address || {};
-
-
+        try {
+            const locRes = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+            );
+            const locData = await locRes.json();
+            const address = locData.address || {};
             const name =
                 address.village ||
                 address.town ||
@@ -145,94 +141,47 @@ async function getPrayerTimes(latitude, longitude){
                 address.municipality ||
                 address.county ||
                 "Adilpur, Ghotki";
-
-
-            locationName.innerHTML =
-                "📍 " + name;
-
-
-            /* SAVE SAME LOCATION NAME */
-
-            localStorage.setItem(
-                "userLocationName",
-                name
-            );
-
-
-        }catch(error){
-
-            console.log(
-                "Location name error:",
-                error
-            );
-
-
-            locationName.innerHTML =
-                "📍 Adilpur, Ghotki";
-
-
-            localStorage.setItem(
-                "userLocationName",
-                "Adilpur, Ghotki"
-            );
-
+            locationName.innerHTML = "📍 " + name;
+            localStorage.setItem("userLocationName", name);
+        } catch (error) {
+            console.log("Location name error:", error);
+            locationName.innerHTML = "📍 Adilpur, Ghotki";
+            localStorage.setItem("userLocationName", "Adilpur, Ghotki");
         }
 
+        /* ======================================
+           SAVE LIVE MAGHRIB
+        ====================================== */
+        if (result.data.timings && result.data.timings.Maghrib) {
+            localStorage.setItem("liveMaghribAzan", result.data.timings.Maghrib);
 
-      /* ======================================
-   SAVE LIVE MAGHRIB
-====================================== */
-
-if(
-    result.data.timings &&
-    result.data.timings.Maghrib
-){
-
-    localStorage.setItem(
-        "liveMaghribAzan",
-        result.data.timings.Maghrib
-    );
-
-    /* ======================================
-       AUTO MAGHRIB JAMAAT
-       MAGHRIB AZAN + 3 MINUTES
-    ====================================== */
-
-    const parts = result.data.timings.Maghrib.split(":");
-
-    let hours = parseInt(parts[0]);
-    let minutes = parseInt(parts[1]);
-
-    minutes += 3;
-
-    if(minutes >= 60){
-        minutes -= 60;
-        hours += 1;
-    }
-
-    if(hours >= 24){
-        hours = 0;
-    }
-
-    const autoMaghribJamaat =
-        String(hours).padStart(2,"0") +
-        ":" +
-        String(minutes).padStart(2,"0");
-
-    jamaatTimes["Maghrib"] = autoMaghribJamaat;
-
-    localStorage.setItem(
-        "jamaatTimes",
-        JSON.stringify(jamaatTimes)
-    );
-
-    updateJamaatUI();
-}
+            /* ======================================
+               AUTO MAGHRIB JAMAAT
+               MAGHRIB AZAN + 3 MINUTES
+            ====================================== */
+            const parts = result.data.timings.Maghrib.split(":");
+            let hours = parseInt(parts[0]);
+            let minutes = parseInt(parts[1]);
+            minutes += 3;
+            if (minutes >= 60) {
+                minutes -= 60;
+                hours += 1;
+            }
+            if (hours >= 24) {
+                hours = 0;
+            }
+            const autoMaghribJamaat =
+                String(hours).padStart(2, "0") +
+                ":" +
+                String(minutes).padStart(2, "0");
+            jamaatTimes["Maghrib"] = autoMaghribJamaat;
+            localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
+            updateJamaatUI();
+        }
 
         /* ======================================
            ISLAMIC DATE
         ====================================== */
-
         islamicDate.innerHTML =
             result.data.date.hijri.weekday.en +
             ", " +
@@ -243,179 +192,227 @@ if(
             result.data.date.hijri.year +
             " AH";
 
-
         /* ======================================
            UPDATE PRAYER UI
         ====================================== */
-
         showPrayerTimes();
-
         calculateNextPrayer();
 
-
+    } catch (error) {
+        console.error("Prayer Times Error:", error);
     }
-    catch(error){
-
-        console.error(
-            "Prayer Times Error:",
-            error
-        );
-
-    }
-
 }
 
-function showPrayerTimes(){
-
-    function formatPrayerTime(time){
-
-        if(!time) return "--:--";
-
+function showPrayerTimes() {
+    function formatPrayerTime(time) {
+        if (!time) return "--:--";
         const parts = time.split(":");
-
         let hours = parseInt(parts[0]);
         const minutes = parts[1];
-
         const ampm = hours >= 12 ? "PM" : "AM";
-
         hours = hours % 12;
-
-        if(hours === 0){
+        if (hours === 0) {
             hours = 12;
         }
-
-        return String(hours).padStart(2,"0") +
-               ":" +
-               minutes +
-               " " +
-               ampm;
+        return String(hours).padStart(2, "0") +
+            ":" +
+            minutes +
+            " " +
+            ampm;
     }
 
+    document.getElementById("fajr").innerHTML = formatPrayerTime(prayerTimes.Fajr);
+    document.getElementById("dhuhr").innerHTML = formatPrayerTime(prayerTimes.Dhuhr);
+    document.getElementById("asr").innerHTML = formatPrayerTime(prayerTimes.Asr);
+    document.getElementById("maghrib").innerHTML = formatPrayerTime(prayerTimes.Maghrib);
+    document.getElementById("isha").innerHTML = formatPrayerTime(prayerTimes.Isha);
 
-    document.getElementById("fajr").innerHTML =
-        formatPrayerTime(prayerTimes.Fajr);
-
-    document.getElementById("dhuhr").innerHTML =
-        formatPrayerTime(prayerTimes.Dhuhr);
-
-    document.getElementById("asr").innerHTML =
-        formatPrayerTime(prayerTimes.Asr);
-
-    document.getElementById("maghrib").innerHTML =
-        formatPrayerTime(prayerTimes.Maghrib);
-
-    document.getElementById("isha").innerHTML =
-        formatPrayerTime(prayerTimes.Isha);
-
-
-    /* ======================================
-       SAVE LIVE MAGHRIB AZAN FOR MASJID PAGE
-    ====================================== */
-
-    if(prayerTimes.Maghrib){
-
-        localStorage.setItem(
-            "liveMaghribAzan",
-            prayerTimes.Maghrib
-        );
-
+    if (prayerTimes.Maghrib) {
+        localStorage.setItem("liveMaghribAzan", prayerTimes.Maghrib);
     }
-
 }
 
-function calculateNextPrayer(){
-    const prayers = [ {name:"Fajr", time:prayerTimes.Fajr}, {name:"Dhuhr", time:prayerTimes.Dhuhr}, {name:"Asr", time:prayerTimes.Asr}, {name:"Maghrib", time:prayerTimes.Maghrib}, {name:"Isha", time:prayerTimes.Isha} ];
-    const now = new Date(); let next = null;
-    for(const prayer of prayers){
+function calculateNextPrayer() {
+    const prayers = [
+        { name: "Fajr", time: prayerTimes.Fajr },
+        { name: "Dhuhr", time: prayerTimes.Dhuhr },
+        { name: "Asr", time: prayerTimes.Asr },
+        { name: "Maghrib", time: prayerTimes.Maghrib },
+        { name: "Isha", time: prayerTimes.Isha }
+    ];
+    const now = new Date();
+    let next = null;
+    for (const prayer of prayers) {
         const parts = prayer.time.split(":");
         const prayerDate = new Date();
         prayerDate.setHours(parseInt(parts[0]), parseInt(parts[1]), 0, 0);
-        if(prayerDate > now){ next = { name: prayer.name, date: prayerDate, jamaat: jamaatTimes[prayer.name] || "" }; break; }
+        if (prayerDate > now) {
+            next = {
+                name: prayer.name,
+                date: prayerDate,
+                jamaat: jamaatTimes[prayer.name] || ""
+            };
+            break;
+        }
     }
-    if(!next){
+    if (!next) {
         const fajr = prayerTimes.Fajr.split(":");
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         tomorrow.setHours(parseInt(fajr[0]), parseInt(fajr[1]), 0, 0);
-        next = { name: "Fajr", date: tomorrow, jamaat: jamaatTimes["Fajr"] || "" };
+        next = {
+            name: "Fajr",
+            date: tomorrow,
+            jamaat: jamaatTimes["Fajr"] || ""
+        };
     }
     currentPrayer = next.name;
     document.getElementById("nextPrayerName").innerHTML = currentPrayer;
 
     const nextPrayerJamaat = document.getElementById("nextPrayerJamaat");
-    if(nextPrayerJamaat){
+    if (nextPrayerJamaat) {
         const time = next.jamaat;
-        if(time){
-            const parts = time.split(":"); let hours = parseInt(parts[0]); const minutes = parts[1];
-            const ampm = hours >= 12 ? "PM" : "AM"; hours = hours % 12; if(hours === 0){ hours = 12; }
-            nextPrayerJamaat.innerHTML = String(hours).padStart(2,"0") + ":" + minutes + " " + ampm;
-        } else { nextPrayerJamaat.innerHTML = "--:--"; }
+        if (time) {
+            const parts = time.split(":");
+            let hours = parseInt(parts[0]);
+            const minutes = parts[1];
+            const ampm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12;
+            if (hours === 0) {
+                hours = 12;
+            }
+            nextPrayerJamaat.innerHTML = String(hours).padStart(2, "0") + ":" + minutes + " " + ampm;
+        } else {
+            nextPrayerJamaat.innerHTML = "--:--";
+        }
     }
     startCountdown(next.date);
 }
 
 let countdownInterval = null;
-function startCountdown(nextPrayerTime){
-    if(countdownInterval){ clearInterval(countdownInterval); }
+
+function startCountdown(nextPrayerTime) {
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
     countdownInterval = setInterval(() => {
-        const now = new Date(); const difference = nextPrayerTime - now;
-        if(difference <= 0){ clearInterval(countdownInterval); calculateNextPrayer(); return; }
+        const now = new Date();
+        const difference = nextPrayerTime - now;
+        if (difference <= 0) {
+            clearInterval(countdownInterval);
+            calculateNextPrayer();
+            return;
+        }
         const hours = Math.floor(difference / 3600000);
         const minutes = Math.floor((difference % 3600000) / 60000);
         const seconds = Math.floor((difference % 60000) / 1000);
-        countdown.innerHTML = String(hours).padStart(2,"0") + ":" + String(minutes).padStart(2,"0") + ":" + String(seconds).padStart(2,"0");
-    },1000);
+        countdown.innerHTML = String(hours).padStart(2, "0") + ":" +
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+    }, 1000);
 }
 
 let selectedPrayer = "";
-function editJamaat(prayer){ selectedPrayer = prayer; document.getElementById("selectedPrayer").innerText = prayer; document.getElementById("jamaatTimeInput").value = jamaatTimes[prayer] || ""; document.getElementById("jamaatModal").style.display = "flex"; }
-function closeJamaatModal(){ document.getElementById("jamaatModal").style.display = "none"; }
-function saveJamaatTime(){ const time = document.getElementById("jamaatTimeInput").value; if(time === "") return; jamaatTimes[selectedPrayer] = time; localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes)); updateJamaatUI(); closeJamaatModal(); }
-function loadSavedJamaat(){ const saved = localStorage.getItem("jamaatTimes"); if(saved){ jamaatTimes = JSON.parse(saved); } updateJamaatUI(); }
-function updateJamaatUI(){
-    ["Fajr","Dhuhr","Asr","Maghrib","Isha"].forEach(prayer => {
+
+function editJamaat(prayer) {
+    selectedPrayer = prayer;
+    document.getElementById("selectedPrayer").innerText = prayer;
+    document.getElementById("jamaatTimeInput").value = jamaatTimes[prayer] || "";
+    document.getElementById("jamaatModal").style.display = "flex";
+}
+
+function closeJamaatModal() {
+    document.getElementById("jamaatModal").style.display = "none";
+}
+
+function saveJamaatTime() {
+    const time = document.getElementById("jamaatTimeInput").value;
+    if (time === "") return;
+    jamaatTimes[selectedPrayer] = time;
+    localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
+    updateJamaatUI();
+    closeJamaatModal();
+}
+
+function loadSavedJamaat() {
+    const saved = localStorage.getItem("jamaatTimes");
+    if (saved) {
+        jamaatTimes = JSON.parse(saved);
+    }
+    updateJamaatUI();
+}
+
+function updateJamaatUI() {
+    ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].forEach(prayer => {
         const element = document.getElementById(prayer.toLowerCase() + "Jamaat");
-        if(element){
+        if (element) {
             const time = jamaatTimes[prayer];
-            if(time){ const parts = time.split(":"); let hours = parseInt(parts[0]); const minutes = parts[1]; const ampm = hours >= 12 ? "PM" : "AM"; hours = hours % 12; if(hours === 0){ hours = 12; } element.innerHTML = String(hours).padStart(2,"0") + ":" + minutes + " " + ampm; }
-            else { element.innerHTML = "--:--"; }
+            if (time) {
+                const parts = time.split(":");
+                let hours = parseInt(parts[0]);
+                const minutes = parts[1];
+                const ampm = hours >= 12 ? "PM" : "AM";
+                hours = hours % 12;
+                if (hours === 0) {
+                    hours = 12;
+                }
+                element.innerHTML = String(hours).padStart(2, "0") + ":" + minutes + " " + ampm;
+            } else {
+                element.innerHTML = "--:--";
+            }
         }
     });
 }
 
-// Notification Button (Inside the Next Prayer card)
+// Notification Button
 const notificationBtn = document.getElementById("notificationBtn");
 const notificationModal = document.getElementById("notificationModal");
 const enableNotification = document.getElementById("enableNotification");
 
-if(notificationBtn) {
-    notificationBtn.addEventListener("click",()=>{
+if (notificationBtn) {
+    notificationBtn.addEventListener("click", () => {
         notificationModal.style.display = "flex";
     });
 }
 
-function closeNotificationModal(){ notificationModal.style.display = "none"; }
+function closeNotificationModal() {
+    notificationModal.style.display = "none";
+}
 
-enableNotification.addEventListener("click",async()=>{
-    if(!("Notification" in window)){
+enableNotification.addEventListener("click", async () => {
+    if (!("Notification" in window)) {
         alert("Notification is not supported.");
         return;
     }
     const permission = await Notification.requestPermission();
-    if(permission === "granted"){
+    if (permission === "granted") {
         alert("Prayer Notifications Enabled.");
-    }else{
+    } else {
         alert("Notification Permission Denied.");
     }
     closeNotificationModal();
 });
 
-window.addEventListener("click",(event)=>{
-    if(event.target === notificationModal){ closeNotificationModal(); }
-    if(event.target === document.getElementById("jamaatModal")){ closeJamaatModal(); }
+window.addEventListener("click", (event) => {
+    if (event.target === notificationModal) {
+        closeNotificationModal();
+    }
+    if (event.target === document.getElementById("jamaatModal")) {
+        closeJamaatModal();
+    }
 });
-window.addEventListener("load",()=>{ setTimeout(()=>{ document.getElementById("loadingScreen").style.display="none"; },1200); });
-setInterval(()=>{ if(Object.keys(prayerTimes).length>0){ calculateNextPrayer(); } },60000);
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loadingScreen").style.display = "none";
+    }, 1200);
+});
+
+setInterval(() => {
+    if (Object.keys(prayerTimes).length > 0) {
+        calculateNextPrayer();
+    }
+}, 60000);
 
 // ======================================
 // LOAD THEME ON INDEX PAGE
@@ -423,15 +420,10 @@ setInterval(()=>{ if(Object.keys(prayerTimes).length>0){ calculateNextPrayer(); 
 function loadThemeOnIndex() {
     const savedTheme = localStorage.getItem('appTheme');
     if (savedTheme) {
-        // We need to apply CSS variables. We'll use the same theme list as themes.js.
-        // Since we can't duplicate the list, we can apply a class to body.
-        // Instead of CSS variables, we can add a class to body like 'theme-gold', etc.
-        // We'll define classes in a global CSS file (like index.css) for each theme.
         document.body.className = 'theme-' + savedTheme;
     } else {
         document.body.className = 'theme-gold';
     }
 }
 
-// Call this at the start of DOMContentLoaded
 loadThemeOnIndex();

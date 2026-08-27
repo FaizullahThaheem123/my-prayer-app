@@ -1,5 +1,6 @@
 /* ==========================================
             MY PRAYER APP (FULL 3D METALLIC THEME)
+            (Quran | Duas | More - No Home)
 ========================================== */
 :root {
     --bg: #0f0f0f;
@@ -24,6 +25,7 @@ body {
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
+    padding-bottom: 75px;
 }
 
 .app {
@@ -33,7 +35,7 @@ body {
     min-height: 100vh;
     background: transparent;
     position: relative;
-    padding-bottom: 95px;
+    padding-bottom: 20px;
 }
 
 /* HEADER */
@@ -95,190 +97,101 @@ body {
     background: #111;
 }
 
-/* ==========================================
-   BLUE CARD
-   SAME SIZE - TWO SEPARATE MINI CARDS
-========================================== */
-
+/* BLUE CARD */
 .header-card-bottom {
     width: calc(100% - 20px);
     margin: 4px 10px;
     height: 80px;
     padding: 0 16px;
-
     background: var(--card);
-
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 12px;
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-
-/* ==========================================
-   TWO MINI CARDS CONTAINER
-========================================== */
 
 .header-card-bottom .greeting-row {
     width: 100%;
     height: 58px;
-
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-
     gap: 8px;
 }
-
-
-/* ==========================================
-   LEFT MINI CARD
-   ASSALAMUALAIKUM + LOCATION
-========================================== */
 
 .header-card-bottom .greeting-mini-card {
     width: 50%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-
     padding: 0 12px;
-
     background: rgba(255, 255, 255, 0.03);
-
     border-radius: 9px;
-
     box-sizing: border-box;
 }
-
-
-/* ==========================================
-   WELCOME TEXT
-========================================== */
 
 .header-card-bottom .greeting-mini-card .welcome-text {
     font-size: 15px;
     font-weight: 800;
-
     color: var(--primary);
-
     margin: 0;
-
     white-space: nowrap;
 }
-
-
-/* ==========================================
-   LOCATION
-========================================== */
 
 .header-card-bottom .greeting-mini-card .location {
     font-size: 12px;
     font-weight: 500;
-
     color: var(--text);
-
     margin: 2px 0 0 0;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
-
     max-width: 120px;
 }
-
-
-/* ==========================================
-   RIGHT MINI CARD
-   TIME
-========================================== */
 
 .header-card-bottom .time-mini-card {
     width: 50%;
     height: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: rgba(255, 255, 255, 0.03);
-
     border-radius: 9px;
-
     box-sizing: border-box;
 }
 
-
-/* ==========================================
-   TIME ROW
-========================================== */
-
 .header-card-bottom .time-row {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     width: 100%;
-
     margin: 0;
-
     font-size: 26px;
-
     font-weight: 700;
-
     color: var(--primary);
-
     letter-spacing: 1px;
 }
-
-
-/* ==========================================
-   LIVE TIME
-========================================== */
 
 #liveTimeDisplay {
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     color: var(--primary);
-
     font-size: 24px;
-
     font-weight: 700;
-
     letter-spacing: 1px;
 }
-
-
-/* ==========================================
-   AM / PM
-========================================== */
 
 .header-card-bottom .ampm-text {
     font-size: 11px;
     font-weight: 600;
-
     color: var(--primary);
-
     margin-left: 4px;
 }
-
 
 /* DATE CARD */
 .date-box {
@@ -305,13 +218,13 @@ body {
 }
 
 .date-place img {
-    width: 44px;      /* سائز بالکل ویسا ہی رکھا (نہ بڑا نہ چھوٹا) */
+    width: 44px;
     height: 44px;
-    border-radius: 50%; /* اب تصویر بالکل گول ہو جائے گی جیسے اوپر والی تصویر */
+    border-radius: 50%;
     object-fit: cover;
-    background: #111;  /* تصویر کے اندر کی سفید/خالی جگہ کو مکمل طور پر ہٹا دیا */
-    border: 2px solid var(--primary); /* ہیڈر والی تصویر کی طرح تھیم رنگ کا بورڈر */
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); /* ہیڈر والی تصویر کا سا شائو (Glow) */
+    background: #111;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
 .date-content {
@@ -411,9 +324,7 @@ body {
     transform: scale(1.1);
 }
 
-/* ==========================================
-   5 PRAYER CARDS (FINAL PERFECT FIX)
-========================================== */
+/* 5 PRAYER CARDS */
 .prayer-card {
     display: flex;
     align-items: center;
@@ -436,41 +347,38 @@ body {
     flex-shrink: 0;
 }
 
-/* === درمیانی ڈبہ === */
 .prayer-info {
     flex: 1;
     display: flex;
     align-items: center;
     min-width: 0;
     height: 100%;
-    position: relative; /* اس سے اندر والی چیزوں کو سینٹر کرنا ممکن ہوگا */
+    position: relative;
 }
 
-/* نماز کا نام (ہمیشہ بالکل بائیں) */
 .prayer-info h3 {
     font-size: 14px;
     color: var(--primary);
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
-    margin-right: auto; /* یہ نام کو بائیں طرف دھکیل دے گا */
+    margin-right: auto;
 }
 
-/* یہ وہ گروپ ہے جو عین سینٹر میں جائے گا (اذان, آئیکن, جماعت) */
 .times-center-group {
     display: flex;
     align-items: center;
     gap: 8px;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* یہ گروپ کو بالکل درمیان میں لاک کر دے گا */
+    transform: translateX(-50%);
     white-space: nowrap;
 }
 
 .times-center-group b {
     display: block;
     font-size: 12px;
-    color: var(--primary); /* اب یہ تھیم کے ساتھ رنگ بدلے گا */
+    color: var(--primary);
     line-height: 1;
 }
 
@@ -482,13 +390,12 @@ body {
 
 .times-center-group small {
     display: block;
-    color: var(--primary); /* تھیم کے ساتھ رنگ بدلے گا */
+    color: var(--primary);
     font-size: 12px;
     font-weight: 600;
     line-height: 1;
 }
 
-/* Edit بٹن (ہمیشہ بالکل دائیں) */
 .edit-jamaat {
     width: 24px;
     height: 24px;
@@ -502,7 +409,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: auto; /* یہ بٹن کو دائیں طرف دھکیل دے گا */
+    margin-left: auto;
     transition: .3s;
 }
 
@@ -510,64 +417,175 @@ body {
     background: #f3d56a;
 }
 
-/* MORE GRID */
-.more-grid-wrapper {
-    width: calc(100% - 20px);
-    margin: 10px auto;
+.prayer-card.active {
+    border: 2px solid var(--primary);
+    background: rgba(212, 175, 55, 0.15);
+    border-left-color: var(--primary);
+}
+
+.prayer-card.active h3 {
+    color: var(--primary);
+}
+
+/* ======================================
+   BOTTOM NAV (QURAN | DUAS | MORE)
+====================================== */
+.bottom-nav {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
+    max-width: 500px;
+    height: 58px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 4px;
     background: var(--card);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-top: 2px solid var(--primary);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
 }
 
-.more-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+.bottom-nav > a,
+.more-nav {
+    flex: 1;
+    min-width: 0;
 }
 
-.more-grid a,
-.more-grid button {
+.bottom-nav a,
+.more-nav-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 3px;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 10px 4px;
+    font-size: 10px;
+    color: var(--text);
     transition: 0.3s;
+}
+
+.bottom-nav i,
+.more-nav-btn i {
+    font-size: 16px;
+}
+
+.bottom-nav span,
+.more-nav-btn span {
+    white-space: nowrap;
+    font-size: 9px;
+}
+
+.bottom-nav a:hover,
+.more-nav-btn:hover {
+    color: var(--primary);
+}
+
+.more-nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.more-nav-btn {
     border: none;
-    color: #e0e0e0;
+    background: transparent;
     cursor: pointer;
     font-family: inherit;
-    font-size: 11px;
+}
+
+.more-nav-btn.active {
+    color: var(--primary);
+}
+
+/* ======================================
+   MORE MENU (Quran Style - Grid Bottom Sheet)
+====================================== */
+.more-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-top: 2px solid var(--primary);
+    padding: 16px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 10000;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.more-menu.show {
+    transform: translateY(0);
+}
+
+.more-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary);
+}
+
+.more-menu-header span {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.more-menu-header button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.more-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-.more-grid a i,
-.more-grid button i {
-    color: var(--primary);
-    font-size: 20px;
+.more-menu-grid a,
+.more-menu-grid button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.more-grid a:hover,
-.more-grid button:hover {
+.more-menu-grid a:hover,
+.more-menu-grid button:hover {
     background: rgba(212, 175, 55, 0.2);
-    transform: translateY(-2px);
-    color: #fff;
+    border-color: var(--primary);
 }
 
-.version-text {
-    text-align: center;
-    color: #888;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(212, 175, 55, 0.1);
+.more-menu-grid a i,
+.more-menu-grid button i {
+    font-size: 22px;
+    color: var(--primary);
 }
 
 /* LOADING SCREEN */
@@ -719,29 +737,26 @@ body {
     .index-header .app-subtitle {
         font-size: 10px;
     }
-    .more-grid-wrapper {
-        padding: 12px;
+    .more-menu-grid {
+        gap: 6px;
     }
-    .more-grid {
-        gap: 4px;
-    }
-    .more-grid a,
-    .more-grid button {
+    .more-menu-grid a,
+    .more-menu-grid button {
+        padding: 10px 6px;
         font-size: 10px;
-        padding: 8px 2px;
-    }
-    .more-grid a i,
-    .more-grid button i {
-        font-size: 18px;
     }
 }
 
-.prayer-card.active {
-    border: 2px solid var(--primary);
-    background: rgba(212, 175, 55, 0.15);
-    border-left-color: var(--primary);
-}
-
-.prayer-card.active h3 {
-    color: var(--primary);
+@media (max-width: 400px) {
+    .bottom-nav {
+        height: 54px;
+    }
+    .bottom-nav i,
+    .more-nav-btn i {
+        font-size: 14px;
+    }
+    .bottom-nav span,
+    .more-nav-btn span {
+        font-size: 8px;
+    }
 }

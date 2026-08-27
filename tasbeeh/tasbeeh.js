@@ -31,6 +31,7 @@ const completed100 = document.getElementById("completed100");
 // MORE MENU ELEMENTS
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
+const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
 // ======================================
@@ -272,47 +273,40 @@ resetAllBtn.addEventListener("click", ()=>{
 });
 
 // ======================================
-// MORE MENU LOGIC
+// MORE MENU LOGIC (Quran Style) - FIXED
 // ======================================
 
-if (moreNavBtn && moreMenu) {
+if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
 
-    moreNavBtn.addEventListener("click", function(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        moreMenu.classList.toggle("show");
-
+    // Open More menu
+    moreNavBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        moreMenu.classList.add("show");
     });
 
-    moreMenu.addEventListener("click", function(event) {
-
-        event.stopPropagation();
-
-    });
-
-    document.addEventListener("click", function() {
-
+    // Close with X button
+    closeMoreMenuBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
         moreMenu.classList.remove("show");
-
     });
 
-}
-
-if (settingsBtn) {
-
-    settingsBtn.addEventListener("click", function(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        moreMenu.classList.remove("show");
-
-        alert("Settings will be available in the next update.");
-
+    // Close when clicking outside
+    document.addEventListener("click", function(e) {
+        if (moreMenu.classList.contains("show") &&
+            !moreMenu.contains(e.target) &&
+            !moreNavBtn.contains(e.target)) {
+            moreMenu.classList.remove("show");
+        }
     });
 
+    // Settings button inside More
+    if (settingsBtn) {
+        settingsBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
+            alert("Settings will be available in the next update.");
+        });
+    }
 }
 
 // ======================================

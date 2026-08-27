@@ -1,5 +1,6 @@
 /* ==================================================
    MY PRAYER - DAILY DUAS (THEME COMPATIBLE)
+   (Added Quran-style More Menu)
 ================================================== */
 
 :root {
@@ -592,7 +593,7 @@ body {
 }
 
 /* ==================================
-   MORE BOTTOM SHEET
+   MORE NAV (Quran Style)
 =================================== */
 .more-nav {
     position: relative;
@@ -625,134 +626,99 @@ body {
     color: var(--primary);
 }
 
-/* Overlay */
-.more-overlay {
+/* ======================================
+   MORE MENU (Quran Style - Grid Bottom Sheet)
+====================================== */
+.more-menu {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(3px);
-    z-index: 2000;
-    display: none;
-}
-
-.more-overlay.show {
-    display: block;
-}
-
-/* Bottom Sheet */
-.more-sheet {
-    position: fixed;
-    left: 50%;
     bottom: 0;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    max-height: 85vh;
+    left: 0;
+    right: 0;
     background: var(--card);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
     border-top: 2px solid var(--primary);
-    border-radius: 24px 24px 0 0;
-    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.8);
-    z-index: 2001;
-    display: none;
-    flex-direction: column;
-    padding: 10px 16px 20px;
-    animation: sheetUp .3s ease;
+    padding: 16px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 10000;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes sheetUp {
-    from { transform: translateX(-50%) translateY(100%); }
-    to { transform: translateX(-50%) translateY(0); }
+.more-menu.show {
+    transform: translateY(0);
 }
 
-.more-sheet.show {
+.more-menu-header {
     display: flex;
-}
-
-.sheet-handle {
-    width: 40px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 10px;
-    margin: 0 auto 10px;
-}
-
-.sheet-header {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--primary);
 }
 
-.sheet-title {
-    font-size: 16px;
-    font-weight: 700;
+.more-menu-header span {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.more-menu-header button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
     color: var(--text);
-}
-
-.sheet-close {
     width: 32px;
     height: 32px;
-    border: none;
     border-radius: 50%;
-    background: var(--bg);
-    color: var(--text-muted);
     cursor: pointer;
-    transition: all .2s ease;
 }
 
-.sheet-close:hover {
-    background: var(--primary);
-    color: var(--bg);
-}
-
-/* Grid Layout */
-.more-grid {
+.more-menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    overflow-y: auto;
 }
 
-.more-grid a,
-.more-grid button {
+.more-menu-grid a,
+.more-menu-grid button {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 14px 8px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--bg);
+    gap: 6px;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
     color: var(--text);
     text-decoration: none;
     font-size: 11px;
-    font-weight: 600;
     cursor: pointer;
-    transition: all .2s ease;
+    transition: 0.2s;
 }
 
-.more-grid a:hover,
-.more-grid button:hover {
+.more-menu-grid a:hover,
+.more-menu-grid button:hover {
+    background: rgba(212, 175, 55, 0.2);
     border-color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 10%, transparent);
-    transform: translateY(-2px);
 }
 
-.more-grid i {
+.more-menu-grid a i,
+.more-menu-grid button i {
     font-size: 22px;
     color: var(--primary);
 }
 
+/* Responsive for small screens */
 @media (max-width: 380px) {
-    .more-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .more-menu-grid {
         gap: 6px;
     }
-    .more-grid a,
-    .more-grid button {
+    .more-menu-grid a,
+    .more-menu-grid button {
         padding: 10px 6px;
         font-size: 10px;
     }

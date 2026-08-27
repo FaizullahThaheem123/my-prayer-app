@@ -3,506 +3,227 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <meta
-        name="theme-color"
-        content="#121212">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
     <title>Islamic Calendar - My Prayer</title>
 
     <!-- FONT AWESOME -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- CALENDAR CSS -->
-    <link
-        rel="stylesheet"
-        href="calendar.css">
+    <link rel="stylesheet" href="calendar.css">
 
     <!-- THEME CSS -->
-    <link
-        rel="stylesheet"
-        href="../theme/theme.css">
-<script>
-(function () {
-    const savedTheme = localStorage.getItem("appTheme");
+    <link rel="stylesheet" href="../theme/theme.css">
 
-    const themeColors = {
-        "gold": "#d4af37",
-        "royal-blue": "#1565c0",
-        "emerald": "#00897b",
-        "forest": "#1b5e20",
-        "navy": "#0d47a1",
-        "violet": "#7b1fa2",
-        "wine": "#880e4f",
-        "olive": "#33691e",
-        "ruby": "#c62828",
-        "orange": "#e65100",
-        "teal": "#00838f",
-        "pink": "#c2185b",
-        "sky": "#0288d1",
-        "lime": "#827717",
-        "copper": "#b87333",
-        "silver": "#9e9e9e",
-        "cyan": "#00bcd4",
-        "indigo": "#283593",
-        "brown": "#4e342e",
-        "crimson": "#dc143c",
-        "coral": "#ff6f61",
-        "peach": "#ffb74d",
-        "mint": "#4dd0e1",
-        "lavender": "#ba68c8",
-        "burgundy": "#800020",
-        "mustard": "#ffdb58",
-        "sage": "#8a9a5b",
-        "stone": "#607d8b",
-        "cobalt": "#0047ab",
-        "turquoise": "#00ced1",
-        "chocolate": "#d2691e",
-        "plum": "#8e4585",
-        "slate": "#708090",
-        "amber": "#ffbf00",
-        "fuchsia": "#ff00ff",
-        "aqua": "#00ffff",
-        "magenta": "#ff00a0",
-        "periwinkle": "#ccccff",
-        "jade": "#00a86b",
-        "sand": "#c2b280",
-        "rust": "#b7410e",
-        "charcoal": "#36454f",
-        "cream": "#fffdd0",
-        "rose-gold": "#b76e79",
-        "steel": "#4682b4",
-        "mahogany": "#c04000",
-        "cardinal": "#c41e3a",
-        "maroon": "#800000",
-        "chartreuse": "#7fff00",
-        "neon-blue": "#1f51ff"
-    };
-
-    if (savedTheme && themeColors[savedTheme]) {
-        document.documentElement.style.setProperty(
-            "--primary",
-            themeColors[savedTheme]
-        );
-    }
-})();
-</script>
-
+    <!-- THEME SCRIPT (inline for fast load) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("appTheme");
+            const themeColors = {
+                "gold": "#d4af37",
+                "royal-blue": "#1565c0",
+                "emerald": "#00897b",
+                "forest": "#1b5e20",
+                "navy": "#0d47a1",
+                "violet": "#7b1fa2",
+                "wine": "#880e4f",
+                "olive": "#33691e",
+                "ruby": "#c62828",
+                "orange": "#e65100",
+                "teal": "#00838f",
+                "pink": "#c2185b",
+                "sky": "#0288d1",
+                "lime": "#827717",
+                "copper": "#b87333",
+                "silver": "#9e9e9e",
+                "cyan": "#00bcd4",
+                "indigo": "#283593",
+                "brown": "#4e342e",
+                "crimson": "#dc143c",
+                "coral": "#ff6f61",
+                "peach": "#ffb74d",
+                "mint": "#4dd0e1",
+                "lavender": "#ba68c8",
+                "burgundy": "#800020",
+                "mustard": "#ffdb58",
+                "sage": "#8a9a5b",
+                "stone": "#607d8b",
+                "cobalt": "#0047ab",
+                "turquoise": "#00ced1",
+                "chocolate": "#d2691e",
+                "plum": "#8e4585",
+                "slate": "#708090",
+                "amber": "#ffbf00",
+                "fuchsia": "#ff00ff",
+                "aqua": "#00ffff",
+                "magenta": "#ff00a0",
+                "periwinkle": "#ccccff",
+                "jade": "#00a86b",
+                "sand": "#c2b280",
+                "rust": "#b7410e",
+                "charcoal": "#36454f",
+                "cream": "#fffdd0",
+                "rose-gold": "#b76e79",
+                "steel": "#4682b4",
+                "mahogany": "#c04000",
+                "cardinal": "#c41e3a",
+                "maroon": "#800000",
+                "chartreuse": "#7fff00",
+                "neon-blue": "#1f51ff"
+            };
+            if (savedTheme && themeColors[savedTheme]) {
+                document.documentElement.style.setProperty("--primary", themeColors[savedTheme]);
+            }
+        })();
+    </script>
 </head>
 
 <body>
 
-<div class="calendar-page">
+    <div class="calendar-page">
 
-    <!-- ======================================
-         HEADER
-    ======================================= -->
+        <!-- ======================================
+             HEADER
+        ====================================== -->
+        <header class="calendar-header">
+            <div class="calendar-header-title">
+                <h1><i class="fa-solid fa-calendar-days"></i> Islamic Calendar</h1>
+                <p>English & Hijri Calendar</p>
+            </div>
+            <div class="calendar-header-image">
+                <img src="../images/makkah.png" alt="Makkah">
+            </div>
+        </header>
 
-    <header class="calendar-header">
+        <!-- ======================================
+             MONTH NAVIGATION
+        ====================================== -->
+        <section class="calendar-month-card">
+            <button id="previousMonthBtn" class="month-nav-btn" type="button">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="month-title">
+                <h2 id="englishMonth">August 2026</h2>
+                <p id="islamicMonth">Safar 1448 AH</p>
+            </div>
+            <button id="nextMonthBtn" class="month-nav-btn" type="button">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </section>
 
-        <div class="calendar-header-title">
-
-            <h1>
-                <i class="fa-solid fa-calendar-days"></i>
-                Islamic Calendar
-            </h1>
-
-            <p>
-                English & Hijri Calendar
-            </p>
-
+        <!-- TODAY BUTTON -->
+        <div class="today-button-container">
+            <button id="todayBtn" class="today-btn" type="button">
+                <i class="fa-solid fa-calendar-day"></i> Today
+            </button>
         </div>
 
-        <div class="calendar-header-image">
+        <!-- ======================================
+             SELECTED DATE
+        ====================================== -->
+        <section class="selected-date-card">
+            <div class="date-info-block">
+                <span class="date-label"><i class="fa-solid fa-calendar"></i> English Date</span>
+                <strong id="selectedEnglishDate">Tuesday, 18 August 2026</strong>
+            </div>
+            <div class="date-divider"></div>
+            <div class="date-info-block">
+                <span class="date-label"><i class="fa-solid fa-moon"></i> Islamic Date</span>
+                <strong id="selectedIslamicDate">24 Safar 1448 AH</strong>
+            </div>
+        </section>
 
-            <img
-                src="../images/makkah.png"
-                alt="Makkah">
+        <!-- ======================================
+             CALENDAR GRID
+        ====================================== -->
+        <section class="calendar-grid-card">
+            <div class="week-days">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+                <span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <div id="calendarGrid" class="calendar-grid">
+                <!-- JavaScript will generate dates -->
+            </div>
+        </section>
 
-        </div>
+        <!-- ======================================
+             DATE DETAILS
+        ====================================== -->
+        <section class="date-details-card">
+            <div class="details-header">
+                <i class="fa-solid fa-circle-info"></i>
+                <h3>Date Details</h3>
+            </div>
+            <div class="details-row">
+                <span>English Day</span>
+                <strong id="detailDay">Tuesday</strong>
+            </div>
+            <div class="details-row">
+                <span>English Date</span>
+                <strong id="detailEnglish">18 August 2026</strong>
+            </div>
+            <div class="details-row">
+                <span>Islamic Day</span>
+                <strong id="detailHijriDay">24</strong>
+            </div>
+            <div class="details-row">
+                <span>Islamic Month</span>
+                <strong id="detailHijriMonth">Safar</strong>
+            </div>
+            <div class="details-row">
+                <span>Islamic Year</span>
+                <strong id="detailHijriYear">1448 AH</strong>
+            </div>
+        </section>
 
-    </header>
+        <!-- ======================================
+             BOTTOM NAVIGATION (Home + More)
+        ====================================== -->
+        <nav class="bottom-nav">
 
+            <!-- HOME -->
+            <a href="../index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
 
-    <!-- ======================================
-         MONTH NAVIGATION
-    ======================================= -->
+            <!-- MORE (Quran Style - Bottom Sheet) -->
+            <div class="more-nav">
+                <button type="button" class="more-nav-btn active" id="moreNavBtn">
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <span>More</span>
+                </button>
 
-    <section class="calendar-month-card">
+                <div class="more-menu" id="moreMenu">
+                    <div class="more-menu-header">
+                        <span>All Features</span>
+                        <button id="closeMoreMenuBtn" type="button">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="more-menu-grid">
+                        <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                        <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                        <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                        <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                        <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                        <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+                        <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
+                        <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
+                        <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+                    </div>
+                </div>
+            </div>
 
-        <button
-            id="previousMonthBtn"
-            class="month-nav-btn"
-            type="button">
-
-            <i class="fa-solid fa-chevron-left"></i>
-
-        </button>
-
-
-        <div class="month-title">
-
-            <h2 id="englishMonth">
-                August 2026
-            </h2>
-
-            <p id="islamicMonth">
-                Safar 1448 AH
-            </p>
-
-        </div>
-
-
-        <button
-            id="nextMonthBtn"
-            class="month-nav-btn"
-            type="button">
-
-            <i class="fa-solid fa-chevron-right"></i>
-
-        </button>
-
-    </section>
-
-
-    <!-- TODAY BUTTON -->
-
-    <div class="today-button-container">
-
-        <button
-            id="todayBtn"
-            class="today-btn"
-            type="button">
-
-            <i class="fa-solid fa-calendar-day"></i>
-            Today
-
-        </button>
+        </nav>
 
     </div>
 
-
-    <!-- ======================================
-         SELECTED DATE
-    ======================================= -->
-
-    <section class="selected-date-card">
-
-        <div class="date-info-block">
-
-            <span class="date-label">
-                <i class="fa-solid fa-calendar"></i>
-                English Date
-            </span>
-
-            <strong id="selectedEnglishDate">
-                Tuesday, 18 August 2026
-            </strong>
-
-        </div>
-
-
-        <div class="date-divider"></div>
-
-
-        <div class="date-info-block">
-
-            <span class="date-label">
-                <i class="fa-solid fa-moon"></i>
-                Islamic Date
-            </span>
-
-            <strong id="selectedIslamicDate">
-                24 Safar 1448 AH
-            </strong>
-
-        </div>
-
-    </section>
-
-
-    <!-- ======================================
-         CALENDAR GRID
-    ======================================= -->
-
-    <section class="calendar-grid-card">
-
-        <div class="week-days">
-
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span>
-
-        </div>
-
-
-        <div
-            id="calendarGrid"
-            class="calendar-grid">
-
-            <!-- JavaScript will generate dates -->
-
-        </div>
-
-    </section>
-
-
-    <!-- ======================================
-         DATE DETAILS
-    ======================================= -->
-
-    <section class="date-details-card">
-
-        <div class="details-header">
-
-            <i class="fa-solid fa-circle-info"></i>
-
-            <h3>
-                Date Details
-            </h3>
-
-        </div>
-
-
-        <div class="details-row">
-
-            <span>
-                English Day
-            </span>
-
-            <strong id="detailDay">
-                Tuesday
-            </strong>
-
-        </div>
-
-
-        <div class="details-row">
-
-            <span>
-                English Date
-            </span>
-
-            <strong id="detailEnglish">
-                18 August 2026
-            </strong>
-
-        </div>
-
-
-        <div class="details-row">
-
-            <span>
-                Islamic Day
-            </span>
-
-            <strong id="detailHijriDay">
-                24
-            </strong>
-
-        </div>
-
-
-        <div class="details-row">
-
-            <span>
-                Islamic Month
-            </span>
-
-            <strong id="detailHijriMonth">
-                Safar
-            </strong>
-
-        </div>
-
-
-        <div class="details-row">
-
-            <span>
-                Islamic Year
-            </span>
-
-            <strong id="detailHijriYear">
-                1448 AH
-            </strong>
-
-        </div>
-
-    </section>
-
-
-    <!-- ======================================
-         BOTTOM NAVIGATION
-    ======================================= -->
-
-    <nav class="bottom-nav">
-
-        <!-- HOME -->
-
-        <a
-            href="../index.html"
-            class="nav-home">
-
-            <i class="fa-solid fa-house"></i>
-
-            <span>
-                Home
-            </span>
-
-        </a>
-
-
-        <!-- MORE -->
-
-        <div class="more-nav">
-
-            <button
-                type="button"
-                class="more-nav-btn active"
-                id="moreNavBtn">
-
-                <i class="fa-solid fa-ellipsis"></i>
-
-                <span>
-                    More
-                </span>
-
-            </button>
-
-
-            <div
-                class="more-menu"
-                id="moreMenu">
-
-
-                <a href="../quran/quran.html">
-
-                    <i class="fa-solid fa-book-quran"></i>
-
-                    <span>
-                        Quran
-                    </span>
-
-                </a>
-
-
-                <a href="../dua/duas.html">
-
-                    <i class="fa-solid fa-hands-praying"></i>
-
-                    <span>
-                        Duas
-                    </span>
-
-                </a>
-
-
-                <a href="../names/names.html">
-
-                    <i class="fa-solid fa-star-and-crescent"></i>
-
-                    <span>
-                        99 Names
-                    </span>
-
-                </a>
-
-
-                <a href="../tasbeeh/tasbeeh.html">
-
-                    <i class="fa-solid fa-ring"></i>
-
-                    <span>
-                        Tasbeeh
-                    </span>
-
-                </a>
-
-
-                <a href="../campus/campus.html">
-
-                    <i class="fa-solid fa-graduation-cap"></i>
-
-                    <span>
-                        Campus
-                    </span>
-
-                </a>
-
-
-                <a href="../masjid/masjid.html">
-
-                    <i class="fa-solid fa-mosque"></i>
-
-                    <span>
-                        Masjid
-                    </span>
-
-                </a>
-
-
-                <a
-                    href="calendar.html"
-                    class="active">
-
-                    <i class="fa-solid fa-calendar-days"></i>
-
-                    <span>
-                        Calendar
-                    </span>
-
-                </a>
-
-
-
-                <!-- AGE -->
-<a href="../age/age.html">
-    <i class="fa-solid fa-cake-candles"></i>
-    <span>Age</span>
-</a>
-
-
-
-                <button
-                    type="button"
-                    id="settingsBtn">
-
-                    <i class="fa-solid fa-gear"></i>
-
-                    <span>
-                        Settings
-                    </span>
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-    </nav>
-
-</div>
-
-
-<!-- CALENDAR JS -->
-
-<script src="calendar.js"></script>
-
-<!-- THEME JS -->
-
-<script src="../theme/theme.js"></script>
-
+    <!-- CALENDAR JS -->
+    <script src="calendar.js"></script>
+    <!-- THEME JS -->
+    <script src="../theme/theme.js"></script>
 </body>
 
 </html>

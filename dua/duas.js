@@ -465,48 +465,44 @@ function previousDua() {
 document.addEventListener("DOMContentLoaded", () => {
     loadDuas();
     updateFavoriteCount();
-});
 
-// ======================================
-// MORE BOTTOM SHEET TOGGLE
-// ======================================
-(function() {
-    const moreNavBtn = document.getElementById('moreNavBtn');
-    const moreSheet = document.getElementById('moreSheet');
-    const moreOverlay = document.getElementById('moreOverlay');
-    const moreSheetClose = document.getElementById('moreSheetClose');
+    // ======================================
+    // MORE MENU LOGIC (Quran Style) - FIXED
+    // ======================================
+    const moreNavBtn = document.getElementById("moreNavBtn");
+    const moreMenu = document.getElementById("moreMenu");
+    const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
+    const settingsBtn = document.getElementById("settingsBtn");
 
-    function openMore() {
-        moreSheet.classList.add('show');
-        moreOverlay.classList.add('show');
-    }
-
-    function closeMore() {
-        moreSheet.classList.remove('show');
-        moreOverlay.classList.remove('show');
-    }
-
-    if (moreNavBtn) {
-        moreNavBtn.addEventListener('click', function(e) {
+    if (moreNavBtn && moreMenu) {
+        moreNavBtn.addEventListener("click", function(e) {
             e.stopPropagation();
-            openMore();
+            moreMenu.classList.add("show");
+        });
+    } else {
+        console.error("moreNavBtn or moreMenu not found!");
+    }
+
+    if (closeMoreMenuBtn && moreMenu) {
+        closeMoreMenuBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
         });
     }
 
-    if (moreSheetClose) {
-        moreSheetClose.addEventListener('click', closeMore);
-    }
+    document.addEventListener("click", function(e) {
+        if (moreMenu && moreMenu.classList.contains("show") &&
+            !moreMenu.contains(e.target) &&
+            !moreNavBtn.contains(e.target)) {
+            moreMenu.classList.remove("show");
+        }
+    });
 
-    if (moreOverlay) {
-        moreOverlay.addEventListener('click', closeMore);
-    }
-
-    // Settings button inside sheet
-    const settingsBtn = document.getElementById('settingsBtn');
-    if (settingsBtn) {
-        settingsBtn.addEventListener('click', function() {
-            closeMore();
-            alert('Settings will be available in the next update.');
+    if (settingsBtn && moreMenu) {
+        settingsBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
+            alert("Settings page will be added soon.");
         });
     }
-})();
+});

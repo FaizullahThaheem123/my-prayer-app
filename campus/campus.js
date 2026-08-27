@@ -1,7 +1,6 @@
 /* ==================================================
    CAMPUS.JS - COMPLETE ULTIMATE EDITION
-   HOME LOCATION SYNC
-   ALL OTHER FEATURES SAME
+   (Only More Menu changed to Quran Style)
 ================================================== */
 
 "use strict";
@@ -118,6 +117,10 @@ const moreMenu =
 
 const liveHeading =
     document.getElementById("liveHeading");
+
+// New elements for Quran-style More
+const closeMoreMenuBtn =
+    document.getElementById("closeMoreMenuBtn");
 
 
 /* ======================================
@@ -1178,7 +1181,7 @@ document.addEventListener(
 
         setupListeners();
 
-        setupMoreNav();
+        setupMoreNav(); // NEW: Quran-style More menu
 
         requestLocation();
 
@@ -1353,7 +1356,7 @@ function setupListeners(){
 
 
 /* ======================================
-   MORE NAV
+   MORE NAV - QURAN STYLE (BOTTOM SHEET)
 ====================================== */
 
 function closeMoreMenu(){
@@ -1373,7 +1376,8 @@ function setupMoreNav(){
 
     if(
         !moreNavBtn ||
-        !moreMenu
+        !moreMenu ||
+        !closeMoreMenuBtn
     ){
 
         return;
@@ -1381,13 +1385,14 @@ function setupMoreNav(){
     }
 
 
+    // Open More menu
     moreNavBtn.addEventListener(
         "click",
         function(e){
 
             e.stopPropagation();
 
-            moreMenu.classList.toggle(
+            moreMenu.classList.add(
                 "show"
             );
 
@@ -1395,13 +1400,37 @@ function setupMoreNav(){
     );
 
 
-    document.addEventListener(
+    // Close with X button
+    closeMoreMenuBtn.addEventListener(
         "click",
-        function(){
+        function(e){
+
+            e.stopPropagation();
 
             moreMenu.classList.remove(
                 "show"
             );
+
+        }
+    );
+
+
+    // Close when clicking outside
+    document.addEventListener(
+        "click",
+        function(e){
+
+            if(
+                moreMenu.classList.contains("show") &&
+                !moreMenu.contains(e.target) &&
+                !moreNavBtn.contains(e.target)
+            ){
+
+                moreMenu.classList.remove(
+                    "show"
+                );
+
+            }
 
         }
     );

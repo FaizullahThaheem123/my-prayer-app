@@ -1,6 +1,7 @@
 /* =========================================
    MY PRAYER - ZAKAT CALCULATOR
    COMPLETE JAVASCRIPT
+   (Added Quran-style More Menu)
 ========================================= */
 
 
@@ -111,6 +112,13 @@ const rateUpdated =
 
 const refreshRatesBtn =
     document.getElementById("refreshRatesBtn");
+
+
+// More Menu Elements
+const moreNavBtn = document.getElementById("moreNavBtn");
+const moreMenu = document.getElementById("moreMenu");
+const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
+const settingsBtn = document.getElementById("settingsBtn");
 
 
 /* =========================================
@@ -806,6 +814,44 @@ setInterval(
     loadLiveRates,
     15 * 60 * 1000
 );
+
+
+/* =========================================
+   MORE MENU LOGIC (Quran Style) - FIXED
+========================================= */
+
+if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
+
+    // Open More menu
+    moreNavBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        moreMenu.classList.add("show");
+    });
+
+    // Close with X button
+    closeMoreMenuBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        moreMenu.classList.remove("show");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function(e) {
+        if (moreMenu.classList.contains("show") &&
+            !moreMenu.contains(e.target) &&
+            !moreNavBtn.contains(e.target)) {
+            moreMenu.classList.remove("show");
+        }
+    });
+
+    // Settings button inside More
+    if (settingsBtn) {
+        settingsBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
+            alert("Settings will be available in the next update.");
+        });
+    }
+}
 
 
 /* =========================================

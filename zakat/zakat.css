@@ -1,6 +1,7 @@
 /* =========================================
    MY PRAYER - ZAKAT CALCULATOR
    UNIFIED STYLE (EXACTLY LIKE OTHER PAGES)
+   (Added Quran-style More Menu)
 ========================================= */
 
 *{ margin:0; padding:0; box-sizing:border-box; }
@@ -178,8 +179,11 @@ button, input, select{ font-family:inherit; }
 /* FOOTER */
 .zakat-footer { text-align: center; padding: 16px 0 60px; font-size: 11px; opacity: 0.5; }
 
-/* BOTTOM NAVIGATION - EXACT SAME SIZE AS OTHER PAGES */
-.zakat-bottom-nav {
+/* ======================================
+   BOTTOM NAV (Home + More) - QURAN STYLE
+====================================== */
+
+.bottom-nav {
     position: fixed !important;
     left: 50% !important;
     bottom: 0 !important;
@@ -197,12 +201,14 @@ button, input, select{ font-family:inherit; }
     border-radius: 24px 24px 0 0 !important;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.6) !important;
     z-index: 9999 !important;
-    margin: 0 !important;
 }
 
-.zakat-bottom-nav a {
+.bottom-nav > a, .more-nav {
     flex: 1 !important;
     min-width: 0 !important;
+}
+
+.bottom-nav a, .more-nav-btn {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -211,22 +217,115 @@ button, input, select{ font-family:inherit; }
     text-decoration: none !important;
     font-size: 10px !important;
     color: var(--text) !important;
-    transition: 0.3s !important;
 }
 
-.zakat-bottom-nav a i {
+.bottom-nav i, .more-nav-btn i {
     font-size: 16px !important;
-    color: var(--primary) !important;
 }
 
-.zakat-bottom-nav a span {
+.bottom-nav span, .more-nav-btn span {
     white-space: nowrap !important;
     font-size: 9px !important;
 }
 
-.zakat-bottom-nav a:hover {
+.more-nav {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.more-nav-btn {
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+}
+
+.more-nav-btn.active {
     color: var(--primary) !important;
-    transform: translateY(-2px) !important;
+}
+
+/* ======================================
+   MORE MENU (Quran Style - Grid Bottom Sheet)
+====================================== */
+
+.more-menu {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: var(--card) !important;
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+    border-top: 2px solid var(--primary) !important;
+    padding: 16px !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.3s ease !important;
+    z-index: 10000 !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5) !important;
+}
+
+.more-menu.show {
+    transform: translateY(0) !important;
+}
+
+.more-menu-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid var(--primary) !important;
+}
+
+.more-menu-header span {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: var(--primary) !important;
+}
+
+.more-menu-header button {
+    background: rgba(255,255,255,0.1) !important;
+    border: none !important;
+    color: var(--text) !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+}
+
+.more-menu-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+}
+
+.more-menu-grid a, .more-menu-grid button {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 12px 8px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+    color: var(--text) !important;
+    text-decoration: none !important;
+    font-size: 11px !important;
+    cursor: pointer !important;
+    transition: 0.2s !important;
+}
+
+.more-menu-grid a:hover, .more-menu-grid button:hover {
+    background: rgba(212,175,55,0.2) !important;
+    border-color: var(--primary) !important;
+}
+
+.more-menu-grid a i, .more-menu-grid button i {
+    font-size: 22px !important;
+    color: var(--primary) !important;
 }
 
 /* RESPONSIVE */
@@ -237,4 +336,6 @@ button, input, select{ font-family:inherit; }
     .nisab-heading { flex-direction: column; align-items: stretch; }
     .nisab-toggle { width: 100%; }
     .nisab-btn { flex: 1; }
+    .more-menu-grid { gap: 6px; }
+    .more-menu-grid a, .more-menu-grid button { padding: 10px 6px; font-size: 10px; }
 }

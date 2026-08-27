@@ -3,6 +3,7 @@
    HOME LIVE LOCATION + FIREBASE + OSM
    GPS LOCATION SYNC + JAMAAT TIMES
    LIVE MAGHRIB AZAN + 3 MINUTES JAMAAT
+   (Only More Menu changed to Quran Style)
 ====================================== */
 
 "use strict";
@@ -226,6 +227,12 @@ const citySearch =
 const searchCityBtn =
     document.getElementById(
         "searchCityBtn"
+    );
+
+// New elements for Quran-style More
+const closeMoreMenuBtn =
+    document.getElementById(
+        "closeMoreMenuBtn"
     );
 
 
@@ -4385,29 +4392,29 @@ function showToast(
 
 
 /* ======================================
-   MORE NAV
+   MORE NAV - QURAN STYLE (BOTTOM SHEET)
 ====================================== */
 
 function setupMoreNav() {
 
     if (
         !moreNavBtn ||
-        !moreMenu
+        !moreMenu ||
+        !closeMoreMenuBtn
     ) {
 
         return;
 
     }
 
-
+    // Open More menu
     moreNavBtn.addEventListener(
         "click",
-        function (event) {
+        function (e) {
 
-            event.stopPropagation();
+            e.stopPropagation();
 
-
-            moreMenu.classList.toggle(
+            moreMenu.classList.add(
                 "show"
             );
 
@@ -4415,9 +4422,12 @@ function setupMoreNav() {
     );
 
 
-    document.addEventListener(
+    // Close with X button
+    closeMoreMenuBtn.addEventListener(
         "click",
-        function () {
+        function (e) {
+
+            e.stopPropagation();
 
             moreMenu.classList.remove(
                 "show"
@@ -4427,29 +4437,42 @@ function setupMoreNav() {
     );
 
 
-    moreMenu.addEventListener(
+    // Close when clicking outside
+    document.addEventListener(
         "click",
-        function (event) {
+        function (e) {
 
-            event.stopPropagation();
-
-        }
-    );
-
-
-    if (settingsBtn) {
-
-        settingsBtn.addEventListener(
-            "click",
-            function () {
+            if (
+                moreMenu.classList.contains("show") &&
+                !moreMenu.contains(e.target) &&
+                !moreNavBtn.contains(e.target)
+            ) {
 
                 moreMenu.classList.remove(
                     "show"
                 );
 
+            }
+
+        }
+    );
+
+
+    // Settings button inside more menu
+    if (settingsBtn) {
+
+        settingsBtn.addEventListener(
+            "click",
+            function (e) {
+
+                e.stopPropagation();
+
+                moreMenu.classList.remove(
+                    "show"
+                );
 
                 alert(
-                    "Settings coming soon."
+                    "Settings will be available in the next update."
                 );
 
             }

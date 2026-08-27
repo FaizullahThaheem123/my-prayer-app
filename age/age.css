@@ -2,1074 +2,601 @@
    MY PRAYER - AGE CALCULATOR (UNIFIED STYLE)
 ====================================== */
 
-
-/* ======================================
-   RESET
-====================================== */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-
-body{
-
-    font-family:
-        Arial,
-        "Segoe UI",
-        sans-serif;
-
-    background:var(--bg, #1a1a1a);
-
-    color:var(--text, #e0e0e0);
-
-    min-height:100vh;
-
-    padding-bottom:75px;
-
+body {
+    font-family: Arial, "Segoe UI", sans-serif;
+    background: var(--bg, #1a1a1a);
+    color: var(--text, #e0e0e0);
+    min-height: 100vh;
+    padding-bottom: 75px;
 }
 
-
-/* ======================================
-   PAGE
-====================================== */
-
-.age-page{
-
-    width:100%;
-
-    max-width:430px;
-
-    margin:auto;
-
-    min-height:100vh;
-
-    padding-bottom:20px;
-
+.age-page {
+    width: 100%;
+    max-width: 430px;
+    margin: auto;
+    min-height: 100vh;
+    padding-bottom: 20px;
 }
 
-
-/* ======================================
-   HEADER (UNIFIED WITH APP STYLE)
-====================================== */
-
-.age-header{
-
-    width:100%;
-
-    display:flex !important;
-
-    justify-content:space-between !important;
-
-    align-items:center !important;
-
-    padding:18px 5px 12px;
-
-    background:var(--card) !important;
-
-    backdrop-filter:blur(10px);
-
-    border-bottom:2px solid var(--primary) !important;
-
-    border-radius:16px 16px 24px 24px !important;
-
-    box-shadow:0 8px 30px rgba(0,0,0,0.8);
-
-    margin-bottom:10px;
-
+/* ==============================
+   HEADER
+============================== */
+.age-header {
+    width: 100%;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 18px 5px 12px;
+    background: var(--card) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary) !important;
+    border-radius: 16px 16px 24px 24px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
 }
 
-
-.header-title h1{
-
-    font-size:22px;
-
-    font-weight:800;
-
-    color:var(--primary);
-
-    text-shadow:0 2px 8px rgba(212,175,55,0.2);
-
-    margin-bottom:2px;
-
+.header-title h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+    margin-bottom: 2px;
 }
 
-
-.header-title h1 i{
-
-    margin-right:6px;
-
+.header-title h1 i {
+    margin-right: 6px;
 }
 
-
-.header-title p{
-
-    font-size:11px;
-
-    font-weight:500;
-
-    color:#aaa;
-
-    opacity:1;
-
+.header-title p {
+    font-size: 11px;
+    font-weight: 500;
+    color: #aaa;
 }
 
-
-.age-header-image{
-
-    width:44px;
-
-    height:44px;
-
-    flex-shrink:0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
-
-    border:2px solid var(--primary);
-
-    border-radius:50%;
-
-    padding:2px;
-
-    box-shadow:0 0 20px rgba(212,175,55,0.3);
-
-    background:#111;
-
+.age-header-image {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    padding: 2px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    background: #111;
 }
 
-
-.age-header-image img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
+.age-header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-
-/* ======================================
-   CARDS UNIFIED (ALL SAME WIDTH & MARGINS)
-====================================== */
-
-.dob-card, 
-.result-section, 
-.live-age-card, 
-.stats-section, 
-.birthday-card, 
-.birth-day-card, 
-.islamic-card{
-
-    width:100%;
-    margin:4px 0;
-
-    background:var(--card);
-
-    backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,0.08);
-
-    box-shadow:0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-
-    border-radius:20px;
-
-    padding:16px;
-
-    box-sizing:border-box;
-
-    animation:fadeInUp 0.6s ease forwards;
-
-    opacity:0;
-
+/* ==============================
+   CARDS UNIFIED
+============================== */
+.dob-card,
+.result-section,
+.live-age-card,
+.stats-section,
+.birthday-card,
+.birth-day-card,
+.islamic-card {
+    width: 100%;
+    margin: 4px 0;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 16px;
+    box-sizing: border-box;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
 }
 
-
-@keyframes fadeInUp{
-
-    from{ opacity:0; transform:translateY(15px); }
-
-    to{ opacity:1; transform:translateY(0); }
-
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-
-/* ======================================
+/* ==============================
    DOB CARD
-====================================== */
-
-.section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
-
+============================== */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
-
-.section-title > i{
-
-    width:42px;
-
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:12px;
-
-    background:var(--primary);
-
-    color:#111;
-
-    font-size:18px;
-
+.section-title>i {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--primary);
+    color: #111;
+    font-size: 18px;
 }
 
-
-.section-title h2{
-
-    font-size:17px;
-
-    margin-bottom:3px;
-
+.section-title h2 {
+    font-size: 17px;
+    margin-bottom: 3px;
 }
 
-
-.section-title p{
-
-    font-size:11px;
-
-    opacity:.65;
-
+.section-title p {
+    font-size: 11px;
+    opacity: .65;
 }
 
-
-.dob-input-group label{
-
-    display:block;
-
-    font-size:12px;
-
-    margin-bottom:7px;
-
-    opacity:.8;
-
+.dob-input-group label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 7px;
+    opacity: .8;
 }
 
-
-.dob-input-group input{
-
-    width:100%;
-
-    height:46px;
-
-    padding:0 12px;
-
-    border-radius:11px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    background:rgba(0,0,0,.18);
-
-    color:var(--text);
-
-    font-size:14px;
-
-    outline:none;
-
+.dob-input-group input {
+    width: 100%;
+    height: 46px;
+    padding: 0 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(0, 0, 0, .18);
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
 }
 
-
-.dob-input-group input:focus{
-
-    border-color:var(--primary);
-
-    box-shadow:
-        0 0 0 2px rgba(212,175,55,.12);
-
+.dob-input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, .12);
 }
 
-
-/* ======================================
-   BUTTONS
-====================================== */
-
-.calculate-btn{
-
-    width:100%;
-
-    height:46px;
-
-    margin-top:15px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:var(--primary);
-
-    color:#111;
-
-    font-size:14px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
+.calculate-btn {
+    width: 100%;
+    height: 46px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 12px;
+    background: var(--primary);
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-
-.calculate-btn i{
-
-    margin-right:6px;
-
+.calculate-btn i {
+    margin-right: 6px;
 }
 
-
-.reset-btn{
-
-    width:100%;
-
-    height:38px;
-
-    margin-top:8px;
-
-    border:1px solid var(--primary);
-
-    border-radius:10px;
-
-    background:transparent;
-
-    color:var(--primary);
-
-    font-size:12px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
+.reset-btn {
+    width: 100%;
+    height: 38px;
+    margin-top: 8px;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-
-/* ======================================
-   RESULT (KEEPS GOLD BORDER)
-====================================== */
-
-.result-section{
-
-    border:1px solid var(--primary);
-
+/* ==============================
+   RESULT (Gold border)
+============================== */
+.result-section {
+    border: 1px solid var(--primary);
 }
 
-
-.result-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    color:var(--primary);
-
-    font-size:11px;
-
-    font-weight:700;
-
-    letter-spacing:.7px;
-
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .7px;
 }
 
-
-.result-header i{
-
-    font-size:17px;
-
+.result-header i {
+    font-size: 17px;
 }
 
-
-.main-age{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin:22px 0 15px;
-
+.main-age {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 15px;
 }
 
-
-.age-number{
-
-    min-width:85px;
-
-    text-align:center;
-
-    padding:12px 6px;
-
-    border-radius:14px;
-
-    background:rgba(0,0,0,.16);
-
+.age-number {
+    min-width: 85px;
+    text-align: center;
+    padding: 12px 6px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, .16);
 }
 
-
-.age-number span{
-
-    display:block;
-
-    font-size:27px;
-
-    font-weight:800;
-
-    color:var(--primary);
-
+.age-number span {
+    display: block;
+    font-size: 27px;
+    font-weight: 800;
+    color: var(--primary);
 }
 
-
-.age-number small{
-
-    display:block;
-
-    margin-top:3px;
-
-    font-size:10px;
-
-    opacity:.7;
-
+.age-number small {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    opacity: .7;
 }
 
-
-.birth-date-display{
-
-    text-align:center;
-
-    font-size:12px;
-
-    opacity:.7;
-
+.birth-date-display {
+    text-align: center;
+    font-size: 12px;
+    opacity: .7;
 }
 
-
-/* ======================================
+/* ==============================
    LIVE AGE
-====================================== */
-
-.live-title{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:7px;
-
-    color:var(--primary);
-
-    font-size:13px;
-
-    font-weight:700;
-
+============================== */
+.live-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
 }
 
-
-.live-age{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:baseline;
-
-    flex-wrap:wrap;
-
-    gap:5px;
-
-    margin-top:14px;
-
+.live-age {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
 }
 
-
-.live-age span{
-
-    color:var(--primary);
-
-    font-size:24px;
-
-    font-weight:800;
-
+.live-age span {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 800;
 }
 
-
-.live-age small{
-
-    font-size:10px;
-
-    opacity:.7;
-
-    margin-right:6px;
-
+.live-age small {
+    font-size: 10px;
+    opacity: .7;
+    margin-right: 6px;
 }
 
-
-.live-time{
-
-    margin-top:12px;
-
-    font-size:12px;
-
-    letter-spacing:.4px;
-
-    opacity:.8;
-
+.live-time {
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: .4px;
+    opacity: .8;
 }
 
-
-/* ======================================
-   STATS (NOW FULL WIDTH LIKE TOP CARD)
-====================================== */
-
-.stats-section{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
+/* ==============================
+   STATS (full width cards)
+============================== */
+.stats-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-
-.stats-card{
-
-    width:100%;
-
-    padding:16px 12px;
-
-    text-align:center;
-
-    background:rgba(255,255,255,0.04);
-
-    border-radius:15px;
-
-    border:1px solid rgba(255,255,255,.07);
-
+.stats-card {
+    width: 100%;
+    padding: 16px 12px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, .07);
 }
 
-
-.stats-card i{
-
-    display:block;
-
-    color:var(--primary);
-
-    font-size:16px;
-
-    margin-bottom:7px;
-
+.stats-card i {
+    display: block;
+    color: var(--primary);
+    font-size: 16px;
+    margin-bottom: 7px;
 }
 
-
-.stats-card span{
-
-    display:block;
-
-    font-size:9px;
-
-    opacity:.7;
-
+.stats-card span {
+    display: block;
+    font-size: 9px;
+    opacity: .7;
 }
 
-
-.stats-card strong{
-
-    display:block;
-
-    margin-top:5px;
-
-    font-size:14px;
-
+.stats-card strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
 }
 
-
-/* ======================================
+/* ==============================
    BIRTHDAY
-====================================== */
-
-.birthday-icon{
-
-    width:48px;
-
-    height:48px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:var(--primary);
-
-    color:#111;
-
-    font-size:20px;
-
+============================== */
+.birthday-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: var(--primary);
+    color: #111;
+    font-size: 20px;
 }
 
-
-.birthday-info span{
-
-    display:block;
-
-    font-size:9px;
-
-    color:var(--primary);
-
-    font-weight:700;
-
+.birthday-info span {
+    display: block;
+    font-size: 9px;
+    color: var(--primary);
+    font-weight: 700;
 }
 
-
-.birthday-info h2{
-
-    font-size:15px;
-
-    margin:4px 0;
-
+.birthday-info h2 {
+    font-size: 15px;
+    margin: 4px 0;
 }
 
-
-.birthday-info p{
-
-    font-size:11px;
-
-    opacity:.7;
-
+.birthday-info p {
+    font-size: 11px;
+    opacity: .7;
 }
 
-
-/* ======================================
+/* ==============================
    BIRTH DAY
-====================================== */
-
-.birth-day-card > i{
-
-    color:var(--primary);
-
-    font-size:22px;
-
+============================== */
+.birth-day-card>i {
+    color: var(--primary);
+    font-size: 22px;
 }
 
-
-.birth-day-card span{
-
-    display:block;
-
-    font-size:10px;
-
-    opacity:.65;
-
+.birth-day-card span {
+    display: block;
+    font-size: 10px;
+    opacity: .65;
 }
 
-
-.birth-day-card strong{
-
-    display:block;
-
-    margin-top:4px;
-
-    color:var(--primary);
-
-    font-size:15px;
-
+.birth-day-card strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--primary);
+    font-size: 15px;
 }
 
-
-/* ======================================
+/* ==============================
    ISLAMIC CARD
-====================================== */
-
-.islamic-icon{
-
-    width:46px;
-
-    height:46px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:13px;
-
-    background:var(--primary);
-
-    color:#111;
-
-    font-size:20px;
-
+============================== */
+.islamic-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: var(--primary);
+    color: #111;
+    font-size: 20px;
 }
 
-
-.islamic-info span{
-
-    display:block;
-
-    font-size:9px;
-
-    color:var(--primary);
-
-    font-weight:700;
-
+.islamic-info span {
+    display: block;
+    font-size: 9px;
+    color: var(--primary);
+    font-weight: 700;
 }
 
-
-.islamic-info strong{
-
-    display:block;
-
-    margin-top:5px;
-
-    font-size:14px;
-
+.islamic-info strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
 }
 
-
-.islamic-info small{
-
-    display:block;
-
-    margin-top:4px;
-
-    font-size:9px;
-
-    opacity:.55;
-
+.islamic-info small {
+    display: block;
+    margin-top: 4px;
+    font-size: 9px;
+    opacity: .55;
 }
 
-
-/* ======================================
-   HIDDEN
-====================================== */
-
-.hidden{
-
-    display:none !important;
-
+.hidden {
+    display: none !important;
 }
 
-
-/* ======================================
-   BOTTOM NAV
-====================================== */
-
-.bottom-nav{
-
-    position:fixed;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    bottom:0;
-
-    width:100%;
-
-    max-width:430px;
-
-    height:58px;
-
-    display:flex;
-
-    justify-content:space-around;
-
-    align-items:center;
-
-    padding:6px 4px;
-
-    background:var(--card);
-
-    backdrop-filter:blur(20px);
-
-    border-top:2px solid var(--primary);
-
-    border-radius:24px 24px 0 0;
-
-    box-shadow:
-        0 -10px 30px rgba(0,0,0,.6);
-
-    z-index:9999;
-
+/* ==============================
+   BOTTOM NAV (Home + More)
+============================== */
+.bottom-nav {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
+    max-width: 430px;
+    height: 58px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 4px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border-top: 2px solid var(--primary);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, .6);
+    z-index: 9999;
 }
 
-
-.bottom-nav > a,
-.more-nav{
-
-    flex:1;
-
-    min-width:0;
-
+.bottom-nav>a,
+.more-nav {
+    flex: 1;
+    min-width: 0;
 }
 
-
-.bottom-nav a{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:3px;
-
-    text-decoration:none;
-
-    font-size:10px;
-
-    color:var(--text);
-
+.bottom-nav a,
+.more-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none;
+    font-size: 10px;
+    color: var(--text);
 }
 
-
-.bottom-nav i{
-
-    font-size:16px;
-
+.bottom-nav i,
+.more-nav-btn i {
+    font-size: 16px;
 }
 
-
-.bottom-nav span{
-
-    white-space:nowrap;
-
-    font-size:9px;
-
+.bottom-nav span,
+.more-nav-btn span {
+    white-space: nowrap;
+    font-size: 9px;
 }
 
-
-/* ======================================
-   MORE BUTTON
-====================================== */
-
-.more-nav{
-
-    position:relative;
-
-    display:flex;
-
-    justify-content:center;
-
+.more-nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-
-.more-nav-btn{
-
-    border:none;
-
-    background:transparent;
-
-    color:var(--text);
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:3px;
-
-    cursor:pointer;
-
+.more-nav-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
 
-
-.more-nav-btn i{
-
-    font-size:16px;
-
+.more-nav-btn.active {
+    color: var(--primary);
 }
 
-
-.more-nav-btn span{
-
-    font-size:9px;
-
+/* ==============================
+   MORE MENU (Quran Style - Grid Bottom Sheet)
+============================== */
+.more-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-top: 2px solid var(--primary);
+    padding: 16px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 10000;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
 }
 
-
-.more-nav-btn.active{
-
-    color:var(--primary);
-
+.more-menu.show {
+    transform: translateY(0);
 }
 
-
-/* ======================================
-   MORE MENU
-====================================== */
-
-.more-menu{
-
-    position:absolute;
-
-    bottom:62px;
-
-    left:50%;
-
-    transform:
-        translateX(-50%)
-        translateY(10px);
-
-    width:190px;
-
-    padding:8px;
-
-    display:none;
-
-    flex-direction:column;
-
-    gap:3px;
-
-    background:var(--card);
-
-    border:1px solid var(--primary);
-
-    border-radius:16px;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.6);
-
-    z-index:10000;
-
+.more-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary);
 }
 
-
-.more-menu.show{
-
-    display:flex;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-
+.more-menu-header span {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
 }
 
-
-.more-menu a,
-.more-menu button{
-
-    width:100%;
-
-    min-height:38px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:8px 10px;
-
-    border:none;
-
-    border-radius:9px;
-
-    background:transparent;
-
-    color:var(--text);
-
-    text-decoration:none;
-
-    font-size:11px;
-
-    text-align:left;
-
-    cursor:pointer;
-
+.more-menu-header button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-
-.more-menu a i,
-.more-menu button i{
-
-    width:20px;
-
-    text-align:center;
-
-    color:var(--primary);
-
+.more-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
-
-.more-menu a:hover,
-.more-menu button:hover,
-.more-menu a.active{
-
-    background:rgba(255,255,255,.06);
-
-    color:var(--primary);
-
+.more-menu-grid a,
+.more-menu-grid button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
+.more-menu-grid a:hover,
+.more-menu-grid button:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--primary);
+}
 
-/* ======================================
-   MOBILE
-====================================== */
+.more-menu-grid a i,
+.more-menu-grid button i {
+    font-size: 22px;
+    color: var(--primary);
+}
 
-@media(max-width:360px){
-
-    .age-number{
-
-        min-width:72px;
-
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+@media(max-width:360px) {
+    .age-number {
+        min-width: 72px;
     }
-
-    .age-number span{
-
-        font-size:23px;
-
+    .age-number span {
+        font-size: 23px;
     }
-
-    .main-age{
-
-        gap:6px;
-
+    .main-age {
+        gap: 6px;
     }
-
 }

@@ -124,6 +124,7 @@ const audioNameText = document.getElementById("audioNameText");
 
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
+const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 const namesSettingsBtn = document.getElementById("namesSettingsBtn");
 
 // ======================================
@@ -227,36 +228,40 @@ function resetAudio(){
 }
 
 // ======================================
-// MORE MENU
+// MORE MENU LOGIC (Quran Style) - FIXED
 // ======================================
-function toggleMoreMenu(){
-    moreMenu.classList.toggle("show");
-}
-function closeMoreMenu(){
-    moreMenu.classList.remove("show");
-}
+if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
 
-moreNavBtn.addEventListener("click", function(event){
-    event.stopPropagation();
-    toggleMoreMenu();
-});
+    // Open More menu
+    moreNavBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        moreMenu.classList.add("show");
+    });
 
-document.addEventListener("click", function(){
-    closeMoreMenu();
-});
-document.addEventListener("touchstart", function(event){
-    if(!moreMenu.contains(event.target) && !moreNavBtn.contains(event.target)){
-        closeMoreMenu();
+    // Close with X button
+    closeMoreMenuBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        moreMenu.classList.remove("show");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function(e) {
+        if (moreMenu.classList.contains("show") &&
+            !moreMenu.contains(e.target) &&
+            !moreNavBtn.contains(e.target)) {
+            moreMenu.classList.remove("show");
+        }
+    });
+
+    // Settings button inside More
+    if (namesSettingsBtn) {
+        namesSettingsBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            moreMenu.classList.remove("show");
+            alert("Settings will be added soon.");
+        });
     }
-}, { passive: true });
-
-// ======================================
-// SETTINGS (placeholder)
-// ======================================
-namesSettingsBtn.addEventListener("click", function(){
-    closeMoreMenu();
-    alert("Settings will be added soon.");
-});
+}
 
 // ======================================
 // KEYBOARD & SWIPE
