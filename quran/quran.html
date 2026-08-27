@@ -38,9 +38,7 @@
     <!-- Top Header (Back Button + Title) -->
     <header class="app-header">
       <div class="header-left">
-        <button id="btn-back" class="btn-icon hidden" title="Back">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
+       
         <div class="brand-info">
           <div class="brand-title-wrap">
             <div class="brand-icon"><i class="fa-solid fa-quran"></i></div>
@@ -353,14 +351,21 @@
     </div>
 
   <!-- ==========================================================
-     BOTTOM NAVIGATION (Home + Search + More)
+     BOTTOM NAVIGATION (Home + Back + Search + More)
 ========================================================== -->
 <nav class="bottom-nav">
+  
   <!-- HOME -->
   <a href="../index.html" class="nav-item">
     <i class="fa-solid fa-house"></i>
     <span>Home</span>
   </a>
+
+  <!-- BACK -->
+  <button class="nav-item" id="btn-back-nav" onclick="goBack()">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Back</span>
+  </button>
 
   <!-- SEARCH -->
   <button class="nav-item" id="searchNavBtn">
@@ -368,14 +373,13 @@
     <span>Search</span>
   </button>
 
- <!-- MORE (Bottom Sheet - Neeche se khulega) -->
-<div class="more-nav">
+  <!-- MORE (Bottom Sheet) -->
+  <div class="more-nav">
     <button type="button" class="more-nav-btn" id="moreNavBtn">
       <i class="fa-solid fa-ellipsis"></i>
       <span>More</span>
     </button>
 
-    <!-- More Sheet (Bottom se khulega) -->
     <div class="more-menu" id="moreMenu">
       <div class="more-menu-header">
         <span>All Features</span>
@@ -396,7 +400,9 @@
         <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
       </div>
     </div>
-</div>
+  </div>
+
+</nav>
 
     <!-- TOAST -->
     <div id="toast-popup" class="toast-popup hidden">

@@ -14,12 +14,113 @@ const moreMenu = document.getElementById("moreMenu");
 const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
+// ======================================
+// ALARM SYSTEM
+// ======================================
+let alarms = JSON.parse(localStorage.getItem("prayerAlarms")) || {};
+let alarmFired = JSON.parse(localStorage.getItem("alarmFired")) || {};
+
+// Initialize alarm buttons
+function initAlarms() {
+    document.querySelectorAll(".alarm-btn").forEach(btn => {
+        const prayer = btn.dataset.prayer;
+        const isActive = alarms[prayer] === true;
+        btn.classList.toggle("active", isActive);
+        btn.innerHTML = isActive
+            ? '<i class="fa-solid fa-bell"></i>'
+            : '<i class="fa-regular fa-bell"></i>';
+    });
+}
+
+// Toggle alarm for a specific prayer
+function toggleAlarm(prayer) {
+    alarms[prayer] = !alarms[prayer];
+    localStorage.setItem("prayerAlarms", JSON.stringify(alarms));
+    initAlarms();
+}
+
+// Check if any alarm should fire
+function checkAlarms() {
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+
+    // Reset alarmFired for a new day
+    if (alarmFired.date !== today) {
+        alarmFired = { date: today };
+        localStorage.setItem("alarmFired", JSON.stringify(alarmFired));
+    }
+
+    // Prayers list
+    const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+
+    prayers.forEach(prayer => {
+        // Only if alarm is active
+        if (alarms[prayer] !== true) return;
+
+        // Get Jamaat time for this prayer
+        let timeStr = jamaatTimes[prayer];
+        if (!timeStr) return;
+
+        // Convert time string to Date object today
+        const parts = timeStr.split(":");
+        if (parts.length < 2) return;
+        let hours = parseInt(parts[0]);
+        let minutes = parseInt(parts[1]);
+
+        // AM/PM handling
+        if (timeStr.toLowerCase().includes("pm") && hours < 12) hours += 12;
+        if (timeStr.toLowerCase().includes("am") && hours === 12) hours = 0;
+
+        const prayerTime = new Date();
+        prayerTime.setHours(hours, minutes, 0, 0);
+
+        // If prayer time has passed today, skip
+        if (prayerTime <= now) return;
+
+        // Check if alarm already fired for this prayer today
+        const key = prayer + "_" + today;
+        if (alarmFired[key]) return;
+
+        // If prayer time is within 60 seconds, fire alarm
+        const diffMs = prayerTime - now;
+        if (diffMs <= 60000) {
+            // Fire notification
+            if (Notification.permission === "granted") {
+                new Notification("🕌 Prayer Time", {
+                    body: `It's time for ${prayer} Jamaat!`,
+                    icon: "images/makkah.png"
+                });
+            } else {
+                // If notification not granted, show alert
+                alert(`🔔 It's time for ${prayer} Jamaat!`);
+            }
+
+            // Mark as fired
+            alarmFired[key] = true;
+            localStorage.setItem("alarmFired", JSON.stringify(alarmFired));
+
+            // Turn off alarm after firing
+            alarms[prayer] = false;
+            localStorage.setItem("prayerAlarms", JSON.stringify(alarms));
+            initAlarms();
+        }
+    });
+}
+
+// ======================================
+// MAIN FUNCTIONS
+// ======================================
+
 document.addEventListener("DOMContentLoaded", () => {
     updateClock();
     setInterval(updateClock, 1000);
     loadTodayDate();
     loadSavedJamaat();
     detectLocation();
+    initAlarms();
+
+    // Check alarms every 30 seconds
+    setInterval(checkAlarms, 30000);
 
     // More Menu Logic (Quran Style)
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
@@ -332,6 +433,14 @@ function saveJamaatTime() {
     localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
     updateJamaatUI();
     closeJamaatModal();
+
+    // Also reset alarmFired for this prayer so it can fire again with new time
+    const today = new Date().toISOString().split('T')[0];
+    const key = selectedPrayer + "_" + today;
+    if (alarmFired[key]) {
+        delete alarmFired[key];
+        localStorage.setItem("alarmFired", JSON.stringify(alarmFired));
+    }
 }
 
 function loadSavedJamaat() {

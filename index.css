@@ -417,6 +417,33 @@ body {
     background: #f3d56a;
 }
 
+/* Alarm Button */
+.alarm-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+    transition: .3s;
+}
+
+.alarm-btn.active {
+    color: var(--primary);
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.alarm-btn:hover {
+    transform: scale(1.1);
+}
+
 .prayer-card.active {
     border: 2px solid var(--primary);
     background: rgba(212, 175, 55, 0.15);
