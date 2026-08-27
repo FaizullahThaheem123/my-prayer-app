@@ -19,90 +19,90 @@ const duas = [
     {
         id: "yunus-anxiety",
         title: "Dua of Prophet Yunus (Relief from Anxiety)",
-        titleUrdu: "دعائے حضرت یونس علیہ السلام (آیت کریمہ)",
+        titleUrdu: "دعائے حضرت یونس علیہ السلام",
         category: "peace",
-        arabic: "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
-        transliteration: "La ilaha illa Anta Subhanaka innee kuntu minaz-zalimeen.",
-        meaning: "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
-        urdu: "تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی قصورواروں میں سے تھا۔",
+        arabic: "وَذَا النُّونِ إِذ ذَّهَبَ مُغَاضِبًا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ فَنَادَىٰ فِي الظُّلُمَاتِ أَن لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+        transliteration: "Wa dhan-nooni idh dhahaba mughadiban fazanna al-lan naqdira 'alayhi fanada fiz-zulumati al-la ilaha illa Anta subhanaka innee kuntu minaz-zalimeen.",
+        meaning: "And [mention] the man of the fish, when he went off in anger and thought that We would not restrict him, and he called out in the darkness, 'There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'",
+        urdu: "اور مچھلی والے (حضرت یونس علیہ السلام) کو یاد کرو، جب وہ غصے میں چلے گئے اور خیال کیا کہ ہم ان پر تنگی نہیں کریں گے، پھر انہوں نے اندھیروں میں پکارا: تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی قصورواروں میں سے تھا۔",
         reference: "Surah Al-Anbiya 21:87",
         virtues: "غم، دلی پریشانی اور مصیبتوں سے نجات کے لیے اکسیر دعا۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/021087.mp3"
     },
     {
-        id: "sayyidul-istighfar",
-        title: "Sayyidul Istighfar",
-        titleUrdu: "سید الاستغفار (سب سے عظیم استغفار)",
+        id: "adam-forgiveness",
+        title: "Dua of Prophet Adam (Forgiveness)",
+        titleUrdu: "دعائے حضرت آدم علیہ السلام (توبہ و مغفرت)",
         category: "forgiveness",
-        arabic: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَىٰ عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
-        transliteration: "Allahumma Anta Rabbee la ilaha illa Anta, khalaqtanee wa ana 'abduka...",
-        meaning: "O Allah, You are my Lord. There is no god except You. You created me and I am Your servant.",
-        urdu: "اے اللہ! تو ہی میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا اور میں تیرا بندہ ہوں۔",
-        reference: "Sahih al-Bukhari 6306",
-        virtues: "صبح یا شام یقین کے ساتھ پڑھ کر وفات پانے والا سیدھا جنتی ہے۔",
-        audio: "https://everyayah.com/data/Alafasy_128kbps/002286.mp3"
+        arabic: "قَالَا رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+        transliteration: "Qala Rabbana zalamna anfusana wa il-lam taghfir lana wa tarhamna lanakoonanna minal-khasireen.",
+        meaning: "They said, 'Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers.'",
+        urdu: "دونوں نے کہا: اے ہمارے رب! ہم نے اپنی جانوں پر ظلم کیا، اگر تو نے ہمیں معاف نہ کیا اور ہم پر رحم نہ کیا تو ہم ضرور نقصان اٹھانے والوں میں سے ہو جائیں گے۔",
+        reference: "Surah Al-A'raf 7:23",
+        virtues: "توبہ کی سب سے پہلی اور مقبول ترین قرآنی دعا، دل کو گناہوں کی معافی کا یقین دلاتی ہے۔",
+        audio: "https://everyayah.com/data/Alafasy_128kbps/007023.mp3"
     },
     {
-        id: "anxiety-grief",
-        title: "Dua for Relief from Stress, Worry & Debt",
-        titleUrdu: "پریشانی، غم اور قرض سے نجات کی دعا",
+        id: "tawakkul-verse",
+        title: "Dua for Trust in Allah's Decree",
+        titleUrdu: "توکل کی آیت (جو تقدیر میں لکھا ہے وہی ہوگا)",
         category: "peace",
-        arabic: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ",
-        transliteration: "Allahumma innee a'oodhu bika minal-hammi wal-hazan...",
-        meaning: "O Allah, I seek refuge in You from grief and sadness, from weakness and laziness, and from heavy debt.",
-        urdu: "اے اللہ! میں غم، پریشانی، سستی، بزدلی، کنجوسی اور قرض کے بوجھ سے تیری پناہ مانگتا ہوں۔",
-        reference: "Sahih al-Bukhari 2893",
-        virtues: "دل کے سکون اور بوجھ کو ہلکا کرنے والی مسنون دعا۔",
+        arabic: "قُل لَّن يُصِيبَنَا إِلَّا مَا كَتَبَ اللَّهُ لَنَا هُوَ مَوْلَانَا ۚ وَعَلَى اللَّهِ فَلْيَتَوَكَّلِ الْمُؤْمِنُونَ",
+        transliteration: "Qul lan yuseebana illa ma katab Allahu lana, Huwa Mawlana, wa 'alallahi falyatawakkalil-mu'minoon.",
+        meaning: "Say, 'Never will we be struck except by what Allah has decreed for us; He is our protector.' And upon Allah let the believers rely.",
+        urdu: "کہہ دیجئے! ہمیں ہرگز کوئی چیز نہیں پہنچے گی مگر وہی جو اللہ نے ہمارے لیے لکھ دی ہے، وہی ہمارا کارساز ہے، اور مومنوں کو اللہ ہی پر بھروسہ کرنا چاہیے۔",
+        reference: "Surah At-Tawbah 9:51",
+        virtues: "پریشانی اور خوف کے وقت دل کو تقدیر پر راضی اور مطمئن رکھنے والی آیت۔",
+        audio: "https://everyayah.com/data/Alafasy_128kbps/009051.mp3"
+    },
+    {
+        id: "dua-hasanah",
+        title: "Dua for Good in This World & Hereafter",
+        titleUrdu: "دعائے ربنا آتنا (دنیا و آخرت کی بھلائی)",
+        category: "daily",
+        arabic: "وَمِنْهُم مَّن يَقُولُ رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        transliteration: "Wa minhum man yaqoolu Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhaban-nar.",
+        meaning: "And among them is he who says, 'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.'",
+        urdu: "اور انہی میں سے وہ بھی ہیں جو کہتے ہیں: اے ہمارے رب! ہمیں دنیا میں بھی بھلائی دے اور آخرت میں بھی بھلائی دے، اور ہمیں آگ کے عذاب سے بچا۔",
+        reference: "Surah Al-Baqarah 2:201",
+        virtues: "روزانہ پڑھی جانے والی سب سے جامع اور مقبول قرآنی دعا۔",
+        audio: "https://everyayah.com/data/Alafasy_128kbps/002201.mp3"
+    },
+    {
+        id: "dua-steadfast-heart",
+        title: "Dua for a Steadfast Heart",
+        titleUrdu: "دعائے ثباتِ قلب (دل کو ہدایت پر قائم رکھنے کی دعا)",
+        category: "daily",
+        arabic: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ",
+        transliteration: "Rabbana la tuzigh quloobana ba'da idh hadaytana wa hab lana milladunka rahmah, innaka antal-Wahhab.",
+        meaning: "Our Lord, let not our hearts deviate after You have guided us, and grant us mercy from Yourself. Indeed, You are the Bestower.",
+        urdu: "اے ہمارے رب! ہمیں ہدایت دینے کے بعد ہمارے دلوں کو ٹیڑھا نہ کر، اور ہمیں اپنے پاس سے رحمت عطا فرما، بے شک تو ہی بہت عطا کرنے والا ہے۔",
+        reference: "Surah Aal-e-Imran 3:8",
+        virtues: "دل کو ایمان اور ہدایت پر ثابت قدم رکھنے کے لیے روزانہ پڑھنے کی دعا۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/003008.mp3"
     },
     {
-        id: "morning-dua",
-        title: "Morning Dua",
-        titleUrdu: "صبح کے وقت کی دعا",
-        category: "daily",
-        arabic: "اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ",
-        transliteration: "Allahumma bika asbahna wa bika amsayna wa bika nahya wa bika namootu wa ilaykan-nushoor.",
-        meaning: "O Allah, by You we enter the morning and by You we enter the evening, and to You is the return.",
-        urdu: "اے اللہ! تیرے ہی فضل سے ہم نے صبح کی اور شام کی، تیرے ہی حکم سے جیتے اور مرتے ہیں۔",
-        reference: "Sunan Abu Dawood 5068",
-        virtues: "پورے دن کو برکت اور اللہ کی پناہ میں رکھنے کے لیے۔",
-        audio: "https://everyayah.com/data/Alafasy_128kbps/030017.mp3"
-    },
-    {
-        id: "evening-dua",
-        title: "Evening Dua",
-        titleUrdu: "شام کے وقت کی دعا",
-        category: "daily",
-        arabic: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
-        transliteration: "Amsayna wa amsal-mulku lillah, wal-hamdu lillah...",
-        meaning: "We have reached the evening and at this evening all sovereignty belongs to Allah.",
-        urdu: "ہم نے شام کی اور تمام بادشاہی اللہ ہی کے لیے ہے، اور تمام تعریف اللہ ہی کے لیے ہے۔",
-        reference: "Sahih Muslim 2723",
-        virtues: "رات بھر شرور اور آفات سے پناہ۔",
-        audio: "https://everyayah.com/data/Alafasy_128kbps/030018.mp3"
-    },
-    {
-        id: "afiyah-health",
-        title: "Dua for Complete Health & Security (Al-Afiyah)",
-        titleUrdu: "عافیت اور سلامتی کی جامع دعا",
+        id: "dua-shifa",
+        title: "Dua of Prophet Ibrahim for Healing (Shifa)",
+        titleUrdu: "دعائے شفا (حضرت ابراہیم علیہ السلام)",
         category: "healing",
-        arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي",
-        transliteration: "Allahumma innee as'alukal-'afwa wal-'afiyata fid-dunya wal-akhirah...",
-        meaning: "O Allah, I ask You for pardon and well-being in this world and the Hereafter.",
-        urdu: "اے اللہ! میں تجھ سے دنیا، آخرت، دین، اہل و عیال اور مال میں معافی اور عافیت مانگتا ہوں۔",
-        reference: "Sunan Abu Dawood 5074",
-        virtues: "حضور ﷺ صبح و شام یہ دعا کبھی ترک نہیں فرماتے تھے۔",
-        audio: "https://everyayah.com/data/Alafasy_128kbps/002286.mp3"
+        arabic: "وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ",
+        transliteration: "Wa idha maridtu fahuwa yashfeen.",
+        meaning: "And when I am ill, it is He who cures me.",
+        urdu: "اور جب میں بیمار ہوتا ہوں تو وہی مجھے شفا دیتا ہے۔",
+        reference: "Surah Ash-Shu'ara 26:80",
+        virtues: "بیماری میں شفا کے یقین اور اللہ پر توکل کی سب سے مختصر اور جامع قرآنی دعا۔",
+        audio: "https://everyayah.com/data/Alafasy_128kbps/026080.mp3"
     },
     {
         id: "hasbiyallahu",
         title: "Sufficiency of Allah (Hasbiyallahu)",
         titleUrdu: "حسبی اللہ (اللہ میرے لیے کافی ہے)",
         category: "peace",
-        arabic: "حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
-        transliteration: "Hasbiyallahu la ilaha illa Huwa 'alayhi tawakkaltu wa Huwa Rabbul-'Arshil-'Azeem.",
-        meaning: "Allah is sufficient for me. There is no deity except Him. In Him I place my trust.",
-        urdu: "میرے لیے اللہ ہی کافی ہے۔ اس کے سوا کوئی معبود نہیں۔ میں نے اسی پر بھروسہ کیا۔",
+        arabic: "فَإِن تَوَلَّوْا فَقُلْ حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+        transliteration: "Fa in tawallaw faqul hasbiyallahu la ilaha illa Huwa 'alayhi tawakkaltu wa Huwa Rabbul-'Arshil-'Azeem.",
+        meaning: "But if they turn away, say, 'Allah is sufficient for me; there is no deity except Him. In Him I place my trust.'",
+        urdu: "پھر اگر وہ منہ موڑ لیں تو کہہ دیجئے: میرے لیے اللہ ہی کافی ہے۔ اس کے سوا کوئی معبود نہیں۔ میں نے اسی پر بھروسہ کیا۔",
         reference: "Surah At-Tawbah 9:129",
         virtues: "صبح و شام ۷ بار پڑھنے سے اللہ تمام غموں کے لیے کافی ہو جاتا ہے۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/009129.mp3"
@@ -112,10 +112,10 @@ const duas = [
         title: "Dua for Mental Peace & Ease (Rabbi Ishrah Lee)",
         titleUrdu: "دعائے حضرت موسیٰ (رب اشرح لی صدری)",
         category: "peace",
-        arabic: "رَبِّ اشْرَحْ لِي صَدْرِي ﴿٢٥﴾ وَيَسِّرْ لِي أَمْرِي ﴿٢٦﴾ وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي ﴿٢٧﴾ يَفْقَهُوا قَوْلِي ﴿٢٨﴾",
-        transliteration: "Rabbish-rah lee sadree wa yassir leee amree...",
-        meaning: "My Lord, expand for me my chest with peace, and ease for me my task.",
-        urdu: "اے میرے پروردگار! میرے لیے میرا سینہ کھول دے اور میرا کام آسان کر دے۔",
+        arabic: "قَالَ رَبِّ اشْرَحْ لِي صَدْرِي ﴿٢٥﴾ وَيَسِّرْ لِي أَمْرِي ﴿٢٦﴾ وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي ﴿٢٧﴾ يَفْقَهُوا قَوْلِي ﴿٢٨﴾",
+        transliteration: "Qala Rabbish-rah lee sadree wa yassir lee amree wahlul 'uqdatan min lisanee yafqahoo qawlee.",
+        meaning: "He said, 'My Lord, expand for me my chest and ease for me my task and untie the knot from my tongue that they may understand my speech.'",
+        urdu: "انہوں (موسیٰ علیہ السلام) نے کہا: اے میرے پروردگار! میرے لیے میرا سینہ کھول دے اور میرا کام آسان کر دے۔",
         reference: "Surah Ta-Ha 20:25-28",
         virtues: "امتحان، انٹرویو اور مشکل کاموں میں آسانی و دل کی کشادگی کے لیے۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/020025.mp3"
@@ -125,10 +125,10 @@ const duas = [
         title: "Dua for Rizq & Job (Rabbi Inni Lima Anzalta)",
         titleUrdu: "رزق اور حلال روزی کی دعا",
         category: "sustenance",
-        arabic: "رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ",
-        transliteration: "Rabbi innee limaaa anzalta ilayya min khayrin faqeer.",
-        meaning: "My Lord, truly I am in dire need of whatever good You bestow upon me.",
-        urdu: "اے میرے رب! جو بھلائی بھی تو میری طرف نازل فرمائے، میں اس کا محتاج ہوں۔",
+        arabic: "فَسَقَىٰ لَهُمَا ثُمَّ تَوَلَّىٰ إِلَى الظِّلِّ فَقَالَ رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ",
+        transliteration: "Fasaqa lahuma thumma tawalla ilaz-zilli faqala Rabbi innee lima anzalta ilayya min khayrin faqeer.",
+        meaning: "So he watered [their flocks] for them; then he went back to the shade and said, 'My Lord, indeed I am, for whatever good You would send down to me, in need.'",
+        urdu: "تو انہوں نے ان کے جانوروں کو پانی پلا دیا، پھر سائے کی طرف لوٹ کر کہا: اے میرے رب! جو بھلائی بھی تو میری طرف نازل فرمائے، میں اس کا محتاج ہوں۔",
         reference: "Surah Al-Qasas 28:24",
         virtues: "روزی، نوکری اور ضرورت پوری ہونے کے لیے نہایت مجرب دعا۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/028024.mp3"
@@ -138,10 +138,10 @@ const duas = [
         title: "Dua for Parents",
         titleUrdu: "والدین کے لیے رحمت و مغفرت کی دعا",
         category: "family",
-        arabic: "رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
-        transliteration: "Rabbir-hamhuma kama rabbayanee sagheera.",
-        meaning: "My Lord, have mercy upon them both as they brought me up when I was small.",
-        urdu: "اے میرے پروردگار! ان دونوں پر رحم فرما جیسا کہ انہوں نے بچپن میں مجھے پالا۔",
+        arabic: "وَاخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ وَقُل رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+        transliteration: "Wakhfid lahuma janahaz-zulli minar-rahmati wa qur-Rabbir-hamhuma kama rabbayanee sagheera.",
+        meaning: "And lower to them the wing of humility out of mercy and say, 'My Lord, have mercy upon them as they brought me up when I was small.'",
+        urdu: "اور ان کے سامنے نرمی اور محبت سے عاجزی کے ساتھ جھک جاؤ، اور کہو: اے میرے پروردگار! ان دونوں پر رحم فرما جیسا کہ انہوں نے بچپن میں مجھے پالا۔",
         reference: "Surah Al-Isra 17:24",
         virtues: "والدین کی خدمت اور ان کے لیے دعائے رحمت کا عظیم قرآنی تحفہ۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/017024.mp3"
@@ -151,10 +151,10 @@ const duas = [
         title: "Dua for Traveling",
         titleUrdu: "سفر اور سواری کی دعا",
         category: "travel",
-        arabic: "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ ﴿١٣﴾ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ ﴿١٤﴾",
-        transliteration: "Subhanal-ladhee sakh-khara lana hadha wa ma kunna lahu muqrineen.",
-        meaning: "Glory be to Him Who has subjected this to us, and indeed to our Lord we return.",
-        urdu: "پاک ہے وہ ذات جس نے اس کو ہمارے تابع کر دیا، اور ہم اپنے رب ہی کی طرف لوٹنے والے ہیں۔",
+        arabic: "لِتَسْتَوُوا عَلَىٰ ظُهُورِهِ ثُمَّ تَذْكُرُوا نِعْمَةَ رَبِّكُمْ إِذَا اسْتَوَيْتُمْ عَلَيْهِ وَتَقُولُوا سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ ﴿١٣﴾ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ ﴿١٤﴾",
+        transliteration: "Litastawoo 'ala zuhoorihee thumma tadhkuroo ni'mata rabbikum idhas-tawaytum 'alayhi wa taqooloo subhanal-ladhee sakhkhara lana hadha wa ma kunna lahu muqrineen, wa inna ila rabbina lamunqaliboon.",
+        meaning: "That you may settle yourselves upon their backs and then remember the favor of your Lord when you have settled upon them and say, 'Exalted is He who has subjected this to us, and we could not have [otherwise] subdued it. And indeed we, to our Lord, will return.'",
+        urdu: "تاکہ تم ان کی پیٹھوں پر ٹھیک طرح بیٹھو، پھر جب ان پر بیٹھ جاؤ تو اپنے رب کی نعمت کو یاد کرو اور کہو: پاک ہے وہ ذات جس نے اس کو ہمارے تابع کر دیا، ورنہ ہم اسے قابو میں نہیں لا سکتے تھے، اور بیشک ہم اپنے رب ہی کی طرف لوٹنے والے ہیں۔",
         reference: "Surah Az-Zukhruf 43:13",
         virtues: "سفر میں ہر قسم کے حادثات اور پریشانیوں سے حفاظت۔",
         audio: "https://everyayah.com/data/Alafasy_128kbps/043013.mp3"
@@ -460,15 +460,9 @@ function previousDua() {
 }
 
 // ======================================
-// INITIALIZATION
+// MORE MENU LOGIC (Quran Style) - FIXED
 // ======================================
-document.addEventListener("DOMContentLoaded", () => {
-    loadDuas();
-    updateFavoriteCount();
-
-    // ======================================
-    // MORE MENU LOGIC (Quran Style) - FIXED
-    // ======================================
+document.addEventListener("DOMContentLoaded", function() {
     const moreNavBtn = document.getElementById("moreNavBtn");
     const moreMenu = document.getElementById("moreMenu");
     const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
@@ -505,4 +499,12 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Settings page will be added soon.");
         });
     }
+});
+
+// ======================================
+// INITIALIZATION
+// ======================================
+document.addEventListener("DOMContentLoaded", () => {
+    loadDuas();
+    updateFavoriteCount();
 });
