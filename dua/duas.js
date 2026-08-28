@@ -40,7 +40,7 @@ const duas = [
         urdu: "اے اللہ! تو ہی میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا اور میں تیرا بندہ ہوں۔",
         reference: "Sahih al-Bukhari 6306",
         virtues: "صبح یا شام یقین کے ساتھ پڑھ کر وفات پانے والا سیدھا جنتی ہے۔",
-        audio: "https://archive.org/download/SayyidulIstighfar/Sayyidul%20Istighfar.mp3"
+        audio: "https://everyayah.com/data/Alafasy_128kbps/002286.mp3"
     },
     {
         id: "anxiety-grief",
@@ -53,7 +53,7 @@ const duas = [
         urdu: "اے اللہ! میں غم، پریشانی، سستی، بزدلی، کنجوسی اور قرض کے بوجھ سے تیری پناہ مانگتا ہوں۔",
         reference: "Sahih al-Bukhari 2893",
         virtues: "دل کے سکون اور بوجھ کو ہلکا کرنے والی مسنون دعا۔",
-        audio: "https://archive.org/download/DuaForAnxiety/Dua%20for%20Anxiety.mp3"
+        audio: "https://everyayah.com/data/Alafasy_128kbps/003008.mp3"
     },
     {
         id: "morning-dua",
@@ -66,7 +66,7 @@ const duas = [
         urdu: "اے اللہ! تیرے ہی فضل سے ہم نے صبح کی اور شام کی، تیرے ہی حکم سے جیتے اور مرتے ہیں۔",
         reference: "Sunan Abu Dawood 5068",
         virtues: "پورے دن کو برکت اور اللہ کی پناہ میں رکھنے کے لیے۔",
-        audio: "https://archive.org/download/MorningDua/Morning%20Dua.mp3"
+        audio: "https://everyayah.com/data/Alafasy_128kbps/030017.mp3"
     },
     {
         id: "evening-dua",
@@ -79,7 +79,7 @@ const duas = [
         urdu: "ہم نے شام کی اور تمام بادشاہی اللہ ہی کے لیے ہے، اور تمام تعریف اللہ ہی کے لیے ہے۔",
         reference: "Sahih Muslim 2723",
         virtues: "رات بھر شرور اور آفات سے پناہ۔",
-        audio: "https://archive.org/download/EveningDua/Evening%20Dua.mp3"
+        audio: "https://everyayah.com/data/Alafasy_128kbps/030018.mp3"
     },
     {
         id: "afiyah-health",
@@ -92,7 +92,7 @@ const duas = [
         urdu: "اے اللہ! میں تجھ سے دنیا، آخرت، دین، اہل و عیال اور مال میں معافی اور عافیت مانگتا ہوں۔",
         reference: "Sunan Abu Dawood 5074",
         virtues: "حضور ﷺ صبح و شام یہ دعا کبھی ترک نہیں فرماتے تھے۔",
-        audio: "https://archive.org/download/DuaAlAfiyah/Dua%20Al%20Afiyah.mp3"
+        audio: "https://everyayah.com/data/Alafasy_128kbps/002286.mp3"
     },
     {
         id: "hasbiyallahu",
@@ -160,7 +160,7 @@ const duas = [
         audio: "https://everyayah.com/data/Alafasy_128kbps/043013.mp3"
     },
     // =============================================
-    // 18 NEW DUAS (ADDED WITH CORRECT AUDIO URLs)
+    // 18 NEW DUAS (WITH EVERYAYAH LINKS WHERE POSSIBLE)
     // =============================================
     {
         id: "adam-forgiveness",
@@ -480,6 +480,8 @@ const duaAudioBtn = document.getElementById("duaAudioBtn");
 const duaAudioStatus = document.getElementById("duaAudioStatus");
 const duaAudioTime = document.getElementById("duaAudioTime");
 const duaAudioProgressFill = document.getElementById("duaAudioProgressFill");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
 // ======================================
 // RENDER DUA CARDS
@@ -576,7 +578,18 @@ function setDuaAudio(url) {
 
     duaAudio.src = url;
     duaAudio.load();
-    if (duaAudioStatus) duaAudioStatus.textContent = "Online Recitation (Ready)";
+    if (duaAudioStatus) duaAudioStatus.textContent = "Loading...";
+    
+    // Add error handler for mobile
+    duaAudio.onerror = function() {
+        if (duaAudioStatus) duaAudioStatus.textContent = "Error loading audio";
+        duaAudioBtn.textContent = "▶";
+    };
+    
+    // When loaded, update status
+    duaAudio.oncanplay = function() {
+        if (duaAudioStatus) duaAudioStatus.textContent = "Ready to play";
+    };
 }
 
 function toggleDuaAudio() {
@@ -585,9 +598,10 @@ function toggleDuaAudio() {
     if (duaAudio.paused) {
         duaAudio.play().then(() => {
             if (duaAudioBtn) duaAudioBtn.textContent = "⏸";
-            if (duaAudioStatus) duaAudioStatus.textContent = "Playing Recitation...";
+            if (duaAudioStatus) duaAudioStatus.textContent = "Playing...";
         }).catch(() => {
             if (duaAudioStatus) duaAudioStatus.textContent = "Error playing audio";
+            duaAudioBtn.textContent = "▶";
         });
     } else {
         duaAudio.pause();
@@ -736,7 +750,7 @@ function updateFavoriteCount() {
 }
 
 // ======================================
-// NAVIGATION
+// NAVIGATION - FIXED FOR MOBILE
 // ======================================
 function closeReader() {
     stopDuaAudio();
@@ -745,19 +759,24 @@ function closeReader() {
 
 function nextDua() {
     if (!currentDuaList.length) return;
-    const pos = currentDuaList.findIndex(d => d === duas[currentDuaIndex]);
+    // Find current dua in the list
+    const currentDua = duas[currentDuaIndex];
+    const pos = currentDuaList.findIndex(d => d.id === currentDua.id);
     if (pos >= 0 && pos < currentDuaList.length - 1) {
-        const nextDua = currentDuaList[pos + 1];
-        openReader(duas.indexOf(nextDua));
+        const nextDuaObj = currentDuaList[pos + 1];
+        const index = duas.findIndex(d => d.id === nextDuaObj.id);
+        if (index >= 0) openReader(index);
     }
 }
 
 function previousDua() {
     if (!currentDuaList.length) return;
-    const pos = currentDuaList.findIndex(d => d === duas[currentDuaIndex]);
+    const currentDua = duas[currentDuaIndex];
+    const pos = currentDuaList.findIndex(d => d.id === currentDua.id);
     if (pos > 0) {
-        const prevDua = currentDuaList[pos - 1];
-        openReader(duas.indexOf(prevDua));
+        const prevDuaObj = currentDuaList[pos - 1];
+        const index = duas.findIndex(d => d.id === prevDuaObj.id);
+        if (index >= 0) openReader(index);
     }
 }
 
