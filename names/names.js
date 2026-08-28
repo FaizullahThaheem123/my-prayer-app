@@ -1,7 +1,7 @@
 // ======================================
 // 99 NAMES OF ALLAH - WITH BENEFITS
-// + GRID VIEW + DETAIL MODAL (15% SMALLER)
-// + ONLINE AUDIO (RELIABLE ARCHIVE.ORG) + DOWNLOAD
+// + GRID VIEW + DETAIL MODAL
+// + LOCAL AUDIO (name of allah.mp3)
 // ======================================
 
 // All 99 Names Data
@@ -146,11 +146,6 @@ let favoriteNames = JSON.parse(localStorage.getItem("favoriteNames") || "[]");
 let isPlaying = false;
 
 // ======================================
-// RELIABLE ONLINE AUDIO URL (ARCHIVE.ORG)
-// ======================================
-const AUDIO_URL = "https://ia800203.us.archive.org/16/items/99-names-of-allah/99%20Names%20of%20Allah.mp3";
-
-// ======================================
 // RENDER GRID
 // ======================================
 function renderGrid(){
@@ -243,10 +238,10 @@ document.addEventListener("keydown", (e)=>{
 });
 
 // ======================================
-// AUDIO SYSTEM (ONLINE - SINGLE RELIABLE URL)
+// AUDIO SYSTEM (LOCAL FILE)
 // ======================================
 function initAudio(){
-    nameAudio.src = AUDIO_URL;
+    nameAudio.src = "name of allah.mp3";
     nameAudio.preload = "metadata";
     nameAudio.load();
     audioNameText.textContent = "Loading audio...";
@@ -257,9 +252,9 @@ function initAudio(){
     };
     
     nameAudio.onerror = function() {
-        audioNameText.textContent = "Audio not available";
+        audioNameText.textContent = "Audio file not found";
         mainAudioBtn.disabled = true;
-        console.error("Failed to load audio from:", AUDIO_URL);
+        console.error("Failed to load local audio. Make sure 'name of allah.mp3' is in the same folder.");
     };
 }
 
@@ -267,7 +262,7 @@ mainAudioBtn.addEventListener("click", ()=>{
     if(nameAudio.paused){
         nameAudio.play().catch((err)=>{
             console.log("Play error:", err);
-            alert("Audio could not be played. Please check your internet connection and try again.");
+            alert("Audio could not be played. Please check that 'name of allah.mp3' exists in the folder.");
         });
     } else {
         nameAudio.pause();
@@ -298,20 +293,6 @@ nameAudio.addEventListener("ended", ()=>{
     isPlaying = false;
     audioNameText.textContent = "Complete Recitation";
 });
-
-// ======================================
-// DOWNLOAD AUDIO
-// ======================================
-function downloadAudio(){
-    const link = document.createElement('a');
-    link.href = AUDIO_URL;
-    link.download = '99_Names_of_Allah.mp3';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-window.downloadAudio = downloadAudio;
 
 // ======================================
 // MORE MENU
