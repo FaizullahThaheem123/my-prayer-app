@@ -1,6 +1,9 @@
 // ======================================
 // 99 NAMES OF ALLAH - WITH BENEFITS
+// + GRID VIEW + DETAIL MODAL (NO AUDIO INSIDE)
 // ======================================
+
+// All 99 Names Data (same as before)
 const namesOfAllah = [
     { number:1, arabic:"الرَّحْمَنُ", english:"Ar-Rahman", meaning_en:"The Most Merciful", urdu:"نہایت رحم کرنے والا", benefit_en:"Reciting it 100 times after every obligatory prayer will enhance memory and awareness. The reciter will feel the burden vanishing away from his heart.", benefit_ur:"ہر فرض نماز کے بعد 100 مرتبہ پڑھنے سے حافظہ اور شعور میں اضافہ ہوگا۔ تلاوت کرنے والا اپنے دل سے بوجھ ہلکا ہوتا محسوس کرے گا۔" },
     { number:2, arabic:"الرَّحِيمُ", english:"Ar-Raheem", meaning_en:"The Especially Merciful", urdu:"بہت رحم کرنے والا", benefit_en:"Reciting this name 100 times brings mercy and forgiveness from Allah. It softens the heart and increases kindness.", benefit_ur:"اس نام کو 100 بار پڑھنے سے اللہ کی رحمت اور مغفرت ملتی ہے۔ دل نرم ہوتا ہے اور شفقت میں اضافہ ہوتا ہے۔" },
@@ -106,22 +109,29 @@ const namesOfAllah = [
 // ======================================
 // DOM ELEMENTS
 // ======================================
-const currentNameNumber = document.getElementById("currentNameNumber");
+const namesGrid = document.getElementById("namesGrid");
+const detailOverlay = document.getElementById("nameDetailOverlay");
+const closeDetailBtn = document.getElementById("closeDetailBtn");
+
+// Detail elements
+const detailNumber = document.getElementById("detailNameNumber");
 const detailArabic = document.getElementById("detailArabic");
 const detailEnglish = document.getElementById("detailEnglish");
 const detailEnglishMeaning = document.getElementById("detailEnglishMeaning");
 const detailUrdu = document.getElementById("detailUrdu");
 const detailBenefitEn = document.getElementById("detailBenefitEn");
 const detailBenefitUr = document.getElementById("detailBenefitUr");
-const favoriteNameBtn = document.getElementById("favoriteNameBtn");
-const previousNameBtn = document.getElementById("previousNameBtn");
-const nextNameBtn = document.getElementById("nextNameBtn");
+const detailFavBtn = document.getElementById("detailFavoriteBtn");
+const detailPrevBtn = document.getElementById("detailPrevBtn");
+const detailNextBtn = document.getElementById("detailNextBtn");
 
+// Audio elements (SEPARATE CARD - no sync with names)
 const mainAudioBtn = document.getElementById("mainAudioBtn");
 const nameAudio = document.getElementById("nameAudio");
 const audioProgressBar = document.getElementById("audioProgressBar");
 const audioNameText = document.getElementById("audioNameText");
 
+// More menu
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
 const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
@@ -132,57 +142,77 @@ const namesSettingsBtn = document.getElementById("namesSettingsBtn");
 // ======================================
 let currentIndex = 0;
 let favoriteNames = JSON.parse(localStorage.getItem("favoriteNames") || "[]");
+let isPlaying = false;
 
 // ======================================
-// SHOW NAME FUNCTION
+// RENDER GRID
 // ======================================
-function showName(index){
+function renderGrid(){
+    namesGrid.innerHTML = "";
+    namesOfAllah.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "name-grid-card";
+        card.innerHTML = `
+            <span class="grid-number">${String(name.number).padStart(2,"0")}</span>
+            <span class="grid-arabic">${name.arabic}</span>
+            <span class="grid-english">${name.english}</span>
+        `;
+        card.addEventListener("click", ()=>{
+            openDetail(name.number - 1);
+        });
+        namesGrid.appendChild(card);
+    });
+}
+
+// ======================================
+// OPEN DETAIL
+// ======================================
+function openDetail(index){
     if(index < 0) index = 0;
     if(index >= namesOfAllah.length) index = namesOfAllah.length - 1;
     currentIndex = index;
+    showNameInDetail(currentIndex);
+    detailOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
 
-    const name = namesOfAllah[currentIndex];
+function closeDetail(){
+    detailOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+}
 
-    currentNameNumber.textContent = String(name.number).padStart(2, "0");
+function showNameInDetail(index){
+    const name = namesOfAllah[index];
+    detailNumber.textContent = String(name.number).padStart(2,"0");
     detailArabic.textContent = name.arabic;
     detailEnglish.textContent = name.english;
     detailEnglishMeaning.textContent = name.meaning_en;
     detailUrdu.textContent = name.urdu;
     detailBenefitEn.textContent = name.benefit_en;
     detailBenefitUr.textContent = name.benefit_ur;
-    audioNameText.textContent = name.english;
-
-    resetAudio();
-    updateFavoriteButton();
-    updateNavigation();
+    
+    const isFav = favoriteNames.includes(name.number);
+    detailFavBtn.innerHTML = isFav ? '<i class="fa-solid fa-heart"></i> Favorite' : '<i class="fa-regular fa-heart"></i> Favorite';
+    detailFavBtn.classList.toggle("favorite-active", isFav);
+    
+    detailPrevBtn.disabled = index === 0;
+    detailNextBtn.disabled = index === namesOfAllah.length - 1;
 }
 
 // ======================================
-// NAVIGATION
+// NAVIGATION (Detail)
 // ======================================
-nextNameBtn.addEventListener("click", function(){
-    if(currentIndex < namesOfAllah.length - 1) showName(currentIndex + 1);
+detailPrevBtn.addEventListener("click", ()=>{
+    if(currentIndex > 0) openDetail(currentIndex - 1);
 });
-previousNameBtn.addEventListener("click", function(){
-    if(currentIndex > 0) showName(currentIndex - 1);
+detailNextBtn.addEventListener("click", ()=>{
+    if(currentIndex < namesOfAllah.length - 1) openDetail(currentIndex + 1);
 });
 
-function updateNavigation(){
-    previousNameBtn.disabled = currentIndex === 0;
-    nextNameBtn.disabled = currentIndex === namesOfAllah.length - 1;
-}
-
 // ======================================
-// FAVORITE
+// FAVORITE (Detail)
 // ======================================
-function updateFavoriteButton(){
-    const number = namesOfAllah[currentIndex].number;
-    const isFavorite = favoriteNames.includes(number);
-    favoriteNameBtn.innerHTML = isFavorite ? '<i class="fa-solid fa-heart"></i> Favorite' : '<i class="fa-regular fa-heart"></i> Favorite';
-    favoriteNameBtn.classList.toggle("favorite-active", isFavorite);
-}
-
-favoriteNameBtn.addEventListener("click", function(){
+detailFavBtn.addEventListener("click", ()=>{
     const number = namesOfAllah[currentIndex].number;
     if(favoriteNames.includes(number)){
         favoriteNames = favoriteNames.filter(item => item !== number);
@@ -190,72 +220,92 @@ favoriteNameBtn.addEventListener("click", function(){
         favoriteNames.push(number);
     }
     localStorage.setItem("favoriteNames", JSON.stringify(favoriteNames));
-    updateFavoriteButton();
+    showNameInDetail(currentIndex);
 });
 
 // ======================================
-// AUDIO
+// CLOSE DETAIL
 // ======================================
-mainAudioBtn.addEventListener("click", function(){
+closeDetailBtn.addEventListener("click", closeDetail);
+detailOverlay.addEventListener("click", (e)=>{
+    if(e.target === detailOverlay) closeDetail();
+});
+
+// Keyboard: Escape to close
+document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && detailOverlay.classList.contains("active")) closeDetail();
+});
+
+// ======================================
+// AUDIO SYSTEM (SEPARATE CARD - NO SYNC)
+// ======================================
+mainAudioBtn.addEventListener("click", ()=>{
     if(nameAudio.paused){
-        nameAudio.play().catch(function(error){ console.log("Audio error:", error); });
+        nameAudio.play().catch(()=>{
+            alert("Audio is loading. Please try again.");
+        });
     } else {
         nameAudio.pause();
     }
 });
 
-nameAudio.addEventListener("play", function(){
+nameAudio.addEventListener("play", ()=>{
     mainAudioBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    isPlaying = true;
+    audioNameText.textContent = "Playing...";
 });
-nameAudio.addEventListener("pause", function(){
+
+nameAudio.addEventListener("pause", ()=>{
     mainAudioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    isPlaying = false;
+    audioNameText.textContent = "Paused";
 });
-nameAudio.addEventListener("timeupdate", function(){
+
+nameAudio.addEventListener("timeupdate", ()=>{
     if(!nameAudio.duration || !isFinite(nameAudio.duration)) return;
     const percent = (nameAudio.currentTime / nameAudio.duration) * 100;
     audioProgressBar.style.width = percent + "%";
 });
-nameAudio.addEventListener("ended", function(){
+
+nameAudio.addEventListener("ended", ()=>{
     audioProgressBar.style.width = "0%";
     mainAudioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    isPlaying = false;
+    audioNameText.textContent = "Complete Recitation";
 });
 
-function resetAudio(){
-    nameAudio.pause();
-    nameAudio.currentTime = 0;
-    audioProgressBar.style.width = "0%";
-    mainAudioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+// ======================================
+// DOWNLOAD AUDIO
+// ======================================
+function downloadAudio(){
+    const link = document.createElement('a');
+    link.href = 'name of allah.mp3';
+    link.download = '99_Names_of_Allah.mp3';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
+window.downloadAudio = downloadAudio;
 
 // ======================================
-// MORE MENU LOGIC (Quran Style) - FIXED
+// MORE MENU
 // ======================================
-if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
-
-    // Open More menu
-    moreNavBtn.addEventListener("click", function(e) {
+if(moreNavBtn && moreMenu && closeMoreMenuBtn){
+    moreNavBtn.addEventListener("click", (e)=>{
         e.stopPropagation();
         moreMenu.classList.add("show");
     });
-
-    // Close with X button
-    closeMoreMenuBtn.addEventListener("click", function(e) {
+    closeMoreMenuBtn.addEventListener("click", (e)=>{
         e.stopPropagation();
         moreMenu.classList.remove("show");
     });
-
-    // Close when clicking outside
-    document.addEventListener("click", function(e) {
-        if (moreMenu.classList.contains("show") &&
-            !moreMenu.contains(e.target) &&
-            !moreNavBtn.contains(e.target)) {
+    document.addEventListener("click", (e)=>{
+        if(moreMenu.classList.contains("show") && !moreMenu.contains(e.target) && !moreNavBtn.contains(e.target)){
             moreMenu.classList.remove("show");
         }
     });
-
-    // Settings button inside More
-    if (namesSettingsBtn) {
-        namesSettingsBtn.addEventListener("click", function(e) {
+    if(namesSettingsBtn){
+        namesSettingsBtn.addEventListener("click", (e)=>{
             e.stopPropagation();
             moreMenu.classList.remove("show");
             alert("Settings will be added soon.");
@@ -264,26 +314,8 @@ if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
 }
 
 // ======================================
-// KEYBOARD & SWIPE
-// ======================================
-document.addEventListener("keydown", function(event){
-    if(event.key === "ArrowRight") nextNameBtn.click();
-    if(event.key === "ArrowLeft") previousNameBtn.click();
-});
-
-let touchStartX = 0;
-document.addEventListener("touchstart", function(event){ touchStartX = event.changedTouches[0].screenX; }, { passive:true });
-document.addEventListener("touchend", function(event){
-    const touchEndX = event.changedTouches[0].screenX;
-    const diff = touchEndX - touchStartX;
-    if(Math.abs(diff) < 60) return;
-    if(diff < 0) nextNameBtn.click();
-    else previousNameBtn.click();
-}, { passive:true });
-
-// ======================================
 // START
 // ======================================
-document.addEventListener("DOMContentLoaded", function(){
-    showName(0);
+document.addEventListener("DOMContentLoaded", ()=>{
+    renderGrid();
 });
