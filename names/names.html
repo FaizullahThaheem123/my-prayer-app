@@ -79,9 +79,7 @@
 
 <div class="names-page">
 
-<!-- ======================================
-     HEADER (TITLE LEFT, IMAGE RIGHT)
-====================================== -->
+<!-- HEADER -->
 <header class="names-header">
     <div class="header-title">
         <h1><i class="fa-solid fa-star-and-crescent"></i> 99 Names</h1>
@@ -92,42 +90,43 @@
     </div>
 </header>
 
-<!-- ======================================
-     MAIN CONTENT
-====================================== -->
-<main class="name-detail-page">
-    <section class="main-name-card">
-
-        <!-- PAGE COUNTER -->
-        <div class="name-page-counter">
-            <span id="currentNameNumber">01</span> / <span>99</span>
+<!-- AUDIO PLAYER -->
+<section class="names-audio-player">
+    <div class="audio-info">
+        <div class="audio-icon"><i class="fa-solid fa-volume-high"></i></div>
+        <div class="audio-text">
+            <span>99 Names Audio</span>
+            <strong id="audioNameText">Complete Recitation</strong>
         </div>
+    </div>
+    <div class="audio-controls">
+        <button id="mainAudioBtn" class="main-audio-btn"><i class="fa-solid fa-play"></i></button>
+        <button class="download-btn" id="downloadBtn" onclick="downloadAudio()" title="Download for offline listening">
+            <i class="fa-solid fa-download"></i>
+        </button>
+    </div>
+    <div class="audio-progress">
+        <div id="audioProgressBar" class="audio-progress-fill"></div>
+    </div>
+    <audio id="nameAudio" preload="metadata"></audio>
+</section>
 
-        <!-- AUDIO PLAYER (TOP) -->
-        <section class="names-audio-player">
-            <div class="audio-info">
-                <div class="audio-icon"><i class="fa-solid fa-volume-high"></i></div>
-                <div class="audio-text">
-                    <span>99 Names Audio</span>
-                    <strong id="audioNameText">Name of Allah</strong>
-                </div>
-            </div>
-            <div class="audio-controls">
-                <button id="mainAudioBtn" class="main-audio-btn"><i class="fa-solid fa-play"></i></button>
-            </div>
-            <div class="audio-progress">
-                <div id="audioProgressBar" class="audio-progress-fill"></div>
-            </div>
-            <audio id="nameAudio" preload="metadata" src="name of allah.mp3"></audio>
-        </section>
+<!-- 99 NAMES GRID -->
+<section class="names-grid-section">
+    <div class="names-grid" id="namesGrid"></div>
+</section>
 
-        <!-- ARABIC / ENGLISH / URDU -->
+<!-- DETAIL MODAL -->
+<div class="name-detail-overlay" id="nameDetailOverlay">
+    <div class="name-detail-modal" id="nameDetailModal">
+        <button class="detail-close-btn" id="closeDetailBtn"><i class="fa-solid fa-xmark"></i></button>
+        <div class="name-page-counter">
+            <span id="detailNameNumber">01</span> / <span>99</span>
+        </div>
         <div id="detailArabic" class="detail-arabic"></div>
         <h2 id="detailEnglish" class="detail-english"></h2>
         <div id="detailEnglishMeaning" class="detail-english-meaning"></div>
         <div id="detailUrdu" class="detail-urdu"></div>
-
-        <!-- BENEFITS -->
         <div class="benefit-section">
             <strong class="benefit-label-en">Benefit:</strong>
             <p id="detailBenefitEn" class="benefit-text-en">Loading...</p>
@@ -136,46 +135,34 @@
             <strong class="benefit-label-ur">فائدہ:</strong>
             <p id="detailBenefitUr" class="benefit-text-ur">لوڈ ہو رہا ہے...</p>
         </div>
-
-        <!-- DISCLAIMER -->
         <div class="disclaimer-note">
             Note: The benefits listed for each name are based on popular traditions and are not confirmed by the Qur'an or authentic sayings of the Prophet (ﷺ). For authentic guidance, please refer to the Qur'an and Sunnah.
         </div>
-
-        <!-- FAVORITE BUTTON -->
-        <button id="favoriteNameBtn" class="favorite-btn">
+        <button id="detailFavoriteBtn" class="favorite-btn">
             <i class="fa-regular fa-heart"></i> Favorite
         </button>
-
-        <!-- PREVIOUS / NEXT -->
         <div class="name-navigation">
-            <button id="previousNameBtn" class="name-nav-btn">
+            <button id="detailPrevBtn" class="name-nav-btn">
                 <i class="fa-solid fa-arrow-left"></i> <span>Previous</span>
             </button>
-            <button id="nextNameBtn" class="name-nav-btn next-btn">
+            <button id="detailNextBtn" class="name-nav-btn next-btn">
                 <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
-    </section>
-</main>
+    </div>
+</div>
 
-<!-- ======================================
-     BOTTOM NAV (HOME + MORE) - QURAN STYLE
-====================================== -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-    <!-- HOME -->
     <a href="../index.html">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
     </a>
-
-    <!-- MORE (Quran Style - Bottom Sheet) -->
     <div class="more-nav">
         <button type="button" class="more-nav-btn active" id="moreNavBtn">
             <i class="fa-solid fa-ellipsis"></i>
             <span>More</span>
         </button>
-
         <div class="more-menu" id="moreMenu">
             <div class="more-menu-header">
                 <span>All Features</span>

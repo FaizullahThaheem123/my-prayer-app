@@ -1,9 +1,10 @@
 // ======================================
 // 99 NAMES OF ALLAH - WITH BENEFITS
-// + GRID VIEW + DETAIL MODAL (NO AUDIO INSIDE)
+// + GRID VIEW + DETAIL MODAL (15% SMALLER)
+// + ONLINE AUDIO (RELIABLE ARCHIVE.ORG) + DOWNLOAD
 // ======================================
 
-// All 99 Names Data (same as before)
+// All 99 Names Data
 const namesOfAllah = [
     { number:1, arabic:"الرَّحْمَنُ", english:"Ar-Rahman", meaning_en:"The Most Merciful", urdu:"نہایت رحم کرنے والا", benefit_en:"Reciting it 100 times after every obligatory prayer will enhance memory and awareness. The reciter will feel the burden vanishing away from his heart.", benefit_ur:"ہر فرض نماز کے بعد 100 مرتبہ پڑھنے سے حافظہ اور شعور میں اضافہ ہوگا۔ تلاوت کرنے والا اپنے دل سے بوجھ ہلکا ہوتا محسوس کرے گا۔" },
     { number:2, arabic:"الرَّحِيمُ", english:"Ar-Raheem", meaning_en:"The Especially Merciful", urdu:"بہت رحم کرنے والا", benefit_en:"Reciting this name 100 times brings mercy and forgiveness from Allah. It softens the heart and increases kindness.", benefit_ur:"اس نام کو 100 بار پڑھنے سے اللہ کی رحمت اور مغفرت ملتی ہے۔ دل نرم ہوتا ہے اور شفقت میں اضافہ ہوتا ہے۔" },
@@ -125,7 +126,7 @@ const detailFavBtn = document.getElementById("detailFavoriteBtn");
 const detailPrevBtn = document.getElementById("detailPrevBtn");
 const detailNextBtn = document.getElementById("detailNextBtn");
 
-// Audio elements (SEPARATE CARD - no sync with names)
+// Audio elements
 const mainAudioBtn = document.getElementById("mainAudioBtn");
 const nameAudio = document.getElementById("nameAudio");
 const audioProgressBar = document.getElementById("audioProgressBar");
@@ -145,6 +146,11 @@ let favoriteNames = JSON.parse(localStorage.getItem("favoriteNames") || "[]");
 let isPlaying = false;
 
 // ======================================
+// RELIABLE ONLINE AUDIO URL (ARCHIVE.ORG)
+// ======================================
+const AUDIO_URL = "https://ia800203.us.archive.org/16/items/99-names-of-allah/99%20Names%20of%20Allah.mp3";
+
+// ======================================
 // RENDER GRID
 // ======================================
 function renderGrid(){
@@ -152,12 +158,13 @@ function renderGrid(){
     namesOfAllah.forEach(name => {
         const card = document.createElement("div");
         card.className = "name-grid-card";
+        card.dataset.index = name.number - 1;
         card.innerHTML = `
             <span class="grid-number">${String(name.number).padStart(2,"0")}</span>
             <span class="grid-arabic">${name.arabic}</span>
             <span class="grid-english">${name.english}</span>
         `;
-        card.addEventListener("click", ()=>{
+        card.addEventListener("click", function() {
             openDetail(name.number - 1);
         });
         namesGrid.appendChild(card);
@@ -231,18 +238,36 @@ detailOverlay.addEventListener("click", (e)=>{
     if(e.target === detailOverlay) closeDetail();
 });
 
-// Keyboard: Escape to close
 document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && detailOverlay.classList.contains("active")) closeDetail();
 });
 
 // ======================================
-// AUDIO SYSTEM (SEPARATE CARD - NO SYNC)
+// AUDIO SYSTEM (ONLINE - SINGLE RELIABLE URL)
 // ======================================
+function initAudio(){
+    nameAudio.src = AUDIO_URL;
+    nameAudio.preload = "metadata";
+    nameAudio.load();
+    audioNameText.textContent = "Loading audio...";
+    
+    nameAudio.oncanplay = function() {
+        audioNameText.textContent = "Ready to play";
+        mainAudioBtn.disabled = false;
+    };
+    
+    nameAudio.onerror = function() {
+        audioNameText.textContent = "Audio not available";
+        mainAudioBtn.disabled = true;
+        console.error("Failed to load audio from:", AUDIO_URL);
+    };
+}
+
 mainAudioBtn.addEventListener("click", ()=>{
     if(nameAudio.paused){
-        nameAudio.play().catch(()=>{
-            alert("Audio is loading. Please try again.");
+        nameAudio.play().catch((err)=>{
+            console.log("Play error:", err);
+            alert("Audio could not be played. Please check your internet connection and try again.");
         });
     } else {
         nameAudio.pause();
@@ -279,8 +304,9 @@ nameAudio.addEventListener("ended", ()=>{
 // ======================================
 function downloadAudio(){
     const link = document.createElement('a');
-    link.href = 'name of allah.mp3';
+    link.href = AUDIO_URL;
     link.download = '99_Names_of_Allah.mp3';
+    link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -318,4 +344,5 @@ if(moreNavBtn && moreMenu && closeMoreMenuBtn){
 // ======================================
 document.addEventListener("DOMContentLoaded", ()=>{
     renderGrid();
+    initAudio();
 });
