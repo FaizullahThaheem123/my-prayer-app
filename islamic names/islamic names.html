@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Baby Names & Meanings - اسلامی نام</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- ✅ FIXED: CSS File Link -->
+    <link rel="stylesheet" href="islamic names.css">
+    <link rel="stylesheet" href="../theme/theme.css">
+     <script>
+        (function() {
+            const savedTheme = localStorage.getItem("appTheme");
+            const themeColors = {
+                "gold": "#d4af37",
+                "royal-blue": "#1565c0",
+                "emerald": "#00897b",
+                "forest": "#1b5e20",
+                "navy": "#0d47a1",
+                "violet": "#7b1fa2",
+                "wine": "#880e4f",
+                "olive": "#33691e",
+                "ruby": "#c62828",
+                "orange": "#e65100",
+                "teal": "#00838f",
+                "pink": "#c2185b",
+                "sky": "#0288d1",
+                "lime": "#827717",
+                "copper": "#b87333",
+                "silver": "#9e9e9e",
+                "cyan": "#00bcd4",
+                "indigo": "#283593",
+                "brown": "#4e342e",
+                "crimson": "#dc143c",
+                "coral": "#ff6f61",
+                "peach": "#ffb74d",
+                "mint": "#4dd0e1",
+                "lavender": "#ba68c8",
+                "burgundy": "#800020",
+                "mustard": "#ffdb58",
+                "sage": "#8a9a5b",
+                "stone": "#607d8b",
+                "cobalt": "#0047ab",
+                "turquoise": "#00ced1",
+                "chocolate": "#d2691e",
+                "plum": "#8e4585",
+                "slate": "#708090",
+                "amber": "#ffbf00",
+                "fuchsia": "#ff00ff",
+                "aqua": "#00ffff",
+                "magenta": "#ff00a0",
+                "periwinkle": "#ccccff",
+                "jade": "#00a86b",
+                "sand": "#c2b280",
+                "rust": "#b7410e",
+                "charcoal": "#36454f",
+                "cream": "#fffdd0",
+                "rose-gold": "#b76e79",
+                "steel": "#4682b4",
+                "mahogany": "#c04000",
+                "cardinal": "#c41e3a",
+                "maroon": "#800000",
+                "chartreuse": "#7fff00",
+                "neon-blue": "#1f51ff"
+            };
+            if (savedTheme && themeColors[savedTheme]) {
+                document.documentElement.style.setProperty("--primary", themeColors[savedTheme]);
+            }
+        })();
+    </script>
+</head>
+<body>
+
+<div class="islamic-names-page">
+
+    <!-- HEADER -->
+    <header class="names-header">
+        <div class="header-icon">
+            <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="header-title">
+            <h1>Islamic Names <span class="urdu-title">(اسلامی نام)</span></h1>
+            <p>Complete Urdu & English Meanings • <span class="urdu-sub">مع مکمل اردو معنی</span></p>
+        </div>
+        <div class="names-header-image" title="Allah">
+            <span class="arabic-allah">ﷲ</span>
+        </div>
+    </header>
+
+    <!-- SEARCH & ALPHABET SECTION -->
+    <section class="search-section">
+        <div class="search-box">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search by name, meaning, Urdu (e.g. Fazlullah, فضل اللہ)..." autocomplete="off">
+            <i class="fa-solid fa-times-circle" id="clearSearch" style="display:none;"></i>
+            <button class="alphabet-toggle-btn" id="alphabetToggleBtn">
+                <span id="alphabetToggleLabel">A-Z</span>
+            </button>
+        </div>
+
+        <!-- Alphabet Browser (Collapsible) -->
+        <div class="alphabet-container" id="alphabetContainer" style="display:none;">
+            <div class="alphabet-header">
+                <span>Browse by Letter (حرف کے اعتبار سے)</span>
+                <div class="alphabet-mode-switch">
+                    <button id="enAlphaBtn" class="active">English</button>
+                    <button id="urAlphaBtn">اردو</button>
+                </div>
+            </div>
+            <div class="alphabet-strip" id="alphabetStrip"></div>
+        </div>
+    </section>
+
+    <!-- GENDER & CATEGORY FILTERS -->
+    <section class="filters-section">
+        <div class="gender-filters">
+            <button class="filter-btn active" data-gender="all">All (تمام)</button>
+            <button class="filter-btn male" data-gender="male">👦 Male (لڑکے)</button>
+            <button class="filter-btn female" data-gender="female">👧 Female (لڑکیاں)</button>
+            <button class="filter-btn unisex" data-gender="unisex">👶 Unisex (مشترکہ)</button>
+            <button class="filter-btn favorites-btn" data-gender="favorites" id="savedFilterBtn">
+                <i class="fa-regular fa-heart"></i> Saved (<span id="favCount">0</span>)
+            </button>
+            <button class="filter-btn reset-btn" id="resetFiltersBtn" title="Reset All Filters">
+                <i class="fa-solid fa-rotate-left"></i>
+            </button>
+        </div>
+
+        <div class="category-filters" id="categoryFilters">
+            <button class="cat-btn active" data-cat="all">All Categories</button>
+            <button class="cat-btn" data-cat="Prophet">Prophets (انبیاء)</button>
+            <button class="cat-btn" data-cat="Sahabi">Sahaba (صحابہ)</button>
+            <button class="cat-btn" data-cat="Sahabiyah">Sahabiyat (صحابیات)</button>
+            <button class="cat-btn" data-cat="Quranic">Quranic (قرآنی)</button>
+            <button class="cat-btn" data-cat="Asma-ul-Husna">Asma-ul-Husna (اسمائے حسنیٰ)</button>
+            <button class="cat-btn" data-cat="Modern">Modern (جدید)</button>
+        </div>
+    </section>
+
+    <!-- RESULTS COUNT INFO -->
+    <div class="results-count-bar">
+        <span>Showing <strong id="resultCount" class="highlight">0</strong> Islamic names</span>
+        <span class="urdu-text" dir="rtl">مع اردو اور انگلش معانی</span>
+    </div>
+
+    <!-- NAMES GRID SECTION -->
+    <section class="names-grid-section">
+        <div class="names-grid" id="namesGrid"></div>
+    </section>
+
+    <!-- DETAIL MODAL -->
+    <div class="name-detail-overlay" id="nameDetailOverlay">
+        <div class="name-detail-modal" id="nameDetailModal">
+            <div class="modal-top-bar">
+                <div class="nav-controls">
+                    <button id="prevNameBtn" title="Previous name"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button id="nextNameBtn" title="Next name"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <span class="detail-gender-badge" id="detailGenderBadge">Male</span>
+                <button class="detail-close-btn" id="closeDetailBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-banner">
+                <div id="detailArabic" class="detail-arabic"></div>
+                <div class="name-speaker-wrapper">
+                    <span id="detailName" class="detail-name"></span>
+                    <button id="speakNameBtn" class="speak-btn" title="Pronunciation"><i class="fa-solid fa-volume-high"></i></button>
+                </div>
+                <div id="detailUrdu" class="detail-urdu"></div>
+            </div>
+
+            <!-- MEANINGS SECTION -->
+            <div class="meanings-wrapper">
+                <div class="urdu-meaning-card">
+                    <div class="card-header-badge">
+                        <span><i class="fa-solid fa-sparkles"></i> اردو میں مکمل معنی</span>
+                        <span class="sub-label">Urdu Meaning</span>
+                    </div>
+                    <div id="detailUrduMeaning" class="urdu-meaning-text" dir="rtl"></div>
+                    <div id="detailUrduDetailed" class="urdu-detailed-text" dir="rtl"></div>
+                </div>
+
+                <div class="english-meaning-card">
+                    <span class="eng-label">English Meaning:</span>
+                    <div id="detailEnglishMeaning" class="eng-meaning-text"></div>
+                </div>
+            </div>
+            
+            <div class="detail-info-grid">
+                <div class="detail-info-item">
+                    <span class="label">Origin (ماخذ)</span>
+                    <span class="value" id="detailOrigin">-</span>
+                </div>
+                <div class="detail-info-item">
+                    <span class="label">Category (قسم)</span>
+                    <span class="value" id="detailCategory">-</span>
+                </div>
+                <div class="detail-info-item">
+                    <span class="label">Quran Mentioned</span>
+                    <span class="value" id="detailQuran">-</span>
+                </div>
+                <div class="detail-info-item">
+                    <span class="label">Lucky Number (عدد)</span>
+                    <span class="value highlight" id="detailLuckyNumber">7</span>
+                </div>
+                <div class="detail-info-item">
+                    <span class="label">Lucky Day (دن)</span>
+                    <span class="value" id="detailLuckyDay">-</span>
+                </div>
+                <div class="detail-info-item">
+                    <span class="label">Lucky Stone (نگینہ)</span>
+                    <span class="value" id="detailLuckyStone">-</span>
+                </div>
+            </div>
+            
+            <div id="detailDescription" class="detail-description"></div>
+            
+            <div class="detail-variations" id="detailVariationsBox" style="display:none;">
+                <span class="label">Alternative Spellings (متبادل ہجے):</span>
+                <div class="tags" id="detailVariationsTags"></div>
+            </div>
+
+            <div class="detail-actions">
+                <button class="action-btn fav-btn" id="detailFavBtn"><i class="fa-regular fa-heart"></i> Favorite</button>
+                <button class="action-btn copy-btn" id="detailCopyBtn"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button class="action-btn share-btn" id="detailShareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RANDOM PICKER MODAL -->
+    <div class="name-detail-overlay" id="randomPickerOverlay">
+        <div class="name-detail-modal" style="text-align: center;">
+            <div class="modal-top-bar" style="justify-content: flex-end;">
+                <button class="detail-close-btn" id="closeRandomBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="random-header">
+                <i class="fa-solid fa-shuffle gold-icon"></i>
+                <h2>Random Baby Name Picker</h2>
+                <p class="urdu-text" dir="rtl">قرعہ اندازی کے ذریعے بابرکت نام منتخب کریں</p>
+            </div>
+            <div class="random-gender-filter">
+                <button class="rg-btn active" data-rgender="all">All</button>
+                <button class="rg-btn" data-rgender="male">👦 Boy</button>
+                <button class="rg-btn" data-rgender="female">👧 Girl</button>
+            </div>
+            <div class="random-display-card" id="randomDisplayCard">
+                <p class="empty-random">Click below to discover a name</p>
+            </div>
+            <button class="gold-primary-btn" id="spinRandomBtn">
+                <i class="fa-solid fa-shuffle"></i> Pick Lucky Name (نام چنیں)
+            </button>
+        </div>
+    </div>
+
+    <!-- SUNNAH GUIDE MODAL -->
+    <div class="name-detail-overlay" id="sunnahModalOverlay">
+        <div class="name-detail-modal">
+            <div class="modal-top-bar">
+                <h3 style="color: var(--primary); font-size: 16px; font-weight: bold;">
+                    <i class="fa-solid fa-sparkles"></i> Islamic Naming Sunnah
+                </h3>
+                <button class="detail-close-btn" id="closeSunnahBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="sunnah-hadith-box">
+                <p class="arabic-hadith" dir="rtl">«تَسَمَّوْا بِأَسْمَاءِ الأَنْبِيَاءِ، وَأَحَبُّ الأَسْمَاءِ إِلَى اللَّهِ: عَبْدُ اللَّهِ وَعَبْدُ الرَّحْمَنِ»</p>
+                <p class="hadith-eng">"Name yourselves with the names of the Prophets, and the most beloved names to Allah are Abdullah and Abdur-Rahman." (Abu Dawood)</p>
+            </div>
+            <div class="sunnah-list">
+                <div class="sunnah-item">
+                    <h4>1. Adhan & Iqamah (اذان و اقامت)</h4>
+                    <p>پیدائش کے فوراً بعد دائیں کان میں اذان اور بائیں کان میں اقامت کہنا مسنون ہے۔</p>
+                </div>
+                <div class="sunnah-item">
+                    <h4>2. Tahneek (تحنیک)</h4>
+                    <p>کھجور چبا کر نومولود کے تالو میں لگانا اور برکت کی دعا فرمانا۔</p>
+                </div>
+                <div class="sunnah-item">
+                    <h4>3. Naming on 7th Day (ساتویں دن نام رکھنا)</h4>
+                    <p>ساتویں دن بچے کا نیک، خوشگوار اور بامعنی اسلامی نام رکھنا۔</p>
+                </div>
+                <div class="sunnah-item">
+                    <h4>4. Aqeeqah & Hair Shaving (عقیقہ و بال مونڈنا)</h4>
+                    <p>لڑکے کے لیے 2 اور لڑکی کے لیے 1 بکری کا عقیقہ کرنا اور بالوں کے وزن جتنی چاندی صدقہ کرنا۔</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+     BOTTOM NAVIGATION (Home + Saved + More)
+     ============================== -->
+<nav class="bottom-nav">
+    <!-- HOME - لنک آپ کے index.html کی طرف -->
+    <a href="../index.html" class="nav-item active" id="navHomeLink">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <!-- SAVED (Favorites) - بٹن اسی طرح رہے گا -->
+    <button class="nav-item" id="navSavedBtn">
+        <div class="icon-wrap">
+            <i class="fa-solid fa-heart"></i>
+            <span class="badge" id="navFavBadge" style="display:none;">0</span>
+        </div>
+        <span>Saved</span>
+    </button>
+
+    <!-- MORE - Bottom Sheet والا بٹن -->
+    <div class="more-nav">
+        <button type="button" class="more-nav-btn" id="moreNavBtn">
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>More</span>
+        </button>
+
+        <!-- More مینو (Bottom Sheet) -->
+        <div class="more-menu" id="moreMenu">
+            <div class="more-menu-header">
+                <span>All Features</span>
+                <button id="closeMoreMenuBtn" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="more-menu-grid">
+                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+                <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+                <a href="../masjid/masjid.html"><i class="fa-solid fa-mosque"></i><span>Masjid</span></a>
+                <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+                 <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
+                <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
+                <button type="button" id="settingsBtn"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- JavaScript File -->
+<script src="islamic names.js"></script>
+ <script src="../theme/theme.js"></script>
+</body>
+</html>
