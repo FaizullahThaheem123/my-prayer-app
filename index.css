@@ -368,9 +368,9 @@ body {
 .times-center-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     position: absolute;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     white-space: nowrap;
 }
