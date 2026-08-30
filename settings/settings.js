@@ -1,29 +1,13 @@
 // ==========================================
-// SETTINGS PAGE - COMPLETE LOGIC
+// SETTINGS PAGE - SIMPLIFIED
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // DOM refs
-    const unAuthDiv = document.getElementById("unauthenticated");
-    const authDiv = document.getElementById("authenticated");
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const userPhoto = document.getElementById("userPhoto");
-    const shareToggle = document.getElementById("shareLocationToggle");
-    const signInBtn = document.getElementById("googleSignInBtn");
-    const signOutBtn = document.getElementById("signOutBtn");
-    const nearbyList = document.getElementById("nearbyList");
-    const themeGrid = document.getElementById("themeGrid");
-
-    // More Menu
-    const moreNavBtn = document.getElementById("moreNavBtn");
-    const moreMenu = document.getElementById("moreMenu");
-    const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
-
     // ==============================
     // 1. THEMES (50 Colors)
     // ==============================
+    const themeGrid = document.getElementById("themeGrid");
     const themes = [
         { id: "gold", name: "Gold", color: "#d4af37" },
         { id: "royal-blue", name: "Royal Blue", color: "#1565c0" },
@@ -99,139 +83,46 @@ document.addEventListener("DOMContentLoaded", function () {
     renderThemes();
 
     // ==============================
-    // 2. AUTH STATE
+    // 2. TOGGLE: CONTACT US
     // ==============================
-    function updateUI(user) {
-        if (user) {
-            unAuthDiv.style.display = "none";
-            authDiv.style.display = "block";
-            userName.textContent = user.displayName || "User";
-            userEmail.textContent = user.email || "";
-            userPhoto.src = user.photoURL || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.displayName || "User");
-            const sharePref = localStorage.getItem("shareLocation_" + user.uid);
-            const enabled = (sharePref === "true");
-            shareToggle.checked = enabled;
-            if (typeof locationShareEnabled !== "undefined") {
-                // update global state if needed, but we'll rely on toggle
-            }
-            loadNearbyUsers();
-        } else {
-            unAuthDiv.style.display = "block";
-            authDiv.style.display = "none";
-            nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">Sign in to see nearby users.</p>`;
-        }
-    }
+    const contactToggle = document.getElementById("contactToggle");
+    const contactContent = document.getElementById("contactContent");
+    const contactArrow = document.getElementById("contactArrow");
 
-    window.addEventListener("authStateChanged", function (e) {
-        updateUI(e.detail.user);
-    });
-
-    if (typeof auth !== "undefined" && auth.currentUser) {
-        updateUI(auth.currentUser);
+    if (contactToggle && contactContent && contactArrow) {
+        contactToggle.addEventListener("click", function () {
+            const isOpen = contactContent.style.display !== "none";
+            contactContent.style.display = isOpen ? "none" : "block";
+            contactArrow.innerHTML = isOpen
+                ? '<i class="fa-solid fa-chevron-down"></i>'
+                : '<i class="fa-solid fa-chevron-up"></i>';
+        });
     }
 
     // ==============================
-    // 3. SIGN IN / OUT
+    // 3. TOGGLE: THEMES
     // ==============================
-    signInBtn.addEventListener("click", function () {
-        signInWithGoogle()
-            .then(user => {
-                updateUI(user);
-                if (shareToggle.checked) {
-                    updateUserLocationFromStorage();
-                }
-            })
-            .catch(error => alert("Sign-in failed: " + error.message));
-    });
+    const themeToggle = document.getElementById("themeToggle");
+    const themeContent = document.getElementById("themeContent");
+    const themeArrow = document.getElementById("themeArrow");
 
-    signOutBtn.addEventListener("click", function () {
-        signOutUser().then(() => updateUI(null));
-    });
-
-    // ==============================
-    // 4. LOCATION SHARING
-    // ==============================
-    shareToggle.addEventListener("change", function () {
-        const enabled = this.checked;
-        setLocationShareEnabled(enabled);
-        if (enabled) {
-            updateUserLocationFromStorage();
-            loadNearbyUsers();
-        } else {
-            if (currentUser) {
-                database.ref("users/" + currentUser.uid + "/location").remove();
-            }
-            nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">Location sharing disabled.</p>`;
-        }
-    });
-
-    function updateUserLocationFromStorage() {
-        const lat = localStorage.getItem("userLatitude");
-        const lng = localStorage.getItem("userLongitude");
-        if (lat && lng && currentUser) {
-            updateUserLocation(parseFloat(lat), parseFloat(lng));
-        }
+    if (themeToggle && themeContent && themeArrow) {
+        themeToggle.addEventListener("click", function () {
+            const isOpen = themeContent.style.display !== "none";
+            themeContent.style.display = isOpen ? "none" : "block";
+            themeArrow.innerHTML = isOpen
+                ? '<i class="fa-solid fa-chevron-down"></i>'
+                : '<i class="fa-solid fa-chevron-up"></i>';
+        });
     }
 
     // ==============================
-    // 5. NEARBY USERS
+    // 4. MORE MENU
     // ==============================
-    function loadNearbyUsers() {
-        if (!currentUser) {
-            nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">Sign in to see nearby users.</p>`;
-            return;
-        }
-        if (!locationShareEnabled) {
-            nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">Enable location sharing to see nearby users.</p>`;
-            return;
-        }
-        const lat = parseFloat(localStorage.getItem("userLatitude"));
-        const lng = parseFloat(localStorage.getItem("userLongitude"));
-        if (isNaN(lat) || isNaN(lng)) {
-            nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">Location not available. Please allow GPS.</p>`;
-            return;
-        }
+    const moreNavBtn = document.getElementById("moreNavBtn");
+    const moreMenu = document.getElementById("moreMenu");
+    const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 
-        nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;"><i class="fa-solid fa-spinner fa-spin"></i> Finding nearby users...</p>`;
-
-        getNearbyUsers(lat, lng, 50)
-            .then(users => {
-                if (users.length === 0) {
-                    nearbyList.innerHTML = `<p style="color:#888; text-align:center; padding:10px;">No nearby users found within 50 km.</p>`;
-                    return;
-                }
-                let html = "";
-                users.forEach(u => {
-                    const dist = u.distance < 1 ? (u.distance * 1000).toFixed(0) + " m" : u.distance.toFixed(1) + " km";
-                    const lastActive = u.lastActive ? new Date(u.lastActive).toLocaleString() : "recently";
-                    html += `
-                        <div class="nearby-item">
-                            <img src="${u.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(u.displayName)}" alt="${u.displayName}">
-                            <div class="info">
-                                <strong>${u.displayName}</strong>
-                                <span>Last active: ${lastActive}</span>
-                            </div>
-                            <div class="distance">${dist}</div>
-                        </div>
-                    `;
-                });
-                nearbyList.innerHTML = html;
-            })
-            .catch(() => {
-                nearbyList.innerHTML = `<p style="color:#e53935; text-align:center; padding:10px;">Error loading nearby users.</p>`;
-            });
-    }
-
-    // Auto-refresh every 30 sec
-    setInterval(() => {
-        if (currentUser && locationShareEnabled) {
-            loadNearbyUsers();
-        }
-    }, 30000);
-
-    // ==============================
-    // 6. MORE MENU
-    // ==============================
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
         moreNavBtn.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -250,20 +141,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-// ==========================================
-// TOGGLE THEMES SECTION
-// ==========================================
-const themeToggle = document.getElementById("themeToggle");
-const themeContent = document.getElementById("themeContent");
-const themeArrow = document.getElementById("themeArrow");
-
-if (themeToggle && themeContent && themeArrow) {
-    themeToggle.addEventListener("click", function () {
-        const isOpen = themeContent.style.display !== "none";
-        themeContent.style.display = isOpen ? "none" : "block";
-        themeArrow.innerHTML = isOpen
-            ? '<i class="fa-solid fa-chevron-down"></i>'
-            : '<i class="fa-solid fa-chevron-up"></i>';
-    });
-}

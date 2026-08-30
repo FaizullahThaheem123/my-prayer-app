@@ -78,7 +78,7 @@
             <a href="../index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
             <div>
                 <h1><i class="fa-solid fa-gear"></i> Settings</h1>
-                <p>Manage account, privacy & appearance</p>
+                <p>Manage your preferences</p>
             </div>
         </div>
         <div class="header-right">
@@ -87,93 +87,64 @@
     </header>
 
     <!-- ========================================
-         SECTION 1: ACCOUNT
+         SECTION 1: CONTACT US (COLLAPSIBLE)
     ======================================== -->
-    <section class="settings-card" id="accountSection">
-        <div class="section-title">
-            <i class="fa-solid fa-user-circle"></i>
-            <h2>Account</h2>
+    <section class="settings-card collapsible-card">
+        <div class="section-title collapsible-header" id="contactToggle">
+            <i class="fa-solid fa-headset"></i>
+            <h2>Contact Us</h2>
+            <span style="margin-left:auto; transition:transform 0.3s;" id="contactArrow">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
         </div>
-
-        <!-- Unauthenticated -->
-        <div id="unauthenticated" class="auth-state">
-            <i class="fa-solid fa-user-slash" style="font-size: 36px; color: var(--primary);"></i>
-            <h3>Not Signed In</h3>
-            <p>Sign in to connect with others and save your preferences.</p>
-            <button id="googleSignInBtn" class="btn-primary">
-                <i class="fa-brands fa-google"></i> Sign in with Google
-            </button>
-        </div>
-
-        <!-- Authenticated -->
-        <div id="authenticated" class="auth-state" style="display:none;">
-            <div class="user-profile-card">
-                <img id="userPhoto" src="" alt="Profile" class="user-photo">
-                <div>
-                    <h3 id="userName">User Name</h3>
-                    <p id="userEmail">email@example.com</p>
-                </div>
+        <div id="contactContent" class="collapsible-content" style="display:none;">
+            <p style="color:#aaa; font-size:13px; text-align:center; margin-bottom:14px;">
+                Have questions, feedback or suggestions? Reach out to us directly.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <!-- Email -->
+                <a href="mailto:faizullahthaheem@yahoo.com" 
+                   style="display:flex; align-items:center; justify-content:center; gap:10px; 
+                          background:rgba(255,255,255,0.05); padding:12px; border-radius:12px;
+                          text-decoration:none; color:var(--text); border:1px solid rgba(255,255,255,0.08);">
+                    <i class="fa-solid fa-envelope" style="color:var(--primary); font-size:20px;"></i>
+                    <span style="font-size:14px; font-weight:500;">faizullahthaheem@yahoo.com</span>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/923333237715?text=Assalamu%20Alaikum%2C%20I%20have%20a%20question%20about%20the%20app."
+                   target="_blank"
+                   style="display:flex; align-items:center; justify-content:center; gap:10px; 
+                          background:rgba(37,211,102,0.08); padding:12px; border-radius:12px;
+                          text-decoration:none; color:var(--text); border:1px solid rgba(37,211,102,0.2);">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366; font-size:24px;"></i>
+                    <span style="font-size:14px; font-weight:500;">+92 333 3237715</span>
+                </a>
             </div>
-            <button id="signOutBtn" class="btn-secondary">
-                <i class="fa-solid fa-sign-out-alt"></i> Sign Out
-            </button>
-        </div>
-    </section>
-
-    <!-- ========================================
-         SECTION 2: PRIVACY & LOCATION
-    ======================================== -->
-    <section class="settings-card">
-        <div class="section-title">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h2>Privacy & Location</h2>
-        </div>
-        <div class="setting-row">
-            <div>
-                <strong><i class="fa-solid fa-location-dot"></i> Share My Location</strong>
-                <p>Allow others to see your approximate location</p>
-            </div>
-            <label class="switch">
-                <input type="checkbox" id="shareLocationToggle">
-                <span class="slider round"></span>
-            </label>
-        </div>
-    </section>
-
-    <!-- ========================================
-         SECTION 3: NEARBY USERS
-    ======================================== -->
-    <section class="settings-card" id="nearbySection">
-        <div class="section-title">
-            <i class="fa-solid fa-users"></i>
-            <h2>Nearby Users</h2>
-        </div>
-        <div id="nearbyList" class="nearby-list">
-            <p style="color:#888; text-align:center; padding:10px;">
-                <i class="fa-solid fa-spinner fa-spin"></i> Loading nearby users...
+            <p style="color:#888; font-size:11px; text-align:center; margin-top:12px;">
+                <i class="fa-regular fa-clock"></i> We usually reply within 24 hours
             </p>
         </div>
     </section>
 
-   <!-- ========================================
-     SECTION 4: APPEARANCE (THEMES) - COLLAPSIBLE
-======================================== -->
-<section class="settings-card collapsible-card">
-    <div class="section-title collapsible-header" id="themeToggle">
-        <i class="fa-solid fa-palette"></i>
-        <h2>Appearance</h2>
-        <span style="margin-left:auto; transition:transform 0.3s;" id="themeArrow">
-            <i class="fa-solid fa-chevron-down"></i>
-        </span>
-    </div>
-    <div id="themeContent" class="collapsible-content" style="display:none;">
-        <p style="font-size:12px; color:#888; margin-bottom:12px;">Choose your favorite accent color</p>
-        <div id="themeGrid" class="theme-grid"></div>
-    </div>
-</section>
+    <!-- ========================================
+         SECTION 2: APPEARANCE (THEMES) - COLLAPSIBLE
+    ======================================== -->
+    <section class="settings-card collapsible-card">
+        <div class="section-title collapsible-header" id="themeToggle">
+            <i class="fa-solid fa-palette"></i>
+            <h2>Appearance</h2>
+            <span style="margin-left:auto; transition:transform 0.3s;" id="themeArrow">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+        </div>
+        <div id="themeContent" class="collapsible-content" style="display:none;">
+            <p style="font-size:12px; color:#888; margin-bottom:12px;">Choose your favorite accent color</p>
+            <div id="themeGrid" class="theme-grid"></div>
+        </div>
+    </section>
 
     <!-- ========================================
-         SECTION 5: ABOUT
+         SECTION 3: ABOUT
     ======================================== -->
     <section class="settings-card">
         <div class="section-title">
@@ -182,9 +153,9 @@
         </div>
         <div class="about-content">
             <h3>My Prayer App</h3>
-            <p>Version 2.0 (Final Touch)</p>
+            <p>Version 2.0</p>
             <p style="margin-top:8px; color:#aaa; font-size:13px;">
-                Your complete Islamic companion for daily prayers, Quran, Duas, 99 Names, Tasbeeh, Qibla, Masjid finder, Zakat calculator, and Islamic calendar. Now with social connectivity — find nearby believers and share your location with privacy.
+                Your complete Islamic companion for daily prayers, Quran, Duas, 99 Names, Tasbeeh, Qibla, Masjid finder, Zakat calculator, and Islamic calendar.
             </p>
             <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
                 <span style="background:rgba(212,175,55,0.1); padding:4px 12px; border-radius:20px; font-size:11px; color:var(--primary);">❤️ Made with Iman</span>
@@ -220,7 +191,7 @@
                     <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
                     <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
                     <a href="../islamic names/islamic names.html"><i class="fa-solid fa-hand-holding-heart"></i><span>islamic names</span></a>
-                    <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                   
                 </div>
             </div>
         </div>
@@ -228,11 +199,7 @@
 
 </div>
 
-<!-- Firebase & Scripts -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="../firebase-config.js"></script>
+<!-- Scripts -->
 <script src="settings.js"></script>
 <script src="../theme/theme.js"></script>
 </body>
