@@ -550,8 +550,7 @@ function openReader(index) {
         virtuesBox.style.display = "none";
     }
 
-    const currentPos = currentDuaList.findIndex(item => item === dua);
-    document.getElementById("readerCount").textContent = (currentPos + 1) + " / " + currentDuaList.length;
+    document.getElementById("readerCount").textContent = (index + 1) + " / " + duas.length;
     document.getElementById("readerFavBtn").textContent = favorites.includes(index) ? "❤️" : "🤍";
 
     setDuaAudio(dua.audio);
@@ -758,25 +757,14 @@ function closeReader() {
 }
 
 function nextDua() {
-    if (!currentDuaList.length) return;
-    // Find current dua in the list
-    const currentDua = duas[currentDuaIndex];
-    const pos = currentDuaList.findIndex(d => d.id === currentDua.id);
-    if (pos >= 0 && pos < currentDuaList.length - 1) {
-        const nextDuaObj = currentDuaList[pos + 1];
-        const index = duas.findIndex(d => d.id === nextDuaObj.id);
-        if (index >= 0) openReader(index);
+    if (currentDuaIndex < duas.length - 1) {
+        openReader(currentDuaIndex + 1);
     }
 }
 
 function previousDua() {
-    if (!currentDuaList.length) return;
-    const currentDua = duas[currentDuaIndex];
-    const pos = currentDuaList.findIndex(d => d.id === currentDua.id);
-    if (pos > 0) {
-        const prevDuaObj = currentDuaList[pos - 1];
-        const index = duas.findIndex(d => d.id === prevDuaObj.id);
-        if (index >= 0) openReader(index);
+    if (currentDuaIndex > 0) {
+        openReader(currentDuaIndex - 1);
     }
 }
 
