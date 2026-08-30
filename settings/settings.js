@@ -1,5 +1,5 @@
 // ==========================================
-// SETTINGS PAGE - SIMPLIFIED
+// SETTINGS PAGE - SIMPLIFIED (MOBILE FIXED)
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderThemes() {
         const saved = localStorage.getItem("appTheme") || "gold";
+        if (!themeGrid) return;
         themeGrid.innerHTML = "";
         themes.forEach(t => {
             const card = document.createElement("div");
@@ -71,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="theme-preview" style="background:${t.color};"></div>
                 <span class="theme-name">${t.name}</span>
             `;
-            card.addEventListener("click", () => {
+            card.addEventListener("click", function () {
                 document.documentElement.style.setProperty("--primary", t.color);
                 localStorage.setItem("appTheme", t.id);
                 document.querySelectorAll(".theme-card").forEach(c => c.classList.remove("active"));
-                card.classList.add("active");
+                this.classList.add("active");
             });
             themeGrid.appendChild(card);
         });
@@ -83,20 +84,26 @@ document.addEventListener("DOMContentLoaded", function () {
     renderThemes();
 
     // ==============================
-    // 2. TOGGLE: CONTACT US
+    // 2. TOGGLE: CONTACT US (Mobile Fix)
     // ==============================
     const contactToggle = document.getElementById("contactToggle");
     const contactContent = document.getElementById("contactContent");
     const contactArrow = document.getElementById("contactArrow");
 
     if (contactToggle && contactContent && contactArrow) {
-        contactToggle.addEventListener("click", function () {
+        // Both click and touchstart for mobile
+        function toggleContact(e) {
+            e.preventDefault();
             const isOpen = contactContent.style.display !== "none";
             contactContent.style.display = isOpen ? "none" : "block";
             contactArrow.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i>'
                 : '<i class="fa-solid fa-chevron-up"></i>';
-        });
+        }
+        contactToggle.addEventListener("click", toggleContact);
+        contactToggle.addEventListener("touchstart", toggleContact, { passive: true });
+    } else {
+        console.warn("Contact toggle elements not found");
     }
 
     // ==============================
@@ -107,31 +114,45 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeArrow = document.getElementById("themeArrow");
 
     if (themeToggle && themeContent && themeArrow) {
-        themeToggle.addEventListener("click", function () {
+        function toggleTheme(e) {
+            e.preventDefault();
             const isOpen = themeContent.style.display !== "none";
             themeContent.style.display = isOpen ? "none" : "block";
             themeArrow.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i>'
                 : '<i class="fa-solid fa-chevron-up"></i>';
-        });
+        }
+        themeToggle.addEventListener("click", toggleTheme);
+        themeToggle.addEventListener("touchstart", toggleTheme, { passive: true });
+    } else {
+        console.warn("Theme toggle elements not found");
     }
 
     // ==============================
-    // 4. MORE MENU
+    // 4. MORE MENU (Mobile Fix)
     // ==============================
     const moreNavBtn = document.getElementById("moreNavBtn");
     const moreMenu = document.getElementById("moreMenu");
     const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
-        moreNavBtn.addEventListener("click", function (e) {
+        function openMore(e) {
+            e.preventDefault();
             e.stopPropagation();
             moreMenu.classList.add("show");
-        });
-        closeMoreMenuBtn.addEventListener("click", function (e) {
+        }
+        function closeMore(e) {
+            e.preventDefault();
             e.stopPropagation();
             moreMenu.classList.remove("show");
-        });
+        }
+
+        moreNavBtn.addEventListener("click", openMore);
+        moreNavBtn.addEventListener("touchstart", openMore, { passive: true });
+
+        closeMoreMenuBtn.addEventListener("click", closeMore);
+        closeMoreMenuBtn.addEventListener("touchstart", closeMore, { passive: true });
+
         document.addEventListener("click", function (e) {
             if (moreMenu.classList.contains("show") &&
                 !moreMenu.contains(e.target) &&
@@ -139,5 +160,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 moreMenu.classList.remove("show");
             }
         });
+        document.addEventListener("touchstart", function (e) {
+            if (moreMenu.classList.contains("show") &&
+                !moreMenu.contains(e.target) &&
+                !moreNavBtn.contains(e.target)) {
+                moreMenu.classList.remove("show");
+            }
+        }, { passive: true });
+    } else {
+        console.warn("More menu elements not found");
     }
 });
