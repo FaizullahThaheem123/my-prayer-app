@@ -250,3 +250,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// ==========================================
+// TOGGLE THEMES SECTION
+// ==========================================
+const themeToggle = document.getElementById("themeToggle");
+const themeContent = document.getElementById("themeContent");
+const themeArrow = document.getElementById("themeArrow");
+
+if (themeToggle && themeContent && themeArrow) {
+    themeToggle.addEventListener("click", function () {
+        const isOpen = themeContent.style.display !== "none";
+        themeContent.style.display = isOpen ? "none" : "block";
+        themeArrow.innerHTML = isOpen
+            ? '<i class="fa-solid fa-chevron-down"></i>'
+            : '<i class="fa-solid fa-chevron-up"></i>';
+    });
+}

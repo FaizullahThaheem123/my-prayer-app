@@ -417,3 +417,25 @@ input:checked + .slider:before {
     font-size: 22px;
     color: var(--primary);
 }
+
+/* ======================================
+   COLLAPSIBLE CARD
+====================================== */
+.collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s;
+}
+.collapsible-header:hover {
+    opacity: 0.8;
+}
+.collapsible-content {
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 8px;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

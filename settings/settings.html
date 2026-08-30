@@ -155,17 +155,22 @@
         </div>
     </section>
 
-    <!-- ========================================
-         SECTION 4: APPEARANCE (THEMES)
-    ======================================== -->
-    <section class="settings-card">
-        <div class="section-title">
-            <i class="fa-solid fa-palette"></i>
-            <h2>Appearance</h2>
-        </div>
+   <!-- ========================================
+     SECTION 4: APPEARANCE (THEMES) - COLLAPSIBLE
+======================================== -->
+<section class="settings-card collapsible-card">
+    <div class="section-title collapsible-header" id="themeToggle">
+        <i class="fa-solid fa-palette"></i>
+        <h2>Appearance</h2>
+        <span style="margin-left:auto; transition:transform 0.3s;" id="themeArrow">
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+    </div>
+    <div id="themeContent" class="collapsible-content" style="display:none;">
         <p style="font-size:12px; color:#888; margin-bottom:12px;">Choose your favorite accent color</p>
         <div id="themeGrid" class="theme-grid"></div>
-    </section>
+    </div>
+</section>
 
     <!-- ========================================
          SECTION 5: ABOUT
