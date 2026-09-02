@@ -15,11 +15,25 @@ html{
 }
 
 :root {
-    /* DEFAULT GOLD THEME */
+    /* DEFAULT THEME - ROYAL VELVET */
     --primary: #d4af37;
-    --bg: #1a1a1a;
-    --card: #2a2a2a;
-    --text: #e0e0e0;
+    --bg: #1a0f2e;
+    --card: #2d1b4e;
+    --card-bg: linear-gradient(145deg, #33204f, #1a0f2e);
+    --text: #ececec;
+    --text-muted: #b8aecb;
+
+    /* DESIGN TOKENS - CHANGE PER THEME */
+    --card-radius: 24px;
+    --card-shadow: 0 10px 35px rgba(212,175,55,0.25), 0 4px 18px rgba(0,0,0,0.6);
+    --card-border: 1px solid rgba(212,175,55,0.35);
+    --card-blur: 20px;
+
+    /* BACKGROUND PATTERN - CHANGE PER THEME */
+    --bg-pattern: none;
+    --bg-pattern-size: 60px 60px;
+    --bg-pattern-repeat: repeat;
+    --bg-pattern-position: center;
 }
 
 body{
@@ -27,9 +41,41 @@ body{
     padding:0;
     padding-bottom:75px;
     font-family: 'Poppins', sans-serif;
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image: var(--bg-pattern);
+    background-size: var(--bg-pattern-size);
+    background-repeat: var(--bg-pattern-repeat);
+    background-position: var(--bg-pattern-position);
+    background-attachment: fixed;
     color: var(--text);
     min-height:100vh;
+}
+
+/* ======================================
+   APP-WIDE DESIGN ENGINE
+   Applies the selected theme's card shape,
+   glow, border and blur to EVERY card &
+   header across the whole app, without
+   editing each page's own CSS. Only shape/
+   depth changes here - text color stays
+   with each page's own rules.
+====================================== */
+[class$="-card"],
+[class*="-card "],
+.theme-pick-inner,
+[class$="-header"],
+[class$="-player"] {
+    border-radius: var(--card-radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    border: var(--card-border) !important;
+    backdrop-filter: blur(var(--card-blur)) !important;
+    -webkit-backdrop-filter: blur(var(--card-blur)) !important;
+}
+
+[class$="-card"],
+[class*="-card "],
+[class$="-player"] {
+    background: var(--card-bg) !important;
 }
 
 /* ======================================
@@ -41,7 +87,6 @@ body{
     max-width:430px;
     min-height:100vh;
     margin:0 auto;
-    background: var(--bg);
     position:relative;
     overflow-x:hidden;
     padding: 0 12px;
@@ -91,67 +136,87 @@ body{
     color:#111;
 }
 
-/* THEME GRID - 4 COLUMNS */
+/* THEME GRID - 2 COLUMNS, RICH DESIGN PREVIEWS WITH PATTERN */
 .theme-grid{
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 کالم میں کارڈز */
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
     padding-bottom: 20px;
 }
 
-.theme-card{
-    background: var(--card);
-    backdrop-filter: blur(12px);
-    border: 2px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 16px 8px;
-    text-align: center;
+.theme-pick{
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    text-align: center;
+    transition: transform 0.25s ease;
 }
-.theme-card:hover{
+.theme-pick:hover{
     transform: translateY(-4px);
-    border-color: var(--primary);
 }
-.theme-card.active{
-    border-color: var(--primary);
-    background: rgba(212,175,55,0.1);
-    box-shadow: 0 0 20px rgba(212,175,55,0.2);
+.theme-pick.active .theme-pick-mock{
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
 }
 
-.theme-preview{
-    width: 44px;
-    height: 44px;
+.theme-pick-mock{
+    width: 100%;
+    height: 110px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.theme-pick-pattern{
+    position: absolute;
+    inset: 0;
+}
+
+.theme-pick-inner{
+    position: relative;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.theme-pick-dot{
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    margin: 0 auto 8px;
-    border: 2px solid rgba(255,255,255,0.15);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-.theme-name{
-    font-size: 10px;
-    font-weight: 600;
+.theme-pick-line{
+    width: 65%;
+    height: 5px;
+    border-radius: 3px;
+    opacity: 0.9;
+}
+.theme-pick-line.short{
+    width: 42%;
+    opacity: 0.6;
+}
+
+.theme-pick-name{
+    font-size: 12px;
+    font-weight: 700;
     color: #ccc;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.theme-card.active .theme-name{
-    color: var(--primary);
-}
-
 /* RESPONSIVE */
 @media(max-width:430px){
     .theme-grid{
-        gap: 8px;
+        gap: 10px;
     }
-    .theme-preview{
-        width: 38px;
-        height: 38px;
+    .theme-pick-mock{
+        height: 96px;
     }
-    .theme-name{
-        font-size: 9px;
+    .theme-pick-name{
+        font-size: 11px;
     }
 }

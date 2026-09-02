@@ -1,188 +1,332 @@
 /* ==========================================
-   APPLY SAVED THEME IMMEDIATELY
-   PREVENT DEFAULT COLOR FLASH
+   MY PRAYER - THEMES (FIXED)
+   10 FULL DESIGN THEMES
+   Color + Card Shape + Shadow + Glow + Border
+   + a unique background pattern graphic per theme
 ========================================== */
 
-(function () {
-    const savedTheme = localStorage.getItem("appTheme");
+// ---- Pattern templates (MOAR) ----
+const PATTERNS = {
+    lattice: "<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><path d='M30 4 L36 22 L54 22 L39 33 L45 52 L30 40 L15 52 L21 33 L6 22 L24 22 Z' fill='none' stroke='COLOR' stroke-width='1' opacity='0.16'/></svg>",
+    mandala: "<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><circle cx='45' cy='45' r='40' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/><circle cx='45' cy='45' r='27' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/><circle cx='45' cy='45' r='14' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/></svg>",
+    crescent: "<svg xmlns='http://www.w3.org/2000/svg' width='340' height='300'><path d='M250 40 A110 110 0 1 0 250 260 A85 85 0 1 1 250 40 Z' fill='COLOR' opacity='0.18'/><circle cx='80' cy='70' r='2.5' fill='COLOR' opacity='0.35'/><circle cx='130' cy='40' r='1.8' fill='COLOR' opacity='0.35'/><circle cx='50' cy='140' r='1.8' fill='COLOR' opacity='0.35'/><circle cx='100' cy='190' r='2.2' fill='COLOR' opacity='0.3'/></svg>",
+    starburst: "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><path d='M32 10 L36 28 L54 32 L36 36 L32 54 L28 36 L10 32 L28 28 Z' fill='COLOR' opacity='0.16'/></svg>",
+    sunburst: "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='220'><g stroke='COLOR' stroke-width='3' opacity='0.16'><line x1='210' y1='420' x2='30' y2='0'/><line x1='210' y1='420' x2='90' y2='0'/><line x1='210' y1='420' x2='150' y2='0'/><line x1='210' y1='420' x2='210' y2='0'/><line x1='210' y1='420' x2='270' y2='0'/><line x1='210' y1='420' x2='330' y2='0'/><line x1='210' y1='420' x2='390' y2='0'/></g></svg>",
+    mosaic: "<svg xmlns='http://www.w3.org/2000/svg' width='46' height='46'><path d='M23 2 L44 23 L23 44 L2 23 Z' fill='none' stroke='COLOR' stroke-width='1' opacity='0.15'/></svg>",
+    faint: "<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26'><circle cx='2' cy='2' r='1' fill='COLOR' opacity='0.06'/></svg>",
+    medallion: "<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><circle cx='140' cy='140' r='130' fill='none' stroke='COLOR' stroke-width='2' opacity='0.16'/><circle cx='140' cy='140' r='100' fill='none' stroke='COLOR' stroke-width='1' opacity='0.16'/><circle cx='140' cy='140' r='70' fill='none' stroke='COLOR' stroke-width='1' opacity='0.16'/><circle cx='140' cy='140' r='40' fill='none' stroke='COLOR' stroke-width='1' opacity='0.16'/></svg>",
+    dotgrid: "<svg xmlns='http://www.w3.org/2000/svg' width='34' height='34'><circle cx='17' cy='17' r='1.3' fill='COLOR' opacity='0.18'/></svg>",
+    hexgrid: "<svg xmlns='http://www.w3.org/2000/svg' width='60' height='52'><polygon points='30,2 56,17 56,37 30,52 4,37 4,17' fill='none' stroke='COLOR' stroke-width='1.4' opacity='0.28'/></svg>"
+};
 
-    if (!savedTheme) return;
-
-    const themeColors = {
-        "gold": "#d4af37",
-        "royal-blue": "#1565c0",
-        "emerald": "#00897b",
-        "forest": "#1b5e20",
-        "navy": "#0d47a1",
-        "violet": "#7b1fa2",
-        "wine": "#880e4f",
-        "olive": "#33691e",
-        "ruby": "#c62828",
-        "orange": "#e65100",
-        "teal": "#00838f",
-        "pink": "#c2185b",
-        "sky": "#0288d1",
-        "lime": "#827717",
-        "copper": "#b87333",
-        "silver": "#9e9e9e",
-        "cyan": "#00bcd4",
-        "indigo": "#283593",
-        "brown": "#4e342e",
-        "crimson": "#dc143c",
-        "coral": "#ff6f61",
-        "peach": "#ffb74d",
-        "mint": "#4dd0e1",
-        "lavender": "#ba68c8",
-        "burgundy": "#800020",
-        "mustard": "#ffdb58",
-        "sage": "#8a9a5b",
-        "stone": "#607d8b",
-        "cobalt": "#0047ab",
-        "turquoise": "#00ced1",
-        "chocolate": "#d2691e",
-        "plum": "#8e4585",
-        "slate": "#708090",
-        "amber": "#ffbf00",
-        "fuchsia": "#ff00ff",
-        "aqua": "#00ffff",
-        "magenta": "#ff00a0",
-        "periwinkle": "#ccccff",
-        "jade": "#00a86b",
-        "sand": "#c2b280",
-        "rust": "#b7410e",
-        "charcoal": "#36454f",
-        "cream": "#fffdd0",
-        "rose-gold": "#b76e79",
-        "steel": "#4682b4",
-        "mahogany": "#c04000",
-        "cardinal": "#c41e3a",
-        "maroon": "#800000",
-        "chartreuse": "#7fff00",
-        "neon-blue": "#1f51ff"
-    };
-
-    const color = themeColors[savedTheme];
-
-    if (color) {
-        document.documentElement.style.setProperty("--primary", color);
+// ---- THEME DESIGNS (MOAR) ----
+const themeDesigns = [
+    {
+        id: "royal-velvet",
+        name: "Royal Velvet",
+        primary: "#d4af37",
+        bg: "#1a0f2e",
+        card: "#2d1b4e",
+        cardBg: "linear-gradient(145deg, #33204f, #1a0f2e)",
+        text: "#ececec",
+        textMuted: "#b8aecb",
+        radius: "24px",
+        shadow: "0 10px 35px rgba(212,175,55,0.25), 0 4px 18px rgba(0,0,0,0.6)",
+        border: "1px solid rgba(212,175,55,0.35)",
+        blur: "20px",
+        pattern: PATTERNS.lattice,
+        patternSize: "60px 60px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
+    },
+    {
+        id: "emerald-noor",
+        name: "Emerald Noor",
+        primary: "#22c98e",
+        bg: "#0d2818",
+        card: "#123723",
+        cardBg: "linear-gradient(135deg, #17472e, #0d2818)",
+        text: "#eafaf3",
+        textMuted: "#9fc9b8",
+        radius: "20px",
+        shadow: "0 10px 28px rgba(34,201,142,0.22)",
+        border: "1px solid rgba(34,201,142,0.35)",
+        blur: "15px",
+        pattern: PATTERNS.mandala,
+        patternSize: "90px 90px",
+        patternRepeat: "repeat",
+        patternPosition: "bottom center"
+    },
+    {
+        id: "ruby-crescent",
+        name: "Ruby Crescent",
+        primary: "#d4af37",
+        bg: "#360b0b",
+        card: "#4a1414",
+        cardBg: "linear-gradient(145deg, #5c1a1a, #360b0b)",
+        text: "#f5e9df",
+        textMuted: "#cf9f9f",
+        radius: "18px",
+        shadow: "0 10px 28px rgba(0,0,0,0.5)",
+        border: "1px solid rgba(212,175,55,0.4)",
+        blur: "12px",
+        pattern: PATTERNS.crescent,
+        patternSize: "340px 300px",
+        patternRepeat: "no-repeat",
+        patternPosition: "bottom right"
+    },
+    {
+        id: "sapphire-star",
+        name: "Sapphire Star",
+        primary: "#4d7ef0",
+        bg: "#101433",
+        card: "#182050",
+        cardBg: "linear-gradient(145deg, #1e2a63, #101433)",
+        text: "#e9edfb",
+        textMuted: "#9aa8d6",
+        radius: "18px",
+        shadow: "0 10px 26px rgba(77,126,240,0.25)",
+        border: "1px solid rgba(77,126,240,0.35)",
+        blur: "14px",
+        pattern: PATTERNS.starburst,
+        patternSize: "64px 64px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
+    },
+    {
+        id: "solar-dawn",
+        name: "Solar Dawn",
+        primary: "#ff9d3d",
+        bg: "#241207",
+        card: "#3a1f0d",
+        cardBg: "linear-gradient(160deg, #4a2a12, #241207)",
+        text: "#fbeee1",
+        textMuted: "#d8b090",
+        radius: "20px",
+        shadow: "0 10px 28px rgba(255,157,61,0.25)",
+        border: "1px solid rgba(255,157,61,0.35)",
+        blur: "10px",
+        pattern: PATTERNS.sunburst,
+        patternSize: "420px 220px",
+        patternRepeat: "no-repeat",
+        patternPosition: "bottom center"
+    },
+    {
+        id: "violet-mosaic",
+        name: "Violet Mosaic",
+        primary: "#a259d9",
+        bg: "#1e1030",
+        card: "#2a1846",
+        cardBg: "linear-gradient(145deg, #331d58, #1e1030)",
+        text: "#f0e9f9",
+        textMuted: "#c2a9db",
+        radius: "16px",
+        shadow: "0 10px 26px rgba(162,89,217,0.28)",
+        border: "1px solid rgba(162,89,217,0.4)",
+        blur: "16px",
+        pattern: PATTERNS.mosaic,
+        patternSize: "46px 46px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
+    },
+    {
+        id: "minimal-void",
+        name: "Minimal Void",
+        primary: "#e0e0e0",
+        bg: "#0a0a0a",
+        card: "#161616",
+        cardBg: "#161616",
+        text: "#f0f0f0",
+        textMuted: "#9a9a9a",
+        radius: "10px",
+        shadow: "0 2px 8px rgba(0,0,0,0.5)",
+        border: "1px solid rgba(255,255,255,0.14)",
+        blur: "0px",
+        pattern: PATTERNS.faint,
+        patternSize: "26px 26px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
+    },
+    {
+        id: "antique-copper",
+        name: "Antique Copper",
+        primary: "#c17f45",
+        bg: "#2b1a10",
+        card: "#3d2717",
+        cardBg: "linear-gradient(160deg, #4a3220, #2b1a10)",
+        text: "#f2e6d8",
+        textMuted: "#c9a888",
+        radius: "14px",
+        shadow: "0 8px 22px rgba(193,127,69,0.28)",
+        border: "1px solid rgba(193,127,69,0.4)",
+        blur: "6px",
+        pattern: PATTERNS.medallion,
+        patternSize: "280px 280px",
+        patternRepeat: "no-repeat",
+        patternPosition: "bottom right"
+    },
+    {
+        id: "onyx-teal",
+        name: "Onyx Teal",
+        primary: "#14e0c4",
+        bg: "#050e0e",
+        card: "#0a1a1a",
+        cardBg: "linear-gradient(145deg, #0e2424, #050e0e)",
+        text: "#e6fbf8",
+        textMuted: "#8fc9c0",
+        radius: "16px",
+        shadow: "0 0 24px rgba(20,224,196,0.3)",
+        border: "1px solid rgba(20,224,196,0.45)",
+        blur: "14px",
+        pattern: PATTERNS.dotgrid,
+        patternSize: "34px 34px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
+    },
+    {
+        id: "neon-nights",
+        name: "Neon Nights",
+        primary: "#00e5ff",
+        bg: "#000000",
+        card: "#0a0a12",
+        cardBg: "linear-gradient(145deg, #10101c, #000000)",
+        text: "#eafcff",
+        textMuted: "#7fd8e8",
+        radius: "14px",
+        shadow: "0 0 18px rgba(0,229,255,0.5), 0 0 40px rgba(179,0,255,0.25)",
+        border: "1px solid rgba(0,229,255,0.6)",
+        blur: "10px",
+        pattern: PATTERNS.hexgrid,
+        patternSize: "60px 52px",
+        patternRepeat: "repeat",
+        patternPosition: "center"
     }
-})();
 
-/* ======================================
-   MY PRAYER - THEMES (50 UNIQUE COLORS)
-   AUTO-REDIRECT TO HOME ON SELECT
-====================================== */
 
-const themes = [
-    { id: "gold", name: "Gold", colors: ["#d4af37", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "royal-blue", name: "Royal Blue", colors: ["#1565c0", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "emerald", name: "Emerald", colors: ["#00897b", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "forest", name: "Forest", colors: ["#1b5e20", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "navy", name: "Navy", colors: ["#0d47a1", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "violet", name: "Violet", colors: ["#7b1fa2", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "wine", name: "Wine", colors: ["#880e4f", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "olive", name: "Olive", colors: ["#33691e", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "ruby", name: "Ruby", colors: ["#c62828", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "orange", name: "Orange", colors: ["#e65100", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "teal", name: "Teal", colors: ["#00838f", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "pink", name: "Pink", colors: ["#c2185b", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "sky", name: "Sky", colors: ["#0288d1", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "lime", name: "Lime", colors: ["#827717", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "copper", name: "Copper", colors: ["#b87333", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "silver", name: "Silver", colors: ["#9e9e9e", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "cyan", name: "Cyan", colors: ["#00bcd4", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "indigo", name: "Indigo", colors: ["#283593", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "brown", name: "Brown", colors: ["#4e342e", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "crimson", name: "Crimson", colors: ["#dc143c", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "coral", name: "Coral", colors: ["#ff6f61", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "peach", name: "Peach", colors: ["#ffb74d", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "mint", name: "Mint", colors: ["#4dd0e1", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "lavender", name: "Lavender", colors: ["#ba68c8", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "burgundy", name: "Burgundy", colors: ["#800020", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "mustard", name: "Mustard", colors: ["#ffdb58", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "sage", name: "Sage", colors: ["#8a9a5b", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "stone", name: "Stone", colors: ["#607d8b", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "cobalt", name: "Cobalt", colors: ["#0047ab", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "turquoise", name: "Turquoise", colors: ["#00ced1", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "chocolate", name: "Chocolate", colors: ["#d2691e", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "plum", name: "Plum", colors: ["#8e4585", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "slate", name: "Slate", colors: ["#708090", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "amber", name: "Amber", colors: ["#ffbf00", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "fuchsia", name: "Fuchsia", colors: ["#ff00ff", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "aqua", name: "Aqua", colors: ["#00ffff", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "magenta", name: "Magenta", colors: ["#ff00a0", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "periwinkle", name: "Periwinkle", colors: ["#ccccff", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "jade", name: "Jade", colors: ["#00a86b", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "sand", name: "Sand", colors: ["#c2b280", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "rust", name: "Rust", colors: ["#b7410e", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "charcoal", name: "Charcoal", colors: ["#36454f", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "cream", name: "Cream", colors: ["#fffdd0", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "rose-gold", name: "Rose Gold", colors: ["#b76e79", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "steel", name: "Steel", colors: ["#4682b4", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "mahogany", name: "Mahogany", colors: ["#c04000", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "cardinal", name: "Cardinal", colors: ["#c41e3a", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "maroon", name: "Maroon", colors: ["#800000", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "chartreuse", name: "Chartreuse", colors: ["#7fff00", "#1a1a1a", "#2a2a2a", "#e0e0e0"] },
-    { id: "neon-blue", name: "Neon Blue", colors: ["#1f51ff", "#1a1a1a", "#2a2a2a", "#e0e0e0"] }
+
 ];
 
-const themeGrid = document.getElementById("themeGrid");
-let currentTheme = localStorage.getItem("appTheme") || "gold";
-
-// Apply theme CSS variables
-function applyTheme(themeId) {
-    const theme = themes.find(t => t.id === themeId);
-    if (!theme) return;
-    const root = document.documentElement;
-    root.style.setProperty("--primary", theme.colors[0]);
-    root.style.setProperty("--bg", theme.colors[1]);
-    root.style.setProperty("--card", theme.colors[2]);
-    root.style.setProperty("--text", theme.colors[3]);
+// Builds a CSS url() data-URI for an SVG pattern
+function svgBg(svg, color) {
+    const filled = svg.split("COLOR").join(color);
+    return 'url("data:image/svg+xml,' + encodeURIComponent(filled) + '")';
 }
 
-// Render theme grid
+// Apply full theme design (color + card design tokens + background pattern)
+function applyThemeVars(theme) {
+    const root = document.documentElement;
+    root.style.setProperty("--primary", theme.primary);
+    root.style.setProperty("--bg", theme.bg);
+    root.style.setProperty("--card", theme.card);
+    root.style.setProperty("--card-bg", theme.cardBg);
+    root.style.setProperty("--text", theme.text);
+    root.style.setProperty("--text-muted", theme.textMuted);
+    root.style.setProperty("--card-radius", theme.radius);
+    root.style.setProperty("--card-shadow", theme.shadow);
+    root.style.setProperty("--card-border", theme.border);
+    root.style.setProperty("--card-blur", theme.blur);
+    root.style.setProperty("--bg-pattern", svgBg(theme.pattern, theme.primary));
+    root.style.setProperty("--bg-pattern-size", theme.patternSize);
+    root.style.setProperty("--bg-pattern-repeat", theme.patternRepeat);
+    root.style.setProperty("--bg-pattern-position", theme.patternPosition);
+}
+
+// ==========================================
+// FIX: APPLY SAVED THEME ON PAGE LOAD
+// (themeDesigns ab pehle define ho chuka hai)
+// ==========================================
+(function () {
+    const savedThemeId = localStorage.getItem("appTheme");
+    if (!savedThemeId) return;
+    const theme = themeDesigns.find(t => t.id === savedThemeId);
+    if (!theme) return;
+    applyThemeVars(theme);
+})();
+
+const themeGrid = document.getElementById("themeGrid");
+let currentTheme = localStorage.getItem("appTheme") || themeDesigns[0].id;
+
 function renderThemes() {
     if (!themeGrid) return;
     themeGrid.innerHTML = "";
-    themes.forEach(theme => {
+    themeDesigns.forEach(theme => {
         const card = document.createElement("div");
-        card.className = "theme-card" + (theme.id === currentTheme ? " active" : "");
+        card.className = "theme-pick" + (theme.id === currentTheme ? " active" : "");
         card.dataset.themeId = theme.id;
-        
-        const preview = document.createElement("div");
-        preview.className = "theme-preview";
-        preview.style.background = `linear-gradient(135deg, ${theme.colors[0]}, ${theme.colors[2]})`;
-        
+
+        const mock = document.createElement("div");
+        mock.className = "theme-pick-mock";
+        mock.style.background = theme.bg;
+
+        const patternLayer = document.createElement("div");
+        patternLayer.className = "theme-pick-pattern";
+        patternLayer.style.backgroundImage = svgBg(theme.pattern, theme.primary);
+        patternLayer.style.backgroundSize = theme.patternRepeat === "repeat" ? "28px 28px" : "140% 140%";
+        patternLayer.style.backgroundRepeat = theme.patternRepeat;
+        patternLayer.style.backgroundPosition = theme.patternPosition;
+        mock.appendChild(patternLayer);
+
+        const inner = document.createElement("div");
+        inner.className = "theme-pick-inner";
+        inner.style.background = theme.cardBg;
+        inner.style.borderRadius = theme.radius;
+        inner.style.boxShadow = theme.shadow;
+        inner.style.border = theme.border;
+
+        const dot = document.createElement("div");
+        dot.className = "theme-pick-dot";
+        dot.style.background = theme.primary;
+        dot.style.boxShadow = `0 0 10px ${theme.primary}`;
+
+        const line1 = document.createElement("div");
+        line1.className = "theme-pick-line";
+        line1.style.background = theme.primary;
+
+        const line2 = document.createElement("div");
+        line2.className = "theme-pick-line short";
+        line2.style.background = theme.textMuted;
+
+        inner.appendChild(dot);
+        inner.appendChild(line1);
+        inner.appendChild(line2);
+        mock.appendChild(inner);
+
         const name = document.createElement("div");
-        name.className = "theme-name";
+        name.className = "theme-pick-name";
         name.textContent = theme.name;
-        
-        card.appendChild(preview);
+        if (theme.id === currentTheme) name.style.color = theme.primary;
+
+        card.appendChild(mock);
         card.appendChild(name);
-        card.addEventListener("click", function() {
+        card.addEventListener("click", function () {
             selectTheme(theme.id);
         });
         themeGrid.appendChild(card);
     });
 }
 
-// Select theme - NOW AUTOMATICALLY REDIRECTS TO HOME
 function selectTheme(themeId) {
     currentTheme = themeId;
     localStorage.setItem("appTheme", themeId);
     applyTheme(themeId);
-    // *** Redirect to Home immediately after selection ***
     window.location.href = "../index.html";
 }
 
-// On page load
-document.addEventListener("DOMContentLoaded", function() {
+function applyTheme(themeId) {
+    const theme = themeDesigns.find(t => t.id === themeId);
+    if (!theme) return;
+    applyThemeVars(theme);
+}
+
+// On page load (for Themes page)
+document.addEventListener("DOMContentLoaded", function () {
     const saved = localStorage.getItem("appTheme");
-    if (saved) {
+    if (saved && themeDesigns.find(t => t.id === saved)) {
         currentTheme = saved;
         applyTheme(saved);
     } else {
-        applyTheme("gold");
+        applyTheme(themeDesigns[0].id);
+        currentTheme = themeDesigns[0].id;
     }
     if (themeGrid) {
         renderThemes();
