@@ -35,19 +35,27 @@
 
   <div id="app" class="app-container">
     
-    <!-- Top Header (Back Button + Title) -->
-    <header class="app-header">
-      <div class="header-left">
-       
+  <!-- Top Header (Title) -->
+<header class="app-header">
+    <!-- بائیں طرف: ٹائٹل -->
+    <div class="header-left">
         <div class="brand-info">
-          <div class="brand-title-wrap">
-            <div class="brand-icon"><i class="fa-solid fa-quran"></i></div>
-            <h1 class="brand-title">القرآن الكريم</h1>
-          </div>
-          <span class="brand-subtitle">Holy Quran • 114 Surahs & 30 Para</span>
+            <div class="brand-title-wrap">
+                <div class="brand-icon"><i class="fa-solid fa-quran"></i></div>
+                <h1 class="brand-title">القرآن الكريم</h1>
+            </div>
+            <span class="brand-subtitle">Holy Quran • 114 Surahs & 30 Para</span>
         </div>
-      </div>
-    </header>
+    </div>
+
+    <!-- دائیں طرف: تصویر (Duas والا انداز) -->
+    <div class="header-right" style="display: flex; align-items: center; flex-shrink: 0;">
+        <img src="../images/quran.jpg" alt="Quran" 
+             style="width: 42px; height: 42px; object-fit: cover; border-radius: 50%; 
+                    border: 2px solid var(--primary); box-shadow: 0 0 15px var(--primary-glow); background: var(--bg);">
+    </div>
+</header>
+
 
     <!-- Main Content -->
     <main id="main-content" class="main-content">

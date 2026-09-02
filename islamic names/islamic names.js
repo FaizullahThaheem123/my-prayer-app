@@ -2374,6 +2374,25 @@ const islamicNamesDB = [
         luckyStone: "Garnet (عقیق)"
     },
   
+{
+    id: 32,
+    name: "Tahmina",
+    arabic: "تَهْمِينَة",
+    urdu: "تہمینہ",
+    gender: "female",
+    meaning: "Strong, Powerful, Brave, Beautiful",
+    meaning_urdu: "طاقتور، بہادر، مضبوط، خوبصورت",
+    detailed_urdu_meaning: "ایک مضبوط اور باہمت خاتون، جو بہادری اور خوبصورتی دونوں میں ممتاز ہو۔ یہ نام فارسی شاہنامہ کی ایک مشہور کردار کا ہے جو رستم کی بیوی تھیں۔",
+    origin: "Persian",
+    category: "Traditional",
+    quranMentioned: false,
+    description: "A strong and brave name from Persian literature. Famous as the name of Rostam's wife in the Shahnameh (Book of Kings).",
+    variations: ["Tahminah", "Tahmineh", "Tahmina"],
+    luckyNumber: 4,
+    luckyDay: "Wednesday, Thursday (بدھ، جمعرات)",
+    luckyStone: "Sapphire (نیلم)"
+},
+
     {
         id: 133,
         name: "Ertugrul",
@@ -2941,9 +2960,9 @@ const islamicNamesDB = [
     },
    {
         id: 165,
-        name: "Fazlullah",
-        arabic: "فَضْلُ اللَّه",
-        urdu: "فضل اللہ",
+        name: "Faizullah",
+        arabic:" فیض اللَّه",
+        urdu: "فیض اللہ",
         gender: "male",
         meaning: "Bounty, Grace & Blessing of Allah",
         meaning_urdu: "اللہ کا فضل، اللہ کا احسان و کرم",
@@ -5089,6 +5108,26 @@ const islamicNamesDB = [
     luckyDay: "Thursday, Sunday (جمعرات، اتوار)",
     luckyStone: "Amethyst (جمشت)"
 },
+
+{
+    id: 283,
+    name: "Anabiya",
+    arabic: "أَنَابِيَة",
+    urdu: "عنابیہ",
+    gender: "female",
+    meaning: "Fragrant flower, Beautiful blossom, Gift of God",
+    meaning_urdu: "خوشبودار پھول، خوبصورت کلی، اللہ کا تحفہ",
+    detailed_urdu_meaning: "ایک نرم، خوشبودار اور حسین پھول جس کی خوشبو جنت کی یاد دلاتی ہے۔ یہ نام 'عناب' (جوجوبے) کے پھول سے منسوب ہے اور اللہ کی طرف سے عطا کردہ نعمت اور خوبصورتی کی علامت ہے۔",
+    origin: "Arabic",
+    category: "Modern",
+    quranMentioned: false,
+    description: "A modern and elegant Islamic name meaning a fragrant flower or beautiful blossom. It is associated with the beauty, freshness and aroma of Paradise.",
+    variations: ["Anabia", "Anabiyah"],
+    luckyNumber: 5,
+    luckyDay: "Monday, Friday (پیر، جمعہ)",
+    luckyStone: "Emerald (زمرد)"
+},
+
 {
     id: 284,
     name: "Nisma",

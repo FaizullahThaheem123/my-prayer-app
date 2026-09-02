@@ -200,8 +200,9 @@ const themeDesigns = [
         patternSize: "60px 52px",
         patternRepeat: "repeat",
         patternPosition: "center"
-    }
+    },
 
+   
 
 
 ];
