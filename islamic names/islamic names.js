@@ -2375,7 +2375,7 @@ const islamicNamesDB = [
     },
   
 {
-    id: 32,
+    id: 132,
     name: "Tahmina",
     arabic: "تَهْمِينَة",
     urdu: "تہمینہ",
