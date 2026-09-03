@@ -8,6 +8,68 @@ const locationName = document.getElementById("locationName");
 const countdown = document.getElementById("countdown");
 const liveTimeDisplay = document.getElementById("liveTimeDisplay");
 
+// ======================================
+// AZAN AUDIO SYSTEM
+// ======================================
+let azanAudio = null;
+let isAzanPlaying = false;
+
+function playAzan() {
+    try {
+        // اگر پہلے سے آڈیو موجود ہے تو اسے روکیں
+        if (azanAudio) {
+            azanAudio.pause();
+            azanAudio.currentTime = 0;
+        }
+        
+        // نیا آڈیو آبجیکٹ بنائیں
+        azanAudio = new Audio('audio/azan.mp3');
+        azanAudio.volume = 0.8;
+        azanAudio.loop = false;
+        
+        azanAudio.play().then(() => {
+            isAzanPlaying = true;
+            console.log('🔊 Azan playing...');
+        }).catch((error) => {
+            console.log('Azan play error:', error);
+            // اگر آڈیو فائل نہ ملے تو فال بیک
+            fallbackAzanAlert();
+        });
+        
+        // اذان ختم ہونے پر پراپرٹی ری سیٹ کریں
+        azanAudio.onended = function() {
+            isAzanPlaying = false;
+            console.log('🔇 Azan finished');
+        };
+        
+    } catch (error) {
+        console.log('Azan error:', error);
+        fallbackAzanAlert();
+    }
+}
+
+function stopAzan() {
+    if (azanAudio) {
+        azanAudio.pause();
+        azanAudio.currentTime = 0;
+        isAzanPlaying = false;
+    }
+}
+
+// اگر اذان کی فائل نہ ملے تو یہ کام کرے گا
+function fallbackAzanAlert() {
+    // صارف کو متن کے ساتھ مطلع کریں
+    showToast('🔔 اذان کا وقت ہو گیا!');
+    
+    // اگر نوٹیفکیشن کی اجازت ہو تو بھیجیں
+    if (Notification.permission === "granted") {
+        new Notification("🕌 نماز کا وقت", {
+            body: "اذان ہو رہی ہے! نماز پڑھیں۔",
+            icon: "images/makkah.png"
+        });
+    }
+}
+
 // More Menu Elements
 const moreNavBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
@@ -37,6 +99,11 @@ function toggleAlarm(prayer) {
     alarms[prayer] = !alarms[prayer];
     localStorage.setItem("prayerAlarms", JSON.stringify(alarms));
     initAlarms();
+    
+    // اگر صارف نے الارم آف کیا اور اذان چل رہی ہے تو روکیں
+    if (!alarms[prayer] && isAzanPlaying) {
+        stopAzan();
+    }
 }
 
 // Check if any alarm should fire
@@ -81,30 +148,85 @@ function checkAlarms() {
         const key = prayer + "_" + today;
         if (alarmFired[key]) return;
 
-        // If prayer time is within 60 seconds, fire alarm
+        // If prayer time is within 60 seconds, fire alarm with Azan
         const diffMs = prayerTime - now;
         if (diffMs <= 60000) {
-            // Fire notification
+            // ✅ اس نماز کی اذان چلائیں
+            if (alarms[prayer] === true) {
+                playAzan();
+            }
+
+            // نوٹیفکیشن بھی بھیجیں
             if (Notification.permission === "granted") {
-                new Notification("🕌 Prayer Time", {
-                    body: `It's time for ${prayer} Jamaat!`,
+                new Notification(`🕌 ${prayer} نماز کا وقت`, {
+                    body: `${prayer} کی اذان ہو رہی ہے! نماز پڑھیں۔`,
                     icon: "images/makkah.png"
                 });
-            } else {
-                // If notification not granted, show alert
-                alert(`🔔 It's time for ${prayer} Jamaat!`);
             }
 
             // Mark as fired
             alarmFired[key] = true;
             localStorage.setItem("alarmFired", JSON.stringify(alarmFired));
 
-            // Turn off alarm after firing
-            alarms[prayer] = false;
-            localStorage.setItem("prayerAlarms", JSON.stringify(alarms));
-            initAlarms();
+            // ⚠️ الارم کو آف نہ کریں تاکہ اگر کوئی دوبارہ اس نماز کے لیے الارم سیٹ کرے تو کام کرے
+            // لیکن اگر ایک بار بج چکا ہے تو دوبارہ نہ بجے (اس کے لیے alarmFired استعمال ہو رہا ہے)
         }
     });
+}
+
+// ======================================
+// WEATHER SYSTEM
+// ======================================
+function fetchWeatherByCoords(lat, lon) {
+    const cityName = locationName.innerText.replace('📍 ', '');
+    document.getElementById('weatherCity').innerText = cityName || 'Loading...';
+
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`)
+        .then(res => res.json())
+        .then(data => {
+            renderWeather(data);
+        })
+        .catch(() => {
+            document.getElementById('weatherDesc').innerText = 'Weather unavailable';
+        });
+}
+
+function renderWeather(data) {
+    const current = data.current_weather;
+    const temp = Math.round(current.temperature);
+    const weatherCode = current.weathercode;
+    const windSpeed = Math.round(current.windspeed);
+
+    const weatherMap = {
+        0: { icon: '☀️', desc: 'Clear Sky' },
+        1: { icon: '🌤️', desc: 'Mainly Clear' },
+        2: { icon: '⛅', desc: 'Partly Cloudy' },
+        3: { icon: '☁️', desc: 'Overcast' },
+        45: { icon: '🌫️', desc: 'Fog' },
+        48: { icon: '🌫️', desc: 'Rime Fog' },
+        51: { icon: '🌦️', desc: 'Light Drizzle' },
+        53: { icon: '🌧️', desc: 'Moderate Drizzle' },
+        55: { icon: '🌧️', desc: 'Dense Drizzle' },
+        61: { icon: '🌧️', desc: 'Slight Rain' },
+        63: { icon: '🌧️', desc: 'Moderate Rain' },
+        65: { icon: '🌧️', desc: 'Heavy Rain' },
+        71: { icon: '🌨️', desc: 'Slight Snow' },
+        73: { icon: '🌨️', desc: 'Moderate Snow' },
+        75: { icon: '❄️', desc: 'Heavy Snow' },
+        80: { icon: '🌧️', desc: 'Rain Showers' },
+        81: { icon: '🌧️', desc: 'Moderate Rain Showers' },
+        82: { icon: '⛈️', desc: 'Heavy Rain Showers' },
+        95: { icon: '⛈️', desc: 'Thunderstorm' },
+        96: { icon: '⛈️', desc: 'Thunderstorm + Hail' },
+        99: { icon: '⛈️', desc: 'Heavy Thunderstorm' }
+    };
+
+    const weather = weatherMap[weatherCode] || { icon: '🌡️', desc: 'Unknown' };
+
+    document.getElementById('weatherIcon').textContent = weather.icon;
+    document.getElementById('weatherTemp').innerHTML = `${temp}<small>°C</small>`;
+    document.getElementById('weatherDesc').textContent = weather.desc;
+    document.getElementById('weatherWind').textContent = windSpeed;
 }
 
 // ======================================
@@ -119,25 +241,30 @@ document.addEventListener("DOMContentLoaded", () => {
     detectLocation();
     initAlarms();
 
-    // Check alarms every 30 seconds
-    setInterval(checkAlarms, 30000);
+    // Check alarms every 10 seconds (for faster response)
+    setInterval(checkAlarms, 10000);
 
-    // More Menu Logic (Quran Style)
+    // موسم کو ہر 10 منٹ بعد اپ ڈیٹ کریں
+    setInterval(() => {
+        const lat = localStorage.getItem("userLatitude");
+        const lon = localStorage.getItem("userLongitude");
+        if (lat && lon) {
+            fetchWeatherByCoords(parseFloat(lat), parseFloat(lon));
+        }
+    }, 600000);
+
+    // More Menu Logic
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
-
-        // Open More menu
         moreNavBtn.addEventListener("click", function(e) {
             e.stopPropagation();
             moreMenu.classList.add("show");
         });
 
-        // Close with X button
         closeMoreMenuBtn.addEventListener("click", function(e) {
             e.stopPropagation();
             moreMenu.classList.remove("show");
         });
 
-        // Close when clicking outside
         document.addEventListener("click", function(e) {
             if (moreMenu.classList.contains("show") &&
                 !moreMenu.contains(e.target) &&
@@ -146,7 +273,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Settings button inside More
         if (settingsBtn) {
             settingsBtn.addEventListener("click", function(e) {
                 e.stopPropagation();
@@ -195,7 +321,9 @@ function detectLocation() {
         getPrayerTimes(28.0065, 69.3167);
         return;
     }
-    navigator.geolocation.getCurrentPosition(
+
+    // ✅ WATCHPOSITION — خودکار لوکیشن اپ ڈیٹ
+    navigator.geolocation.watchPosition(
         position => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
@@ -204,31 +332,26 @@ function detectLocation() {
         () => {
             locationName.innerHTML = "📍 Adilpur, Ghotki";
             getPrayerTimes(28.0065, 69.3167);
+        },
+        {
+            enableHighAccuracy: true,
+            maximumAge: 30000,
+            timeout: 10000
         }
     );
 }
 
 async function getPrayerTimes(latitude, longitude) {
     try {
-        /* ======================================
-           SAVE HOME LIVE LOCATION
-           MASJID PAGE WILL USE THE SAME LOCATION
-        ====================================== */
         localStorage.setItem("userLatitude", String(latitude));
         localStorage.setItem("userLongitude", String(longitude));
 
-        /* ======================================
-           GET PRAYER TIMES
-        ====================================== */
         const response = await fetch(
             `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`
         );
         const result = await response.json();
         prayerTimes = result.data.timings;
 
-        /* ======================================
-           GET LOCATION NAME
-        ====================================== */
         try {
             const locRes = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
@@ -250,16 +373,9 @@ async function getPrayerTimes(latitude, longitude) {
             localStorage.setItem("userLocationName", "Adilpur, Ghotki");
         }
 
-        /* ======================================
-           SAVE LIVE MAGHRIB
-        ====================================== */
         if (result.data.timings && result.data.timings.Maghrib) {
             localStorage.setItem("liveMaghribAzan", result.data.timings.Maghrib);
 
-            /* ======================================
-               AUTO MAGHRIB JAMAAT
-               MAGHRIB AZAN + 3 MINUTES
-            ====================================== */
             const parts = result.data.timings.Maghrib.split(":");
             let hours = parseInt(parts[0]);
             let minutes = parseInt(parts[1]);
@@ -280,9 +396,6 @@ async function getPrayerTimes(latitude, longitude) {
             updateJamaatUI();
         }
 
-        /* ======================================
-           ISLAMIC DATE
-        ====================================== */
         islamicDate.innerHTML =
             result.data.date.hijri.weekday.en +
             ", " +
@@ -293,11 +406,9 @@ async function getPrayerTimes(latitude, longitude) {
             result.data.date.hijri.year +
             " AH";
 
-        /* ======================================
-           UPDATE PRAYER UI
-        ====================================== */
         showPrayerTimes();
         calculateNextPrayer();
+        fetchWeatherByCoords(latitude, longitude);
 
     } catch (error) {
         console.error("Prayer Times Error:", error);
@@ -434,7 +545,6 @@ function saveJamaatTime() {
     updateJamaatUI();
     closeJamaatModal();
 
-    // Also reset alarmFired for this prayer so it can fire again with new time
     const today = new Date().toISOString().split('T')[0];
     const key = selectedPrayer + "_" + today;
     if (alarmFired[key]) {
@@ -471,6 +581,19 @@ function updateJamaatUI() {
             }
         }
     });
+}
+
+// ======================================
+// TOAST NOTIFICATION
+// ======================================
+function showToast(msg) {
+    const existing = document.querySelector(".toast-msg");
+    if (existing) existing.remove();
+    const t = document.createElement("div");
+    t.className = "toast-msg";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
 }
 
 // Notification Button

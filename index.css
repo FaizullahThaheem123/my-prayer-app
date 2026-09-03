@@ -255,6 +255,88 @@ body {
     white-space: nowrap;
 }
 
+/* ============================================= */
+/* ✅ WEATHER CARD (EXACT BOX STYLE) */
+/* ============================================= */
+.weather-card {
+    width: calc(100% - 20px);
+    margin: 4px 10px;
+    padding: 10px 16px;
+    background: var(--card);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    min-height: 60px;
+}
+
+/* بائیں حصہ: آئیکن + درجہ حرارت */
+.weather-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.weather-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+
+/* درجہ حرارت اور موسم کی حالت عمودی (اوپر/نیچے) */
+.weather-left > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.weather-temp {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.weather-temp small {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.weather-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+/* دائیں حصہ: شہر اور ہوا */
+.weather-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.weather-right .city {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.weather-right > div:last-child {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+#weatherWind {
+    color: var(--text);
+    font-weight: 600;
+}
+
 /* NEXT PRAYER 4-CARD GRID */
 .next-prayer-grid-wrapper {
     width: calc(100% - 20px);
