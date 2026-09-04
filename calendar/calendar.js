@@ -1,5 +1,5 @@
 // ======================================
-// MY PRAYER - ISLAMIC CALENDAR
+// MY PRAYER - ISLAMIC CALENDAR WITH EVENTS
 // ======================================
 
 // ======================================
@@ -25,6 +25,37 @@ const hijriMonths = [
     "Dhu al-Qi'dah",
     "Dhu al-Hijjah"
 ];
+
+// ======================================
+// ISLAMIC EVENTS
+// ======================================
+const islamicEvents = {
+    // Month: { day: "Event Name" }
+    1: { // Muharram
+        1: "🌙 Islamic New Year",
+        10: "🕊️ Day of Ashura"
+    },
+    3: { // Rabi al-Awwal
+        12: "🌹 Mawlid an-Nabi (PBUH)"
+    },
+    7: { // Rajab
+        27: "🕌 Al-Isra wal-Mi'raj"
+    },
+    8: { // Sha'ban
+        15: "🌙 Shab-e-Barat"
+    },
+    9: { // Ramadan
+        1: "🌙 First Day of Ramadan",
+        27: "⭐ Laylat al-Qadr"
+    },
+    10: { // Shawwal
+        1: "🎉 Eid al-Fitr"
+    },
+    12: { // Dhu al-Hijjah
+        9: "🤲 Day of Arafah",
+        10: "🐐 Eid al-Adha"
+    }
+};
 
 // ======================================
 // ELEMENTS
@@ -99,6 +130,15 @@ function formatHijri(date) {
 }
 
 // ======================================
+// GET EVENT
+// ======================================
+function getEventForDate(day, month) {
+    const monthEvents = islamicEvents[month];
+    if (!monthEvents) return null;
+    return monthEvents[day] || null;
+}
+
+// ======================================
 // UPDATE SELECTED DATE
 // ======================================
 function updateSelectedDate() {
@@ -110,6 +150,14 @@ function updateSelectedDate() {
     detailHijriDay.textContent = hijri.day;
     detailHijriMonth.textContent = hijriMonths[hijri.month - 1];
     detailHijriYear.textContent = `${hijri.year} AH`;
+
+    // Event display
+    const event = getEventForDate(hijri.day, hijri.month);
+    const eventElement = document.getElementById("eventDisplay");
+    if (eventElement) {
+        eventElement.textContent = event || "—";
+        eventElement.style.color = event ? "#fbbf24" : "var(--text-muted)";
+    }
 }
 
 // ======================================
@@ -132,12 +180,10 @@ function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    // Month title
     englishMonth.textContent = monthYearFormatter.format(currentDate);
 
     const firstDay = new Date(year, month, 1);
     let startingDay = firstDay.getDay();
-    // Convert Sunday=0 to Monday=0
     startingDay = startingDay === 0 ? 6 : startingDay - 1;
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -150,16 +196,13 @@ function renderCalendar() {
         let cellDate;
 
         if (index < startingDay) {
-            // Previous month
             const day = previousMonthDays - startingDay + index + 1;
             cellDate = new Date(year, month - 1, day);
             dayElement.classList.add("other-month");
         } else if (index < startingDay + daysInMonth) {
-            // Current month
             const day = index - startingDay + 1;
             cellDate = new Date(year, month, day);
         } else {
-            // Next month
             const day = index - startingDay - daysInMonth + 1;
             cellDate = new Date(year, month + 1, day);
             dayElement.classList.add("other-month");
@@ -177,6 +220,30 @@ function renderCalendar() {
 
         dayElement.appendChild(englishNumber);
         dayElement.appendChild(hijriNumber);
+
+        // Event badge
+        const event = getEventForDate(hijri.day, hijri.month);
+        if (event) {
+            const badge = document.createElement("span");
+            badge.className = "event-badge";
+            badge.style.cssText = `
+                font-size: 7px;
+                background: var(--primary);
+                color: #000;
+                padding: 1px 4px;
+                border-radius: 10px;
+                margin-top: 2px;
+                font-weight: 700;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: block;
+                line-height: 1.2;
+            `;
+            badge.textContent = event.length > 10 ? event.substring(0, 10) + "…" : event;
+            dayElement.appendChild(badge);
+        }
 
         // Today
         const today = new Date();
@@ -233,7 +300,7 @@ todayBtn.addEventListener("click", function() {
 });
 
 // ======================================
-// MORE MENU LOGIC (Quran Style) - FIXED
+// MORE MENU LOGIC (Quran Style)
 // ======================================
 document.addEventListener("DOMContentLoaded", function() {
     const moreNavBtn = document.getElementById("moreNavBtn");
@@ -241,17 +308,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
     const settingsBtn = document.getElementById("settingsBtn");
 
-    // Open More menu
     if (moreNavBtn && moreMenu) {
         moreNavBtn.addEventListener("click", function(e) {
             e.stopPropagation();
             moreMenu.classList.add("show");
         });
-    } else {
-        console.error("moreNavBtn or moreMenu not found!");
     }
 
-    // Close with X button
     if (closeMoreMenuBtn && moreMenu) {
         closeMoreMenuBtn.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -259,7 +322,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Close when clicking outside
     document.addEventListener("click", function(e) {
         if (moreMenu && moreMenu.classList.contains("show") &&
             !moreMenu.contains(e.target) &&
@@ -268,7 +330,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Settings button
     if (settingsBtn && moreMenu) {
         settingsBtn.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -286,4 +347,20 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedDate = new Date();
     updateSelectedDate();
     renderCalendar();
+
+    // If event row doesn't exist in HTML, create it
+    const eventRow = document.getElementById("eventRow");
+    if (!eventRow) {
+        const detailsCard = document.querySelector(".date-details-card");
+        if (detailsCard) {
+            const newRow = document.createElement("div");
+            newRow.className = "details-row";
+            newRow.id = "eventRow";
+            newRow.innerHTML = `
+                <span><i class="fa-solid fa-star" style="color: var(--primary);"></i> Islamic Event</span>
+                <strong id="eventDisplay" style="color: #fbbf24;">—</strong>
+            `;
+            detailsCard.appendChild(newRow);
+        }
+    }
 });
