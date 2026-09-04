@@ -84,74 +84,60 @@ document.addEventListener("DOMContentLoaded", function () {
     renderThemes();
 
     // ==============================
-    // 2. TOGGLE: CONTACT US (Mobile Fix)
+    // 2. TOGGLE: CONTACT US (FIXED - ONLY CLICK)
     // ==============================
     const contactToggle = document.getElementById("contactToggle");
     const contactContent = document.getElementById("contactContent");
     const contactArrow = document.getElementById("contactArrow");
 
     if (contactToggle && contactContent && contactArrow) {
-        // Both click and touchstart for mobile
-        function toggleContact(e) {
+        contactToggle.addEventListener("click", function (e) {
             e.preventDefault();
             const isOpen = contactContent.style.display !== "none";
             contactContent.style.display = isOpen ? "none" : "block";
             contactArrow.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i>'
                 : '<i class="fa-solid fa-chevron-up"></i>';
-        }
-        contactToggle.addEventListener("click", toggleContact);
-        contactToggle.addEventListener("touchstart", toggleContact, { passive: true });
-    } else {
-        console.warn("Contact toggle elements not found");
+        });
     }
 
     // ==============================
-    // 3. TOGGLE: THEMES
+    // 3. TOGGLE: THEMES (FIXED - ONLY CLICK)
     // ==============================
     const themeToggle = document.getElementById("themeToggle");
     const themeContent = document.getElementById("themeContent");
     const themeArrow = document.getElementById("themeArrow");
 
     if (themeToggle && themeContent && themeArrow) {
-        function toggleTheme(e) {
+        themeToggle.addEventListener("click", function (e) {
             e.preventDefault();
             const isOpen = themeContent.style.display !== "none";
             themeContent.style.display = isOpen ? "none" : "block";
             themeArrow.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i>'
                 : '<i class="fa-solid fa-chevron-up"></i>';
-        }
-        themeToggle.addEventListener("click", toggleTheme);
-        themeToggle.addEventListener("touchstart", toggleTheme, { passive: true });
-    } else {
-        console.warn("Theme toggle elements not found");
+        });
     }
 
     // ==============================
-    // 4. MORE MENU (Mobile Fix)
+    // 4. MORE MENU (FIXED - ONLY CLICK)
     // ==============================
     const moreNavBtn = document.getElementById("moreNavBtn");
     const moreMenu = document.getElementById("moreMenu");
     const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
-        function openMore(e) {
+        moreNavBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             moreMenu.classList.add("show");
-        }
-        function closeMore(e) {
+        });
+
+        closeMoreMenuBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             moreMenu.classList.remove("show");
-        }
-
-        moreNavBtn.addEventListener("click", openMore);
-        moreNavBtn.addEventListener("touchstart", openMore, { passive: true });
-
-        closeMoreMenuBtn.addEventListener("click", closeMore);
-        closeMoreMenuBtn.addEventListener("touchstart", closeMore, { passive: true });
+        });
 
         document.addEventListener("click", function (e) {
             if (moreMenu.classList.contains("show") &&
@@ -160,14 +146,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 moreMenu.classList.remove("show");
             }
         });
-        document.addEventListener("touchstart", function (e) {
-            if (moreMenu.classList.contains("show") &&
-                !moreMenu.contains(e.target) &&
-                !moreNavBtn.contains(e.target)) {
-                moreMenu.classList.remove("show");
-            }
-        }, { passive: true });
-    } else {
-        console.warn("More menu elements not found");
     }
 });

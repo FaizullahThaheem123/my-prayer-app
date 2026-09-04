@@ -364,3 +364,49 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+// ======================================
+// ISLAMIC EVENTS COUNTDOWN
+// ======================================
+function calculateIslamicEvents() {
+    const currentHijri = getHijriDate(currentDate);
+    let hijriYear = currentHijri.year;
+    let hijriMonth = currentHijri.month;
+    let hijriDay = currentHijri.day;
+
+    const events = [
+        { name: 'Ramadan', month: 9, day: 1, id: 'ramadanDays' },
+        { name: 'Eid al-Fitr', month: 10, day: 1, id: 'eidFitrDays' },
+        { name: 'Day of Arafah', month: 12, day: 9, id: 'arafahDays' },
+        { name: 'Eid al-Adha', month: 12, day: 10, id: 'eidAdhaDays' }
+    ];
+
+    events.forEach(event => {
+        let days = daysUntilHijri(hijriYear, hijriMonth, hijriDay, event.month, event.day);
+        if (days < 0) {
+            days = daysUntilHijri(hijriYear + 1, hijriMonth, hijriDay, event.month, event.day);
+        }
+        document.getElementById(event.id).textContent = days >= 0 ? days : '--';
+    });
+}
+
+function daysUntilHijri(currentYear, currentMonth, currentDay, targetMonth, targetDay) {
+    const daysInMonth = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+    let days = 0;
+    if (targetMonth < currentMonth || (targetMonth === currentMonth && targetDay < currentDay)) {
+        // Next year
+        for (let m = currentMonth - 1; m < 12; m++) days += daysInMonth[m] || 30;
+        for (let m = 0; m < targetMonth - 1; m++) days += daysInMonth[m] || 30;
+        days += targetDay;
+        days -= currentDay;
+        return days;
+    } else {
+        for (let m = currentMonth - 1; m < targetMonth - 1; m++) days += daysInMonth[m] || 30;
+        days += targetDay - currentDay;
+        return days;
+    }
+}
+
+// انٹرویو میں کال کریں (DOMContentLoaded کے اندر)
+calculateIslamicEvents();
+setInterval(calculateIslamicEvents, 600000); // ہر 10 منٹ بعد اپ ڈیٹ

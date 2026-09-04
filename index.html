@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Prayer</title>
-    <meta name="theme-color" content="#0B1622">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="theme/theme.css">
     <script>
         (function () {
             const savedTheme = localStorage.getItem("appTheme");
@@ -67,6 +64,9 @@
             }
         })();
     </script>
+    <meta name="theme-color" content="#0B1622">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="theme/theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -172,165 +172,6 @@
             margin-top: 4px;
             opacity: 0.7;
         }
-
-        /* ===== Events Countdown Card ===== */
-        .events-card {
-            width: calc(100% - 20px);
-            margin: 4px 10px;
-            padding: 12px 14px;
-            background: var(--card);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 13px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        .events-card .events-header h4 {
-            font-size: 13px;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-        }
-        .events-grid .event-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            padding: 6px 8px;
-            text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.08);
-        }
-        .events-grid .event-item .event-name {
-            font-size: 9px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-        .events-grid .event-item .event-days {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .events-grid .event-item .event-label {
-            font-size: 8px;
-            color: var(--text-muted);
-        }
-
-        /* ===== Adhkar Card ===== */
-        .adhkar-card {
-            width: calc(100% - 20px);
-            margin: 4px 10px;
-            padding: 12px 14px;
-            background: var(--card);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 13px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        .adhkar-card .adhkar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .adhkar-card .adhkar-header h4 {
-            font-size: 13px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-        .adhkar-card .adhkar-header .adhkar-tabs {
-            display: flex;
-            gap: 4px;
-        }
-        .adhkar-card .adhkar-header .adhkar-tabs button {
-            padding: 2px 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            background: transparent;
-            color: var(--text-muted);
-            font-size: 9px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .adhkar-card .adhkar-header .adhkar-tabs button.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-        }
-        .adhkar-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .adhkar-list .adhkar-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 6px;
-            border: 1px solid transparent;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        .adhkar-list .adhkar-item.done {
-            border-color: #4ade80;
-            background: rgba(74, 222, 128, 0.06);
-        }
-        .adhkar-list .adhkar-item .adhkar-check {
-            font-size: 14px;
-            flex-shrink: 0;
-            color: var(--text-muted);
-        }
-        .adhkar-list .adhkar-item.done .adhkar-check {
-            color: #4ade80;
-        }
-        .adhkar-list .adhkar-item .adhkar-text {
-            flex: 1;
-            font-family: 'Amiri', serif;
-            font-size: 15px;
-            text-align: right;
-            color: var(--text);
-            line-height: 1.4;
-        }
-        .adhkar-list .adhkar-item .adhkar-count {
-            font-size: 10px;
-            color: var(--text-muted);
-            font-weight: 600;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0 6px;
-            border-radius: 4px;
-        }
-        .adhkar-list .adhkar-item.done .adhkar-count {
-            color: #4ade80;
-        }
-        .adhkar-card .adhkar-reset-btn {
-            margin-top: 6px;
-            padding: 4px 12px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            background: transparent;
-            color: var(--text-muted);
-            font-size: 9px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-        .adhkar-card .adhkar-reset-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 400px) {
-            .events-grid {
-                gap: 4px;
-            }
-            .adhkar-list .adhkar-item .adhkar-text {
-                font-size: 13px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -391,9 +232,7 @@
             </div>
         </section>
 
-        <!-- ========================================================== -->
         <!-- DAILY AYAH WIDGET -->
-        <!-- ========================================================== -->
         <section class="ayah-card" id="ayahWidget">
             <div class="ayah-header">
                 <h4><i class="fa-solid fa-book-quran"></i> Daily Ayah</h4>
@@ -406,9 +245,7 @@
             </div>
         </section>
 
-        <!-- ========================================================== -->
         <!-- HADITH OF THE DAY -->
-        <!-- ========================================================== -->
         <section class="hadith-card" id="hadithCard">
             <div class="hadith-header">
                 <h4><i class="fa-solid fa-message"></i> Hadith of the Day</h4>
@@ -418,37 +255,6 @@
                 <div class="hadith-arabic" id="hadithArabic">Loading...</div>
                 <div class="hadith-urdu" id="hadithUrdu">Loading translation...</div>
                 <div class="hadith-ref" id="hadithRef">—</div>
-            </div>
-        </section>
-
-        <!-- ========================================================== -->
-        <!-- ISLAMIC EVENTS COUNTDOWN -->
-        <!-- ========================================================== -->
-        <section class="events-card" id="eventsCard">
-            <div class="events-header">
-                <h4><i class="fa-solid fa-calendar-check"></i> Islamic Events Countdown</h4>
-            </div>
-            <div class="events-grid" id="eventsGrid">
-                <div class="event-item">
-                    <div class="event-name">🌙 Ramadan</div>
-                    <div class="event-days" id="ramadanDays">--</div>
-                    <div class="event-label">days left</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-name">🎉 Eid al-Fitr</div>
-                    <div class="event-days" id="eidFitrDays">--</div>
-                    <div class="event-label">days left</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-name">🤲 Day of Arafah</div>
-                    <div class="event-days" id="arafahDays">--</div>
-                    <div class="event-label">days left</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-name">🐐 Eid al-Adha</div>
-                    <div class="event-days" id="eidAdhaDays">--</div>
-                    <div class="event-label">days left</div>
-                </div>
             </div>
         </section>
 
@@ -474,8 +280,6 @@
                 </div>
             </div>
         </div>
-
-      
 
         <!-- 5 PRAYER CARDS (with Alarm Buttons) -->
         <div class="prayer-card">
@@ -562,7 +366,6 @@
         <!-- BOTTOM NAVIGATION (QURAN | DUAS | MORE) -->
         <!-- ====================================== -->
         <nav class="bottom-nav">
-
             <!-- QURAN -->
             <a href="quran/quran.html">
                 <i class="fa-solid fa-book-quran"></i>
@@ -602,7 +405,6 @@
                     </div>
                 </div>
             </div>
-
         </nav>
 
         <!-- LOADING SCREEN -->
@@ -637,5 +439,10 @@
 
 <script src="index.js"></script>
 <script src="theme/theme.js"></script>
+
+<style>
+  body { opacity: 0; transition: opacity 0.3s ease; }
+</style>
+
 </body>
 </html>

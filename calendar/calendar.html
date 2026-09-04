@@ -7,17 +7,7 @@
     <meta name="theme-color" content="#121212">
     <title>Islamic Calendar - My Prayer</title>
 
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- CALENDAR CSS -->
-    <link rel="stylesheet" href="calendar.css">
-
-    <!-- THEME CSS -->
-    <link rel="stylesheet" href="../theme/theme.css">
-
-    <!-- THEME SCRIPT (inline for fast load) -->
-    <script>
+      <script>
         (function() {
             const savedTheme = localStorage.getItem("appTheme");
             const themeColors = {
@@ -77,6 +67,18 @@
             }
         })();
     </script>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CALENDAR CSS -->
+    <link rel="stylesheet" href="calendar.css">
+
+    <!-- THEME CSS -->
+    <link rel="stylesheet" href="../theme/theme.css">
+
+    <!-- THEME SCRIPT (inline for fast load) -->
+  
 </head>
 
 <body>
@@ -111,6 +113,38 @@
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         </section>
+
+
+        <!-- ====================================== -->
+<!-- UPCOMING ISLAMIC EVENTS COUNTDOWN -->
+<!-- ====================================== -->
+<section class="events-countdown-card">
+    <div class="events-header">
+        <h4><i class="fa-solid fa-calendar-check"></i> Upcoming Islamic Events</h4>
+    </div>
+    <div class="events-grid" id="eventsGrid">
+        <div class="event-item">
+            <div class="event-name">🌙 Ramadan</div>
+            <div class="event-days" id="ramadanDays">--</div>
+            <div class="event-label">days left</div>
+        </div>
+        <div class="event-item">
+            <div class="event-name">🎉 Eid al-Fitr</div>
+            <div class="event-days" id="eidFitrDays">--</div>
+            <div class="event-label">days left</div>
+        </div>
+        <div class="event-item">
+            <div class="event-name">🤲 Day of Arafah</div>
+            <div class="event-days" id="arafahDays">--</div>
+            <div class="event-label">days left</div>
+        </div>
+        <div class="event-item">
+            <div class="event-name">🐐 Eid al-Adha</div>
+            <div class="event-days" id="eidAdhaDays">--</div>
+            <div class="event-label">days left</div>
+        </div>
+    </div>
+</section>
 
         <!-- TODAY BUTTON -->
         <div class="today-button-container">

@@ -692,3 +692,5 @@ document.addEventListener("DOMContentLoaded", function () {
         renderThemes();
     }
 });
+
+document.body.style.opacity = 1;
