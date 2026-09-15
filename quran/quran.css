@@ -180,7 +180,36 @@ body {
 .surah-card-arabic { font-size: 0.7rem; font-weight: 700; color: var(--primary); line-height: 1; }
 .surah-verses-tag { font-size: 0.5rem; color: var(--text-muted); display: block; margin-top: 1px; }
 
-@media (max-width: 480px) { .cards-grid { grid-template-columns: 1fr 1fr; gap: 5px; } .surah-card, .para-card { padding: 3px 6px; min-height: 32px; } }
+/* ============================================================
+   MOBILE: Surah List & Para List → 1 Column (ek ke neeche ek)
+   ============================================================ */
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .surah-card, .para-card {
+    padding: 6px 10px;
+    min-height: 42px;
+  }
+  .surah-names-box strong {
+    font-size: 0.85rem;
+  }
+  .surah-names-box span {
+    font-size: 0.65rem;
+  }
+  .surah-card-arabic {
+    font-size: 0.9rem;
+  }
+  .surah-verses-tag {
+    font-size: 0.55rem;
+  }
+  .surah-number-badge {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+}
 
 /* ============================================================
    READER VIEW
