@@ -1130,7 +1130,7 @@ const islamicNamesDB = [
     },
     {
         id: 63,
-        name: "Mansur",
+        name: "Mansoor",
         arabic: "مَنْصُور",
         urdu: "منصور",
         gender: "male",
@@ -4692,24 +4692,7 @@ const islamicNamesDB = [
     luckyDay: "Monday, Thursday (پیر، جمعرات)",
     luckyStone: "Garnet (عقیق)"
 },
-{
-    id: 261,
-    name: "Jamilah",
-    arabic: "جَمِيلَة",
-    urdu: "جمیلہ",
-    gender: "female",
-    meaning: "Beautiful, Lovely",
-    meaning_urdu: "خوبصورت، حسین، جمیل، دلکش، پرکشش",
-    detailed_urdu_meaning: "بہت خوبصورت، جس کی شکل و صورت بہت اچھی ہو",
-    origin: "Arabic",
-    category: "Sahabiyah",
-    quranMentioned: false,
-    description: "A female companion.",
-    variations: ["Jameelah"],
-    luckyNumber: 6,
-    luckyDay: "Wednesday, Saturday (بدھ، ہفتہ)",
-    luckyStone: "Topaz (پکھراج)"
-},
+
 {
     id: 262,
     name: "Kareemah",
@@ -5670,24 +5653,7 @@ const islamicNamesDB = [
     luckyDay: "Monday, Thursday (پیر، جمعرات)",
     luckyStone: "Turquoise (فیروزہ)"
 },
-{
-    id: 314,
-    name: "Nafisah",
-    arabic: "نَفِيسَة",
-    urdu: "نفیسہ",
-    gender: "female",
-    meaning: "Precious, Valuable, Exquisite",
-    meaning_urdu: "نفیسہ، قیمتی، گراں بہا، عمدہ",
-    detailed_urdu_meaning: "بہت قیمتی اور نفیس، جس کی کوئی قیمت نہ ہو",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning precious.",
-    variations: ["Nafisa"],
-    luckyNumber: 6,
-    luckyDay: "Wednesday, Saturday (بدھ، ہفتہ)",
-    luckyStone: "Topaz (پکھراج)"
-},
+
 {
     id: 315,
     name: "Tulip",
@@ -7484,21 +7450,21 @@ const islamicNamesDB = [
 
 {
     id: 414,
-    name: "Hawa",
-    arabic: "حَوَّاء",
-    urdu: "حوّا",
-    gender: "female",
-    meaning: "Life, Living, Eve",
-    meaning_urdu: "زندگی، حیات، حوا، تمام انسانوں کی ماں",
-    detailed_urdu_meaning: "حضرت آدم کی زوجہ، تمام انسانوں کی ماں",
+    name: "Muzamil",
+    arabic: "مُزَّمِّل",
+    urdu: "مزمل",
+    gender: "male",
+    meaning: "Enwrapped, Wrapped in garments, Covered",
+    meaning_urdu: "لپٹا ہوا، کپڑے میں لپٹا ہوا، چادر اوڑھے ہوئے",
+    detailed_urdu_meaning: "سورہ المزمل میں اللہ کا خطاب، نبی اکرم ﷺ کا ایک لقب، جو کپڑے میں لپٹے ہوئے تھے جب پہلی وحی نازل ہوئی",
     origin: "Arabic",
     category: "Quranic",
     quranMentioned: true,
-    description: "Wife of Adam (AS).",
-    variations: ["Eve"],
-    luckyNumber: 7,
-    luckyDay: "Monday, Thursday (پیر، جمعرات)",
-    luckyStone: "Amethyst (جمشت)"
+    description: "A name from Surah Al-Muzzammil. A title of Prophet Muhammad (PBUH) meaning 'the enwrapped one'.",
+    variations: ["Muzammil", "Muzzammil", "Muzamil"],
+    luckyNumber: 6,
+    luckyDay: "Thursday, Sunday (جمعرات، اتوار)",
+    luckyStone: "Emerald (زمرد)"
 },
 
 {
@@ -7718,24 +7684,7 @@ const islamicNamesDB = [
     luckyStone: "Emerald (زمرد)"
 },
 
-{
-    id: 427,
-    name: "Suhaylah",
-    arabic: "سُهَيْلَة",
-    urdu: "سہیلہ",
-    gender: "female",
-    meaning: "Soft, Gentle, Easy",
-    meaning_urdu: "نرم، ملائم، آسان، شفیق",
-    detailed_urdu_meaning: "نرم مزاج، آسان طبیعت والی",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning gentle.",
-    variations: ["Suhayla"],
-    luckyNumber: 3,
-    luckyDay: "Wednesday, Saturday (بدھ، ہفتہ)",
-    luckyStone: "Ruby (یاقوت)"
-},
+
 
 {
     id: 428,
@@ -9129,24 +9078,7 @@ const islamicNamesDB = [
     luckyDay: "Thursday, Monday (جمعرات، پیر)",
     luckyStone: "Emerald (زمرد)"
 },
-{
-    id: 506,
-    name: "Jahanzaib",
-    arabic: "جَهَانْزَيْب",
-    urdu: "جہاں زیب",
-    gender: "male",
-    meaning: "World's adornment, World beautifier",
-    meaning_urdu: "دنیا کی زینت، جہاں کو زیب دینے والا، خوبصورت",
-    detailed_urdu_meaning: "جس سے دنیا خوبصورت ہو، دنیا کی رونق، حسین و جمیل",
-    origin: "Persian",
-    category: "Modern",
-    quranMentioned: false,
-    description: "A Persian name meaning adornment of the world.",
-    variations: ["Jahanzaib"],
-    luckyNumber: 8,
-    luckyDay: "Friday, Tuesday (جمعہ، منگل)",
-    luckyStone: "Ruby (یاقوت)"
-},
+
 {
     id: 507,
     name: "Jamshed",
@@ -11756,60 +11688,6 @@ const islamicNamesDB = [
 
 
 {
-    id: 661,
-    name: "Inam",
-    arabic: "إِنْعَام",
-    urdu: "انعام",
-    gender: "male",
-    meaning: "Gift, Reward, Blessing",
-    meaning_urdu: "انعام، تحفہ، عطیہ، بخشش، نعمت",
-    detailed_urdu_meaning: "اللہ کی طرف سے انعام، تحفہ، نعمت",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning gift.",
-    variations: ["Inam"],
-    luckyNumber: 2,
-    luckyDay: "Monday, Thursday (پیر، جمعرات)",
-    luckyStone: "Turquoise (فیروزہ)"
-},
-{
-    id: 662,
-    name: "Irfan",
-    arabic: "عِرْفَان",
-    urdu: "عرفان",
-    gender: "male",
-    meaning: "Knowledge, Awareness, Gnosis",
-    meaning_urdu: "عرفان، علم، معرفت، جانکاری، بصیرت",
-    detailed_urdu_meaning: "اللہ کی معرفت، عرفان، روحانی علم، بصیرت",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning gnosis and knowledge.",
-    variations: ["Irfan"],
-    luckyNumber: 6,
-    luckyDay: "Wednesday, Sunday (بدھ، اتوار)",
-    luckyStone: "Amethyst (جمشت)"
-},
-{
-    id: 663,
-    name: "Israr",
-    arabic: "إِسْرَار",
-    urdu: "اسرار",
-    gender: "male",
-    meaning: "Secrets, Mysteries",
-    meaning_urdu: "اسرار، راز، بھید، مخفی باتیں",
-    detailed_urdu_meaning: "راز اور بھید، جو چھپا ہو، مخفی",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning secrets.",
-    variations: ["Israr"],
-    luckyNumber: 3,
-    luckyDay: "Thursday, Monday (جمعرات، پیر)",
-    luckyStone: "Emerald (زمرد)"
-},
-{
     id: 664,
     name: "Jahanzeb",
     arabic: "جَهَانْزَيْب",
@@ -11827,78 +11705,10 @@ const islamicNamesDB = [
     luckyDay: "Friday, Tuesday (جمعہ، منگل)",
     luckyStone: "Ruby (یاقوت)"
 },
-{
-    id: 665,
-    name: "Jamshed",
-    arabic: "جَمْشِيد",
-    urdu: "جمشید",
-    gender: "male",
-    meaning: "Brilliant, Radiant, King",
-    meaning_urdu: "چمکدار، روشن، تابناک، بادشاہ، جمشید",
-    detailed_urdu_meaning: "قدیم فارسی کا مشہور بادشاہ، روشن اور تابناک",
-    origin: "Persian",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A Persian name meaning brilliant.",
-    variations: ["Jamshed"],
-    luckyNumber: 5,
-    luckyDay: "Wednesday, Saturday (بدھ، ہفتہ)",
-    luckyStone: "Sapphire (نیلم)"
-},
-{
-    id: 666,
-    name: "Javed",
-    arabic: "جَاوِيد",
-    urdu: "جاود",
-    gender: "male",
-    meaning: "Eternal, Everlasting, Immortal",
-    meaning_urdu: "ابدی، لازوال، ہمیشہ رہنے والا، دائمی",
-    detailed_urdu_meaning: "جو ہمیشہ رہے، لازوال، کبھی ختم نہ ہونے والا",
-    origin: "Persian",
-    category: "Modern",
-    quranMentioned: false,
-    description: "A Persian name meaning eternal.",
-    variations: ["Javed"],
-    luckyNumber: 7,
-    luckyDay: "Tuesday, Friday (منگل، جمعہ)",
-    luckyStone: "Turquoise (فیروزہ)"
-},
-{
-    id: 667,
-    name: "Kabeer",
-    arabic: "كَبِير",
-    urdu: "کبیر",
-    gender: "male",
-    meaning: "Great, Senior, Magnificent",
-    meaning_urdu: "بڑا، عظیم، کبیر، معزز، بزرگ، جلیل القدر",
-    detailed_urdu_meaning: "اللہ کا نام 'الکبیر' سے ماخوذ، بہت بڑا اور عظیم، جس کی شان بلند ہو",
-    origin: "Arabic",
-    category: "Asma-ul-Husna",
-    quranMentioned: true,
-    description: "One of the names of Allah (Al-Kabeer). Means 'The Great'.",
-    variations: ["Kabir"],
-    luckyNumber: 2,
-    luckyDay: "Thursday, Monday (جمعرات، پیر)",
-    luckyStone: "Topaz (پکھراج)"
-},
-{
-    id: 668,
-    name: "Kashif",
-    arabic: "كَاشِف",
-    urdu: "کاشف",
-    gender: "male",
-    meaning: "Revealer, Discoverer, Opener",
-    meaning_urdu: "کاشف، ظاہر کرنے والا، دریافت کرنے والا، کھولنے والا",
-    detailed_urdu_meaning: "جو پردہ اٹھائے، حقائق کو ظاہر کرے، روشنی ڈالنے والا",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "One who reveals or discovers.",
-    variations: ["Kashif"],
-    luckyNumber: 3,
-    luckyDay: "Wednesday, Saturday (بدھ، ہفتہ)",
-    luckyStone: "Turquoise (فیروزہ)"
-},
+
+
+
+
 {
     id: 669,
     name: "Khair",
@@ -12007,24 +11817,7 @@ const islamicNamesDB = [
     luckyDay: "Tuesday, Friday (منگل، جمعہ)",
     luckyStone: "Topaz (پکھراج)"
 },
-{
-    id: 675,
-    name: "Mansoor",
-    arabic: "مَنْصُور",
-    urdu: "منصور",
-    gender: "male",
-    meaning: "Victorious, Triumphant, Divinely aided",
-    meaning_urdu: "فتح یاب، کامیاب، اللہ کی مدد سے فاتح، منصور",
-    detailed_urdu_meaning: "اللہ کی مدد سے کامیابی حاصل کرنے والا، ہمیشہ فتح پانے والا",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "One who is granted victory. A name of success.",
-    variations: ["Mansoor"],
-    luckyNumber: 8,
-    luckyDay: "Saturday, Tuesday (ہفتہ، منگل)",
-    luckyStone: "Topaz (پکھراج)"
-},
+
 {
     id: 676,
     name: "Maqbool",
@@ -12061,139 +11854,6 @@ const islamicNamesDB = [
     luckyDay: "Thursday, Monday (جمعرات، پیر)",
     luckyStone: "Emerald (زمرد)"
 },
-{
-    id: 678,
-    name: "Mazhar",
-    arabic: "مَظْهَر",
-    urdu: "مظہر",
-    gender: "male",
-    meaning: "Manifestation, Appearance, Expression",
-    meaning_urdu: "ظہور، اظہار، مظہر، نمود، جلوہ",
-    detailed_urdu_meaning: "جس میں کسی چیز کی صفات ظاہر ہوں، اللہ کی صفات کا مظہر",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning manifestation.",
-    variations: ["Mazhar"],
-    luckyNumber: 8,
-    luckyDay: "Tuesday, Sunday (منگل، اتوار)",
-    luckyStone: "Garnet (عقیق)"
-},
-{
-    id: 679,
-    name: "Miftah",
-    arabic: "مِفْتَاح",
-    urdu: "مفتاح",
-    gender: "male",
-    meaning: "Key, Opener, Access",
-    meaning_urdu: "تالی، چابی، کھولنے والا، راستہ دکھانے والا",
-    detailed_urdu_meaning: "جو مشکلات کا حل نکالے، راستہ کھولے، کلید کی مانند",
-    origin: "Arabic",
-    category: "Quranic",
-    quranMentioned: true,
-    description: "A name meaning key. Mentioned in the Quran.",
-    variations: ["Miftah"],
-    luckyNumber: 5,
-    luckyDay: "Monday, Thursday (پیر، جمعرات)",
-    luckyStone: "Ruby (یاقوت)"
-},
-
-{
-    id: 681,
-    name: "Mubashir",
-    arabic: "مُبَشِّر",
-    urdu: "مبشر",
-    gender: "male",
-    meaning: "Bringer of good news, Evangelist",
-    meaning_urdu: "خوشخبری لانے والا، بشارت دینے والا، مبشر",
-    detailed_urdu_meaning: "جو خوشخبری سنائے، بشارت دے، دوسروں کو خوش کرنے والا",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "One who brings glad tidings.",
-    variations: ["Mubashir"],
-    luckyNumber: 2,
-    luckyDay: "Wednesday, Friday (بدھ، جمعہ)",
-    luckyStone: "Sapphire (نیلم)"
-},
-{
-    id: 682,
-    name: "Mudassir",
-    arabic: "مُدَّثِّر",
-    urdu: "مدثر",
-    gender: "male",
-    meaning: "Covered, Enwrapped, Wrapped in garments",
-    meaning_urdu: "کپڑے میں لپٹا ہوا، چادر اوڑھے ہوئے، مدثر",
-    detailed_urdu_meaning: "سورہ مدثر میں اللہ کا خطاب، جو کپڑے میں لپٹا ہوا ہو، نبی ﷺ کا لقب",
-    origin: "Arabic",
-    category: "Quranic",
-    quranMentioned: true,
-    description: "A name from Surah Al-Muddaththir. A title of Prophet Muhammad (PBUH).",
-    variations: ["Muddathir"],
-    luckyNumber: 6,
-    luckyDay: "Thursday, Sunday (جمعرات، اتوار)",
-    luckyStone: "Turquoise (فیروزہ)"
-},
-{
-    id: 683,
-    name: "Mufaddal",
-    arabic: "مُفَضَّل",
-    urdu: "مفضل",
-    gender: "male",
-    meaning: "Preferred, Favored, Excellent",
-    meaning_urdu: "مفضل، برتر، پسندیدہ، منتخب، بہترین",
-    detailed_urdu_meaning: "جو دوسروں پر فضیلت رکھتا ہو، منتخب اور پسندیدہ، بہترین",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning preferred.",
-    variations: ["Mufaddal"],
-    luckyNumber: 4,
-    luckyDay: "Tuesday, Saturday (منگل، ہفتہ)",
-    luckyStone: "Amethyst (جمشت)"
-},
-
-{
-    id: 685,
-    name: "Mumtaz",
-    arabic: "مُمْتَاز",
-    urdu: "ممتاز",
-    gender: "male",
-    meaning: "Distinguished, Excellent, Outstanding",
-    meaning_urdu: "ممتاز، ممتاز، عمدہ، بہترین، نمایاں",
-    detailed_urdu_meaning: "جو دوسروں سے ممتاز ہو، عمدہ اور بہترین، جس کی خصوصیت ہو",
-    origin: "Arabic",
-    category: "Modern",
-    quranMentioned: false,
-    description: "A name meaning distinguished.",
-    variations: ["Mumtaz"],
-    luckyNumber: 8,
-    luckyDay: "Friday, Tuesday (جمعہ، منگل)",
-    luckyStone: "Garnet (عقیق)"
-},
-{
-    id: 686,
-    name: "Munawar",
-    arabic: "مُنَوَّر",
-    urdu: "منور",
-    gender: "male",
-    meaning: "Illuminated, Enlightened, Bright",
-    meaning_urdu: "روشن، منور، چمکدار، نورانی",
-    detailed_urdu_meaning: "نور سے بھرا ہوا، روشن، جس کے چہرے پر نور ہو",
-    origin: "Arabic",
-    category: "Traditional",
-    quranMentioned: false,
-    description: "A name meaning illuminated.",
-    variations: ["Munawar"],
-    luckyNumber: 9,
-    luckyDay: "Saturday, Tuesday (ہفتہ، منگل)",
-    luckyStone: "Sapphire (نیلم)"
-},
-
-
-
-
-
 
 
 {
