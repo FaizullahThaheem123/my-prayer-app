@@ -14,10 +14,64 @@
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* ==========================================
+   DISABLE ALL FOCUS / TAP COLORS EVERYWHERE
+   ========================================== */
+a,
+button,
+input,
+select,
+textarea,
+[role="button"],
+[onclick] {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    -webkit-touch-callout: none !important;
+    outline: none !important;
+    outline-color: transparent !important;
+    -webkit-focus-ring-color: transparent !important;
+}
+
+a:focus,
+a:active,
+a:visited,
+button:focus,
+button:active,
+input:focus,
+select:focus,
+[role="button"]:focus,
+[role="button"]:active,
+[onclick]:focus,
+[onclick]:active {
+    outline: none !important;
+    outline-color: transparent !important;
+    -webkit-focus-ring-color: transparent !important;
+    box-shadow: none !important;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Keep custom inputs selectable */
+input,
+textarea {
+    user-select: text !important;
+    -webkit-user-select: text !important;
 }
 
 html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -27,6 +81,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     padding-bottom: 75px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .app {
@@ -568,7 +623,9 @@ body {
     text-decoration: none;
     font-size: 10px;
     color: var(--text);
-    transition: 0.3s;
+    transition: color 0.3s ease;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
 }
 
 .bottom-nav i,
@@ -585,6 +642,18 @@ body {
 .bottom-nav a:hover,
 .more-nav-btn:hover {
     color: var(--primary);
+    background: transparent;
+}
+
+.bottom-nav a:focus,
+.bottom-nav a:active,
+.bottom-nav a:visited,
+.more-nav-btn:focus,
+.more-nav-btn:active {
+    background: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 .more-nav {
@@ -595,9 +664,11 @@ body {
 
 .more-nav-btn {
     border: none;
-    background: transparent;
+    background: transparent !important;
     cursor: pointer;
     font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .more-nav-btn.active {
@@ -674,12 +745,23 @@ body {
     font-size: 11px;
     cursor: pointer;
     transition: 0.2s;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
 }
 
 .more-menu-grid a:hover,
 .more-menu-grid button:hover {
     background: rgba(212, 175, 55, 0.2);
     border-color: var(--primary);
+}
+
+.more-menu-grid a:focus,
+.more-menu-grid a:active,
+.more-menu-grid button:focus,
+.more-menu-grid button:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 .more-menu-grid a i,
@@ -689,7 +771,7 @@ body {
 }
 
 /* ==========================================================
-   MODALS (Theme Compatible — all colors from theme variables)
+   MODALS
 ========================================================== */
 .modal {
     position: fixed;
@@ -763,6 +845,8 @@ body {
     font-size: 15px;
     font-weight: 600;
     transition: all 0.25s ease;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
 }
 
 .save-btn {
@@ -824,9 +908,7 @@ body {
     }
 }
 
-/* ============================================= */
 /* DAILY AYAH WIDGET */
-/* ============================================= */
 .ayah-card {
     width: calc(100% - 20px);
     margin: 4px 10px;
@@ -877,9 +959,7 @@ body {
     line-height: 1.4;
 }
 
-/* ============================================= */
 /* HADITH CARD */
-/* ============================================= */
 .hadith-card {
     width: calc(100% - 20px);
     margin: 4px 10px;
