@@ -8,6 +8,8 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
+    -webkit-tap-highlight-color: transparent;   /* ← نئی لائن */
+    -webkit-touch-callout: none;
 }
 
 html{
@@ -49,7 +51,7 @@ body{
     background-attachment: fixed;
     color: var(--text);
     min-height:100vh;
-    overflow-x: hidden; /* ← نیا: افقی اسکرول روکنے کے لیے */
+    overflow-x: hidden;
 }
 
 /* ======================================
@@ -83,7 +85,7 @@ body{
     min-height:100vh;
     margin:0 auto;
     position:relative;
-    overflow-x:hidden; /* ← نیا */
+    overflow-x:hidden;
     padding: 0 12px;
 }
 
@@ -139,14 +141,14 @@ body{
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     padding-bottom: 20px;
-    width: 100%; /* ← یقینی بنائیں */
+    width: 100%;
 }
 
 .theme-pick{
     cursor: pointer;
     text-align: center;
     transition: transform 0.25s ease;
-    min-width: 0; /* ← اہم: گرڈ کو سکڑنے دے */
+    min-width: 0;
 }
 .theme-pick:hover{
     transform: translateY(-4px);
@@ -158,8 +160,8 @@ body{
 
 .theme-pick-mock{
     width: 100%;
-    height: auto; /* اونچائی خودکار */
-    aspect-ratio: 1 / 0.9; /* چوڑائی کے تناسب سے اونچائی (تھوڑی کم) */
+    height: auto;
+    aspect-ratio: 1 / 0.9;
     max-width: 100%;
     border-radius: 12px;
     overflow: hidden;
