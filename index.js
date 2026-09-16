@@ -80,14 +80,15 @@ async function initNativeNotifications() {
         }
 
         try {
-            await LocalNotifications.createChannel({
-                id: "azan_channel",
-                name: "Prayer Alarms",
-                description: "Prayer time alarms and notifications",
-                importance: 5,
-                visibility: 1,
-                vibration: true
-            });
+           await LocalNotifications.createChannel({
+    id: "azan_channel",
+    name: "Prayer Alarms",
+    description: "Prayer time alarms and notifications",
+    sound: "azan.mp3",
+    importance: 5,
+    visibility: 1,
+    vibration: true
+});
         } catch (channelError) {
             console.log("Channel already exists or channel error:", channelError);
         }
