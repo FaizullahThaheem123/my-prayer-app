@@ -53,7 +53,7 @@ body {
 .calendar-header-title {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .calendar-header-title h1 {
@@ -175,7 +175,7 @@ body {
 .date-info-block {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
 .date-label {
@@ -215,7 +215,7 @@ body {
 .week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 8px;
     margin-bottom: 6px;
 }
 
@@ -230,7 +230,7 @@ body {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 8px;
 }
 
 .calendar-day {
@@ -371,7 +371,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 8px;
     text-decoration: none;
     font-size: 10px;
     color: var(--text);
@@ -457,7 +457,7 @@ body {
 .more-menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px;
 }
 
 .more-menu-grid a,
@@ -466,7 +466,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
     padding: 12px 8px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;

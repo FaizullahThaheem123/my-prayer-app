@@ -1,7 +1,9 @@
 /* ==========================================================================
    القرآن الكريم — QURAN STYLESHEET
-   ✅ FIXED: Header now matches other cards (same width, margin, radius)
+   ✅ FIXED: Header matches other cards
    ✅ FIXED: More menu appears above audio player
+   ✅ FIXED: More menu items in card shape
+   ✅ FIXED: Back & Search nav buttons color/style
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
@@ -50,25 +52,24 @@ body {
 }
 
 /* ============================================================
-   HEADER — ✅ FIXED
-   Ab baaki cards jaisa: same side margin, rounded corners, border
+   HEADER
    ============================================================ */
 .app-header {
-    min-height: 68px;
-    position: sticky;
-    top: 8px;
-    z-index: 40;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 16px;
-    margin: 8px 16px 12px;
-    background: var(--card);
-    border-bottom: 2px solid var(--primary);
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    box-sizing: border-box;
+  min-height: 68px;
+  position: sticky;
+  top: 8px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  margin: 8px 16px 12px;
+  background: var(--card);
+  border-bottom: 2px solid var(--primary);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
 }
 
 .header-left { display: flex; align-items: center; gap: 8px; }
@@ -383,21 +384,25 @@ input:checked+.slider:before { transform: translateX(20px); }
 .btn-ctrl-close:hover { color: var(--text); }
 
 /* ==========================================================
-   BOTTOM NAV
+   BOTTOM NAV — ✅ FIXED (Back & Search buttons styled)
 ========================================================== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 968px;
   background: var(--card);
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--primary);
+  border-radius: 24px 24px 0 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 4px 0;
+  padding: 6px 4px;
   z-index: 1000;
-  height: 68px;
+  height: 58px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
 }
 
 .bottom-nav > a,
@@ -410,34 +415,42 @@ input:checked+.slider:before { transform: translateX(20px); }
   justify-content: center;
 }
 
-.nav-item,
+/* ✅ .nav-item included — ab Back aur Search buttons bhi styled honge */
+.bottom-nav a,
+.bottom-nav .nav-item,
 .more-nav-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 3px;
   text-decoration: none;
   font-size: 10px;
-  color: var(--text-muted);
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
   transition: color 0.2s ease;
   padding: 4px 0;
   width: 100%;
-  background: transparent;
-  border: none;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-item i,
+.bottom-nav i,
+.bottom-nav .nav-item i,
 .more-nav-btn i {
   font-size: 20px;
   flex-shrink: 0;
+  color: inherit;
 }
 
-.nav-item span,
+.bottom-nav span,
+.bottom-nav .nav-item span,
 .more-nav-btn span {
   font-size: 9px;
   display: block;
@@ -446,16 +459,115 @@ input:checked+.slider:before { transform: translateX(20px); }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: inherit;
 }
 
-.nav-item:hover,
+.bottom-nav a:hover,
+.bottom-nav .nav-item:hover,
 .more-nav-btn:hover {
   color: var(--primary);
 }
 
+.more-nav {
+  position: relative;
+}
+
+.more-nav-btn.active {
+  color: var(--primary);
+}
+
 /* ==========================================================
-   MORE SHEET
+   MORE MENU — ✅ Card shape like other pages
 ========================================================== */
+#moreMenu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-top: 2px solid var(--primary);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  z-index: 10001;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+}
+
+#moreMenu.show {
+  transform: translateY(0);
+  display: block;
+}
+
+.more-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.more-menu-header span {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.more-menu-header button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.more-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.more-menu-grid a,
+.more-menu-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.more-menu-grid a:hover,
+.more-menu-grid button:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--primary);
+}
+
+.more-menu-grid a i,
+.more-menu-grid button i {
+  font-size: 22px;
+  color: var(--primary);
+}
+
+/* ============================================================
+   MORE SHEET (standalone)
+   ============================================================ */
 .more-sheet {
   position: fixed;
   bottom: 0;
@@ -514,95 +626,6 @@ input:checked+.slider:before { transform: translateX(20px); }
 
 .sheet-close:hover {
   background: var(--primary-light);
-  color: var(--primary);
-}
-
-/* ==========================================================
-   MORE MENU (Bottom Sheet)
-========================================================== */
-#moreMenu {
-  position: fixed;
-  bottom: 68px;
-  left: 0;
-  right: 0;
-  background: var(--card);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
-  padding: 10px 16px 20px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  z-index: 10001;
-  max-height: 80vh;
-  overflow-y: auto;
-  display: none;
-}
-
-#moreMenu.show {
-  transform: translateY(0);
-  display: block;
-}
-
-.more-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.more-menu-header span {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--primary);
-}
-
-.more-menu-header button {
-  background: var(--card-subtle);
-  border: none;
-  color: var(--text-muted);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.more-menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.more-menu-grid a,
-.more-menu-grid button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 8px;
-  background: var(--card-subtle);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.more-menu-grid a:hover,
-.more-menu-grid button:hover {
-  background: var(--primary-light);
-  border-color: var(--primary);
-}
-
-.more-menu-grid a i,
-.more-menu-grid button i {
-  font-size: 20px;
   color: var(--primary);
 }
 
