@@ -5,31 +5,77 @@ let currentPrayer = "";
 const date = document.getElementById("date");
 const islamicDate = document.getElementById("islamic-date");
 const locationName = document.getElementById("locationName");
+const locationNameText = document.getElementById("locationNameText");
 const countdown = document.getElementById("countdown");
 const liveTimeDisplay = document.getElementById("liveTimeDisplay");
+
+// ✅ Location Refresh Button element
+const locRefreshBtn = document.getElementById("locationRefreshBtn");
+
+// Helper: safely update location text (span ke andar)
+function setLocationText(text) {
+    if (locationNameText) {
+        locationNameText.innerHTML = text;
+    } else if (locationName) {
+        locationName.innerHTML = text;
+    }
+}
+
+function getLocationText() {
+    if (locationNameText) {
+        return locationNameText.innerText.trim();
+    }
+    if (locationName) {
+        return locationName.innerText.replace('📍 ', '').trim();
+    }
+    return '';
+}
 
 // ======================================
 // CAPACITOR NATIVE NOTIFICATIONS
 // ======================================
+
 let LocalNotifications = null;
 let nativeNotificationsReady = false;
 
-const PRAYER_ID_MAP = { Fajr: 1001, Dhuhr: 1002, Asr: 1003, Maghrib: 1004, Isha: 1005 };
+const PRAYER_ID_MAP = {
+    Fajr: 1001,
+    Dhuhr: 1002,
+    Asr: 1003,
+    Maghrib: 1004,
+    Isha: 1005
+};
 
 async function initNativeNotifications() {
     try {
-        if (typeof window.Capacitor === "undefined" || !window.Capacitor.isNativePlatform) {
-            console.log("🌐 Browser mode — native notifications unavailable");
+        if (
+            typeof window.Capacitor === "undefined" ||
+            !window.Capacitor.isNativePlatform ||
+            !window.Capacitor.isNativePlatform()
+        ) {
+            console.log("🌐 Browser mode");
             return false;
         }
 
-        const module = await import('@capacitor/local-notifications');
-        LocalNotifications = module.LocalNotifications;
+        if (
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.LocalNotifications
+        ) {
+            console.error("❌ LocalNotifications plugin not found");
+            return false;
+        }
 
-        const perm = await LocalNotifications.requestPermissions();
-        if (perm.display !== "granted") {
+        LocalNotifications = window.Capacitor.Plugins.LocalNotifications;
+
+        let permission = await LocalNotifications.checkPermissions();
+
+        if (permission.display !== "granted") {
+            permission = await LocalNotifications.requestPermissions();
+        }
+
+        if (permission.display !== "granted") {
             console.log("❌ Notification permission denied");
-            showToast("🔔 Notification permission required for alarms");
+            nativeNotificationsReady = false;
             return false;
         }
 
@@ -37,65 +83,134 @@ async function initNativeNotifications() {
             await LocalNotifications.createChannel({
                 id: "azan_channel",
                 name: "Prayer Alarms",
-                description: "Azan and prayer time notifications",
+                description: "Prayer time alarms and notifications",
                 importance: 5,
                 visibility: 1,
-                vibration: true,
-                lights: true,
-                lightColor: "#d4af37",
-                sound: "azan.mp3"
+                vibration: true
             });
-        } catch(e) { /* Channel already exists */ }
+        } catch (channelError) {
+            console.log("Channel already exists or channel error:", channelError);
+        }
 
         nativeNotificationsReady = true;
+
         console.log("✅ Native notifications ready");
+
         return true;
-    } catch (e) {
-        console.log("Native notifications not available:", e.message);
+
+    } catch (error) {
+        console.error("❌ Native notification initialization error:", error);
+        nativeNotificationsReady = false;
         return false;
     }
 }
+
+
+// ======================================
+// SCHEDULE PRAYER ALARM
+// ======================================
 
 async function scheduleNativeAlarm(prayer, hour, minute) {
-    if (!nativeNotificationsReady || !LocalNotifications) return false;
+
+    if (!nativeNotificationsReady || !LocalNotifications) {
+        console.log("❌ Native notifications not ready");
+        return false;
+    }
 
     const id = PRAYER_ID_MAP[prayer];
-    if (!id) return false;
+
+    if (!id) {
+        console.log("❌ Invalid prayer:", prayer);
+        return false;
+    }
 
     try {
-        await LocalNotifications.cancel({ notifications: [{ id }] });
+
+        try {
+            await LocalNotifications.cancel({
+                notifications: [
+                    {
+                        id: id
+                    }
+                ]
+            });
+        } catch (cancelError) {
+            console.log("Old alarm cancel skipped");
+        }
+
         await LocalNotifications.schedule({
-            notifications: [{
-                id: id,
-                title: `🕌 ${prayer} نماز کا وقت`,
-                body: "اذان ہو رہی ہے! نماز پڑھیں۔",
-                schedule: {
-                    on: { hour: hour, minute: minute },
-                    allowWhileIdle: true,
-                    repeats: true
-                },
-                sound: "azan.mp3",
-                channelId: "azan_channel",
-                smallIcon: "ic_stat_icon",
-                autoCancel: true,
-                ongoing: false
-            }]
+            notifications: [
+                {
+                    id: id,
+                    title: `🕌 ${prayer} نماز کا وقت`,
+                    body: "اذان ہو رہی ہے! نماز پڑھیں۔",
+                    channelId: "azan_channel",
+                    schedule: {
+                        on: {
+                            hour: hour,
+                            minute: minute
+                        },
+                        allowWhileIdle: true
+                    },
+                    autoCancel: true,
+                    ongoing: false
+                }
+            ]
         });
-        console.log(`✅ Alarm scheduled: ${prayer} at ${hour}:${minute}`);
+
+        console.log(
+            `✅ ${prayer} alarm scheduled at ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`
+        );
+
         return true;
-    } catch (e) {
-        console.error("Schedule error:", e);
+
+    } catch (error) {
+
+        console.error(
+            `❌ ${prayer} alarm schedule error:`,
+            error
+        );
+
         return false;
     }
 }
 
+
+// ======================================
+// CANCEL PRAYER ALARM
+// ======================================
+
 async function cancelNativeAlarm(prayer) {
-    if (!nativeNotificationsReady || !LocalNotifications) return;
+
+    if (!LocalNotifications) {
+        return;
+    }
+
     const id = PRAYER_ID_MAP[prayer];
+
+    if (!id) {
+        return;
+    }
+
     try {
-        await LocalNotifications.cancel({ notifications: [{ id }] });
+
+        await LocalNotifications.cancel({
+            notifications: [
+                {
+                    id: id
+                }
+            ]
+        });
+
         console.log(`🔕 Alarm cancelled: ${prayer}`);
-    } catch(e) {}
+
+    } catch (error) {
+
+        console.log(
+            `Cancel alarm error for ${prayer}:`,
+            error
+        );
+    }
 }
 
 // ======================================
@@ -221,7 +336,7 @@ function checkAlarms() {
 // WEATHER SYSTEM
 // ======================================
 function fetchWeatherByCoords(lat, lon) {
-    const cityName = locationName.innerText.replace('📍 ', '');
+    const cityName = getLocationText().replace('📍 ', '').trim();
     document.getElementById('weatherCity').innerText = cityName || 'Loading...';
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`)
         .then(res => res.json())
@@ -299,7 +414,7 @@ function loadCachedData() {
     let hasData = false;
     const savedName = localStorage.getItem("userLocationName");
     if (savedName) {
-        locationName.innerHTML = "📍 " + savedName;
+        setLocationText("📍 " + savedName);
         hasData = true;
     }
     const cached = localStorage.getItem("cachedPrayerTimes");
@@ -341,7 +456,7 @@ function detectLocation() {
 function requestFreshGPS(silent) {
     if (!navigator.geolocation) {
         if (!silent) {
-            locationName.innerHTML = "📍 Adilpur, Ghotki";
+            setLocationText("📍 Adilpur, Ghotki");
             getPrayerTimes(28.0065, 69.3167, false);
         }
         return;
@@ -358,16 +473,37 @@ function requestFreshGPS(silent) {
                 const savedLat = localStorage.getItem("userLatitude");
                 const savedLon = localStorage.getItem("userLongitude");
                 if (savedLat && savedLon) {
-                    locationName.innerHTML = "📍 " + (savedName || "Saved Location");
+                    setLocationText("📍 " + (savedName || "Saved Location"));
                     getPrayerTimes(parseFloat(savedLat), parseFloat(savedLon), true);
                 } else {
-                    locationName.innerHTML = "📍 Adilpur, Ghotki";
+                    setLocationText("📍 Adilpur, Ghotki");
                     getPrayerTimes(28.0065, 69.3167, false);
                 }
             }
         },
         { enableHighAccuracy: false, maximumAge: 600000, timeout: 8000 }
     );
+}
+
+// ======================================
+// ✅ LOCATION REFRESH HANDLER
+// ======================================
+function refreshLocation() {
+    if (!locRefreshBtn) return;
+
+    // Spinning animation start
+    locRefreshBtn.classList.add("spinning");
+
+    // Toast
+    showToast("📍 Refreshing location...");
+
+    // Fresh GPS request
+    requestFreshGPS(false);
+
+    // Animation stop after 2.5 seconds
+    setTimeout(() => {
+        locRefreshBtn.classList.remove("spinning");
+    }, 2500);
 }
 
 // ======================================
@@ -431,6 +567,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    // ✅ Location Refresh Button listener
+    if (locRefreshBtn) {
+        locRefreshBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            refreshLocation();
+        });
+    }
+
     initAutoTheme();
     fetchDailyAyah();
     document.getElementById('refreshAyahBtn').addEventListener('click', fetchDailyAyah);
@@ -480,15 +624,15 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
                 const locData = await locRes.json();
                 const address = locData.address || {};
                 const name = address.village || address.town || address.city || address.municipality || address.county || savedName || "Adilpur, Ghotki";
-                locationName.innerHTML = "📍 " + name;
+                setLocationText("📍 " + name);
                 localStorage.setItem("userLocationName", name);
             } catch (error) {
                 const fallbackName = savedName || "Adilpur, Ghotki";
-                locationName.innerHTML = "📍 " + fallbackName;
+                setLocationText("📍 " + fallbackName);
                 localStorage.setItem("userLocationName", fallbackName);
             }
         } else {
-            locationName.innerHTML = "📍 " + savedName;
+            setLocationText("📍 " + savedName);
         }
 
         if (result.data.timings && result.data.timings.Maghrib) {
@@ -504,7 +648,6 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
             localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
             updateJamaatUI();
 
-            // 🔥 اگر Maghrib کا alarm on ہے تو نیا time schedule کریں
             if (alarms["Maghrib"] === true && nativeNotificationsReady) {
                 await scheduleNativeAlarm("Maghrib", hours, minutes);
             }
@@ -638,7 +781,6 @@ async function saveJamaatTime() {
     updateJamaatUI();
     closeJamaatModal();
 
-    // 🔥 اگر alarm on ہے تو نیا time schedule کریں
     if (alarms[selectedPrayer] === true && nativeNotificationsReady) {
         const parts = time.split(":");
         await scheduleNativeAlarm(selectedPrayer, parseInt(parts[0]), parseInt(parts[1]));
@@ -845,3 +987,4 @@ window.toggleAlarm = toggleAlarm;
 window.saveJamaatTime = saveJamaatTime;
 window.closeJamaatModal = closeJamaatModal;
 window.closeNotificationModal = closeNotificationModal;
+window.refreshLocation = refreshLocation;

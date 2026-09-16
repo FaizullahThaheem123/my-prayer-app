@@ -22,15 +22,22 @@ body{
 /* ======================================
    HEADER - GLASS CARD
 ======================================= */
-.tasbeeh-header{
-    display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; padding:14px 18px;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius:20px;
-    border:1px solid rgba(212,175,55,0.2);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+.tasbeeh-header {
+    width: 100%;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    margin: 8px 0 12px;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
+
 .header-title{ flex:1; text-align:left; min-width:0; }
 .header-title h1{
     font-size:20px; font-weight:700; color:var(--primary);
@@ -85,7 +92,7 @@ body{
 /* ======================================
    TARGET BUTTONS - 3D METALLIC
 ======================================= */
-.target-section{ display:flex; justify-content:center; gap:16px; margin-bottom:14px; }
+.target-section{ display:flex; justify-content:center; gap:60px; margin-bottom:14px; }
 .target-btn{
     width:72px; height:72px; border:none; border-radius:50%;
     background: rgba(255,255,255,0.04);
@@ -124,7 +131,7 @@ body{
    INFO CARDS - GLASS
 ======================================= */
 .info-section{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px;
 }
 .info-card{
     background: rgba(255,255,255,0.04);
@@ -201,7 +208,7 @@ body{
    STATS CARD - GLASS
 ======================================= */
 .combined-stats{
-    display:flex; flex-direction:column; gap:4px;
+    display:flex; flex-direction:column; gap:8px;
     background: rgba(255,255,255,0.04);
     backdrop-filter: blur(8px);
     border:1px solid rgba(212,175,55,0.08);
@@ -224,7 +231,7 @@ body{
 /* ======================================
    ACTION BUTTONS
 ======================================= */
-.action-section{ display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+.action-section{ display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
 
 /* ===== COUNT BUTTON - NO GLOW SHADOW ===== */
 .count-btn{
@@ -247,7 +254,7 @@ body{
 }
 
 /* ===== RESET BUTTONS - NO GLOW SHADOW ===== */
-.reset-container{ display:flex; gap:10px; width:100%; }
+.reset-container{ display:flex; gap:8px; width:100%; }
 .reset-btn{
     flex:1; height:54px; border:none; border-radius:27px;
     background: rgba(255,255,255,0.05);
@@ -298,7 +305,7 @@ body{
 }
 .bottom-nav > a, .more-nav { flex: 1; min-width:0; }
 .bottom-nav a, .more-nav-btn {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap:3px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap:8px;
     text-decoration: none; font-size:10px; color:var(--text-muted);
     transition:all 0.3s ease;
 }
@@ -364,7 +371,7 @@ body{
     transform:rotate(90deg);
 }
 .more-menu-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
 }
 .more-menu-grid a, .more-menu-grid button{
     display:flex; flex-direction:column; align-items:center; justify-content:center;

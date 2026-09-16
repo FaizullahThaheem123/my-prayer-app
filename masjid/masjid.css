@@ -40,18 +40,20 @@ body{
    HEADER
 ====================================== */
 
-.masjid-header{
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 5px 12px;
-    background:var(--card);
-    backdrop-filter:blur(10px);
-    border-bottom:2px solid var(--primary);
-    border-radius:16px 16px 24px 24px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.8);
-    margin-bottom:12px;
+.masjid-header {
+    width: 100%;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    margin: 8px 0 12px;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
 
 .header-left h1{
@@ -94,7 +96,7 @@ body{
     margin-bottom:12px;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
     box-shadow:
         0 8px 32px rgba(0,0,0,0.6),
         inset 0 1px 0 rgba(255,255,255,0.05);
@@ -116,7 +118,7 @@ body{
 
 .action-buttons{
     display:flex;
-    gap:10px;
+    gap:8px;
     margin-bottom:12px;
 }
 
@@ -234,7 +236,7 @@ body{
 .mosque-list{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:8px;
 }
 
 .mosque-card{
@@ -248,7 +250,7 @@ body{
         inset 0 1px 0 rgba(255,255,255,0.05);
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
     cursor:pointer;
     transition:0.2s;
 }
@@ -296,7 +298,7 @@ body{
 
 .mosque-card .actions{
     display:flex;
-    gap:4px;
+    gap:8px;
     flex-shrink:0;
 }
 
@@ -734,7 +736,7 @@ body{
 .detail-jamaat-grid{
     display:grid;
     grid-template-columns:repeat(5,1fr);
-    gap:5px;
+    gap:8px;
 }
 
 .detail-jamaat-grid > div{
@@ -854,7 +856,7 @@ body{
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
+    gap: 8px !important;
     text-decoration: none !important;
     font-size: 10px !important;
     color: var(--text) !important;
@@ -950,7 +952,7 @@ body{
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 8px !important;
     padding: 12px 8px !important;
     background: rgba(255,255,255,0.05) !important;
     border-radius: 12px !important;
@@ -994,7 +996,7 @@ body{
     }
 
     .jamaat-preview{
-        gap:3px;
+        gap:8px;
     }
 
     .jamaat-preview span{
@@ -1003,7 +1005,7 @@ body{
     }
 
     .detail-jamaat-grid{
-        gap:3px;
+        gap:8px;
     }
 
     .detail-jamaat-grid strong{
@@ -1011,11 +1013,11 @@ body{
     }
 
     .jamaat-grid{
-        gap:6px;
+        gap:8px;
     }
 
     .jamaat-field{
-        padding:6px;
+        padding:8px;
     }
 
     .jamaat-field input[type="time"]{

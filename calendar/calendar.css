@@ -36,15 +36,18 @@ body {
 ====================================== */
 .calendar-header {
     width: 100%;
-    min-height: 82px;
-    padding: 12px 16px;
-    background: var(--card);
-    border-radius: 20px;
+    min-height: 68px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    margin: 0 0 12px;
+    background: var(--card);
     border-bottom: 2px solid var(--primary);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
 
 .calendar-header-title {
@@ -533,7 +536,7 @@ body {
 .events-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 .event-item {
     background: rgba(255, 255, 255, 0.03);

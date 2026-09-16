@@ -3,7 +3,7 @@
    HOME LIVE LOCATION + FIREBASE + OSM
    GPS LOCATION SYNC + JAMAAT TIMES
    LIVE MAGHRIB AZAN + 3 MINUTES JAMAAT
-   (Only More Menu changed to Quran Style)
+   ✅ FIXED: CARTO tiles (no more "Access Blocked")
 ====================================== */
 
 "use strict";
@@ -59,15 +59,6 @@ const auth =
    CONSTANTS
 ====================================== */
 
-/*
-   IMPORTANT:
-
-   These are ONLY FALLBACK coordinates.
-
-   Normal operation uses the exact
-   latitude/longitude saved by HOME PAGE.
-*/
-
 const DEFAULT_LAT = 28.0065;
 
 const DEFAULT_LNG = 69.3167;
@@ -76,21 +67,8 @@ const DEFAULT_LOCATION =
     "Adilpur, Ghotki";
 
 
-/*
-   Search radius:
-
-   10 KM
-*/
-
 const SEARCH_RADIUS = 10000;
 
-
-/*
-   Duplicate distance:
-
-   Two mosques closer than 500m
-   are treated as duplicate.
-*/
 
 const DUPLICATE_DISTANCE = 500;
 
@@ -229,7 +207,6 @@ const searchCityBtn =
         "searchCityBtn"
     );
 
-// New elements for Quran-style More
 const closeMoreMenuBtn =
     document.getElementById(
         "closeMoreMenuBtn"
@@ -435,7 +412,6 @@ async function initAuth() {
 
 /* ======================================
    HOME LOCATION
-   GET SAME LOCATION AS INDEX PAGE
 ====================================== */
 
 function getHomeLocation() {
@@ -507,11 +483,6 @@ function getHomeLocation() {
 
 async function waitForHomeLocation() {
 
-    /*
-       First attempt:
-       Read immediately.
-    */
-
     if (
         getHomeLocation()
     ) {
@@ -520,11 +491,6 @@ async function waitForHomeLocation() {
 
     }
 
-
-    /*
-       Home page may still be saving GPS.
-       Wait a few seconds.
-    */
 
     for (
         let i = 0;
@@ -554,11 +520,6 @@ async function waitForHomeLocation() {
 
     }
 
-
-    /*
-       If Home location is unavailable,
-       use fallback only.
-    */
 
     currentLat =
         DEFAULT_LAT;
@@ -763,18 +724,6 @@ function refreshVisibleMosques() {
 
 /* ======================================
    REMOVE TRUE DUPLICATES ONLY
-   ======================================
-
-   IMPORTANT:
-
-   Masjids ko distance ke basis par
-   duplicate NAHI maana jayega.
-
-   100m, 200m, 300m, 500m ke andar
-   alag masjid ho to SAB dikhengi.
-
-   Sirf same database ID / same OSM ID
-   dobara aaye to duplicate remove hoga.
 ====================================== */
 
 function removeDuplicateMosques(list) {
@@ -792,28 +741,10 @@ function removeDuplicateMosques(list) {
             return;
         }
 
-        /*
-           Firebase mosque
-           ID example:
-           - -Oxxxxxxx
-
-           OpenStreetMap mosque
-           ID example:
-           - node_123456
-           - way_123456
-           - relation_123456
-        */
-
         const uniqueId =
             mosque.isUser === true
                 ? "firebase_" + String(mosque.id || "")
                 : "osm_" + String(mosque.osmId || "");
-
-        /*
-           Agar proper ID available hai
-           aur same ID pehle aa chuki hai
-           to sirf usko skip karo.
-        */
 
         if (
             uniqueId !== "firebase_" &&
@@ -827,21 +758,6 @@ function removeDuplicateMosques(list) {
             seenIds.add(uniqueId);
 
         }
-
-        /*
-           IMPORTANT:
-
-           Yahan koi distance check nahi hai.
-
-           Isliye:
-
-           Masjid 1 = 100m
-           Masjid 2 = 200m
-           Masjid 3 = 300m
-           Masjid 4 = 450m
-
-           SAB show hongi.
-        */
 
         result.push(mosque);
 
@@ -1375,10 +1291,6 @@ function renderMosques(
         html;
 
 
-    /* ==================================
-       CARD CLICK
-    ================================== */
-
     document
         .querySelectorAll(
             ".mosque-card"
@@ -1416,10 +1328,6 @@ function renderMosques(
             }
         );
 
-
-    /* ==================================
-       DETAIL BUTTON
-    ================================== */
 
     document
         .querySelectorAll(
@@ -1492,10 +1400,6 @@ function renderMosques(
             }
         );
 
-
-    /* ==================================
-       EDIT
-    ================================== */
 
     document
         .querySelectorAll(
@@ -1625,10 +1529,6 @@ function renderMosques(
             }
         );
 
-
-    /* ==================================
-       DELETE
-    ================================== */
 
     document
         .querySelectorAll(
@@ -2066,16 +1966,6 @@ async function saveMosqueToRTDB(
     jamaatTimes
 ) {
 
-    /*
-       NEW MOSQUE:
-
-       Always use HOME LIVE LOCATION.
-
-       EDIT:
-
-       Keep original mosque coordinates.
-    */
-
     const saveLat =
         editingId !== null &&
         editingLat !== null
@@ -2423,7 +2313,6 @@ function getDistance(
 
 /* ======================================
    REQUEST LOCATION
-   USE HOME LOCATION ONLY
 ====================================== */
 
 async function requestLocation() {
@@ -2435,16 +2324,6 @@ async function requestLocation() {
 
     }
 
-
-    /*
-       IMPORTANT:
-
-       DO NOT call navigator.geolocation
-       here.
-
-       Home page already detected the GPS.
-       Masjid page uses the same saved GPS.
-    */
 
     const gotHomeLocation =
         await waitForHomeLocation();
@@ -2490,13 +2369,6 @@ function onReady() {
         [];
 
 
-    /*
-       Do NOT detect another location.
-
-       We already have Home location.
-    */
-
-
     initMap();
 
 
@@ -2504,12 +2376,6 @@ function onReady() {
 
 
     loadLiveMaghribAzan();
-
-
-    /*
-       If Home page later updates location,
-       refresh Masjid page automatically.
-    */
 
 }
 
@@ -2588,15 +2454,14 @@ window.addEventListener(
 
 
 /* ======================================
-   INIT MAP
+   ✅ INIT MAP — FIXED (CARTO tiles + OSM fallback)
 ====================================== */
 
 function initMap() {
 
     if (
         !mapContainer ||
-        typeof L ===
-            "undefined"
+        typeof L === "undefined"
     ) {
 
         return;
@@ -2614,9 +2479,7 @@ function initMap() {
 
 
     map =
-        L.map(
-            mapContainer
-        )
+        L.map(mapContainer)
         .setView(
             [
                 currentLat,
@@ -2626,24 +2489,99 @@ function initMap() {
         );
 
 
-    L.tileLayer(
+    /* ======================================
+       ✅ CARTO TILES (Reliable, No Blocking)
+       - Dark themes → dark tiles
+       - Light themes → light tiles
+       - Fallback to OSM if CARTO fails
+    ====================================== */
 
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    const savedTheme =
+        localStorage.getItem("appTheme") || "";
 
-        {
+    const lightThemePattern =
+        /light|minimal-void|arctic|frost|coral|amber-glow|solar|saffron|peach|cream|lavender|turquoise|peacock|lagoon|berry/i;
 
-            maxZoom:
-                19,
+    const isLight =
+        lightThemePattern.test(savedTheme);
 
-            attribution:
-                "&copy; OpenStreetMap contributors"
+    const cartoUrl = isLight
+        ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        : "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+
+
+    const cartoTiles =
+        L.tileLayer(
+            cartoUrl,
+            {
+
+                subdomains: "abcd",
+
+                maxZoom: 19,
+
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+
+            }
+        );
+
+
+    const osmTiles =
+        L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+
+                maxZoom: 19,
+
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+            }
+        );
+
+
+    cartoTiles.addTo(map);
+
+
+    /* Auto-switch to OSM if CARTO fails */
+    let tileErrors = 0;
+    let fallbackDone = false;
+
+    cartoTiles.on(
+        "tileerror",
+        function () {
+
+            tileErrors++;
+
+            if (
+                tileErrors >= 3 &&
+                !fallbackDone
+            ) {
+
+                fallbackDone = true;
+
+                console.warn(
+                    "CARTO tiles failed — switching to OSM fallback"
+                );
+
+                try {
+
+                    map.removeLayer(cartoTiles);
+
+                } catch (e) {}
+
+
+                osmTiles.addTo(map);
+
+            }
 
         }
-
-    ).addTo(
-        map
     );
 
+
+    /* ======================================
+       USER MARKER
+    ====================================== */
 
     userMarker =
         L.marker(
@@ -3612,10 +3550,6 @@ function loadLiveMaghribAzan() {
 function setupListeners() {
 
 
-    /* ==================================
-       ADD MOSQUE
-    ================================== */
-
     if (addBtn) {
 
         addBtn.addEventListener(
@@ -3678,10 +3612,6 @@ function setupListeners() {
     }
 
 
-    /* ==================================
-       CLOSE ADD MODAL
-    ================================== */
-
     if (closeModalBtn) {
 
         closeModalBtn.addEventListener(
@@ -3697,10 +3627,6 @@ function setupListeners() {
 
     }
 
-
-    /* ==================================
-       CLOSE DETAIL
-    ================================== */
 
     if (closeDetailBtn) {
 
@@ -3721,10 +3647,6 @@ function setupListeners() {
 
     }
 
-
-    /* ==================================
-       MODAL BACKGROUND
-    ================================== */
 
     if (modal) {
 
@@ -3776,10 +3698,6 @@ function setupListeners() {
     }
 
 
-    /* ==================================
-       REFRESH
-    ================================== */
-
     if (refreshBtn) {
 
         refreshBtn.addEventListener(
@@ -3788,10 +3706,6 @@ function setupListeners() {
 
                 loadLiveMaghribAzan();
 
-
-                /*
-                   Re-read SAME Home location.
-                */
 
                 getHomeLocation();
 
@@ -3840,10 +3754,6 @@ function setupListeners() {
     }
 
 
-    /* ==================================
-       CITY SEARCH
-    ================================== */
-
     if (searchCityBtn) {
 
         searchCityBtn.addEventListener(
@@ -3874,10 +3784,6 @@ function setupListeners() {
 
     }
 
-
-    /* ==================================
-       SEND OTP
-    ================================== */
 
     if (sendOtpBtn) {
 
@@ -3922,13 +3828,6 @@ function setupListeners() {
                 );
 
 
-                /*
-                   NOTE:
-
-                   This is currently a demo OTP.
-                   It is NOT actually sent by SMS.
-                */
-
                 otpStatus.textContent =
                     "Code sent (" +
                     generatedOtp +
@@ -3943,10 +3842,6 @@ function setupListeners() {
 
     }
 
-
-    /* ==================================
-       VERIFY OTP
-    ================================== */
 
     if (verifyOtpBtn) {
 
@@ -4026,10 +3921,6 @@ function setupListeners() {
     }
 
 
-    /* ==================================
-       FORM SUBMIT
-    ================================== */
-
     if (form) {
 
         form.addEventListener(
@@ -4086,11 +3977,6 @@ function setupListeners() {
 
                 }
 
-
-                /*
-                   NEW MOSQUE MUST USE
-                   HOME LIVE LOCATION.
-                */
 
                 if (
                     !editingId &&
@@ -4255,10 +4141,6 @@ function setupListeners() {
     }
 
 
-    /* ==================================
-       DETAIL MAP BUTTON
-    ================================== */
-
     if (detailMapBtn) {
 
         detailMapBtn.addEventListener(
@@ -4407,7 +4289,7 @@ function setupMoreNav() {
 
     }
 
-    // Open More menu
+
     moreNavBtn.addEventListener(
         "click",
         function (e) {
@@ -4422,7 +4304,6 @@ function setupMoreNav() {
     );
 
 
-    // Close with X button
     closeMoreMenuBtn.addEventListener(
         "click",
         function (e) {
@@ -4437,7 +4318,6 @@ function setupMoreNav() {
     );
 
 
-    // Close when clicking outside
     document.addEventListener(
         "click",
         function (e) {
@@ -4458,7 +4338,6 @@ function setupMoreNav() {
     );
 
 
-    // Settings button inside more menu
     if (settingsBtn) {
 
         settingsBtn.addEventListener(
@@ -4491,36 +4370,17 @@ document.addEventListener(
     "DOMContentLoaded",
     async function () {
 
-        /*
-           Firebase
-        */
-
         initAuth();
 
 
-        /*
-           IMPORTANT:
-
-           Masjid page now waits for the
-           SAME location saved by Home.
-        */
-
         await requestLocation();
 
-
-        /*
-           Setup UI
-        */
 
         setupListeners();
 
 
         setupMoreNav();
 
-
-        /*
-           Live Maghrib
-        */
 
         loadLiveMaghribAzan();
 
@@ -4543,8 +4403,7 @@ setInterval(
 
 
 /* ======================================
-   HOME LOCATION CHECK
-   EVERY 5 SECONDS
+   HOME LOCATION CHECK EVERY 5 SECONDS
 ====================================== */
 
 setInterval(

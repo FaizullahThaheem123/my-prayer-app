@@ -1,8 +1,9 @@
 /**
  * ============================================================================
- * القرآن الكريم — HOLY QURAN COMPLETE ENGINE
- * (Bottom Nav: Home + Back + Search + More)
- * Audio Download: BY SURAH + Simple label "35% • left (40/114)"
+ * القرآن الكريم — HOLY QURAN COMPLETE ENGINE (FIXED)
+ * - Audio Download: multi-proxy + CORS fix
+ * - Qari Change: fresh Audio() + cache-buster
+ * - Full Quran text + audio offline support
  * ============================================================================
  */
 
@@ -160,15 +161,16 @@
     { number: 30, name: "عَمَّ", englishName: "Amma Yatasa'aloon", urduName: "عم یتساءلون", startSurahNumber: 78, startSurahName: "An-Naba", startAyah: 1 }
   ];
 
+  // ✅ FIXED: Correct Qari IDs (no invalid ones)
   const QARIS_LIST = [
-    { id: "ar.alafasy", name: "Mishary Rashid Alafasy", arabic: "مشاري راشد العفاسي", folder: "mishaari_raashid_al_3afaasee" },
-    { id: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais", arabic: "عبدالرحمن السديس", folder: "abdur_rahman_sudais" },
-    { id: "ar.husary", name: "Mahmoud Khalil Al-Husary", arabic: "محمود خليل الحصري", folder: "mahmood_al_hussary" },
-    { id: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", arabic: "محمد صديق المنشاوي", folder: "muhammad_siddeeq_al_minshawi" },
-    { id: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", arabic: "ماهر المعيقلي", folder: "maher_al_muaiqly" },
-    { id: "ar.abdulbasitmujawwad", name: "Abdul Basit Abdul Samad", arabic: "عبدالباسط عبدالصمد", folder: "abdul_basit_mujawwad" },
-    { id: "ar.saoodshuraym", name: "Sa'ud Ash-Shuraym", arabic: "سعود الشريم", folder: "saood_al_shuraym" },
-    { id: "ar.ahmedajamy", name: "Ahmed Al-Ajamy", arabic: "أحمد بن علي العجمي", folder: "ahmed_al_ajamy" }
+    { id: "ar.alafasy",            name: "Mishary Rashid Alafasy",     arabic: "مشاري راشد العفاسي" },
+    { id: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais",     arabic: "عبدالرحمن السديس" },
+    { id: "ar.husary",             name: "Mahmoud Khalil Al-Husary",   arabic: "محمود خليل الحصري" },
+    { id: "ar.minshawi",           name: "Mohamed Siddiq Al-Minshawi", arabic: "محمد صديق المنشاوي" },
+    { id: "ar.mahermuaiqly",       name: "Maher Al-Muaiqly",           arabic: "ماهر المعيقلي" },
+    { id: "ar.abdulbasitmurattal", name: "Abdul Basit Abdul Samad",    arabic: "عبدالباسط عبدالصمد" },
+    { id: "ar.saoodshuraym",       name: "Sa'ud Ash-Shuraym",          arabic: "سعود الشريم" },
+    { id: "ar.ahmedajamy",         name: "Ahmed Al-Ajamy",             arabic: "أحمد بن علي العجمي" }
   ];
 
   const state = {
@@ -400,25 +402,41 @@
     `).join("");
   }
 
+  // ============================================================
+  // ✅ FIXED: Play Ayah Audio — Fresh Audio() + Cache Buster
+  // ============================================================
   async function playAyahAudio(index) {
     state.currentPlayingAyahIndex = index;
     const ayah = state.ayahsData[index];
     if (!ayah) return;
     const surah = SURAHS_LIST.find(s => s.number === state.selectedSurah);
     const qari = QARIS_LIST.find(q => q.id === state.selectedQari);
-    const onlineUrl = `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3`;
+    if (!qari) return;
+
+    // 🔥 STEP 1: Purana audio aur object URL साफ़ करो
+    if (state.audioInstance) {
+      try {
+        state.audioInstance.pause();
+        state.audioInstance.removeAttribute('src');
+        state.audioInstance.load();
+      } catch (e) {}
+    }
+    if (state.currentObjectURL) {
+      try { URL.revokeObjectURL(state.currentObjectURL); } catch (e) {}
+      state.currentObjectURL = null;
+    }
+
+    // 🔥 STEP 2: Cache-buster timestamp
+    const cacheBuster = `?v=${Date.now()}`;
+    const onlineUrl = `https://cdn.islamic.network/quran/audio/128/${state.selectedQari}/${ayah.number}.mp3${cacheBuster}`;
 
     document.getElementById("player-surah-name").innerText = `${surah.englishName} - Ayah ${ayah.numberInSurah}`;
     document.getElementById("player-reciter-name").innerText = qari.name;
     document.getElementById("audio-player-bar").classList.remove("hidden");
 
-    if (state.currentObjectURL) {
-      URL.revokeObjectURL(state.currentObjectURL);
-      state.currentObjectURL = null;
-    }
-
     let playUrl = onlineUrl;
     let isSurahCache = false;
+
     try {
       let cachedBlob = await getCachedSurahAudio(state.selectedQari, surah.number);
       if (cachedBlob) {
@@ -432,8 +450,10 @@
           state.currentObjectURL = playUrl;
         }
       }
-    } catch (err) {}
+    } catch (err) { console.warn("Cache miss:", err); }
 
+    // 🔥 STEP 3: Naya Audio() banao — purani src ka asar khatam
+    state.audioInstance = new Audio();
     state.audioInstance.src = playUrl;
     state.audioInstance.playbackRate = state.playbackSpeed;
 
@@ -447,7 +467,11 @@
       };
     }
 
-    state.audioInstance.play();
+    state.audioInstance.play().catch(err => {
+      console.warn("Play error:", err);
+      showToast("Audio play nahi ho saka — internet check karein");
+    });
+
     state.isPlaying = true;
     updatePlayPauseIcon(true);
     highlightPlayingAyah(index);
@@ -600,8 +624,7 @@
   }
 
   // ============================================================
-  //  DOWNLOAD FULL AUDIO — BY SURAH
-  //  Label: "35% • left (40/114)"
+  // ✅ FIXED: Download Full Audio — Multi-proxy + Size check
   // ============================================================
   async function downloadAllQuranAudio() {
     if (state.isDownloadingAudio) return;
@@ -623,24 +646,38 @@
     const totalSurahs = SURAHS_LIST.length;
     let successful = 0, failed = 0;
 
-    const CONCURRENCY = 3;
-    const TIMEOUT_MS = 180000;
+    const CONCURRENCY = 2;      // 🔽 slow rakha — zyada requests = zyada fail
+    const TIMEOUT_MS = 120000;  // 2 min per surah
 
+    // 🔥 Multiple sources: direct → proxies
     function buildSurahUrls(surahNumber) {
       const primary128 = `https://cdn.islamic.network/quran/audio-surah/128/${qariId}/${surahNumber}.mp3`;
       const fallback64 = `https://cdn.islamic.network/quran/audio-surah/64/${qariId}/${surahNumber}.mp3`;
-      const proxy = `https://corsproxy.io/?url=${encodeURIComponent(primary128)}`;
-      return [primary128, fallback64, proxy];
+
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(primary128)}`,
+        `https://corsproxy.io/?url=${encodeURIComponent(primary128)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(primary128)}`
+      ];
+
+      return [primary128, fallback64, ...proxies];
     }
 
     async function fetchWithTimeout(url, timeout) {
       const controller = new AbortController();
       const id = setTimeout(() => controller.abort(), timeout);
       try {
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetch(url, {
+          signal: controller.signal,
+          mode: 'cors',
+          headers: { 'Accept': 'audio/mpeg,audio/*,*/*' }
+        });
         clearTimeout(id);
         if (!response.ok) throw new Error("HTTP " + response.status);
-        return await response.blob();
+        const blob = await response.blob();
+        // 🔥 Empty/chhoti file = fail
+        if (!blob || blob.size < 1000) throw new Error("Empty file");
+        return blob;
       } catch (err) {
         clearTimeout(id);
         throw err;
@@ -655,6 +692,7 @@
           return await fetchWithTimeout(urls[u], TIMEOUT_MS);
         } catch (err) {
           lastError = err;
+          console.warn(`Surah ${surahNumber} source ${u} failed:`, err.message);
         }
       }
       throw lastError || new Error("All sources failed");
@@ -685,8 +723,6 @@
         const pct = Math.round((done / totalSurahs) * 100);
 
         fill.style.width = pct + "%";
-
-        // 🔥 Simple label: "35% • left (40/114)"
         label.innerHTML =
           '<strong style="color:var(--primary);">' + pct + '%</strong> ' +
           '<span style="opacity:0.7;">•</span> ' +
@@ -802,10 +838,37 @@
       renderSurahsGrid(filtered);
     });
 
+    // 🔥 FIXED: Settings Qari change — audio reset + fresh play
     document.getElementById("select-settings-qari")?.addEventListener("change", (e) => {
       state.selectedQari = e.target.value;
       saveSettings();
-      showToast("Qari updated");
+
+      // Purana audio band karo
+      if (state.audioInstance) {
+        try {
+          state.audioInstance.pause();
+          state.audioInstance.removeAttribute('src');
+          state.audioInstance.load();
+        } catch (err) {}
+      }
+      if (state.currentObjectURL) {
+        try { URL.revokeObjectURL(state.currentObjectURL); } catch (err) {}
+        state.currentObjectURL = null;
+      }
+      state.isPlaying = false;
+      updatePlayPauseIcon(false);
+      document.getElementById("audio-player-bar")?.classList.add("hidden");
+
+      const qari = QARIS_LIST.find(q => q.id === state.selectedQari);
+      showToast("Qari: " + (qari ? qari.name : ""));
+    });
+
+    // 🔥 NEW: Download Qari change listener
+    document.getElementById("select-download-qari")?.addEventListener("change", (e) => {
+      state.selectedQari = e.target.value;
+      saveSettings();
+      const qari = QARIS_LIST.find(q => q.id === state.selectedQari);
+      showToast("Download Qari: " + (qari ? qari.name : ""));
     });
 
     document.getElementById("range-font-size")?.addEventListener("input", (e) => {
@@ -830,7 +893,7 @@
 
     document.getElementById("btn-player-play-pause")?.addEventListener("click", togglePlayPause);
     document.getElementById("btn-player-close")?.addEventListener("click", () => {
-      state.audioInstance.pause();
+      if (state.audioInstance) state.audioInstance.pause();
       state.isPlaying = false;
       document.getElementById("audio-player-bar").classList.add("hidden");
       highlightPlayingAyah(-1);
@@ -843,20 +906,10 @@
     });
     document.getElementById("btn-reader-play-surah")?.addEventListener("click", playFullSurah);
 
-    state.audioInstance.ontimeupdate = () => {
-      const cur = state.audioInstance.currentTime;
-      const dur = state.audioInstance.duration || 1;
-      const slider = document.getElementById("player-seek-slider");
-      if (slider) slider.value = (cur / dur) * 100;
-      const formatTime = (sec) => {
-        const m = Math.floor(sec / 60);
-        const s = Math.floor(sec % 60);
-        return `${m}:${s < 10 ? '0' : ''}${s}`;
-      };
-      document.getElementById("player-current-time").innerText = formatTime(cur);
-      if (!isNaN(dur)) document.getElementById("player-total-time").innerText = formatTime(dur);
-    };
+    // Note: ontimeupdate is set per audio instance in playAyahAudio()
+    // but we also attach a generic listener for seek slider support
     document.getElementById("player-seek-slider")?.addEventListener("input", (e) => {
+      if (!state.audioInstance) return;
       const dur = state.audioInstance.duration || 1;
       state.audioInstance.currentTime = (e.target.value / 100) * dur;
     });
@@ -864,10 +917,29 @@
       const speeds = [1.0, 1.25, 1.5];
       const next = speeds[(speeds.indexOf(state.playbackSpeed) + 1) % speeds.length];
       state.playbackSpeed = next;
-      state.audioInstance.playbackRate = next;
+      if (state.audioInstance) state.audioInstance.playbackRate = next;
       e.target.innerText = next + "x";
     });
   }
+
+  // Global timeupdate — attach to whatever audioInstance is
+  setInterval(() => {
+    const a = state.audioInstance;
+    if (!a || !a.duration || isNaN(a.duration)) return;
+    const cur = a.currentTime;
+    const dur = a.duration;
+    const slider = document.getElementById("player-seek-slider");
+    if (slider) slider.value = (cur / dur) * 100;
+    const formatTime = (sec) => {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    };
+    const curEl = document.getElementById("player-current-time");
+    const totEl = document.getElementById("player-total-time");
+    if (curEl) curEl.innerText = formatTime(cur);
+    if (totEl) totEl.innerText = formatTime(dur);
+  }, 500);
 
   window.quranApp = {
     navigate,

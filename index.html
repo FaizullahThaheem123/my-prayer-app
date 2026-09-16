@@ -163,7 +163,7 @@
     <style>
         .ayah-card {
             width: calc(100% - 20px);
-            margin: 4px 10px;
+            margin: 8px 10px;
             padding: 12px 14px;
             background: var(--card);
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -212,7 +212,7 @@
         }
         .hadith-card {
             width: calc(100% - 20px);
-            margin: 4px 10px;
+            margin: 8px 10px;
             padding: 12px 14px;
             background: var(--card);
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -278,20 +278,20 @@
             </div>
         </header>
 
-        <div class="header-card header-card-bottom">
-            <div class="greeting-row">
-                <div class="greeting-mini-card">
-                    <p class="welcome-text">Assalamu Alaikum</p>
-                    <p class="location" id="locationName">📍 Adilpur</p>
-                </div>
-                <div class="time-mini-card">
-                    <div class="time-row">
-                        <span id="liveTimeDisplay">11:50:10</span>
-                        <span class="ampm-text">PM</span>
-                    </div>
-                </div>
+   <div class="header-card header-card-bottom">
+    <div class="greeting-row">
+        <div class="greeting-mini-card">
+            <p class="welcome-text">Assalamu Alaikum</p>
+            <p class="location" id="locationName"><span id="locationNameText">📍 Adilpur</span> <button id="locationRefreshBtn" title="Refresh Location"><i class="fa-solid fa-rotate"></i></button></p>
+        </div>
+        <div class="time-mini-card">
+            <div class="time-row">
+                <span id="liveTimeDisplay">11:50:10</span>
+                <span class="ampm-text">PM</span>
             </div>
         </div>
+    </div>
+</div>
 
         <section class="date-box">
             <div class="date-place date-makkah"><img src="images/makkah.png" alt="Makkah"></div>

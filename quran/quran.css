@@ -1,6 +1,7 @@
 /* ==========================================================================
-   القرآن الكريم — QURAN STYLESHEET (PURE COMPONENT STYLES)
-   Colors are inherited from ../theme/theme.css
+   القرآن الكريم — QURAN STYLESHEET
+   ✅ FIXED: Header now matches other cards (same width, margin, radius)
+   ✅ FIXED: More menu appears above audio player
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
@@ -49,19 +50,25 @@ body {
 }
 
 /* ============================================================
-   HEADER (Clean - sirf title)
+   HEADER — ✅ FIXED
+   Ab baaki cards jaisa: same side margin, rounded corners, border
    ============================================================ */
 .app-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background-color: var(--card);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow);
+    min-height: 68px;
+    position: sticky;
+    top: 8px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    margin: 8px 16px 12px;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
 
 .header-left { display: flex; align-items: center; gap: 8px; }
@@ -82,7 +89,7 @@ body {
 /* ============================================================
    MAIN CONTENT & VIEWS
    ============================================================ */
-.main-content { flex: 1; padding: 16px; }
+.main-content { flex: 1; padding: 8px 16px 16px; }
 .view-screen { display: none; }
 .view-screen.active { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -95,17 +102,17 @@ body {
 .hero-tag { font-family: var(--font-arabic); font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); display: block; margin-bottom: 6px; }
 .hero-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
 .hero-desc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); max-width: 500px; margin-bottom: 16px; }
-.last-read-box { background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.last-read-box { background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .last-read-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.6); display: block; }
 .last-read-name { font-size: 1.05rem; display: block; }
 .last-read-sub { font-size: 0.78rem; color: rgba(255, 255, 255, 0.6); }
 
 /* ============================================================
-   QUICK NAV GRID (Home Cards)
+   QUICK NAV GRID
    ============================================================ */
 .quick-nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 24px; }
 
-.nav-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow); transition: all 0.2s ease; text-align: left; border-left: 3px solid transparent; }
+.nav-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: var(--shadow); transition: all 0.2s ease; text-align: left; border-left: 3px solid transparent; }
 .nav-card:hover { border-color: var(--primary); transform: translateY(-2px); border-left-color: var(--primary); }
 .nav-card-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
 .icon-teal { background: var(--primary-light); color: var(--primary); }
@@ -129,7 +136,7 @@ body {
    ============================================================ */
 .section-block { margin-bottom: 24px; }
 .section-header { margin-bottom: 12px; }
-.section-title { font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 10px; }
+.section-title { font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
 .section-title i { color: var(--accent); font-size: 1.1rem; }
 
 .chips-scroll { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 2px 12px; justify-content: center; }
@@ -140,7 +147,7 @@ body {
 .chip-ar { font-size: 1.2rem; font-weight: 700; color: var(--primary); font-family: var(--font-arabic); min-width: 26px; text-align: center; }
 
 /* ============================================================
-   SEARCH & FILTER  (Search box + Filter tabs — ek hi line)
+   SEARCH & FILTER
    ============================================================ */
 .search-filter-bar {
   margin-bottom: 16px;
@@ -165,14 +172,14 @@ body {
 .filter-tab:hover:not(.active) { background: var(--card-subtle); }
 
 /* ============================================================
-   CARDS GRID (Compact - Duas Style)
+   CARDS GRID
    ============================================================ */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
 
-.surah-card, .para-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow); min-height: 34px; gap: 6px; }
+.surah-card, .para-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow); min-height: 34px; gap: 8px; }
 .surah-card:hover, .para-card:hover { border-color: var(--primary); transform: translateY(-1px); }
 
-.surah-card-left { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.surah-card-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .surah-number-badge { width: 20px; height: 20px; background: var(--card-subtle); border: 1px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--primary); flex-shrink: 0; }
 .surah-names-box strong { display: block; font-size: 0.72rem; color: var(--text); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .surah-names-box span { font-size: 0.55rem; color: var(--text-muted); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
@@ -181,12 +188,12 @@ body {
 .surah-verses-tag { font-size: 0.5rem; color: var(--text-muted); display: block; margin-top: 1px; }
 
 /* ============================================================
-   MOBILE: Surah List & Para List → 1 Column (ek ke neeche ek)
+   MOBILE: Surah List
    ============================================================ */
 @media (max-width: 480px) {
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 6px;
+    gap: 8px;
   }
   .surah-card, .para-card {
     padding: 6px 10px;
@@ -214,9 +221,8 @@ body {
 /* ============================================================
    READER VIEW
    ============================================================ */
-.reader-toolbar { position: sticky; top: 61px; z-index: 30; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 8px; }
+.reader-toolbar { position: sticky; top: 82px; z-index: 30; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 8px; }
 
-/* Reader Header — Title + Meta ek hi line mein */
 .reader-header-info {
   display: flex;
   flex-direction: row;
@@ -229,7 +235,7 @@ body {
 .reader-surah-title { font-size: 1.05rem; font-weight: 800; color: var(--text); }
 .reader-surah-meta { font-size: 0.72rem; color: var(--text-muted); }
 .reader-tools { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.btn-tool { background: var(--card-subtle); border: 1px solid var(--border); color: var(--text); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; }
+.btn-tool { background: var(--card-subtle); border: 1px solid var(--border); color: var(--text); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
 .btn-tool:hover { background: var(--primary-light); border-color: var(--primary); }
 .btn-tool-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
 .btn-tool-primary:hover { background: var(--primary-dark); }
@@ -239,17 +245,17 @@ body {
 /* ============================================================
    AYAH CARDS
    ============================================================ */
-.ayahs-container { display: flex; flex-direction: column; gap: 14px; }
+.ayahs-container { display: flex; flex-direction: column; gap: 8px; }
 .ayah-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow); transition: all 0.25s ease; }
 .ayah-card.playing { border-color: var(--primary); background: var(--primary-light); }
 .ayah-card-top { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px; margin-bottom: 12px; }
 .ayah-badge { background: var(--card-subtle); color: var(--text-muted); font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 6px; }
-.ayah-actions { display: flex; gap: 4px; }
+.ayah-actions { display: flex; gap: 8px; }
 .btn-ayah-action { background: none; border: none; color: var(--text-muted); width: 30px; height: 30px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
 .btn-ayah-action:hover { background: var(--card-subtle); color: var(--primary); }
 .text-amber { color: var(--accent); }
 .ayah-arabic-text { font-size: 28px; line-height: 2.2; text-align: right; color: var(--text); margin-bottom: 12px; }
-.ayah-translations { display: flex; flex-direction: column; gap: 6px; }
+.ayah-translations { display: flex; flex-direction: column; gap: 8px; }
 .trans-urdu { font-size: 1rem; color: var(--primary); text-align: right; }
 .trans-english { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
@@ -260,11 +266,10 @@ body {
 .hub-icon { font-size: 40px; color: var(--primary); margin-bottom: 8px; }
 .downloads-hub-header h2 { font-size: 1.3rem; color: var(--text); }
 .downloads-hub-header p { color: var(--text-muted); font-size: 0.85rem; }
-.downloads-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.downloads-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px; }
 .download-pack-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow); }
 .pack-icon { font-size: 28px; }
 .text-teal { color: var(--primary); }
-.text-amber { color: var(--accent); }
 .pack-details h3 { font-size: 1.05rem; color: var(--text); margin-bottom: 2px; }
 .pack-details p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .pack-meta { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -274,7 +279,7 @@ body {
 .theme-dark .status-pending { background: #78350f; color: #fbbf24; }
 .theme-dark .status-done { background: #065f46; color: #6ee7b7; }
 .size-tag { background: var(--card-subtle); color: var(--text-muted); font-size: 0.72rem; padding: 2px 10px; border-radius: 6px; }
-.reciter-picker-row { display: flex; flex-direction: column; gap: 4px; }
+.reciter-picker-row { display: flex; flex-direction: column; gap: 8px; }
 .reciter-picker-row label { font-size: 0.78rem; font-weight: 600; color: var(--text); }
 .custom-select { background: var(--input-bg); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; outline: none; transition: border-color 0.2s ease; width: 100%; }
 .custom-select:focus { border-color: var(--primary); }
@@ -286,11 +291,11 @@ body {
 /* ============================================================
    SETTINGS
    ============================================================ */
-.settings-list { display: flex; flex-direction: column; gap: 12px; }
-.setting-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.settings-list { display: flex; flex-direction: column; gap: 8px; }
+.setting-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .setting-text strong { display: block; font-size: 0.92rem; color: var(--text); }
 .setting-text span { font-size: 0.75rem; color: var(--text-muted); }
-.theme-buttons { display: flex; gap: 5px; }
+.theme-buttons { display: flex; gap: 8px; }
 .theme-btn { background: var(--card-subtle); border: 1px solid var(--border); color: var(--text); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s ease; }
 .theme-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 .theme-btn:hover:not(.active) { background: var(--card-subtle); border-color: var(--primary); }
@@ -313,26 +318,72 @@ input:checked+.slider:before { transform: translateX(20px); }
 /* ============================================================
    AUDIO PLAYER BAR
    ============================================================ */
-.audio-player-bar { position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%); width: calc(100% - 24px); max-width: 900px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); display: flex; align-items: center; justify-content: space-between; gap: 10px; z-index: 50; flex-wrap: wrap; }
-.audio-info { display: flex; align-items: center; gap: 10px; min-width: 140px; }
+.audio-player-bar {
+  position: fixed;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 900px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 50;
+  flex-wrap: wrap;
+}
+.audio-info { display: flex; align-items: center; gap: 8px; min-width: 140px; }
 .audio-surah-icon { width: 34px; height: 34px; background: var(--primary-light); color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .audio-titles strong { display: block; font-size: 0.8rem; color: var(--text); }
 .audio-titles span { font-size: 0.68rem; color: var(--text-muted); }
-.audio-controls { display: flex; align-items: center; gap: 6px; }
+.audio-controls { display: flex; align-items: center; gap: 8px; }
 .btn-ctrl { background: var(--card-subtle); border: none; color: var(--text); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
 .btn-ctrl:hover { background: var(--primary-light); color: var(--primary); }
 .btn-ctrl-main { background: var(--primary); color: #fff; width: 38px; height: 38px; }
 .btn-ctrl-main:hover { background: var(--primary-dark); color: #fff; }
 .audio-progress-wrap { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; }
-.seek-slider { flex: 1; cursor: pointer; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 4px; background: var(--border); outline: none; }
-.seek-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); cursor: pointer; }
-.seek-slider::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--primary); cursor: pointer; border: none; }
+
+.seek-slider {
+  flex: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--border);
+  outline: none;
+}
+
+.seek-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+}
+
+.seek-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: none;
+}
+
 .audio-progress-wrap span { font-size: 0.7rem; color: var(--text-muted); min-width: 36px; }
 .btn-ctrl-close { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 1.1rem; transition: color 0.2s ease; }
 .btn-ctrl-close:hover { color: var(--text); }
 
 /* ==========================================================
-   BOTTOM NAV (Home + Search + More) - FIXED
+   BOTTOM NAV
 ========================================================== */
 .bottom-nav {
   position: fixed;
@@ -345,7 +396,7 @@ input:checked+.slider:before { transform: translateX(20px); }
   justify-content: space-around;
   align-items: center;
   padding: 4px 0;
-  z-index: 40;
+  z-index: 1000;
   height: 68px;
 }
 
@@ -402,9 +453,8 @@ input:checked+.slider:before { transform: translateX(20px); }
   color: var(--primary);
 }
 
-
 /* ==========================================================
-   MORE SHEET (Bottom  Style)
+   MORE SHEET
 ========================================================== */
 .more-sheet {
   position: fixed;
@@ -467,9 +517,8 @@ input:checked+.slider:before { transform: translateX(20px); }
   color: var(--primary);
 }
 
-
 /* ==========================================================
-   MORE MENU (Bottom Sheet - Neeche se khulega)
+   MORE MENU (Bottom Sheet)
 ========================================================== */
 #moreMenu {
   position: fixed;
@@ -483,7 +532,7 @@ input:checked+.slider:before { transform: translateX(20px); }
   padding: 10px 16px 20px;
   transform: translateY(100%);
   transition: transform 0.3s ease;
-  z-index: 99;
+  z-index: 10001;
   max-height: 80vh;
   overflow-y: auto;
   display: none;
@@ -522,7 +571,7 @@ input:checked+.slider:before { transform: translateX(20px); }
 .more-menu-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .more-menu-grid a,
@@ -531,7 +580,7 @@ input:checked+.slider:before { transform: translateX(20px); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   padding: 12px 8px;
   background: var(--card-subtle);
   border-radius: 12px;
@@ -560,7 +609,7 @@ input:checked+.slider:before { transform: translateX(20px); }
 /* ============================================================
    TOAST
    ============================================================ */
-.toast-popup { position: fixed; top: 20px; right: 20px; background: #0f172a; color: #fff; padding: 10px 18px; border-radius: 12px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; z-index: 100; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); max-width: 90%; }
+.toast-popup { position: fixed; top: 20px; right: 20px; background: #0f172a; color: #fff; padding: 10px 18px; border-radius: 12px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; z-index: 100000; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); max-width: 90%; }
 .theme-dark .toast-popup { background: #1e293b; }
 .theme-sepia .toast-popup { background: #3d2e1e; }
 
@@ -572,9 +621,8 @@ input:checked+.slider:before { transform: translateX(20px); }
 .section-intro p { color: var(--text-muted); font-size: 0.85rem; }
 
 /* ============================================================
-   MORE GRID MENU - EXACTLY LIKE DUAS (GRID FORM)
+   MORE GRID MENU (standalone)
    ============================================================ */
-
 .more-grid-menu {
   position: fixed;
   inset: 0;
@@ -589,14 +637,6 @@ input:checked+.slider:before { transform: translateX(20px); }
 
 .more-grid-menu.show {
   display: flex;
-}
-
-.more-grid-menu::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  display: none;
 }
 
 .more-grid-menu {
@@ -653,7 +693,7 @@ input:checked+.slider:before { transform: translateX(20px); }
 .more-menu-items {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 
 .more-menu-items a,
@@ -666,7 +706,7 @@ input:checked+.slider:before { transform: translateX(20px); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--text);
   text-decoration: none;
   font-size: 11px;
@@ -690,18 +730,6 @@ input:checked+.slider:before { transform: translateX(20px); }
   transform: translateY(-2px);
 }
 
-.more-menu-items a.active,
-.more-menu-items button.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-.more-menu-items a.active i,
-.more-menu-items button.active i {
-  color: #fff;
-}
-
 .more-menu-version {
   text-align: center;
   font-size: 10px;
@@ -710,103 +738,4 @@ input:checked+.slider:before { transform: translateX(20px); }
   margin-top: 12px;
   border-top: 1px solid var(--border);
   opacity: 0.7;
-}
-
-/* ==========================================================
-   MORE MENU (Bottom Sheet - Duas Style Cards)
-   ========================================================== */
-#moreMenu {
-  position: fixed;
-  bottom: 68px;
-  left: 0;
-  right: 0;
-  background: var(--card);
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  border-top: 2px solid var(--primary);
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-  padding: 16px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  z-index: 99;
-  max-height: 80vh;
-  overflow-y: auto;
-  display: none;
-}
-
-#moreMenu.show {
-  transform: translateY(0);
-  display: block;
-}
-
-.more-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--primary);
-}
-
-.more-menu-header span {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--primary);
-}
-
-.more-menu-header button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: var(--text);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.more-menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.more-menu-grid a,
-.more-menu-grid button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 12px 8px;
-  background: var(--card-subtle);
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-  width: 100%;
-}
-
-.more-menu-grid a:hover,
-.more-menu-grid button:hover {
-  background: color-mix(in srgb, var(--primary) 15%, var(--card));
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px var(--primary-glow);
-}
-
-.more-menu-grid a i,
-.more-menu-grid button i {
-  font-size: 22px;
-  color: var(--primary);
-}
-
-.more-menu-grid a span,
-.more-menu-grid button span {
-  font-size: 10px;
-  color: var(--text-muted);
 }
