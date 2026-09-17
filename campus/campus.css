@@ -201,19 +201,22 @@ body{
     z-index: 10000;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .more-menu.show {
     transform: translateY(0);
 }
 
+/* ======================================
+   MORE MENU HEADER — ✅ Baaki pages jaisa
+====================================== */
 .more-menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
+    margin: 8px 0 14px;
+    padding: 12px 5% 12px 16px;
     border-bottom: 1px solid var(--primary);
 }
 
@@ -221,49 +224,74 @@ body{
     font-size: 18px;
     font-weight: 800;
     color: var(--primary);
+    line-height: 1;
 }
 
 .more-menu-header button {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.06);
     border: none;
     color: var(--text);
     width: 32px;
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
+.more-menu-header button:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: rotate(90deg);
+}
+
+/* ======================================
+   MORE MENU GRID
+====================================== */
 .more-menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
 
-.more-menu-grid a, .more-menu-grid button {
+.more-menu-grid a,
+.more-menu-grid button {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     padding: 12px 8px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    border: 1px solid rgba(212,175,55,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     color: var(--text);
     text-decoration: none;
     font-size: 11px;
     cursor: pointer;
     transition: 0.2s;
+    text-align: center;
+    min-height: 68px;
 }
 
-.more-menu-grid a:hover, .more-menu-grid button:hover {
-    background: rgba(212,175,55,0.2);
+.more-menu-grid a:hover,
+.more-menu-grid button:hover {
+    background: rgba(212, 175, 55, 0.2);
     border-color: var(--primary);
 }
 
-.more-menu-grid a i, .more-menu-grid button i {
+.more-menu-grid a i,
+.more-menu-grid button i {
     font-size: 22px;
     color: var(--primary);
+}
+
+.more-menu-grid a span,
+.more-menu-grid button span {
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
 /* RESPONSIVE */
@@ -280,3 +308,49 @@ body{
 .digital-heading-box { text-align: center; margin-bottom: 8px; font-family: 'Courier New', monospace; }
 .digital-heading-box span { font-size: 48px; font-weight: 800; color: var(--primary); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); background: rgba(20, 20, 20, 0.7); padding: 4px 16px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.3); display: inline-block; min-width: 100px; backdrop-filter: blur(4px); }
 .digital-heading-box small { font-size: 20px; color: #aaa; margin-left: 2px; }
+
+
+/* ===== UNIFIED HEADER FIX ===== */
+.campus-page {
+    max-width: 430px !important;
+}
+
+.campus-header {
+    width: 100% !important;
+    min-height: 68px !important;
+    padding: 12px 16px !important;
+    margin: 8px 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    background: var(--card) !important;
+    border-bottom: 2px solid var(--primary) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+    box-sizing: border-box !important;
+}
+
+.campus-header-title h1 { font-size: 18px !important; }
+.campus-header-title p  { font-size: 10px !important; }
+
+.campus-header-image {
+    width: 48px !important;
+    height: 48px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--primary) !important;
+    box-shadow: 0 0 15px rgba(212,175,55,0.3) !important;
+    background: #111 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.campus-header-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}

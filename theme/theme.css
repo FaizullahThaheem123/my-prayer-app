@@ -248,3 +248,42 @@ body{
         height: 3px;
     }
 }
+
+/* ===== UNIFIED HEADER FIX ===== */
+.themes-page {
+    max-width: 430px !important;
+}
+
+.themes-header {
+    width: 100% !important;
+    min-height: 68px !important;
+    padding: 12px 16px !important;
+    margin: 8px 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    background: var(--card) !important;
+    border-bottom: 2px solid var(--primary) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+    box-sizing: border-box !important;
+}
+
+.themes-header h1 {
+    font-size: 18px !important;
+    color: var(--primary) !important;
+}
+
+.back-btn {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 2px solid var(--primary) !important;
+    color: var(--primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+}

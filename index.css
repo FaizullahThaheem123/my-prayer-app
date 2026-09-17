@@ -62,7 +62,6 @@ button:focus-visible {
     box-shadow: none !important;
 }
 
-/* Keep custom inputs selectable */
 input,
 textarea {
     user-select: text !important;
@@ -208,7 +207,7 @@ body {
     margin: 2px 0 0 0;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     white-space: nowrap;
     overflow: visible;
     max-width: 100%;
@@ -598,7 +597,9 @@ body {
     color: var(--primary);
 }
 
-/* BOTTOM NAV */
+/* ==========================================================
+   BOTTOM NAV
+========================================================== */
 .bottom-nav {
     position: fixed;
     left: 50%;
@@ -631,7 +632,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 3px;
     text-decoration: none;
     font-size: 10px;
     color: var(--text);
@@ -687,7 +688,9 @@ body {
     color: var(--primary);
 }
 
-/* MORE MENU */
+/* ==========================================================
+   MORE MENU — ✅ Baaki pages jaisa
+========================================================== */
 .more-menu {
     position: fixed;
     bottom: 0;
@@ -714,8 +717,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
+    margin: 8px 0 14px;
+    padding: 12px 5% 12px 16px;
     border-bottom: 1px solid var(--primary);
 }
 
@@ -723,16 +726,27 @@ body {
     font-size: 18px;
     font-weight: 800;
     color: var(--primary);
+    line-height: 1;
 }
 
 .more-menu-header button {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
     border: none;
     color: var(--text);
     width: 32px;
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.more-menu-header button:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: rotate(90deg);
 }
 
 .more-menu-grid {
@@ -747,7 +761,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     padding: 12px 8px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
@@ -757,6 +771,8 @@ body {
     font-size: 11px;
     cursor: pointer;
     transition: 0.2s;
+    text-align: center;
+    min-height: 68px;
     -webkit-tap-highlight-color: transparent !important;
     outline: none !important;
 }
@@ -780,6 +796,12 @@ body {
 .more-menu-grid button i {
     font-size: 22px;
     color: var(--primary);
+}
+
+.more-menu-grid a span,
+.more-menu-grid button span {
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
 /* ==========================================================
@@ -1060,4 +1082,40 @@ body {
 @keyframes locSpin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
+}
+
+/* ===== UNIFIED HEADER FIX ===== */
+.app {
+    max-width: 430px !important;
+}
+
+.index-header {
+    width: calc(100% - 20px) !important;
+    min-height: 68px !important;
+    padding: 12px 16px !important;
+    margin: 8px 10px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    background: var(--card) !important;
+    border-bottom: 2px solid var(--primary) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+    box-sizing: border-box !important;
+}
+
+.index-header .app-title { font-size: 18px !important; }
+.index-header .app-subtitle { font-size: 10px !important; }
+.index-header .dua-text { font-size: 12px !important; }
+
+.index-header .header-dua {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--primary) !important;
+    box-shadow: 0 0 15px rgba(212,175,55,0.3) !important;
+    object-fit: cover !important;
+    background: #111 !important;
+    display: block !important;
 }
