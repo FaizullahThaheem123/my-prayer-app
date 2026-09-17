@@ -1,10 +1,5 @@
 /* ==========================================================================
    القرآن الكريم — QURAN STYLESHEET
-   ✅ FIXED: Header matches other cards
-   ✅ FIXED: More menu appears above audio player
-   ✅ FIXED: More menu items in card shape
-   ✅ FIXED: Back & Search nav buttons color/style
-   ✅ FIXED: More menu header same as other pages
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
@@ -43,42 +38,93 @@ body {
    APP LAYOUT
    ============================================================ */
 .app-container {
-  max-width: 1000px;
+  max-width: 430px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 80px;
+  padding: 0 10px 80px;
   position: relative;
 }
 
 /* ============================================================
    HEADER
    ============================================================ */
+/* HEADER */
 .app-header {
-  min-height: 68px;
-  position: sticky;
-  top: 8px;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  margin: 8px 16px 12px;
-  background: var(--card);
-  border-bottom: 2px solid var(--primary);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-  box-sizing: border-box;
+    width: 100%;
+    min-height: 68px;
+    height: auto;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 16px;
+    margin: 8px 0 12px;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
 }
 
-.header-left { display: flex; align-items: center; gap: 8px; }
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+   
+}
 
-.brand-title-wrap { display: flex; align-items: center; gap: 8px; }
-.brand-icon { width: 34px; height: 34px; background-color: var(--primary); color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-.brand-title { font-size: 1.15rem; font-weight: 800; color: var(--primary); letter-spacing: -0.3px; }
-.brand-subtitle { font-size: 0.7rem; color: var(--text-muted); display: block; font-weight: 500; }
+.brand-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.brand-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+    display: block;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.header-right img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    object-fit: cover;
+    background: #111;
+    display: block;
+    flex-shrink: 0;
+}
 
 /* ============================================================
    BUTTONS
@@ -91,7 +137,7 @@ body {
 /* ============================================================
    MAIN CONTENT & VIEWS
    ============================================================ */
-.main-content { flex: 1; padding: 8px 16px 16px; }
+.main-content { flex: 1; padding: 0 0 16px; }
 .view-screen { display: none; }
 .view-screen.active { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -136,18 +182,25 @@ body {
 /* ============================================================
    SECTION BLOCK & CHIPS
    ============================================================ */
-.section-block { margin-bottom: 24px; }
-.section-header { margin-bottom: 12px; }
-.section-title { font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.section-title i { color: var(--accent); font-size: 1.1rem; }
+.section-block { margin-bottom: 34px; }
 
-.chips-scroll { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 2px 12px; justify-content: center; }
-.chip-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.25s ease; box-shadow: var(--shadow); }
+.section-header { margin-bottom: 24px; }
+
+.section-title { font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 10px; }
+
+.section-title i { color: var(--accent); font-size: 1.1rem; margin-left: 10px; }
+
+.chips-scroll { display: flex; flex-wrap: wrap; gap: 10px; padding: 4px 12px 12px; justify-content: center; }
+
+.chip-item { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 8px 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.25s ease; box-shadow: var(--shadow); }
+
 .chip-item:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
-.chip-num { font-size: 0.65rem; background: var(--primary); color: #fff; padding: 2px 10px; border-radius: 10px; font-weight: 700; }
-.chip-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
-.chip-ar { font-size: 1.2rem; font-weight: 700; color: var(--primary); font-family: var(--font-arabic); min-width: 26px; text-align: center; }
 
+.chip-num { font-size: 0.65rem; background: var(--primary); color: #fff; padding: 12px 10px; border-radius: 10px; font-weight: 700; }
+
+.chip-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+
+.chip-ar { font-size: 1.2rem; font-weight: 700; color: var(--primary); font-family: var(--font-arabic); min-width: 26px; text-align: center; } 
 /* ============================================================
    SEARCH & FILTER
    ============================================================ */
@@ -223,7 +276,7 @@ body {
 /* ============================================================
    READER VIEW
    ============================================================ */
-.reader-toolbar { position: sticky; top: 82px; z-index: 30; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 8px; }
+.reader-toolbar { position: relative; z-index: 30; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 8px; }
 
 .reader-header-info {
   display: flex;
@@ -325,30 +378,33 @@ input:checked+.slider:before { transform: translateX(20px); }
   bottom: 72px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 900px;
+  width: calc(100% - 20px);
+  max-width: 410px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 10px 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   z-index: 50;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
-.audio-info { display: flex; align-items: center; gap: 8px; min-width: 140px; }
+
+.audio-info { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
 .audio-surah-icon { width: 34px; height: 34px; background: var(--primary-light); color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.audio-titles strong { display: block; font-size: 0.8rem; color: var(--text); }
-.audio-titles span { font-size: 0.68rem; color: var(--text-muted); }
-.audio-controls { display: flex; align-items: center; gap: 8px; }
-.btn-ctrl { background: var(--card-subtle); border: none; color: var(--text); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+.audio-titles { min-width: 0; flex: 1; }
+.audio-titles strong { display: block; font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.audio-titles span { font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+.audio-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.btn-ctrl { background: var(--card-subtle); border: none; color: var(--text); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
 .btn-ctrl:hover { background: var(--primary-light); color: var(--primary); }
-.btn-ctrl-main { background: var(--primary); color: #fff; width: 38px; height: 38px; }
+.btn-ctrl-main { background: var(--primary); color: #fff; width: 34px; height: 34px; }
 .btn-ctrl-main:hover { background: var(--primary-dark); color: #fff; }
-.audio-progress-wrap { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; }
+.audio-progress-wrap { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 100%; order: 10; }
 
 .seek-slider {
   flex: 1;
@@ -380,8 +436,8 @@ input:checked+.slider:before { transform: translateX(20px); }
   border: none;
 }
 
-.audio-progress-wrap span { font-size: 0.7rem; color: var(--text-muted); min-width: 36px; }
-.btn-ctrl-close { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 1.1rem; transition: color 0.2s ease; }
+.audio-progress-wrap span { font-size: 0.7rem; color: var(--text-muted); min-width: 36px; flex-shrink: 0; }
+.btn-ctrl-close { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 1.1rem; transition: color 0.2s ease; flex-shrink: 0; }
 .btn-ctrl-close:hover { color: var(--text); }
 
 /* ==========================================================
@@ -502,7 +558,7 @@ input:checked+.slider:before { transform: translateX(20px); }
 }
 
 /* ==========================================================
-   MORE MENU HEADER — ✅ Same as other pages
+   MORE MENU HEADER
 ========================================================== */
 .more-menu-header {
   display: flex;
@@ -784,47 +840,4 @@ input:checked+.slider:before { transform: translateX(20px); }
   margin-top: 12px;
   border-top: 1px solid var(--border);
   opacity: 0.7;
-}
-
-/* ===== UNIFIED HEADER FIX ===== */
-.app-container {
-    max-width: 430px !important;
-}
-
-.app-header {
-    width: 100% !important;
-    min-height: 68px !important;
-    padding: 12px 16px !important;
-    margin: 8px 0 12px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    background: var(--card) !important;
-    border-bottom: 2px solid var(--primary) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
-    box-sizing: border-box !important;
-}
-
-.brand-icon {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 50% !important;
-    background: var(--primary) !important;
-    color: #fff !important;
-    font-size: 20px !important;
-}
-
-.brand-title { font-size: 16px !important; }
-.brand-subtitle { font-size: 10px !important; }
-
-.header-right img {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 50% !important;
-    border: 2px solid var(--primary) !important;
-    box-shadow: 0 0 15px rgba(212,175,55,0.3) !important;
-    object-fit: cover !important;
-    background: #111 !important;
 }

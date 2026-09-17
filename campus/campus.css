@@ -13,35 +13,83 @@ body{
 }
 .campus-page{
     width:100%; max-width:430px; min-height:100vh; margin:0 auto;
-    background: var(--bg); position:relative; overflow-x:hidden; padding: 0 12px;
+    background: var(--bg); position:relative; overflow-x:hidden; padding: 0 10px;
 }
 
 /* HEADER */
 .campus-header {
     width: 100%;
     min-height: 68px;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     padding: 12px 16px;
     margin: 8px 0 12px;
-    background: var(--card) !important;
-    border-bottom: 2px solid var(--primary) !important;
-    border-radius: 16px !important;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
     box-sizing: border-box;
 }
 
-
-.campus-header-title h1{ font-size:26px; font-weight:800; color:var(--primary); text-shadow: 0 2px 8px rgba(212,175,55,0.2); }
-.campus-header-title h1 i{ margin-right:8px; }
-.campus-header-title p{ font-size:11px; font-weight:500; color:#aaa; }
-.campus-header-image {
-    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
-    border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(212,175,55,0.3); background: #111;
+.campus-header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
 }
-.campus-header-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+.campus-header-title h1 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.campus-header-title h1 i {
+    font-size: 16px;
+    margin: 0;
+}
+
+.campus-header-title p {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.campus-header-image {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    background: #111;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.campus-header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
 
 /* CARDS */
 .location-card, .qibla-card, .info-card-section, .map-section, .campus-message{

@@ -25,49 +25,65 @@ body {
     max-width: 430px;
     margin: auto;
     min-height: 100vh;
-    padding-bottom: 20px;
+    padding: 0 10px 20px;
 }
 
 /* ==============================
    HEADER
 ============================== */
 .age-header {
-    width: calc(100% - 20px);
+    width: 100%;
     min-height: 68px;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     padding: 12px 16px;
-    margin: 8px 10px 12px;
-    background: var(--card) !important;
-    border-bottom: 2px solid var(--primary) !important;
-    border-radius: 16px !important;
+    margin: 8px 0 12px;
+    background: var(--card);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 16px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
     box-sizing: border-box;
 }
 
+.header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+}
+
 .header-title h1 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
-    margin-bottom: 2px;
 }
 
 .header-title h1 i {
-    margin-right: 6px;
+    font-size: 16px;
+    margin: 0;
 }
 
 .header-title p {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
-    color: #aaa;
+    color: var(--text-muted);
+    line-height: 1.2;
+    margin: 0;
 }
 
 .age-header-image {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -75,9 +91,10 @@ body {
     overflow: hidden;
     border: 2px solid var(--primary);
     border-radius: 50%;
-    padding: 2px;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    padding: 0;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
     background: #111;
+    box-sizing: border-box;
 }
 
 .age-header-image img {
@@ -85,10 +102,11 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    display: block;
 }
 
 /* ==============================
-   CARDS UNIFIED
+   CARDS UNIFIED (SAME WIDTH AS HEADER)
 ============================== */
 .dob-card,
 .result-section,
@@ -98,7 +116,7 @@ body {
 .birth-day-card,
 .islamic-card {
     width: 100%;
-    margin: 4px 0;
+    margin: 8px 0;
     background: var(--card);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -141,6 +159,7 @@ body {
     background: var(--primary);
     color: #111;
     font-size: 18px;
+    flex-shrink: 0;
 }
 
 .section-title h2 {
@@ -345,6 +364,12 @@ body {
 /* ==============================
    BIRTHDAY
 ============================== */
+.birthday-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 .birthday-icon {
     width: 48px;
     height: 48px;
@@ -355,6 +380,12 @@ body {
     background: var(--primary);
     color: #111;
     font-size: 20px;
+    flex-shrink: 0;
+}
+
+.birthday-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .birthday-info span {
@@ -377,9 +408,16 @@ body {
 /* ==============================
    BIRTH DAY
 ============================== */
+.birth-day-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 .birth-day-card>i {
     color: var(--primary);
     font-size: 22px;
+    flex-shrink: 0;
 }
 
 .birth-day-card span {
@@ -398,9 +436,15 @@ body {
 /* ==============================
    ISLAMIC CARD
 ============================== */
+.islamic-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 .islamic-icon {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -408,6 +452,12 @@ body {
     background: var(--primary);
     color: #111;
     font-size: 20px;
+    flex-shrink: 0;
+}
+
+.islamic-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .islamic-info span {
@@ -469,7 +519,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 3px;
     text-decoration: none;
     font-size: 10px;
     color: var(--text);
@@ -567,7 +617,7 @@ body {
 }
 
 /* ======================================
-   MORE MENU GRID — ✅ YE MISSING THA
+   MORE MENU GRID
 ====================================== */
 .more-menu-grid {
     display: grid;
@@ -592,6 +642,7 @@ body {
     cursor: pointer;
     transition: 0.2s;
     text-align: center;
+    min-height: 68px;
 }
 
 .more-menu-grid a:hover,
@@ -606,7 +657,6 @@ body {
     color: var(--primary);
 }
 
-/* ✅ YE BHI MISSING THA */
 .more-menu-grid a span,
 .more-menu-grid button span {
     font-size: 10px;
@@ -626,47 +676,4 @@ body {
     .main-age {
         gap: 8px;
     }
-}
-
-/* ===== UNIFIED HEADER FIX ===== */
-.age-page {
-    max-width: 430px !important;
-}
-
-.age-header {
-    width: calc(100% - 20px) !important;
-    min-height: 68px !important;
-    padding: 12px 16px !important;
-    margin: 8px 10px 12px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    background: var(--card) !important;
-    border-bottom: 2px solid var(--primary) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
-    box-sizing: border-box !important;
-}
-
-.header-title h1 { font-size: 18px !important; }
-.header-title p  { font-size: 10px !important; }
-
-.age-header-image {
-    width: 48px !important;
-    height: 48px !important;
-    flex-shrink: 0 !important;
-    border-radius: 50% !important;
-    border: 2px solid var(--primary) !important;
-    box-shadow: 0 0 15px rgba(212,175,55,0.3) !important;
-    background: #111 !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-}
-.age-header-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 50% !important;
-    display: block !important;
 }

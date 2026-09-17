@@ -14,6 +14,21 @@ const liveTimeDisplay = document.getElementById("liveTimeDisplay");
 const locRefreshBtn = document.getElementById("locationRefreshButton") ||
                       document.getElementById("locationRefreshBtn");
 
+/*
+ * ✅ FIX: Button ko har bar fresh dhoondo.
+ *
+ * Pehle wala top-level lookup agar null reh jata (script head me ho,
+ * ya button baad me render ho), to refreshLocation() pehli line par
+ * hi return kar jata tha — is liye refresh button bilkul kaam nahi
+ * karta tha aur location permission bhi kabhi nahi mangta tha.
+ */
+function getLocRefreshBtn() {
+    return document.getElementById("locationRefreshButton") ||
+           document.getElementById("locationRefreshBtn") ||
+           document.querySelector(".location-refresh-btn") ||
+           locRefreshBtn;
+}
+
 // ======================================
 // LOCATION DISPLAY HELPERS
 // ======================================
@@ -120,15 +135,117 @@ const PRAYER_ID_MAP = {
     Isha: 1005
 };
 
+// ======================================
+// ✅ NEW — CAPACITOR NATIVE GEOLOCATION
+// ======================================
+
+let NativeGeolocation = null;
+let nativeGeoReady = false;
+
+function isNativeApp() {
+
+    return (
+        typeof window.Capacitor !== "undefined" &&
+        window.Capacitor.isNativePlatform &&
+        window.Capacitor.isNativePlatform()
+    );
+}
+
+/*
+ * App (Capacitor) me hamesha allowed hai.
+ * Browser me sirf https / localhost par location milti hai.
+ */
+function isGeoAllowed() {
+
+    if (isNativeApp()) {
+        return true;
+    }
+
+    if (window.isSecureContext) {
+        return true;
+    }
+
+    const host = location.hostname;
+
+    return (
+        host === "localhost" ||
+        host === "127.0.0.1" ||
+        host === ""
+    );
+}
+
+async function initNativeGeolocation() {
+
+    try {
+
+        if (!isNativeApp()) {
+
+            console.log("🌐 Browser geolocation mode");
+
+            nativeGeoReady = false;
+
+            return false;
+        }
+
+        if (
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.Geolocation
+        ) {
+
+            console.warn(
+                "⚠️ Geolocation plugin not found — browser fallback use hoga"
+            );
+
+            nativeGeoReady = false;
+
+            return false;
+        }
+
+        NativeGeolocation =
+            window.Capacitor.Plugins.Geolocation;
+
+        let permission =
+            await NativeGeolocation.checkPermissions();
+
+        if (permission.location !== "granted") {
+
+            permission =
+                await NativeGeolocation.requestPermissions();
+        }
+
+        if (permission.location !== "granted") {
+
+            console.log("❌ Location permission denied");
+
+            nativeGeoReady = false;
+
+            return false;
+        }
+
+        nativeGeoReady = true;
+
+        console.log("✅ Native geolocation ready");
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "❌ Native geolocation init error:",
+            error
+        );
+
+        nativeGeoReady = false;
+
+        return false;
+    }
+}
+
 async function initNativeNotifications() {
 
     try {
 
-        if (
-            typeof window.Capacitor === "undefined" ||
-            !window.Capacitor.isNativePlatform ||
-            !window.Capacitor.isNativePlatform()
-        ) {
+        if (!isNativeApp()) {
             console.log("🌐 Browser mode");
             return false;
         }
@@ -221,7 +338,6 @@ async function scheduleNativeAlarm(
     hour,
     minute
 ) {
-
     if (
         !nativeNotificationsReady ||
         !LocalNotifications
@@ -229,96 +345,127 @@ async function scheduleNativeAlarm(
         console.log(
             "❌ Native notifications not ready"
         );
-
         return false;
     }
 
     const id = PRAYER_ID_MAP[prayer];
 
     if (!id) {
-
         console.log(
             "❌ Invalid prayer:",
             prayer
         );
-
         return false;
     }
 
     try {
-
+        // Check Android Exact Alarm permission
         try {
+            const exactSetting =
+                await LocalNotifications.checkExactNotificationSetting();
 
+            console.log(
+                "⏰ Exact alarm permission:",
+                exactSetting
+            );
+
+            if (
+                exactSetting.exact_alarm !== "granted"
+            ) {
+                console.error(
+                    "❌ Exact alarm permission is not granted"
+                );
+
+                showToast(
+                    "⚠️ Exact alarm permission required"
+                );
+
+                return false;
+            }
+        } catch (exactError) {
+            console.log(
+                "Exact alarm setting check skipped:",
+                exactError
+            );
+        }
+
+        // Cancel old alarm first
+        try {
             await LocalNotifications.cancel({
-
                 notifications: [
-                    {
-                        id: id
-                    }
+                    { id: id }
                 ]
-
             });
-
         } catch (cancelError) {
-
             console.log(
                 "Old alarm cancel skipped"
             );
         }
 
-        await LocalNotifications.schedule({
+        // Schedule EXACT alarm
+        const result =
+            await LocalNotifications.schedule({
+                notifications: [
+                    {
+                        id: id,
 
-            notifications: [
+                        title:
+                            `🕌 ${prayer} نماز کا وقت`,
 
-                {
+                        body:
+                            "اذان ہو رہی ہے! نماز پڑھیں۔",
 
-                    id: id,
+                        channelId:
+                            "azan_channel",
 
-                    title:
-                        `🕌 ${prayer} نماز کا وقت`,
+                        // IMPORTANT:
+                        // Force exact Android alarm
+                        isExactNotification: true,
 
-                    body:
-                        "اذان ہو رہی ہے! نماز پڑھیں۔",
+                        // Do NOT allow fallback
+                        // to an inexact alarm
+                        isExactMandatory: true,
 
-                    channelId:
-                        "azan_channel",
+                        schedule: {
+                            on: {
+                                hour: hour,
+                                minute: minute
+                            },
 
-                    schedule: {
-
-                        on: {
-
-                            hour: hour,
-
-                            minute: minute
-
+                            allowWhileIdle: true
                         },
 
-                        allowWhileIdle: true
-
-                    },
-
-                    autoCancel: true,
-
-                    ongoing: false
-
-                }
-
-            ]
-
-        });
+                        autoCancel: true,
+                        ongoing: false
+                    }
+                ]
+            });
 
         console.log(
-            `✅ ${prayer} alarm scheduled at ` +
+            `✅ EXACT ${prayer} alarm scheduled at ` +
             `${String(hour).padStart(2, "0")}:` +
             `${String(minute).padStart(2, "0")}`
         );
 
+        console.log(
+            "📌 Native schedule result:",
+            result
+        );
+
+        if (result && result.warning) {
+            console.error(
+                "⚠️ Exact alarm warning:",
+                result.warning
+            );
+
+            return false;
+        }
+
         return true;
 
     } catch (error) {
-
         console.error(
-            `❌ ${prayer} alarm schedule error:`,
+            `❌ ${prayer} EXACT alarm schedule error:`,
             error
         );
 
@@ -1129,14 +1276,73 @@ function detectLocation() {
 }
 
 // ======================================
-// FRESH GPS (MOBILE FRIENDLY - TWO STEP)
+// FRESH GPS
 // ======================================
 
-function requestFreshGPS(silent) {
+/*
+ * ✅ FIX 1: App (Capacitor) me native Geolocation plugin use hota hai,
+ *           jis se permission dialog sahi tarah aata hai.
+ *
+ * ✅ FIX 2: Accuracy check — agar location 3km se zyada khraab ho to
+ *           wo asli GPS nahi, balke Wi-Fi/mobile-tower ka andaaza hota
+ *           hai. Yehi cheez "Drago" jaise ghalat naam dikha rahi thi.
+ *           Ab pehle dobara koshish hoti hai, phir bhi na mile to
+ *           purani saved (sahi) location use hoti hai.
+ *
+ * ✅ FIX 3: onDone callback — taake refresh button ka spinner theek
+ *           waqt par rukay, 3 second ke andaazay par nahi.
+ */
+async function requestFreshGPS(silent, onDone, isRetry) {
 
-    if (!navigator.geolocation) {
+    function done() {
 
-        if (!silent) {
+        if (typeof onDone === "function") {
+            onDone();
+        }
+    }
+
+    function useSavedOrDefault(message) {
+
+        if (silent) {
+            done();
+            return;
+        }
+
+        if (message) {
+            showToast(message);
+        }
+
+        const savedName =
+            localStorage.getItem(
+                "userLocationName"
+            );
+
+        const savedLat =
+            localStorage.getItem(
+                "userLatitude"
+            );
+
+        const savedLon =
+            localStorage.getItem(
+                "userLongitude"
+            );
+
+        if (savedLat && savedLon) {
+
+            setLocationText(
+                "📍 " +
+                normalizeLocationName(
+                    savedName || "Adilpur"
+                )
+            );
+
+            getPrayerTimes(
+                parseFloat(savedLat),
+                parseFloat(savedLon),
+                true
+            );
+
+        } else {
 
             setLocationText("📍 Adilpur");
 
@@ -1147,162 +1353,228 @@ function requestFreshGPS(silent) {
             );
         }
 
-        return;
+        done();
     }
 
-    // ==================================
-    // STEP 1: HIGH ACCURACY TRY KARO
-    // ==================================
-    navigator.geolocation.getCurrentPosition(
+    function handlePosition(lat, lon, accuracy) {
 
-        // SUCCESS
-        position => {
+        const acc = accuracy || 0;
 
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+        console.log(
+            "✅ GPS:",
+            lat,
+            lon,
+            "accuracy:",
+            acc + "m"
+        );
 
-            console.log(
-                "✅ High accuracy GPS:",
-                lat, lon,
-                "accuracy:", position.coords.accuracy + "m"
-            );
+        // ✅ Kharab accuracy = Wi-Fi/tower ka andaaza, asli GPS nahi
+        if (acc > 3000) {
 
-            getPrayerTimes(lat, lon, false);
-        },
+            if (!isRetry) {
 
-        // ERROR → LOW ACCURACY TRY KARO
-        error => {
-
-            console.warn(
-                "⚠️ High accuracy failed:",
-                error.code,
-                error.message
-            );
-
-            // Agar permission denied (code 1) → stop
-            if (error.code === 1) {
-
-                showToast(
-                    "⚠️ Location permission denied. Please allow in browser settings."
+                console.log(
+                    "⚠️ Weak accuracy — retrying for real GPS..."
                 );
 
-                // Saved location use karo
-                fallbackToSavedLocation(silent);
+                setTimeout(function () {
+
+                    requestFreshGPS(
+                        silent,
+                        onDone,
+                        true
+                    );
+
+                }, 2500);
 
                 return;
             }
 
-            // Timeout ya unavailable → low accuracy try karo
-            console.log("🔄 Trying low accuracy...");
+            const savedLat =
+                localStorage.getItem(
+                    "userLatitude"
+                );
 
-            navigator.geolocation.getCurrentPosition(
+            const savedLon =
+                localStorage.getItem(
+                    "userLongitude"
+                );
 
-                // SUCCESS (low accuracy)
-                position2 => {
+            if (savedLat && savedLon) {
 
-                    const lat = position2.coords.latitude;
-                    const lon = position2.coords.longitude;
+                useSavedOrDefault(
+                    "⚠️ Sahi GPS nahi mila — purani location use kar rahe hain. Khuli jagah par GPS on karke try karein"
+                );
 
-                    console.log(
-                        "✅ Low accuracy GPS:",
-                        lat, lon,
-                        "accuracy:", position2.coords.accuracy + "m"
-                    );
+                return;
+            }
+        }
 
-                    getPrayerTimes(lat, lon, false);
-                },
+        getPrayerTimes(lat, lon, false);
 
-                // FINAL ERROR
-                error2 => {
+        done();
+    }
 
-                    console.warn(
-                        "❌ Low accuracy also failed:",
-                        error2.code,
-                        error2.message
-                    );
+    // ======================================
+    // NATIVE (APP) GEOLOCATION
+    // ======================================
 
-                    showToast(
-                        "❌ Location not found. Check GPS is ON."
-                    );
+    if (isNativeApp()) {
 
-                    fallbackToSavedLocation(silent);
-                },
+        if (!nativeGeoReady) {
 
-                {
-                    enableHighAccuracy: false,
-                    maximumAge: 60000,
-                    timeout: 20000
-                }
+            await initNativeGeolocation();
+        }
+
+        if (nativeGeoReady && NativeGeolocation) {
+
+            try {
+
+                const position =
+                    await NativeGeolocation.getCurrentPosition({
+
+                        enableHighAccuracy: true,
+
+                        timeout: 20000,
+
+                        maximumAge: 0
+
+                    });
+
+                handlePosition(
+                    position.coords.latitude,
+                    position.coords.longitude,
+                    position.coords.accuracy
+                );
+
+                return;
+
+            } catch (error) {
+
+                console.warn(
+                    "❌ Native GPS error:",
+                    error
+                );
+
+                useSavedOrDefault(
+                    "⚠️ Location nahi mili — phone ki GPS/Location on karein"
+                );
+
+                return;
+            }
+        }
+
+        // Plugin available nahi — neeche browser fallback chalega
+    }
+
+    // ======================================
+    // BROWSER GEOLOCATION FALLBACK
+    // ======================================
+
+    if (!navigator.geolocation || !isGeoAllowed()) {
+
+        useSavedOrDefault(
+            "⚠️ Is browser me location available nahi hai"
+        );
+
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        position => {
+
+            handlePosition(
+                position.coords.latitude,
+                position.coords.longitude,
+                position.coords.accuracy
             );
+        },
+
+        error => {
+
+            console.warn(
+                "❌ GPS error:",
+                error.code,
+                error.message
+            );
+
+            let message = "";
+
+            if (error.code === 1) {
+
+                message =
+                    "⚠️ Location permission denied — settings me allow karein";
+
+            } else if (error.code === 3) {
+
+                message =
+                    "⚠️ Location timeout — GPS on karke dobara try karein";
+
+            } else {
+
+                message =
+                    "⚠️ Location nahi mili — saved location use kar rahe hain";
+            }
+
+            useSavedOrDefault(message);
         },
 
         {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 15000
+            timeout: 20000
         }
     );
 }
 
 // ======================================
-// FALLBACK: SAVED LOCATION USE KARO
+// LOCATION REFRESH
 // ======================================
 
-function fallbackToSavedLocation(silent) {
-
-    const savedLat = localStorage.getItem("userLatitude");
-    const savedLon = localStorage.getItem("userLongitude");
-    const savedName = localStorage.getItem("userLocationName");
-
-    if (savedLat && savedLon) {
-
-        const cleanName =
-            normalizeLocationName(savedName || "Adilpur");
-
-        setLocationText("📍 " + cleanName);
-
-        getPrayerTimes(
-            parseFloat(savedLat),
-            parseFloat(savedLon),
-            true
-        );
-
-    } else if (!silent) {
-
-        setLocationText("📍 Adilpur");
-
-        getPrayerTimes(28.0065, 69.3167, false);
-    }
-}
-
-// ======================================
-// LOCATION REFRESH (MOBILE FRIENDLY)
-// ======================================
-
+/*
+ * ✅ FIX: Pehle yahan "if (!locRefreshBtn) return;" tha — agar button
+ * ka reference null hota to function pehli line par hi ruk jata aur
+ * GPS bilkul nahi mangta tha. Ab button sirf spinner ke liye hai,
+ * location request hamesha chalti hai.
+ */
 function refreshLocation() {
 
-    if (!locRefreshBtn) {
+    const btn = getLocRefreshBtn();
+
+    if (btn) {
+
+        btn.classList.add("spinning");
+    }
+
+    function stopSpin() {
+
+        const b = getLocRefreshBtn();
+
+        if (b) {
+            b.classList.remove("spinning");
+        }
+    }
+
+    if (!isGeoAllowed()) {
+
+        stopSpin();
+
+        showToast(
+            "⚠️ Location ke liye HTTPS chahiye — app me ye kaam karega"
+        );
+
         return;
     }
 
-    locRefreshBtn.classList.add("spinning");
+    showToast(
+        "📍 Getting fresh location..."
+    );
 
-    showToast("📍 Getting fresh location...");
+    requestFreshGPS(false, stopSpin);
 
-    // 3 second baad spinner band
-    setTimeout(() => {
-        locRefreshBtn.classList.remove("spinning");
-    }, 3000);
-
-    // Agar geolocation support nahi hai
-    if (!navigator.geolocation) {
-        showToast("❌ GPS not supported on this device");
-        return;
-    }
-
-    // Direct fresh GPS request — no permission check
-    // (mobile pe permission check kabhi kabhi block kar deta hai)
-    requestFreshGPS(false);
+    // Safety: agar kisi wajah se callback na aaye
+    setTimeout(stopSpin, 25000);
 }
 
 // ======================================
@@ -1314,6 +1586,9 @@ document.addEventListener(
     async () => {
 
         await initNativeNotifications();
+
+        // ✅ NEW: app khulte hi location permission maang lo
+        await initNativeGeolocation();
 
         updateClock();
 
@@ -1463,9 +1738,12 @@ document.addEventListener(
             }
         }
 
-        if (locRefreshBtn) {
+        // ✅ FIX: button ko yahan fresh dhoondo (DOM ready ke baad)
+        const refreshBtnEl = getLocRefreshBtn();
 
-            locRefreshBtn.addEventListener(
+        if (refreshBtnEl) {
+
+            refreshBtnEl.addEventListener(
                 "click",
                 function(e) {
 
@@ -1473,6 +1751,12 @@ document.addEventListener(
 
                     refreshLocation();
                 }
+            );
+
+        } else {
+
+            console.warn(
+                "⚠️ Location refresh button not found in DOM"
             );
         }
 
