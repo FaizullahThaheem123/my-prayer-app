@@ -1129,7 +1129,7 @@ function detectLocation() {
 }
 
 // ======================================
-// FRESH GPS
+// FRESH GPS (MOBILE FRIENDLY - TWO STEP)
 // ======================================
 
 function requestFreshGPS(silent) {
@@ -1138,9 +1138,7 @@ function requestFreshGPS(silent) {
 
         if (!silent) {
 
-            setLocationText(
-                "📍 Adilpur"
-            );
+            setLocationText("📍 Adilpur");
 
             getPrayerTimes(
                 28.0065,
@@ -1152,103 +1150,90 @@ function requestFreshGPS(silent) {
         return;
     }
 
+    // ==================================
+    // STEP 1: HIGH ACCURACY TRY KARO
+    // ==================================
     navigator.geolocation.getCurrentPosition(
 
+        // SUCCESS
         position => {
 
-            const lat =
-                position.coords.latitude;
-
-            const lon =
-                position.coords.longitude;
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
 
             console.log(
-                "✅ Fresh GPS:",
-                lat,
-                lon,
-                "accuracy:",
-                position.coords.accuracy + "m"
+                "✅ High accuracy GPS:",
+                lat, lon,
+                "accuracy:", position.coords.accuracy + "m"
             );
 
-            /*
-             * Fresh GPS mil gaya.
-             * Is location ko background update nahi
-             * banaya jayega, taa-ke naam bhi fresh mile.
-             */
-            getPrayerTimes(
-                lat,
-                lon,
-                false
-            );
+            getPrayerTimes(lat, lon, false);
         },
 
+        // ERROR → LOW ACCURACY TRY KARO
         error => {
 
             console.warn(
-                "❌ GPS error:",
+                "⚠️ High accuracy failed:",
                 error.code,
                 error.message
             );
 
-            if (!silent) {
+            // Agar permission denied (code 1) → stop
+            if (error.code === 1) {
 
-                const savedName =
-                    localStorage.getItem(
-                        "userLocationName"
+                showToast(
+                    "⚠️ Location permission denied. Please allow in browser settings."
+                );
+
+                // Saved location use karo
+                fallbackToSavedLocation(silent);
+
+                return;
+            }
+
+            // Timeout ya unavailable → low accuracy try karo
+            console.log("🔄 Trying low accuracy...");
+
+            navigator.geolocation.getCurrentPosition(
+
+                // SUCCESS (low accuracy)
+                position2 => {
+
+                    const lat = position2.coords.latitude;
+                    const lon = position2.coords.longitude;
+
+                    console.log(
+                        "✅ Low accuracy GPS:",
+                        lat, lon,
+                        "accuracy:", position2.coords.accuracy + "m"
                     );
 
-                const savedLat =
-                    localStorage.getItem(
-                        "userLatitude"
-                    );
+                    getPrayerTimes(lat, lon, false);
+                },
 
-                const savedLon =
-                    localStorage.getItem(
-                        "userLongitude"
-                    );
+                // FINAL ERROR
+                error2 => {
 
-                if (error.code === 1) {
+                    console.warn(
+                        "❌ Low accuracy also failed:",
+                        error2.code,
+                        error2.message
+                    );
 
                     showToast(
-                        "⚠️ Location permission denied — saved location use kar rahe hain"
+                        "❌ Location not found. Check GPS is ON."
                     );
+
+                    fallbackToSavedLocation(silent);
+                },
+
+                {
+                    enableHighAccuracy: false,
+                    maximumAge: 60000,
+                    timeout: 20000
                 }
-
-                if (
-                    savedLat &&
-                    savedLon
-                ) {
-
-                    const cleanName =
-                        normalizeLocationName(
-                            savedName ||
-                            "Adilpur"
-                        );
-
-                    setLocationText(
-                        "📍 " +
-                        cleanName
-                    );
-
-                    getPrayerTimes(
-                        parseFloat(savedLat),
-                        parseFloat(savedLon),
-                        true
-                    );
-
-                } else {
-
-                    setLocationText(
-                        "📍 Adilpur"
-                    );
-
-                    getPrayerTimes(
-                        28.0065,
-                        69.3167,
-                        false
-                    );
-                }
-            }
+            );
         },
 
         {
@@ -1260,7 +1245,38 @@ function requestFreshGPS(silent) {
 }
 
 // ======================================
-// LOCATION REFRESH
+// FALLBACK: SAVED LOCATION USE KARO
+// ======================================
+
+function fallbackToSavedLocation(silent) {
+
+    const savedLat = localStorage.getItem("userLatitude");
+    const savedLon = localStorage.getItem("userLongitude");
+    const savedName = localStorage.getItem("userLocationName");
+
+    if (savedLat && savedLon) {
+
+        const cleanName =
+            normalizeLocationName(savedName || "Adilpur");
+
+        setLocationText("📍 " + cleanName);
+
+        getPrayerTimes(
+            parseFloat(savedLat),
+            parseFloat(savedLon),
+            true
+        );
+
+    } else if (!silent) {
+
+        setLocationText("📍 Adilpur");
+
+        getPrayerTimes(28.0065, 69.3167, false);
+    }
+}
+
+// ======================================
+// LOCATION REFRESH (MOBILE FRIENDLY)
 // ======================================
 
 function refreshLocation() {
@@ -1269,57 +1285,24 @@ function refreshLocation() {
         return;
     }
 
-    locRefreshBtn.classList.add(
-        "spinning"
-    );
+    locRefreshBtn.classList.add("spinning");
 
-    showToast(
-        "📍 Getting fresh location..."
-    );
+    showToast("📍 Getting fresh location...");
 
-    if (
-        navigator.permissions &&
-        navigator.permissions.query
-    ) {
+    // 3 second baad spinner band
+    setTimeout(() => {
+        locRefreshBtn.classList.remove("spinning");
+    }, 3000);
 
-        navigator.permissions
-            .query({
-                name: "geolocation"
-            })
-
-            .then(result => {
-
-                if (
-                    result.state === "denied"
-                ) {
-
-                    showToast(
-                        "⚠️ Please enable location permission in browser settings"
-                    );
-                }
-
-                requestFreshGPS(false);
-
-            })
-
-            .catch(() => {
-
-                requestFreshGPS(false);
-
-            });
-
-    } else {
-
-        requestFreshGPS(false);
+    // Agar geolocation support nahi hai
+    if (!navigator.geolocation) {
+        showToast("❌ GPS not supported on this device");
+        return;
     }
 
-    setTimeout(() => {
-
-        locRefreshBtn.classList.remove(
-            "spinning"
-        );
-
-    }, 3000);
+    // Direct fresh GPS request — no permission check
+    // (mobile pe permission check kabhi kabhi block kar deta hai)
+    requestFreshGPS(false);
 }
 
 // ======================================
