@@ -825,3 +825,10 @@ body {
     border-radius: 50% !important;
     display: block !important;
 }
+
+.duas-header {
+    margin: 8px 0 2px !important;
+}
+.duas-container {
+    gap: 6px !important;
+}

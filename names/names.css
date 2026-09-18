@@ -2,6 +2,7 @@
    MY PRAYER - 99 NAMES OF ALLAH (3D METALLIC)
    + DETAIL MODAL 15% SMALLER
    + CARDS 5% ABOVE NAVIGATION
+   + PAGE SCROLL FIX
 ====================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap');
@@ -138,23 +139,10 @@ body{
     box-shadow:0 0 20px rgba(212,175,55,0.2);
 }
 
-/* NAMES GRID - 5% ABOVE NAVIGATION (padding-bottom: 20px) */
+/* NAMES GRID — now scrolls with the whole page */
 .names-grid-section{
-    padding:0 0 20px; /* ← 5% gap from nav */
-    max-height: calc(100vh - 260px);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary) transparent;
-}
-.names-grid-section::-webkit-scrollbar{
-    width:3px;
-}
-.names-grid-section::-webkit-scrollbar-track{
-    background:transparent;
-}
-.names-grid-section::-webkit-scrollbar-thumb{
-    background:var(--primary);
-    border-radius:10px;
+    padding:0 0 20px;
+    /* max-height & overflow removed so whole page scrolls naturally */
 }
 
 .names-grid{
@@ -521,10 +509,7 @@ body{
     .bottom-nav{ height:50px; }
     .more-menu-grid{ gap:8px; }
     .more-menu-grid a, .more-menu-grid button{ padding:8px 4px; font-size:9px; }
-    .names-grid-section{
-        max-height: calc(100vh - 230px);
-        padding-bottom: 18px;
-    }
+    .names-grid-section{ padding-bottom: 18px; }
 }
 
 /* ===== UNIFIED HEADER FIX ===== */
