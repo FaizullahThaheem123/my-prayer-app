@@ -327,3 +327,62 @@ document.addEventListener("DOMContentLoaded", ()=>{
     renderGrid();
     initAudio();
 });
+
+// ======================================
+// UNIVERSAL BACK BUTTON HANDLER (Smart)
+// ======================================
+(function () {
+    "use strict";
+
+    function initBackButton() {
+        if (
+            !window.Capacitor ||
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.App
+        ) {
+            console.log("🌐 Browser mode — no native back");
+            return;
+        }
+
+        const { App } = window.Capacitor.Plugins;
+
+        App.addListener("backButton", async function () {
+
+            // 1. Detail modal open?
+            const detail = document.getElementById("nameDetailOverlay");
+            if (detail && detail.classList.contains("active")) {
+                detail.classList.remove("active");
+                return;
+            }
+
+            // 2. More menu open?
+            const menu = document.getElementById("moreMenu");
+            if (menu && menu.classList.contains("show")) {
+                menu.classList.remove("show");
+                return;
+            }
+
+            // 3. WebView history
+            try {
+                const canGoBack = await App.canGoBack();
+                if (canGoBack) {
+                    await App.goBack();
+                    return;
+                }
+            } catch (e) {
+                console.warn("canGoBack failed:", e);
+            }
+
+            // 4. ✅ Exit nahi — home pe jao
+    window.location.href = "../index.html";
+});s
+
+        console.log("✅ Native back button handler attached");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBackButton);
+    } else {
+        initBackButton();
+    }
+})();

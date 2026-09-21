@@ -13843,7 +13843,7 @@ function openDetail(id) {
     const varTags = document.getElementById("detailVariationsTags");
     if (item.variations && item.variations.length > 0) {
         varBox.style.display = "block";
-        varTags.innerHTML = item.variations.map(v => `<span style="background:#1b1e2a; color:var(--primary); padding:2px 8px; border-radius:12px; font-size:10px; border:1px solid rgba(212,175,55,0.2);">${v}</span>`).join(" ");
+        varTags.innerHTML = item.variations.map(v => `<span style="background:var(--card, #1b1e2a); color:var(--primary); padding:2px 8px; border-radius:12px; font-size:10px; border:1px solid rgba(212,175,55,0.2); border:1px solid color-mix(in srgb, var(--primary) 25%, transparent);">${v}</span>`).join(" ");
     } else {
         varBox.style.display = "none";
     }
@@ -14084,6 +14084,84 @@ if (moreBtn && moreMenu) {
 }
 
 // More Menu - Islamic Names Button
-document.getElementById("islamicNamesBtn").addEventListener("click", function() {
-    location.reload(); // صفحہ ریفرش
-});
+const islamicNamesBtnEl = document.getElementById("islamicNamesBtn");
+if (islamicNamesBtnEl) {
+    islamicNamesBtnEl.addEventListener("click", function() {
+        location.reload();
+    });
+}
+
+// ======================================
+// UNIVERSAL BACK BUTTON HANDLER (Smart)
+// ======================================
+(function () {
+    "use strict";
+
+    function initBackButton() {
+        if (
+            !window.Capacitor ||
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.App
+        ) {
+            console.log("🌐 Browser mode — no native back");
+            return;
+        }
+
+        const { App } = window.Capacitor.Plugins;
+
+        App.addListener("backButton", async function () {
+
+            // 1. Detail modal open? → close
+            const detail = document.getElementById("nameDetailOverlay");
+            if (detail && detail.classList.contains("active")) {
+                detail.classList.remove("active");
+                currentDetailId = null;
+                return;
+            }
+
+            // 2. Random picker modal open? → close
+            const randomOverlay = document.getElementById("randomPickerOverlay");
+            if (randomOverlay && randomOverlay.classList.contains("active")) {
+                randomOverlay.classList.remove("active");
+                return;
+            }
+
+            // 3. Sunnah modal open? → close
+            const sunnahOverlay = document.getElementById("sunnahModalOverlay");
+            if (sunnahOverlay && sunnahOverlay.classList.contains("active")) {
+                sunnahOverlay.classList.remove("active");
+                return;
+            }
+
+            // 4. More menu open? → close
+            const menu = document.getElementById("moreMenu");
+            if (menu && (menu.classList.contains("show") || menu.classList.contains("open"))) {
+                menu.classList.remove("show");
+                menu.classList.remove("open");
+                return;
+            }
+
+            // 5. WebView history available? → go back
+            try {
+                const canGoBack = await App.canGoBack();
+                if (canGoBack) {
+                    await App.goBack();
+                    return;
+                }
+            } catch (e) {
+                console.warn("canGoBack failed:", e);
+            }
+
+            // 6. ✅ Kuch nahi bacha → index home pe jao (EXIT NAHI)
+            window.location.href = "../index.html";
+        });
+
+        console.log("✅ Native back button handler attached");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBackButton);
+    } else {
+        initBackButton();
+    }
+})();

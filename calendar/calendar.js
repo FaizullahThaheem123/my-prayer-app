@@ -410,3 +410,55 @@ function daysUntilHijri(currentYear, currentMonth, currentDay, targetMonth, targ
 // انٹرویو میں کال کریں (DOMContentLoaded کے اندر)
 calculateIslamicEvents();
 setInterval(calculateIslamicEvents, 600000); // ہر 10 منٹ بعد اپ ڈیٹ
+
+// ======================================
+// UNIVERSAL BACK BUTTON HANDLER (Smart)
+// ======================================
+(function () {
+    "use strict";
+
+    function initBackButton() {
+        if (
+            !window.Capacitor ||
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.App
+        ) {
+            console.log("🌐 Browser mode — no native back");
+            return;
+        }
+
+        const { App } = window.Capacitor.Plugins;
+
+        App.addListener("backButton", async function () {
+
+            // 1. More menu open?
+            const menu = document.getElementById("moreMenu");
+            if (menu && menu.classList.contains("show")) {
+                menu.classList.remove("show");
+                return;
+            }
+
+            // 2. WebView history
+            try {
+                const canGoBack = await App.canGoBack();
+                if (canGoBack) {
+                    await App.goBack();
+                    return;
+                }
+            } catch (e) {
+                console.warn("canGoBack failed:", e);
+            }
+
+              // 3. ✅ Exit nahi — home pe jao
+    window.location.href = "../index.html";
+});
+
+        console.log("✅ Native back button handler attached");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBackButton);
+    } else {
+        initBackButton();
+    }
+})();

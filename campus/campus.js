@@ -680,7 +680,7 @@ function initializeMap(){
             className: "",
 
             html:
-                '<i class="fa-solid fa-kaaba" style="color:#d4af37;font-size:24px;"></i>',
+                '<i class="fa-solid fa-kaaba" style="color:var(--primary, #d4af37);font-size:24px;"></i>',
 
             iconSize: [
                 24,
@@ -750,7 +750,7 @@ function updateMap(){
                 className: "",
 
                 html:
-                    '<i class="fa-solid fa-location-dot" style="color:#d4af37;font-size:24px;"></i>',
+                    '<i class="fa-solid fa-location-dot" style="color:var(--primary, #d4af37);font-size:24px;"></i>',
 
                 iconSize: [
                     24,
@@ -798,7 +798,8 @@ function updateMap(){
                 ]
             ],
             {
-                color: "#d4af37",
+                color: (getComputedStyle(document.documentElement)
+                    .getPropertyValue("--primary").trim() || "#d4af37"),
                 weight: 2,
                 dashArray: "6,6"
             }
@@ -1500,3 +1501,62 @@ window.addEventListener(
 
     }
 );
+
+// ======================================
+// UNIVERSAL BACK BUTTON HANDLER (Smart)
+// ======================================
+(function () {
+    "use strict";
+
+    function initBackButton() {
+        if (
+            !window.Capacitor ||
+            !window.Capacitor.Plugins ||
+            !window.Capacitor.Plugins.App
+        ) {
+            console.log("🌐 Browser mode — no native back");
+            return;
+        }
+
+        const { App } = window.Capacitor.Plugins;
+
+        App.addListener("backButton", async function () {
+
+            // 1. Campus settings panel open?
+            const panel = document.getElementById("campusSettingsPanel");
+            if (panel && panel.style.display !== "none" && panel.style.display !== "") {
+                panel.style.display = "none";
+                return;
+            }
+
+            // 2. More menu open?
+            const menu = document.getElementById("moreMenu");
+            if (menu && menu.classList.contains("show")) {
+                menu.classList.remove("show");
+                return;
+            }
+
+            // 3. WebView history
+            try {
+                const canGoBack = await App.canGoBack();
+                if (canGoBack) {
+                    await App.goBack();
+                    return;
+                }
+            } catch (e) {
+                console.warn("canGoBack failed:", e);
+            }
+
+             // 4. ✅ Exit nahi — home pe jao
+    window.location.href = "../index.html";
+});
+
+        console.log("✅ Native back button handler attached");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBackButton);
+    } else {
+        initBackButton();
+    }
+})();o

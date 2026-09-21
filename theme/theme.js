@@ -595,18 +595,62 @@ function applyThemeVars(theme) {
 // FIX: APPLY SAVED THEME ON PAGE LOAD
 // (themeDesigns ab pehle define ho chuka hai)
 // ==========================================
+
+// Purani settings wali (50 colour) ids -> nayi design ids.
+// Pehle Settings page "gold", "royal-blue" jaisi ids save karta tha jo
+// themeDesigns me hain hi nahi, is liye baaqi pages par theme lagta hi nahi tha.
+const LEGACY_THEME_MAP = {
+    "gold": "golden-oud", "royal-blue": "sapphire-star", "emerald": "emerald-noor",
+    "forest": "olive-grove", "navy": "sapphire-star", "violet": "violet-mosaic",
+    "wine": "wine-cellar", "olive": "olive-grove", "ruby": "ruby-crescent",
+    "orange": "solar-dawn", "teal": "onyx-teal", "pink": "berry-frost",
+    "sky": "lagoon-blue", "lime": "olive-grove", "copper": "antique-copper",
+    "silver": "charcoal-ash", "cyan": "lagoon-blue", "indigo": "sapphire-star",
+    "brown": "cinnamon-spice", "crimson": "crimson-ember", "coral": "coral-reef",
+    "peach": "amber-glow", "mint": "turquoise-bloom", "lavender": "lavender-mist",
+    "burgundy": "wine-cellar", "mustard": "saffron-silk", "sage": "olive-grove",
+    "stone": "slate-storm", "cobalt": "steel-blue", "turquoise": "turquoise-bloom",
+    "chocolate": "cinnamon-spice", "plum": "plum-nights", "slate": "slate-storm",
+    "amber": "amber-glow", "fuchsia": "berry-frost", "aqua": "lagoon-blue",
+    "magenta": "berry-frost", "periwinkle": "lavender-mist", "jade": "peacock-feather",
+    "sand": "bronze-age", "rust": "cinnamon-spice", "charcoal": "charcoal-ash",
+    "cream": "golden-oud", "rose-gold": "wine-cellar", "steel": "steel-blue",
+    "mahogany": "cinnamon-spice", "cardinal": "crimson-ember", "maroon": "ruby-crescent",
+    "chartreuse": "olive-grove", "neon-blue": "neon-nights"
+};
+
+function resolveThemeId(id) {
+    if (id && themeDesigns.some(t => t.id === id)) return id;
+    if (id && LEGACY_THEME_MAP[id]) return LEGACY_THEME_MAP[id];
+    return themeDesigns[0].id;
+}
+
+// Saved theme id wapas deta hai. Purani/ghalat id ho to nayi me badal kar save bhi kar deta hai.
+function getSavedThemeId() {
+    let saved = null;
+    try { saved = localStorage.getItem("appTheme"); } catch (e) {}
+    const resolved = resolveThemeId(saved);
+    if (saved && saved !== resolved) {
+        try { localStorage.setItem("appTheme", resolved); } catch (e) {}
+    }
+    return resolved;
+}
+
+// Har page par foran (paint se pehle) theme lagao
 (function () {
-    const savedThemeId = localStorage.getItem("appTheme");
-    if (!savedThemeId) return;
-    const theme = themeDesigns.find(t => t.id === savedThemeId);
-    if (!theme) return;
-    applyThemeVars(theme);
+    const theme = themeDesigns.find(t => t.id === getSavedThemeId());
+    if (theme) applyThemeVars(theme);
 })();
 
-const themeGrid = document.getElementById("themeGrid");
-let currentTheme = localStorage.getItem("appTheme") || themeDesigns[0].id;
+// theme.js <head> me ho to bhi kaam kare: grid ko load ke waqt nahi, use ke waqt dhoondo
+function getThemeGrid() {
+    return document.getElementById("themeGrid");
+}
+
+let currentTheme = getSavedThemeId();
 
 function renderThemes() {
+    const themeGrid = getThemeGrid();
     if (!themeGrid) return;
     themeGrid.innerHTML = "";
     themeDesigns.forEach(theme => {
@@ -680,17 +724,23 @@ function applyTheme(themeId) {
 
 // On page load (for Themes page)
 document.addEventListener("DOMContentLoaded", function () {
-    const saved = localStorage.getItem("appTheme");
-    if (saved && themeDesigns.find(t => t.id === saved)) {
-        currentTheme = saved;
-        applyTheme(saved);
-    } else {
-        applyTheme(themeDesigns[0].id);
-        currentTheme = themeDesigns[0].id;
-    }
-    if (themeGrid) {
+    currentTheme = getSavedThemeId();
+    applyTheme(currentTheme);
+    if (getThemeGrid()) {
         renderThemes();
     }
 });
 
-document.body.style.opacity = 1;
+// Back button dabane par page cache se wapas aaye to bhi latest theme lagao
+window.addEventListener("pageshow", function (e) {
+    if (e.persisted) applyTheme(getSavedThemeId());
+});
+
+// <head> me load ho to document.body abhi nahi hota (pehle yahan error aata tha)
+(function () {
+    function revealBody() {
+        if (document.body) document.body.style.opacity = 1;
+    }
+    if (document.body) revealBody();
+    else document.addEventListener("DOMContentLoaded", revealBody);
+})();
