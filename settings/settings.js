@@ -1,14 +1,175 @@
 // ==========================================
-// SETTINGS PAGE - SIMPLIFIED (MOBILE FIXED)
+// SETTINGS PAGE — WITH GOOGLE SIGN-IN
 // ==========================================
+
+const GOOGLE_WEB_CLIENT_ID = "1083769445858-mcvoq5rsqs9003jkh64qj3nmq6b6t21p.apps.googleusercontent.com";
+const USER_STORAGE_KEY = "myprayer_user";
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    console.log("✅ settings.js: DOMContentLoaded fired");
+
     // ==============================
-    // 1. THEMES (50 Colors)
+    // 0. GOOGLE SIGN-IN
+    // ==============================
+    setupGoogleAuth();
+
+    function setupGoogleAuth() {
+        const guestBox = document.getElementById("accountGuest");
+        const userBox = document.getElementById("accountUser");
+        const signInBtn = document.getElementById("googleSignInBtn");
+        const signOutBtn = document.getElementById("googleSignOutBtn");
+        const userPhoto = document.getElementById("userPhoto");
+        const userName = document.getElementById("userName");
+        const userEmail = document.getElementById("userEmail");
+
+        if (!guestBox || !userBox) {
+            console.warn("Google account UI elements not found.");
+            return;
+        }
+
+        const SocialLogin =
+            (window.Capacitor &&
+             window.Capacitor.Plugins &&
+             window.Capacitor.Plugins.SocialLogin)
+                ? window.Capacitor.Plugins.SocialLogin
+                : null;
+
+        function loadUser() {
+            try {
+                const raw = localStorage.getItem(USER_STORAGE_KEY);
+                if (!raw) return null;
+                return JSON.parse(raw);
+            } catch (e) {
+                console.warn("User load error:", e);
+                return null;
+            }
+        }
+
+        function saveUser(user) {
+            try { localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user)); }
+            catch (e) { console.warn("User save error:", e); }
+        }
+
+        function clearUser() {
+            try { localStorage.removeItem(USER_STORAGE_KEY); }
+            catch (e) { console.warn("User clear error:", e); }
+        }
+
+        function showUser(user) {
+            guestBox.style.display = "none";
+            userBox.style.display = "block";
+
+            if (userPhoto) {
+                const imageUrl = user.imageUrl || user.photoURL || user.picture || "";
+                if (imageUrl) {
+                    userPhoto.src = imageUrl;
+                    userPhoto.style.display = "block";
+                } else {
+                    userPhoto.removeAttribute("src");
+                }
+                userPhoto.onerror = function () { this.removeAttribute("src"); };
+            }
+            if (userName) userName.textContent = user.name || "User";
+            if (userEmail) userEmail.textContent = user.email || "";
+        }
+
+        function showGuest() {
+            guestBox.style.display = "block";
+            userBox.style.display = "none";
+        }
+
+        const saved = loadUser();
+        if (saved) showUser(saved);
+        else showGuest();
+
+        async function initializeGoogle() {
+            if (!SocialLogin) { console.warn("SocialLogin plugin not available."); return; }
+            try {
+                await SocialLogin.initialize({
+                    google: { webClientId: GOOGLE_WEB_CLIENT_ID, mode: "online" }
+                });
+                console.log("✅ Google SocialLogin initialized");
+            } catch (err) { console.error("❌ Google initialize error:", err); }
+        }
+        initializeGoogle();
+
+        if (signInBtn) {
+            signInBtn.addEventListener("click", async function () {
+                if (!SocialLogin) {
+                    alert("Google Sign-In sirf Android app mein kaam karta hai.");
+                    return;
+                }
+                signInBtn.disabled = true;
+                signInBtn.style.opacity = "0.7";
+                const span = signInBtn.querySelector("span");
+                const originalText = span ? span.textContent : "";
+                if (span) span.textContent = "Signing in...";
+
+                try {
+                    const response = await SocialLogin.login({
+                        provider: "google",
+                        options: { scopes: ["email", "profile"], filterByAuthorizedAccounts: false }
+                    });
+                    console.log("Google Login Response:", response);
+
+                    const result = response && response.result ? response.result : null;
+                    const profile = result && result.profile ? result.profile : null;
+                    if (!result) throw new Error("Google login result nahi mila.");
+
+                    const user = {
+                        id: profile?.id || "",
+                        email: profile?.email || "",
+                        name: profile?.name || "User",
+                        givenName: profile?.givenName || "",
+                        familyName: profile?.familyName || "",
+                        imageUrl: profile?.imageUrl || profile?.imageURL || profile?.photoURL || profile?.picture || "",
+                        idToken: result.idToken || "",
+                        signedInAt: Date.now()
+                    };
+
+                    if (!user.email && !user.id) throw new Error("Google account information nahi mili.");
+
+                    saveUser(user);
+                    showUser(user);
+                    console.log("✅ Google signed in:", user.email);
+                } catch (err) {
+                    console.warn("Google Sign-In error:", err);
+                    const msg = err && err.message ? err.message : String(err || "Unknown error");
+                    const lower = msg.toLowerCase();
+                    if (lower.includes("cancel") || lower.includes("12501")) {
+                        console.log("Google Sign-In cancelled.");
+                    } else {
+                        alert("Google Sign-In nahi ho saka:\n\n" + msg);
+                    }
+                } finally {
+                    signInBtn.disabled = false;
+                    signInBtn.style.opacity = "1";
+                    if (span) span.textContent = originalText;
+                }
+            });
+        }
+
+        if (signOutBtn) {
+            signOutBtn.addEventListener("click", async function () {
+                if (!confirm("Sign out karna chahte hain?")) return;
+                try {
+                    if (SocialLogin && typeof SocialLogin.logout === "function") {
+                        await SocialLogin.logout({ provider: "google" });
+                    }
+                } catch (e) { console.warn("Google sign out error:", e); }
+                clearUser();
+                showGuest();
+                console.log("✅ Signed out");
+            });
+        }
+    }
+
+    // ==============================
+    // 1. THEMES (Fallback)
     // ==============================
     const themeGrid = document.getElementById("themeGrid");
-    const themes = [
+    const fallbackThemes = [
         { id: "gold", name: "Gold", color: "#d4af37" },
         { id: "royal-blue", name: "Royal Blue", color: "#1565c0" },
         { id: "emerald", name: "Emerald", color: "#00897b" },
@@ -16,59 +177,19 @@ document.addEventListener("DOMContentLoaded", function () {
         { id: "navy", name: "Navy", color: "#0d47a1" },
         { id: "violet", name: "Violet", color: "#7b1fa2" },
         { id: "wine", name: "Wine", color: "#880e4f" },
-        { id: "olive", name: "Olive", color: "#33691e" },
         { id: "ruby", name: "Ruby", color: "#c62828" },
         { id: "orange", name: "Orange", color: "#e65100" },
         { id: "teal", name: "Teal", color: "#00838f" },
-        { id: "pink", name: "Pink", color: "#c2185b" },
-        { id: "sky", name: "Sky", color: "#0288d1" },
-        { id: "lime", name: "Lime", color: "#827717" },
-        { id: "copper", name: "Copper", color: "#b87333" },
-        { id: "silver", name: "Silver", color: "#9e9e9e" },
-        { id: "cyan", name: "Cyan", color: "#00bcd4" },
-        { id: "indigo", name: "Indigo", color: "#283593" },
-        { id: "brown", name: "Brown", color: "#4e342e" },
         { id: "crimson", name: "Crimson", color: "#dc143c" },
-        { id: "coral", name: "Coral", color: "#ff6f61" },
-        { id: "peach", name: "Peach", color: "#ffb74d" },
-        { id: "mint", name: "Mint", color: "#4dd0e1" },
-        { id: "lavender", name: "Lavender", color: "#ba68c8" },
-        { id: "burgundy", name: "Burgundy", color: "#800020" },
-        { id: "mustard", name: "Mustard", color: "#ffdb58" },
-        { id: "sage", name: "Sage", color: "#8a9a5b" },
-        { id: "stone", name: "Stone", color: "#607d8b" },
-        { id: "cobalt", name: "Cobalt", color: "#0047ab" },
-        { id: "turquoise", name: "Turquoise", color: "#00ced1" },
-        { id: "chocolate", name: "Chocolate", color: "#d2691e" },
-        { id: "plum", name: "Plum", color: "#8e4585" },
-        { id: "slate", name: "Slate", color: "#708090" },
-        { id: "amber", name: "Amber", color: "#ffbf00" },
-        { id: "fuchsia", name: "Fuchsia", color: "#ff00ff" },
-        { id: "aqua", name: "Aqua", color: "#00ffff" },
-        { id: "magenta", name: "Magenta", color: "#ff00a0" },
-        { id: "periwinkle", name: "Periwinkle", color: "#ccccff" },
-        { id: "jade", name: "Jade", color: "#00a86b" },
-        { id: "sand", name: "Sand", color: "#c2b280" },
-        { id: "rust", name: "Rust", color: "#b7410e" },
-        { id: "charcoal", name: "Charcoal", color: "#36454f" },
-        { id: "cream", name: "Cream", color: "#fffdd0" },
-        { id: "rose-gold", name: "Rose Gold", color: "#b76e79" },
-        { id: "steel", name: "Steel", color: "#4682b4" },
-        { id: "mahogany", name: "Mahogany", color: "#c04000" },
-        { id: "cardinal", name: "Cardinal", color: "#c41e3a" },
-        { id: "maroon", name: "Maroon", color: "#800000" },
-        { id: "chartreuse", name: "Chartreuse", color: "#7fff00" },
-        { id: "neon-blue", name: "Neon Blue", color: "#1f51ff" }
+        { id: "plum", name: "Plum", color: "#8e4585" }
     ];
 
-    function renderThemes() {
-        // theme.js is page par load ho to wahi themeGrid banata hai — purana 50 colour
-        // wala picker yahan nahi chalna chahiye (dono ek hi grid par lad rahe the)
+    function renderFallbackThemes() {
         if (typeof themeDesigns !== "undefined") return;
-        const saved = localStorage.getItem("appTheme") || "gold";
         if (!themeGrid) return;
+        const saved = localStorage.getItem("appTheme") || "gold";
         themeGrid.innerHTML = "";
-        themes.forEach(t => {
+        fallbackThemes.forEach(t => {
             const card = document.createElement("div");
             card.className = "theme-card" + (t.id === saved ? " active" : "");
             card.innerHTML = `
@@ -84,56 +205,240 @@ document.addEventListener("DOMContentLoaded", function () {
             themeGrid.appendChild(card);
         });
     }
-    renderThemes();
+    renderFallbackThemes();
 
     // ==============================
-    // 2. TOGGLE: CONTACT US (FIXED - ONLY CLICK)
+    // 2. COLLAPSIBLES
     // ==============================
-    const contactToggle = document.getElementById("contactToggle");
-    const contactContent = document.getElementById("contactContent");
-    const contactArrow = document.getElementById("contactArrow");
+    bindCollapsible("contactToggle", "contactContent", "contactArrow");
+    bindCollapsible("themeToggle", "themeContent", "themeArrow");
+    bindCollapsible("permissionsToggle", "permissionsContent", "permissionsArrow");
 
-    if (contactToggle && contactContent && contactArrow) {
-        contactToggle.addEventListener("click", function (e) {
+    function bindCollapsible(toggleId, contentId, arrowId) {
+        const toggle = document.getElementById(toggleId);
+        const content = document.getElementById(contentId);
+        const arrow = document.getElementById(arrowId);
+        if (!toggle || !content || !arrow) return;
+
+        toggle.addEventListener("click", function (e) {
             e.preventDefault();
-            const isOpen = contactContent.style.display !== "none";
-            contactContent.style.display = isOpen ? "none" : "block";
-            contactArrow.innerHTML = isOpen
+            const isOpen = content.style.display !== "none";
+            content.style.display = isOpen ? "none" : "block";
+            arrow.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i>'
                 : '<i class="fa-solid fa-chevron-up"></i>';
         });
     }
 
     // ==============================
-    // 3. TOGGLE: THEMES (FIXED - ONLY CLICK)
+    // 3. RATE ON PLAY STORE
     // ==============================
-    const themeToggle = document.getElementById("themeToggle");
-    const themeContent = document.getElementById("themeContent");
-    const themeArrow = document.getElementById("themeArrow");
-
-    if (themeToggle && themeContent && themeArrow) {
-        themeToggle.addEventListener("click", function (e) {
-            e.preventDefault();
-            const isOpen = themeContent.style.display !== "none";
-            themeContent.style.display = isOpen ? "none" : "block";
-            themeArrow.innerHTML = isOpen
-                ? '<i class="fa-solid fa-chevron-down"></i>'
-                : '<i class="fa-solid fa-chevron-up"></i>';
+    const rateAppBtn = document.getElementById("rateAppBtn");
+    if (rateAppBtn) {
+        rateAppBtn.addEventListener("click", function () {
+            const PACKAGE_NAME = "com.myprayer.app";
+            const url = "https://play.google.com/store/apps/details?id=" + PACKAGE_NAME;
+            if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+                window.open(url, "_system");
+            } else {
+                window.open(url, "_blank");
+            }
         });
     }
 
     // ==============================
-    // 4. MORE MENU (FIXED - ONLY CLICK)
+    // 4. APP PERMISSIONS
+    // ==============================
+    setupPermissions();
+
+    function setupPermissions() {
+        const notificationBtn = document.getElementById("permNotificationBtn");
+        const locationBtn = document.getElementById("permLocationBtn");
+        const backgroundBtn = document.getElementById("permBackgroundBtn");
+
+        const notificationStatus = document.getElementById("permNotificationStatus");
+        const locationStatus = document.getElementById("permLocationStatus");
+        const backgroundStatus = document.getElementById("permBackgroundStatus");
+
+        const notificationItem = document.getElementById("permNotificationItem");
+        const locationItem = document.getElementById("permLocationItem");
+        const backgroundItem = document.getElementById("permBackgroundItem");
+
+        const isNative = !!(window.Capacitor && window.Capacitor.Plugins);
+
+        function setGranted(item, statusEl, btn, text) {
+            if (item) { item.classList.remove("denied"); item.classList.add("granted"); }
+            if (statusEl) { statusEl.textContent = text || "Granted ✓"; statusEl.className = "status-ok"; }
+            if (btn) { btn.textContent = "Allowed"; btn.disabled = true; btn.classList.add("granted-btn"); }
+        }
+        function setDenied(item, statusEl, btn, text) {
+            if (item) { item.classList.remove("granted"); item.classList.add("denied"); }
+            if (statusEl) { statusEl.textContent = text || "Not allowed"; statusEl.className = "status-bad"; }
+            if (btn) { btn.textContent = "Allow"; btn.disabled = false; btn.classList.remove("granted-btn"); }
+        }
+        function setPending(item, statusEl, btn, text) {
+            if (item) item.classList.remove("granted", "denied");
+            if (statusEl) { statusEl.textContent = text || "Tap to allow"; statusEl.className = ""; }
+            if (btn) { btn.textContent = "Allow"; btn.disabled = false; btn.classList.remove("granted-btn"); }
+        }
+
+        async function checkNotification() {
+            if (!isNative || !window.Capacitor.Plugins.LocalNotifications) {
+                setPending(notificationItem, notificationStatus, notificationBtn, "Browser mode");
+                return;
+            }
+            try {
+                const LN = window.Capacitor.Plugins.LocalNotifications;
+                const perm = await LN.checkPermissions();
+                if (perm.display === "granted") setGranted(notificationItem, notificationStatus, notificationBtn, "Notifications enabled ✓");
+                else setDenied(notificationItem, notificationStatus, notificationBtn, "Notifications disabled");
+            } catch (e) { setPending(notificationItem, notificationStatus, notificationBtn, "Tap to allow"); }
+        }
+
+        if (notificationBtn) {
+            notificationBtn.addEventListener("click", async function () {
+                if (!isNative || !window.Capacitor.Plugins.LocalNotifications) {
+                    alert("Ye feature sirf app me kaam karta hai.");
+                    return;
+                }
+                try {
+                    const LN = window.Capacitor.Plugins.LocalNotifications;
+                    const perm = await LN.requestPermissions();
+                    if (perm.display === "granted") setGranted(notificationItem, notificationStatus, notificationBtn, "Notifications enabled ✓");
+                    else setDenied(notificationItem, notificationStatus, notificationBtn, "Denied — settings se allow karein");
+                } catch (e) { setDenied(notificationItem, notificationStatus, notificationBtn, "Error — dobara try karein"); }
+            });
+        }
+
+        async function checkLocation() {
+            if (!isNative || !window.Capacitor.Plugins.Geolocation) {
+                setPending(locationItem, locationStatus, locationBtn, "Browser mode");
+                return;
+            }
+            try {
+                const Geo = window.Capacitor.Plugins.Geolocation;
+                const perm = await Geo.checkPermissions();
+                const granted = (perm.location === "granted" || perm.coarseLocation === "granted");
+                const denied = (perm.location === "denied" && perm.coarseLocation === "denied");
+                if (granted) setGranted(locationItem, locationStatus, locationBtn, "Location enabled ✓");
+                else if (denied) setDenied(locationItem, locationStatus, locationBtn, "Location disabled — Allow dabayein");
+                else setPending(locationItem, locationStatus, locationBtn, "Tap Allow to enable location");
+            } catch (e) { setPending(locationItem, locationStatus, locationBtn, "Tap to allow"); }
+        }
+
+        if (locationBtn) {
+            locationBtn.addEventListener("click", async function () {
+                if (!isNative || !window.Capacitor.Plugins.Geolocation) {
+                    alert("Ye feature sirf app me kaam karta hai.");
+                    return;
+                }
+                const Geo = window.Capacitor.Plugins.Geolocation;
+                try {
+                    let perm = await Geo.requestPermissions();
+                    let granted = (perm.location === "granted" || perm.coarseLocation === "granted");
+                    if (!granted) {
+                        locationStatus.textContent = "Requesting permission...";
+                        locationStatus.className = "";
+                        try {
+                            await Geo.getCurrentPosition({ enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+                            perm = await Geo.checkPermissions();
+                            granted = (perm.location === "granted" || perm.coarseLocation === "granted");
+                        } catch (e) {
+                            try {
+                                perm = await Geo.checkPermissions();
+                                granted = (perm.location === "granted" || perm.coarseLocation === "granted");
+                            } catch (e2) {}
+                        }
+                    }
+                    if (granted) setGranted(locationItem, locationStatus, locationBtn, "Location enabled ✓");
+                    else setDenied(locationItem, locationStatus, locationBtn, "Denied — settings se enable karein");
+                } catch (e) { setDenied(locationItem, locationStatus, locationBtn, "Error — dobara try karein"); }
+            });
+        }
+
+        async function checkBackground() {
+            if (!isNative || !window.Capacitor.Plugins.LocalNotifications) {
+                setPending(backgroundItem, backgroundStatus, backgroundBtn, "Browser mode");
+                return;
+            }
+            try {
+                const LN = window.Capacitor.Plugins.LocalNotifications;
+                if (typeof LN.checkExactNotificationSetting !== "function") {
+                    setPending(backgroundItem, backgroundStatus, backgroundBtn, "Not supported");
+                    return;
+                }
+                const setting = await LN.checkExactNotificationSetting();
+                if (setting.exact_alarm === "granted") setGranted(backgroundItem, backgroundStatus, backgroundBtn, "Background alarms allowed ✓");
+                else setDenied(backgroundItem, backgroundStatus, backgroundBtn, "Background alarms disabled");
+            } catch (e) { setPending(backgroundItem, backgroundStatus, backgroundBtn, "Tap to allow"); }
+        }
+
+        if (backgroundBtn) {
+            backgroundBtn.addEventListener("click", async function () {
+                if (!isNative || !window.Capacitor.Plugins.LocalNotifications) {
+                    alert("Ye feature sirf app me kaam karta hai.");
+                    return;
+                }
+                try {
+                    const LN = window.Capacitor.Plugins.LocalNotifications;
+                    if (typeof LN.changeExactNotificationSetting !== "function") {
+                        alert("Is device pe ye setting available nahi hai.");
+                        return;
+                    }
+                    await LN.changeExactNotificationSetting();
+                    setTimeout(checkBackground, 1500);
+                } catch (e) {}
+            });
+        }
+
+        checkNotification();
+        checkLocation();
+        checkBackground();
+
+        var CapApp = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+        if (CapApp && typeof CapApp.addListener === "function") {
+            CapApp.addListener("appStateChange", function (state) {
+                if (state && state.isActive) {
+                    checkNotification();
+                    checkLocation();
+                    checkBackground();
+                }
+            });
+        }
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "visible") {
+                checkNotification();
+                checkLocation();
+                checkBackground();
+            }
+        });
+
+        window.addEventListener("focus", function () {
+            checkNotification();
+            checkLocation();
+            checkBackground();
+        });
+    }
+
+    // ==============================
+    // 5. MORE MENU  ⬅️ AB YAHAN, ANDAR
     // ==============================
     const moreNavBtn = document.getElementById("moreNavBtn");
     const moreMenu = document.getElementById("moreMenu");
     const closeMoreMenuBtn = document.getElementById("closeMoreMenuBtn");
 
+    console.log("More nav elements:", {
+        btn: !!moreNavBtn,
+        menu: !!moreMenu,
+        closeBtn: !!closeMoreMenuBtn
+    });
+
     if (moreNavBtn && moreMenu && closeMoreMenuBtn) {
         moreNavBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
-            moreMenu.classList.add("show");
+            moreMenu.classList.toggle("show");
         });
 
         closeMoreMenuBtn.addEventListener("click", function (e) {
@@ -153,48 +458,28 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ======================================
-// UNIVERSAL BACK BUTTON HANDLER (Smart)
+// UNIVERSAL BACK BUTTON HANDLER
 // ======================================
 (function () {
     "use strict";
 
     function initBackButton() {
-        if (
-            !window.Capacitor ||
-            !window.Capacitor.Plugins ||
-            !window.Capacitor.Plugins.App
-        ) {
-            console.log("🌐 Browser mode — no native back");
-            return;
-        }
+        if (!window.Capacitor || !window.Capacitor.Plugins || !window.Capacitor.Plugins.App) return;
 
         const { App } = window.Capacitor.Plugins;
 
         App.addListener("backButton", async function () {
-
-            // 1. More menu open?
             const menu = document.getElementById("moreMenu");
             if (menu && menu.classList.contains("show")) {
                 menu.classList.remove("show");
                 return;
             }
-
-            // 2. WebView history — wapas pichhle page pe jao
             try {
                 const canGoBack = await App.canGoBack();
-                if (canGoBack) {
-                    await App.goBack();
-                    return;
-                }
-            } catch (e) {
-                console.warn("canGoBack failed:", e);
-            }
-
-              // 3. ✅ Exit nahi — home pe jao
-    window.location.href = "../index.html";
-});
-
-        console.log("✅ Native back button handler attached");
+                if (canGoBack) { await App.goBack(); return; }
+            } catch (e) {}
+            window.location.href = "../index.html";
+        });
     }
 
     if (document.readyState === "loading") {

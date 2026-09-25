@@ -4,13 +4,6 @@
 
 <script>
 (function () {
-  /* ============================================
-     UNIVERSAL THEME LOADER (No Flicker)
-     Ye script <head> ke sabse pehle chalti hai
-     Aur POORI theme ek saath apply karti hai
-     ============================================ */
-
-  // ---- SVG PATTERNS ----
   var PATTERNS = {
     lattice: "<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><path d='M30 4 L36 22 L54 22 L39 33 L45 52 L30 40 L15 52 L21 33 L6 22 L24 22 Z' fill='none' stroke='COLOR' stroke-width='1' opacity='0.16'/></svg>",
     mandala: "<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><circle cx='45' cy='45' r='40' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/><circle cx='45' cy='45' r='27' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/><circle cx='45' cy='45' r='14' fill='none' stroke='COLOR' stroke-width='1' opacity='0.14'/></svg>",
@@ -24,7 +17,6 @@
     hexgrid: "<svg xmlns='http://www.w3.org/2000/svg' width='60' height='52'><polygon points='30,2 56,17 56,37 30,52 4,37 4,17' fill='none' stroke='COLOR' stroke-width='1.4' opacity='0.28'/></svg>"
   };
 
-  // ---- THEME DESIGNS ----
   var themeDesigns = [
     { id: "royal-velvet", name: "Royal Velvet", primary: "#d4af37", bg: "#1a0f2e", card: "#2d1b4e", cardBg: "linear-gradient(145deg, #33204f, #1a0f2e)", text: "#ececec", textMuted: "#b8aecb", radius: "24px", shadow: "0 10px 35px rgba(212,175,55,0.25), 0 4px 18px rgba(0,0,0,0.6)", border: "1px solid rgba(212,175,55,0.35)", blur: "20px", pattern: PATTERNS.lattice, patternSize: "60px 60px", patternRepeat: "repeat", patternPosition: "center" },
     { id: "emerald-noor", name: "Emerald Noor", primary: "#22c98e", bg: "#0d2818", card: "#123723", cardBg: "linear-gradient(135deg, #17472e, #0d2818)", text: "#eafaf3", textMuted: "#9fc9b8", radius: "20px", shadow: "0 10px 28px rgba(34,201,142,0.22)", border: "1px solid rgba(34,201,142,0.35)", blur: "15px", pattern: PATTERNS.mandala, patternSize: "90px 90px", patternRepeat: "repeat", patternPosition: "bottom center" },
@@ -58,13 +50,11 @@
     { id: "slate-storm", name: "Slate Storm", primary: "#78909c", bg: "#12161c", card: "#1c222c", cardBg: "linear-gradient(145deg, #232b37, #12161c)", text: "#e6eaee", textMuted: "#9aa8b2", radius: "12px", shadow: "0 8px 20px rgba(120,144,156,0.25)", border: "1px solid rgba(120,144,156,0.35)", blur: "8px", pattern: PATTERNS.lattice, patternSize: "60px 60px", patternRepeat: "repeat", patternPosition: "center" }
   ];
 
-  // ---- Helper: SVG -> data URI ----
   function svgBg(svg, color) {
     var filled = svg.split("COLOR").join(color);
     return 'url("data:image/svg+xml,' + encodeURIComponent(filled) + '")';
   }
 
-  // ---- Apply full theme immediately ----
   function applyThemeVars(theme) {
     var root = document.documentElement;
     root.style.setProperty("--primary", theme.primary);
@@ -82,7 +72,6 @@
     root.style.setProperty("--bg-pattern-repeat", theme.patternRepeat);
     root.style.setProperty("--bg-pattern-position", theme.patternPosition);
 
-    // Derived colors
     function hexToRgb(h) {
       h = h.replace("#", "");
       if (h.length === 3) h = h.split("").map(function(c){return c+c;}).join("");
@@ -101,7 +90,6 @@
     root.style.setProperty("--primary-glow", "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.35)");
   }
 
-  // ---- Run immediately ----
   var savedThemeId = localStorage.getItem("appTheme");
   var theme = null;
 
@@ -114,7 +102,6 @@
     }
   }
 
-  // Fallback: purani color ids (gold, royal-blue etc.) ke liye
   if (!theme && savedThemeId) {
     var colorMap = {
       gold: "#d4af37", "royal-blue": "#1565c0", emerald: "#00897b", forest: "#1b5e20",
@@ -156,30 +143,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - My Prayer</title>
 
-    
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="../theme/theme.css">
     <link rel="stylesheet" href="settings.css">
-    
+
 </head>
 <body>
 
 <div class="settings-page">
 
     <header class="settings-header">
-    <div class="header-left">
-        <h1>Settings</h1>
-        <p>Manage your preferences</p>
-    </div>
-    <div class="header-right">
-        <img src="../images/makkah.png" alt="Makkah" class="header-img">
-    </div>
-</header>
+        <div class="header-left">
+            <h1>Settings</h1>
+            <p>Manage your preferences</p>
+        </div>
+        <div class="header-right">
+            <img src="../images/makkah.png" alt="Makkah" class="header-img">
+        </div>
+    </header>
 
-    <!-- ========================================
-         SECTION 1: CONTACT US (COLLAPSIBLE)
-    ======================================== -->
+    <section class="settings-card" id="accountCard">
+        <div id="accountGuest">
+            <p style="color:#aaa; font-size:12px; text-align:center; margin-bottom:14px;"></p>
+            <button type="button" id="googleSignInBtn"
+                style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+                       padding:12px 16px; border-radius:12px; cursor:pointer;
+                       background:#fff; color:#111; border:none;
+                       font-size:14px; font-weight:600; font-family:inherit;">
+                <svg width="18" height="18" viewBox="0 0 48 48" style="flex-shrink:0;">
+                    <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+                    <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+                    <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/>
+                    <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+                </svg>
+                <span>Sign in with Google</span>
+            </button>
+        </div>
+
+        <div id="accountUser" style="display:none;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+                <img id="userPhoto" src="" alt="Profile"
+                    referrerpolicy="no-referrer"
+                    style="width:56px; height:56px; border-radius:50%; border:2px solid var(--primary); flex-shrink:0; object-fit:cover; background:var(--bg);">
+                <div style="flex:1; min-width:0;">
+                    <strong id="userName" style="display:block; font-size:15px; color:var(--text); margin-bottom:2px;"></strong>
+                    <span id="userEmail" style="display:block; font-size:11px; color:var(--text-muted); word-break:break-all;"></span>
+                </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px; padding:8px 12px;
+                        background:rgba(76,175,80,0.1); border:1px solid rgba(76,175,80,0.3);
+                        border-radius:10px; margin-bottom:12px;">
+                <i class="fa-solid fa-circle-check" style="color:#4caf50; font-size:14px;"></i>
+                <span style="font-size:11px; color:#4caf50; font-weight:600;">Verified Google Account</span>
+            </div>
+
+            <button type="button" id="googleSignOutBtn"
+                style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+                       padding:10px 16px; border-radius:12px; cursor:pointer;
+                       background:transparent; color:#ef5350;
+                       border:1px solid rgba(239,83,80,0.4);
+                       font-size:13px; font-weight:600; font-family:inherit;">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </section>
+
     <section class="settings-card collapsible-card">
         <div class="section-title collapsible-header" id="contactToggle">
             <i class="fa-solid fa-headset"></i>
@@ -193,18 +223,16 @@
                 Have questions, feedback or suggestions? Reach out to us directly.
             </p>
             <div style="display:flex; flex-direction:column; gap:12px;">
-                <!-- Email -->
-                <a href="mailto:faizullahthaheem@yahoo.com" 
-                   style="display:flex; align-items:center; justify-content:center; gap:10px; 
+                <a href="mailto:faizullahthaheem@yahoo.com"
+                   style="display:flex; align-items:center; justify-content:center; gap:10px;
                           background:rgba(255,255,255,0.05); padding:12px; border-radius:12px;
                           text-decoration:none; color:var(--text); border:1px solid rgba(255,255,255,0.08);">
                     <i class="fa-solid fa-envelope" style="color:var(--primary); font-size:20px;"></i>
                     <span style="font-size:14px; font-weight:500;">faizullahthaheem@yahoo.com</span>
                 </a>
-                <!-- WhatsApp -->
                 <a href="https://wa.me/923333237715?text=Assalamu%20Alaikum%2C%20I%20have%20a%20question%20about%20the%20app."
                    target="_blank"
-                   style="display:flex; align-items:center; justify-content:center; gap:10px; 
+                   style="display:flex; align-items:center; justify-content:center; gap:10px;
                           background:rgba(37,211,102,0.08); padding:12px; border-radius:12px;
                           text-decoration:none; color:var(--text); border:1px solid rgba(37,211,102,0.2);">
                     <i class="fa-brands fa-whatsapp" style="color:#25D366; font-size:24px;"></i>
@@ -217,9 +245,6 @@
         </div>
     </section>
 
-    <!-- ========================================
-         SECTION 2: APPEARANCE (THEMES) - COLLAPSIBLE
-    ======================================== -->
     <section class="settings-card collapsible-card">
         <div class="section-title collapsible-header" id="themeToggle">
             <i class="fa-solid fa-palette"></i>
@@ -229,14 +254,62 @@
             </span>
         </div>
         <div id="themeContent" class="collapsible-content" style="display:none;">
-            <p style="font-size:12px; color:#888; margin-bottom:12px;">Choose your favorite accent color</p>
+            <p style="font-size:12px; color:#888; margin-bottom:12px;">Choose your favorite theme</p>
             <div id="themeGrid" class="theme-grid"></div>
         </div>
     </section>
 
-    <!-- ========================================
-         SECTION 3: ABOUT
-    ======================================== -->
+    <section class="settings-card collapsible-card">
+        <div class="section-title collapsible-header" id="permissionsToggle">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2>App Permissions</h2>
+            <span style="margin-left:auto; transition:transform 0.3s;" id="permissionsArrow">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+        </div>
+
+        <div id="permissionsContent" class="collapsible-content" style="display:none;">
+            <p style="color:#aaa; font-size:12px; text-align:center; margin-bottom:14px;">
+                App ko sahi tarah chalane ke liye ye permissions zaroori hain.
+            </p>
+
+            <div class="permissions-list">
+
+                <div class="permission-item" id="permNotificationItem">
+                    <div class="permission-icon"><i class="fa-solid fa-bell"></i></div>
+                    <div class="permission-text">
+                        <strong>Notifications</strong>
+                        <span id="permNotificationStatus">Checking...</span>
+                    </div>
+                    <button type="button" class="permission-btn" id="permNotificationBtn">Allow</button>
+                </div>
+
+                <div class="permission-item" id="permLocationItem">
+                    <div class="permission-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="permission-text">
+                        <strong>Location</strong>
+                        <span id="permLocationStatus">Checking...</span>
+                    </div>
+                    <button type="button" class="permission-btn" id="permLocationBtn">Allow</button>
+                </div>
+
+                <div class="permission-item" id="permBackgroundItem">
+                    <div class="permission-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="permission-text">
+                        <strong>Background Alarms</strong>
+                        <span id="permBackgroundStatus">Checking...</span>
+                    </div>
+                    <button type="button" class="permission-btn" id="permBackgroundBtn">Allow</button>
+                </div>
+
+            </div>
+
+            <p style="color:#888; font-size:10px; text-align:center; margin-top:14px;">
+                <i class="fa-solid fa-circle-info"></i> Agar button kaam na kare to system settings se manually enable karein
+            </p>
+        </div>
+    </section>
+
     <section class="settings-card">
         <div class="section-title">
             <i class="fa-solid fa-circle-info"></i>
@@ -244,9 +317,8 @@
         </div>
         <div class="about-content">
             <h3>My Prayer App</h3>
-            <p>Version 2.0</p>
             <p style="margin-top:8px; color:#aaa; font-size:13px;">
-                Your complete Islamic companion for daily prayers, Quran, Duas, 99 Names, Tasbeeh, Qibla, Masjid finder, Zakat calculator, and Islamic calendar.
+                Your complete Islamic companion for daily prayers, Quran, Duas, 99 Names, Tasbeeh, Qibla, Zakat calculator, Age, Islamic Names, and Islamic calendar.
             </p>
             <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
                 <span style="background:rgba(212,175,55,0.1); padding:4px 12px; border-radius:20px; font-size:11px; color:var(--primary);">❤️ Made with Iman</span>
@@ -255,44 +327,65 @@
         </div>
     </section>
 
-    <!-- BOTTOM NAV (Home + More) -->
-    <nav class="bottom-nav">
-        <a href="../index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-        <div class="more-nav">
-            <button type="button" class="more-nav-btn" id="moreNavBtn">
-                <i class="fa-solid fa-ellipsis"></i>
-                <span>More</span>
-            </button>
-            <div class="more-menu" id="moreMenu">
-                <div class="more-menu-header">
-                    <span>All Features</span>
-                    <button id="closeMoreMenuBtn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="more-menu-grid">
-                    <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
-                    <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-                    <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-                    <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-                    <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-                   
-                    <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-                    <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-                    <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
-                    <a href="../islamic names/islamic names.html"><i class="fa-solid fa-hand-holding-heart"></i><span>islamic names</span></a>
-                    <!-- Settings link REMOVED because we are already on Settings page -->
-                </div>
-            </div>
+    <section class="settings-card">
+        <div class="section-title">
+            <i class="fa-solid fa-star"></i>
+            <h2>Feedback &amp; Rating</h2>
         </div>
-    </nav>
+
+        <p style="color:#aaa; font-size:12px; text-align:center; margin-bottom:14px;">
+            Aap ki raay hamare liye bohat ahem hai. Agar app pasand aayi ho to 5 star zaroor dein ⭐
+        </p>
+
+        <div class="feedback-list">
+            <button type="button" id="rateAppBtn"
+                style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+                       padding:14px 16px; border-radius:14px; cursor:pointer;
+                       background:rgba(255,255,255,0.05); border:1px solid var(--primary);
+                       color:var(--text); font-size:14px; font-weight:600; font-family:inherit;">
+                <i class="fa-solid fa-star" style="color:var(--primary); font-size:18px;"></i>
+                <span>Rate us on Play Store</span>
+            </button>
+        </div>
+    </section>
+
+     <!-- BOTTOM NAV (Home + More) -->
+<nav class="bottom-nav">
+    <a href="../index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <div class="more-nav">
+        <button type="button" class="more-nav-btn" id="moreNavBtn">
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>More</span>
+        </button>
+    </div>
+</nav>
+
+<!-- MORE MENU (bottom sheet) — bottom-nav ke BAHAR -->
+<div class="more-menu" id="moreMenu">
+    <div class="more-menu-header">
+        <span>All Features</span>
+        <button id="closeMoreMenuBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="more-menu-grid">
+        <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
+        <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
+        <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
+        <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
+        <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+        <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+        <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
+        <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
+        <a href="../islamic names/islamic names.html"><i class="fa-solid fa-id-card"></i><span>Islamic Names</span></a>
+    </div>
+</div>
 
 </div>
 
-<!-- Scripts -->
- <script src="../theme/theme.js"></script>
- <script src="../js/back-button.js"></script>
+<script src="../theme/theme.js"></script>
+
 <script src="settings.js"></script>
 
 </body>

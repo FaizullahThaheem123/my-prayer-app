@@ -196,7 +196,6 @@ async function isExactAlarmGranted() {
         console.log("🔍 Exact alarm setting:", setting);
         return setting.exact_alarm === "granted";
     } catch (e) {
-        // ✅ FIXED: Safe — assume NOT granted if check fails
         console.warn("⚠️ Exact alarm check failed — assuming NOT granted:", e);
         return false;
     }
@@ -267,11 +266,6 @@ document.addEventListener("visibilitychange", async function () {
 // ======================================
 // SCHEDULE PRAYER ALARM
 // ======================================
-// ✅ FIXED:
-// - ALARM_DAYS_AHEAD = 3 (Vivo notification limit ke andar)
-// - isExactNotification / isExactMandatory hata diye (invalid properties thi)
-// - allowWhileIdle + at schedule already exact alarm banata hai
-// - Verify + logging add kiya
 
 const ALARM_DAYS_AHEAD = 3;
 
@@ -313,7 +307,6 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
             return false;
         }
 
-        // Purane saare alarm cancel
         try {
             await LocalNotifications.cancel({
                 notifications: allAlarmIdsFor(prayer)
@@ -336,7 +329,6 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
                 0
             );
 
-            // Guzra hua waqt skip
             if (at.getTime() <= now.getTime() + 1000) continue;
 
             notifications.push({
@@ -367,7 +359,6 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
 
         console.log(`✅ ${prayer} alarm scheduled (${notifications.length} din)`, result);
 
-        // ✅ VERIFY: Check karo actually kitne pending hain
         try {
             const pending = await LocalNotifications.getPending();
             const prayerIds = notifications.map(n => n.id);
@@ -516,8 +507,6 @@ async function toggleAlarm(prayer) {
 // ======================================
 
 function checkAlarms() {
-    // Native exact alarms are responsible for the real alarm.
-    // Do NOT use WebView Audio when native scheduling is working.
     if (nativeNotificationsReady && nativeExactOk) return;
 
     const now = new Date();
@@ -766,7 +755,6 @@ async function requestFreshGPS(silent, onDone, isRetry) {
         done();
     }
 
-    // NATIVE GEOLOCATION
     if (nativeGeoReady && NativeGeolocation) {
         try {
             const position = await NativeGeolocation.getCurrentPosition({
@@ -786,7 +774,6 @@ async function requestFreshGPS(silent, onDone, isRetry) {
         }
     }
 
-    // BROWSER FALLBACK
     if (!navigator.geolocation || !isGeoAllowed()) {
         useSavedOrDefault("⚠️ Is browser me location available nahi hai");
         return;
@@ -856,7 +843,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setInterval(checkAlarms, 1000);
 
-    // ✅ Reschedule alarms after jamaat times are loaded
     if (nativeNotificationsReady) {
         setTimeout(() => {
             rescheduleEnabledAlarms();
@@ -976,7 +962,6 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
         localStorage.setItem("userLongitude", String(longitude));
         localStorage.setItem("lastGpsUpdate", String(Date.now()));
 
-        // SMART LOCATION DETECTION
         try {
             const locRes = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
@@ -1021,7 +1006,7 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
             saveLocationName(normalizeLocationName(savedName || "Adilpur"));
         }
 
-        // MAGHRIB JAMAAT (auto-set only if not set)
+        // ✅ MAGHRIB JAMAAT — Azan se 10 min PEHLE, rozana auto-update
         if (result.data.timings && result.data.timings.Maghrib) {
             localStorage.setItem("liveMaghribAzan", result.data.timings.Maghrib);
 
@@ -1029,22 +1014,30 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
             let hours = parseInt(parts[0]);
             let minutes = parseInt(parts[1]);
 
-            minutes += 3;
-            if (minutes >= 60) { minutes -= 60; hours += 1; }
-            if (hours >= 24) { hours = 0; }
+            minutes -= 10;
+            if (minutes < 0) { minutes += 60; hours -= 1; }
+            if (hours < 0) { hours += 24; }
 
             const autoMaghribJamaat =
                 String(hours).padStart(2, "0") + ":" +
                 String(minutes).padStart(2, "0");
 
-            if (!jamaatTimes["Maghrib"]) {
-                jamaatTimes["Maghrib"] = autoMaghribJamaat;
-                localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
-                updateJamaatUI();
+            // ✅ Rozana auto-update (condition hata di)
+            jamaatTimes["Maghrib"] = autoMaghribJamaat;
+            localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
+            updateJamaatUI();
+
+            // ✅ Agar Maghrib alarm ON hai, to naye time par reschedule
+            if (alarms["Maghrib"] === true && nativeNotificationsReady) {
+                const p = autoMaghribJamaat.split(":");
+                await scheduleNativeAlarm(
+                    "Maghrib",
+                    parseInt(p[0], 10),
+                    parseInt(p[1], 10)
+                );
             }
         }
 
-        // HIJRI DATE
         const hijriStr = result.data.date.hijri.weekday.en + ", " +
             result.data.date.hijri.day + " " +
             result.data.date.hijri.month.en + " " +
@@ -1370,7 +1363,6 @@ setInterval(() => {
 // ======================================
 
 function loadThemeOnIndex() {
-    // theme.js load ho to wahi poora theme sambhalta hai — purani body class ki zaroorat nahi
     if (typeof themeDesigns !== "undefined") return;
     const savedTheme = localStorage.getItem("appTheme");
     if (savedTheme) document.body.className = "theme-" + savedTheme;
@@ -1380,7 +1372,6 @@ function loadThemeOnIndex() {
 loadThemeOnIndex();
 
 function initAutoTheme() {
-    // theme.js load ho to purana auto light/dark body-class system band
     if (typeof themeDesigns !== "undefined") return;
     const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -1549,21 +1540,18 @@ window.refreshLocation = refreshLocation;
 
         App.addListener("backButton", async function () {
 
-            // 1. Jamaat modal open?
             const jamaatModal = document.getElementById("jamaatModal");
             if (jamaatModal && jamaatModal.style.display === "flex") {
                 jamaatModal.style.display = "none";
                 return;
             }
 
-            // 2. Notification modal open?
             const notifModal = document.getElementById("notificationModal");
             if (notifModal && notifModal.style.display === "flex") {
                 notifModal.style.display = "none";
                 return;
             }
 
-            // 3. More menu open?
             const menu = document.getElementById("moreMenu");
             if (menu && (menu.classList.contains("show") || menu.classList.contains("open"))) {
                 menu.classList.remove("show");
@@ -1571,7 +1559,6 @@ window.refreshLocation = refreshLocation;
                 return;
             }
 
-            // 4. ✅ Home page pe hain → exit app
             App.exitApp();
         });
 
