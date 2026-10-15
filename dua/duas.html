@@ -160,7 +160,7 @@
 
 
     <link rel="stylesheet" href="duas.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -297,70 +297,79 @@
 
     </section>
 
-    <!-- ======================================
-         BOTTOM NAV (HOME | DUAS | FAV | SAKOON | MORE)
-         ====================================== -->
-    <nav class="bottom-nav">
-        
-        <!-- HOME -->
-        <a href="../index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
+   <!-- ======================================
+     BOTTOM NAV (HOME | MORE)
+====================================== -->
+<nav class="bottom-nav">
 
-        <!-- DUAS (Active) -->
-        <a href="duas.html" class="active">
-            <i class="fa-solid fa-hands-praying"></i>
-            <span>Duas</span>
-        </a>
+    <!-- HOME -->
+    <a href="../index.html">
+        <img src="../images/home.jpg" alt="Home" class="nav-icon-img">
+        <span>Home</span>
+    </a>
 
-        <!-- FAVORITES -->
-        <a href="javascript:void(0)" onclick="showCategory('favorite')">
-            <i class="fa-solid fa-heart"></i>
-            <span>Favorites</span>
-        </a>
+    <!-- MORE (Quran Style - Bottom Sheet) -->
+    <div class="more-nav">
+        <button type="button" class="more-nav-btn" id="moreNavBtn">
+            <img src="../images/more.jpg" alt="More" class="nav-icon-img">
+            <span>More</span>
+        </button>
 
-        <!-- SAKOON (PEACE) -->
-        <a href="javascript:void(0)" onclick="showCategory('peace')">
-            <i class="fa-solid fa-dove"></i>
-            <span>Sakoon</span>
-        </a>
-
-        <!-- MORE (Quran Style - Bottom Sheet) -->
-        <div class="more-nav">
-            <button type="button" class="more-nav-btn" id="moreNavBtn">
-                <i class="fa-solid fa-ellipsis"></i>
-                <span>More</span>
-            </button>
-
-            <!-- More Menu (Quran Style) -->
-            <div class="more-menu" id="moreMenu">
-                <div class="more-menu-header">
-                    <span>All Features</span>
-                    <button id="closeMoreMenuBtn" type="button">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="more-menu-grid">
-                    <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
-                    <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-                    <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-                    <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-                   
-                    <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-                    <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-                    <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
-                     <a href="../islamic names/islamic names.html"><i class="fa-solid fa-id-card"></i><span>Islamic Names</span></a>
-                    <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-                </div>
+        <!-- More Menu (Quran Style) -->
+        <div class="more-menu" id="moreMenu">
+            <div class="more-menu-header">
+                <span>All Features</span>
+                <button id="closeMoreMenuBtn" type="button">
+                    <span>✕</span>
+                </button>
+            </div>
+            <div class="more-menu-grid">
+                <a href="../quran/quran.html">
+                    <img src="../images/quran.jpg" alt="Quran">
+                    <span>Quran</span>
+                </a>
+                <a href="../names/names.html">
+                    <img src="../images/99.jpg" alt="99 Names">
+                    <span>99 Names</span>
+                </a>
+                <a href="../tasbeeh/tasbeeh.html">
+                    <img src="../images/tasbeeh1.jpg" alt="Tasbeeh">
+                    <span>Tasbeeh</span>
+                </a>
+                <a href="../campus/campus.html">
+                    <img src="../images/campusimage.png" alt="Campus">
+                    <span>Campus</span>
+                </a>
+                <a href="../calendar/calendar.html">
+                    <img src="../images/calendar.png" alt="Calendar">
+                    <span>Calendar</span>
+                </a>
+                <a href="../age/age.html">
+                    <img src="../images/age.png" alt="Age">
+                    <span>Age</span>
+                </a>
+                <a href="../zakat/zakat.html">
+                    <img src="../images/zakat1.webp" alt="Zakat">
+                    <span>Zakat</span>
+                </a>
+                <a href="../islamic names/islamic names.html">
+                    <img src="../images/islamic names.jpg" alt="Islamic Names">
+                    <span>Islamic Names</span>
+                </a>
+                <a href="../settings/settings.html">
+                    <img src="../images/settings.jpg" alt="Settings">
+                    <span>Settings</span>
+                </a>
             </div>
         </div>
+    </div>
 
-    </nav>
+</nav>
 
 </div>
 <script src="../theme/theme.js"></script>
 <script src="../js/back-button.js"></script>
+<script src="../js/icons.js"></script>
 <script src="duas.js"></script>
 
 </body>

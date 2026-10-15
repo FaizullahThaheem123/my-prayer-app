@@ -6074,24 +6074,7 @@ const islamicNamesDB = [
     luckyDay: "Monday, Friday (پیر، جمعہ)",
     luckyStone: "Ruby (یاقوت)"
 },
-{
-    id: 338,
-    name: "Taqwa",
-    arabic: "تَقْوَى",
-    urdu: "تقویٰ",
-    gender: "unisex",
-    meaning: "God-consciousness, Piety, Righteousness",
-    meaning_urdu: "تقویٰ، اللہ کا خوف، پرہیزگاری، نیکی",
-    detailed_urdu_meaning: "اللہ کی نافرمانی سے بچنا، ہر حال میں اللہ کو یاد رکھنا",
-    origin: "Arabic",
-    category: "Quranic",
-    quranMentioned: true,
-    description: "A name meaning piety.",
-    variations: ["Taqwa"],
-    luckyNumber: 2,
-    luckyDay: "Thursday, Monday (جمعرات، پیر)",
-    luckyStone: "Sapphire (نیلم)"
-},
+
 {
     id: 339,
     name: "Ihsan",
@@ -13645,13 +13628,18 @@ document.addEventListener("DOMContentLoaded", () => {
     setupEventListeners();
 });
 
+// ✅ FIX 1: navFavBadge aur favCount null-safe guards
 function updateFavBadges() {
-    favCount.textContent = favorites.length;
-    if (favorites.length > 0) {
-        navFavBadge.style.display = "flex";
-        navFavBadge.textContent = favorites.length;
-    } else {
-        navFavBadge.style.display = "none";
+    if (favCount) {
+        favCount.textContent = favorites.length;
+    }
+    if (navFavBadge) {
+        if (favorites.length > 0) {
+            navFavBadge.style.display = "flex";
+            navFavBadge.textContent = favorites.length;
+        } else {
+            navFavBadge.style.display = "none";
+        }
     }
 }
 
@@ -13763,6 +13751,7 @@ function renderNames() {
 
 function buildAlphabetStrip() {
     const container = document.getElementById("alphabetStrip");
+    if (!container) return;
     const alphabets = currentAlphaMode === "en" ? EN_ALPHABETS : UR_ALPHABETS;
     container.innerHTML = "";
 
@@ -13801,8 +13790,10 @@ function toggleFavorite(id) {
     if (currentDetailId === id) {
         const isFav = favorites.includes(id);
         const favBtn = document.getElementById("detailFavBtn");
-        favBtn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i> ${isFav ? 'Saved' : 'Favorite'}`;
-        favBtn.classList.toggle("active", isFav);
+        if (favBtn) {
+            favBtn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i> ${isFav ? 'Saved' : 'Favorite'}`;
+            favBtn.classList.toggle("active", isFav);
+        }
     }
 }
 
@@ -13815,89 +13806,116 @@ function openDetail(id) {
     if (!item) return;
     currentDetailId = id;
 
-    document.getElementById("detailArabic").textContent = item.arabic;
-    document.getElementById("detailName").textContent = item.name;
-    document.getElementById("detailUrdu").textContent = item.urdu;
-    document.getElementById("detailUrduMeaning").textContent = item.meaning_urdu;
-    document.getElementById("detailUrduDetailed").textContent = item.detailed_urdu_meaning || "";
-    document.getElementById("detailEnglishMeaning").textContent = item.meaning;
-    document.getElementById("detailOrigin").textContent = `${item.origin}`;
-    document.getElementById("detailCategory").textContent = item.category;
-    document.getElementById("detailQuran").textContent = item.quranMentioned ? "✅ Yes (قرآنی)" : "❌ No";
-    document.getElementById("detailLuckyNumber").textContent = item.luckyNumber || 7;
-    document.getElementById("detailLuckyDay").textContent = item.luckyDay || "-";
-    document.getElementById("detailLuckyStone").textContent = item.luckyStone || "-";
-    document.getElementById("detailDescription").textContent = item.description || "";
+    const setText = (elId, txt) => {
+        const el = document.getElementById(elId);
+        if (el) el.textContent = txt;
+    };
+
+    setText("detailArabic", item.arabic);
+    setText("detailName", item.name);
+    setText("detailUrdu", item.urdu);
+    setText("detailUrduMeaning", item.meaning_urdu);
+    setText("detailUrduDetailed", item.detailed_urdu_meaning || "");
+    setText("detailEnglishMeaning", item.meaning);
+    setText("detailOrigin", `${item.origin}`);
+    setText("detailCategory", item.category);
+    setText("detailQuran", item.quranMentioned ? "✅ Yes (قرآنی)" : "❌ No");
+    setText("detailLuckyNumber", item.luckyNumber || 7);
+    setText("detailLuckyDay", item.luckyDay || "-");
+    setText("detailLuckyStone", item.luckyStone || "-");
+    setText("detailDescription", item.description || "");
 
     const genderBadge = document.getElementById("detailGenderBadge");
-    genderBadge.textContent = item.gender === 'male' ? 'لڑکے کا نام (Male)' : item.gender === 'female' ? 'لڑکی کا نام (Female)' : 'مشترکہ نام (Unisex)';
-    genderBadge.className = `detail-gender-badge ${item.gender}`;
+    if (genderBadge) {
+        genderBadge.textContent = item.gender === 'male' ? 'لڑکے کا نام (Male)' : item.gender === 'female' ? 'لڑکی کا نام (Female)' : 'مشترکہ نام (Unisex)';
+        genderBadge.className = `detail-gender-badge ${item.gender}`;
+    }
 
     const isFav = favorites.includes(item.id);
     const favBtn = document.getElementById("detailFavBtn");
-    favBtn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i> ${isFav ? 'Saved' : 'Favorite'}`;
-    favBtn.classList.toggle("active", isFav);
+    if (favBtn) {
+        favBtn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i> ${isFav ? 'Saved' : 'Favorite'}`;
+        favBtn.classList.toggle("active", isFav);
+    }
 
     // Variations
     const varBox = document.getElementById("detailVariationsBox");
     const varTags = document.getElementById("detailVariationsTags");
-    if (item.variations && item.variations.length > 0) {
-        varBox.style.display = "block";
-        varTags.innerHTML = item.variations.map(v => `<span style="background:var(--card, #1b1e2a); color:var(--primary); padding:2px 8px; border-radius:12px; font-size:10px; border:1px solid rgba(212,175,55,0.2); border:1px solid color-mix(in srgb, var(--primary) 25%, transparent);">${v}</span>`).join(" ");
-    } else {
-        varBox.style.display = "none";
+    if (varBox && varTags) {
+        if (item.variations && item.variations.length > 0) {
+            varBox.style.display = "block";
+            varTags.innerHTML = item.variations.map(v => `<span style="background:var(--card, #1b1e2a); color:var(--primary); padding:2px 8px; border-radius:12px; font-size:10px; border:1px solid rgba(212,175,55,0.2); border:1px solid color-mix(in srgb, var(--primary) 25%, transparent);">${v}</span>`).join(" ");
+        } else {
+            varBox.style.display = "none";
+        }
     }
 
-    document.getElementById("nameDetailOverlay").classList.add("active");
+    const overlay = document.getElementById("nameDetailOverlay");
+    if (overlay) overlay.classList.add("active");
 }
 
 function closeDetail() {
-    document.getElementById("nameDetailOverlay").classList.remove("active");
+    const overlay = document.getElementById("nameDetailOverlay");
+    if (overlay) overlay.classList.remove("active");
     currentDetailId = null;
 }
 
 // ==========================================
-// EVENT LISTENERS
+// EVENT LISTENERS — ✅ FIX 2: Saare missing elements par null guards
 // ==========================================
 
 function setupEventListeners() {
     // Search
-    searchInput.addEventListener("input", (e) => {
-        currentSearch = e.target.value;
-        clearSearch.style.display = currentSearch ? "block" : "none";
-        renderNames();
-    });
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            currentSearch = e.target.value;
+            if (clearSearch) clearSearch.style.display = currentSearch ? "block" : "none";
+            renderNames();
+        });
+    }
 
-    clearSearch.addEventListener("click", () => {
-        searchInput.value = "";
-        currentSearch = "";
-        clearSearch.style.display = "none";
-        renderNames();
-    });
+    if (clearSearch) {
+        clearSearch.addEventListener("click", () => {
+            if (searchInput) searchInput.value = "";
+            currentSearch = "";
+            clearSearch.style.display = "none";
+            renderNames();
+        });
+    }
 
     // Alphabet Toggle
-    document.getElementById("alphabetToggleBtn").addEventListener("click", () => {
-        const box = document.getElementById("alphabetContainer");
-        box.style.display = box.style.display === "none" ? "block" : "none";
-    });
+    const alphaToggleBtn = document.getElementById("alphabetToggleBtn");
+    if (alphaToggleBtn) {
+        alphaToggleBtn.addEventListener("click", () => {
+            const box = document.getElementById("alphabetContainer");
+            if (box) box.style.display = box.style.display === "none" ? "block" : "none";
+        });
+    }
 
-    document.getElementById("enAlphaBtn").addEventListener("click", () => {
-        currentAlphaMode = "en";
-        currentLetter = "All";
-        document.getElementById("enAlphaBtn").classList.add("active");
-        document.getElementById("urAlphaBtn").classList.remove("active");
-        buildAlphabetStrip();
-        renderNames();
-    });
+    const enAlphaBtn = document.getElementById("enAlphaBtn");
+    const urAlphaBtn = document.getElementById("urAlphaBtn");
 
-    document.getElementById("urAlphaBtn").addEventListener("click", () => {
-        currentAlphaMode = "ur";
-        currentLetter = "تمام";
-        document.getElementById("urAlphaBtn").classList.add("active");
-        document.getElementById("enAlphaBtn").classList.remove("active");
-        buildAlphabetStrip();
-        renderNames();
-    });
+    if (enAlphaBtn) {
+        enAlphaBtn.addEventListener("click", () => {
+            currentAlphaMode = "en";
+            currentLetter = "All";
+            enAlphaBtn.classList.add("active");
+            if (urAlphaBtn) urAlphaBtn.classList.remove("active");
+            buildAlphabetStrip();
+            renderNames();
+        });
+    }
+
+    if (urAlphaBtn) {
+        urAlphaBtn.addEventListener("click", () => {
+            currentAlphaMode = "ur";
+            currentLetter = "تمام";
+            urAlphaBtn.classList.add("active");
+            if (enAlphaBtn) enAlphaBtn.classList.remove("active");
+            buildAlphabetStrip();
+            renderNames();
+        });
+    }
 
     // Gender filter buttons
     document.querySelectorAll(".gender-filters .filter-btn").forEach(btn => {
@@ -13920,100 +13938,143 @@ function setupEventListeners() {
     });
 
     // Reset filters
-    document.getElementById("resetFiltersBtn").addEventListener("click", () => {
-        currentGender = "all";
-        currentCategory = "all";
-        currentLetter = "All";
-        currentSearch = "";
-        searchInput.value = "";
-        clearSearch.style.display = "none";
-        document.querySelectorAll(".gender-filters .filter-btn").forEach(b => b.classList.remove("active"));
-        document.querySelector(".gender-filters .filter-btn[data-gender='all']").classList.add("active");
-        document.querySelectorAll(".category-filters .cat-btn").forEach(b => b.classList.remove("active"));
-        document.querySelector(".category-filters .cat-btn[data-cat='all']").classList.add("active");
-        buildAlphabetStrip();
-        renderNames();
-        showToast("Filters reset");
-    });
+    const resetBtn = document.getElementById("resetFiltersBtn");
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+            currentGender = "all";
+            currentCategory = "all";
+            currentLetter = "All";
+            currentSearch = "";
+            if (searchInput) searchInput.value = "";
+            if (clearSearch) clearSearch.style.display = "none";
+            document.querySelectorAll(".gender-filters .filter-btn").forEach(b => b.classList.remove("active"));
+            const allG = document.querySelector(".gender-filters .filter-btn[data-gender='all']");
+            if (allG) allG.classList.add("active");
+            document.querySelectorAll(".category-filters .cat-btn").forEach(b => b.classList.remove("active"));
+            const allC = document.querySelector(".category-filters .cat-btn[data-cat='all']");
+            if (allC) allC.classList.add("active");
+            buildAlphabetStrip();
+            renderNames();
+            showToast("Filters reset");
+        });
+    }
 
-    // Modal controls
-    document.getElementById("closeDetailBtn").addEventListener("click", closeDetail);
-    document.getElementById("nameDetailOverlay").addEventListener("click", (e) => {
-        if (e.target === document.getElementById("nameDetailOverlay")) closeDetail();
-    });
+    // Modal controls — ✅ Guarded
+    const closeDetailBtn = document.getElementById("closeDetailBtn");
+    if (closeDetailBtn) closeDetailBtn.addEventListener("click", closeDetail);
 
-    document.getElementById("detailFavBtn").addEventListener("click", () => {
-        if (currentDetailId) toggleFavorite(currentDetailId);
-    });
+    const nameDetailOverlay = document.getElementById("nameDetailOverlay");
+    if (nameDetailOverlay) {
+        nameDetailOverlay.addEventListener("click", (e) => {
+            if (e.target === nameDetailOverlay) closeDetail();
+        });
+    }
+
+    const detailFavBtn = document.getElementById("detailFavBtn");
+    if (detailFavBtn) {
+        detailFavBtn.addEventListener("click", () => {
+            if (currentDetailId) toggleFavorite(currentDetailId);
+        });
+    }
 
     // Pronunciation speak
-    document.getElementById("speakNameBtn").addEventListener("click", () => {
-        const item = islamicNamesDB.find(n => n.id === currentDetailId);
-        if (item && 'speechSynthesis' in window) {
-            const utter = new SpeechSynthesisUtterance(item.name);
-            utter.rate = 0.85;
-            window.speechSynthesis.speak(utter);
-        }
-    });
+    const speakNameBtn = document.getElementById("speakNameBtn");
+    if (speakNameBtn) {
+        speakNameBtn.addEventListener("click", () => {
+            const item = islamicNamesDB.find(n => n.id === currentDetailId);
+            if (item && 'speechSynthesis' in window) {
+                const utter = new SpeechSynthesisUtterance(item.name);
+                utter.rate = 0.85;
+                window.speechSynthesis.speak(utter);
+            }
+        });
+    }
 
     // Copy Details
-    document.getElementById("detailCopyBtn").addEventListener("click", () => {
-        const item = islamicNamesDB.find(n => n.id === currentDetailId);
-        if (!item) return;
-        const text = `🌸 Islamic Name: ${item.name} (${item.arabic})
+    const detailCopyBtn = document.getElementById("detailCopyBtn");
+    if (detailCopyBtn) {
+        detailCopyBtn.addEventListener("click", () => {
+            const item = islamicNamesDB.find(n => n.id === currentDetailId);
+            if (!item) return;
+            const text = `🌸 Islamic Name: ${item.name} (${item.arabic})
 📖 Urdu Name: ${item.urdu}
 ✨ Urdu Meaning: ${item.meaning_urdu}
 ⭐ English Meaning: ${item.meaning}
 🌍 Origin: ${item.origin} | Category: ${item.category}`;
-
-        navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard 📋"));
-    });
+            navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard 📋"));
+        });
+    }
 
     // Share Details
-    document.getElementById("detailShareBtn").addEventListener("click", () => {
-        const item = islamicNamesDB.find(n => n.id === currentDetailId);
-        if (!item) return;
-        const text = `🌸 Islamic Name: ${item.name} (${item.arabic})\n✨ Meaning (اردو): ${item.meaning_urdu}\n⭐ English: ${item.meaning}`;
-        if (navigator.share) {
-            navigator.share({ title: item.name, text: text }).catch(() => {});
-        } else {
-            navigator.clipboard.writeText(text);
-            showToast("Copied text to share 📤");
-        }
-    });
+    const detailShareBtn = document.getElementById("detailShareBtn");
+    if (detailShareBtn) {
+        detailShareBtn.addEventListener("click", () => {
+            const item = islamicNamesDB.find(n => n.id === currentDetailId);
+            if (!item) return;
+            const text = `🌸 Islamic Name: ${item.name} (${item.arabic})\n✨ Meaning (اردو): ${item.meaning_urdu}\n⭐ English: ${item.meaning}`;
+            if (navigator.share) {
+                navigator.share({ title: item.name, text: text }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text);
+                showToast("Copied text to share 📤");
+            }
+        });
+    }
 
-    // Modal Prev/Next navigation
-    document.getElementById("prevNameBtn").addEventListener("click", () => {
-        const idx = islamicNamesDB.findIndex(n => n.id === currentDetailId);
-        if (idx > 0) openDetail(islamicNamesDB[idx - 1].id);
-    });
-    document.getElementById("nextNameBtn").addEventListener("click", () => {
-        const idx = islamicNamesDB.findIndex(n => n.id === currentDetailId);
-        if (idx < islamicNamesDB.length - 1) openDetail(islamicNamesDB[idx + 1].id);
-    });
+    // Modal Prev/Next navigation — ✅ Guarded
+    const prevNameBtn = document.getElementById("prevNameBtn");
+    if (prevNameBtn) {
+        prevNameBtn.addEventListener("click", () => {
+            const idx = islamicNamesDB.findIndex(n => n.id === currentDetailId);
+            if (idx > 0) openDetail(islamicNamesDB[idx - 1].id);
+        });
+    }
 
-    // Bottom Navigation Handlers
-    document.getElementById("navHomeBtn").addEventListener("click", () => {
-        document.querySelectorAll(".bottom-nav .nav-item").forEach(b => b.classList.remove("active"));
-        document.getElementById("navHomeBtn").classList.add("active");
-        currentGender = "all";
-        renderNames();
-    });
+    const nextNameBtn = document.getElementById("nextNameBtn");
+    if (nextNameBtn) {
+        nextNameBtn.addEventListener("click", () => {
+            const idx = islamicNamesDB.findIndex(n => n.id === currentDetailId);
+            if (idx < islamicNamesDB.length - 1) openDetail(islamicNamesDB[idx + 1].id);
+        });
+    }
 
-    document.getElementById("navSavedBtn").addEventListener("click", () => {
-        document.querySelectorAll(".bottom-nav .nav-item").forEach(b => b.classList.remove("active"));
-        document.getElementById("navSavedBtn").classList.add("active");
-        currentGender = "favorites";
-        renderNames();
-    });
+    // Bottom Navigation Handlers — ✅ Guarded (yeh elements HTML mein nahi hain)
+    const navHomeBtn = document.getElementById("navHomeBtn");
+    if (navHomeBtn) {
+        navHomeBtn.addEventListener("click", () => {
+            document.querySelectorAll(".bottom-nav .nav-item").forEach(b => b.classList.remove("active"));
+            navHomeBtn.classList.add("active");
+            currentGender = "all";
+            renderNames();
+        });
+    }
 
-    // Random Picker Modal
-    document.getElementById("navRandomBtn").addEventListener("click", () => {
-        document.getElementById("randomPickerOverlay").classList.add("active");
-    });
-    document.getElementById("closeRandomBtn").addEventListener("click", () => {
-        document.getElementById("randomPickerOverlay").classList.remove("active");
-    });
+    const navSavedBtn = document.getElementById("navSavedBtn");
+    if (navSavedBtn) {
+        navSavedBtn.addEventListener("click", () => {
+            document.querySelectorAll(".bottom-nav .nav-item").forEach(b => b.classList.remove("active"));
+            navSavedBtn.classList.add("active");
+            currentGender = "favorites";
+            renderNames();
+        });
+    }
+
+    // Random Picker Modal — ✅ Guarded
+    const navRandomBtn = document.getElementById("navRandomBtn");
+    if (navRandomBtn) {
+        navRandomBtn.addEventListener("click", () => {
+            const rOverlay = document.getElementById("randomPickerOverlay");
+            if (rOverlay) rOverlay.classList.add("active");
+        });
+    }
+
+    const closeRandomBtn = document.getElementById("closeRandomBtn");
+    if (closeRandomBtn) {
+        closeRandomBtn.addEventListener("click", () => {
+            const rOverlay = document.getElementById("randomPickerOverlay");
+            if (rOverlay) rOverlay.classList.remove("active");
+        });
+    }
 
     let rGender = "all";
     document.querySelectorAll(".random-gender-filter .rg-btn").forEach(btn => {
@@ -14024,27 +14085,40 @@ function setupEventListeners() {
         });
     });
 
-    document.getElementById("spinRandomBtn").addEventListener("click", () => {
-        let pool = [...islamicNamesDB];
-        if (rGender !== "all") pool = pool.filter(n => n.gender === rGender);
-        const randomItem = pool[Math.floor(Math.random() * pool.length)];
+    const spinRandomBtn = document.getElementById("spinRandomBtn");
+    if (spinRandomBtn) {
+        spinRandomBtn.addEventListener("click", () => {
+            let pool = [...islamicNamesDB];
+            if (rGender !== "all") pool = pool.filter(n => n.gender === rGender);
+            const randomItem = pool[Math.floor(Math.random() * pool.length)];
 
-        const disp = document.getElementById("randomDisplayCard");
-        disp.innerHTML = `
-            <div style="font-family:'Amiri'; font-size:26px; color:var(--primary);">${randomItem.arabic}</div>
-            <div style="font-size:18px; font-weight:800; color:#fff;">${randomItem.name} (${randomItem.urdu})</div>
-            <div style="font-size:12px; color:#f1f5f9; margin-top:4px;" dir="rtl"><strong>معنی:</strong> ${randomItem.meaning_urdu}</div>
-            <div style="font-size:11px; color:var(--male-color); margin-top:2px;">${randomItem.meaning}</div>
-        `;
-    });
+            const disp = document.getElementById("randomDisplayCard");
+            if (!disp) return;
+            disp.innerHTML = `
+                <div style="font-family:'Amiri'; font-size:26px; color:var(--primary);">${randomItem.arabic}</div>
+                <div style="font-size:18px; font-weight:800; color:#fff;">${randomItem.name} (${randomItem.urdu})</div>
+                <div style="font-size:12px; color:#f1f5f9; margin-top:4px;" dir="rtl"><strong>معنی:</strong> ${randomItem.meaning_urdu}</div>
+                <div style="font-size:11px; color:var(--male-color); margin-top:2px;">${randomItem.meaning}</div>
+            `;
+        });
+    }
 
-    // Sunnah Guide Modal
-    document.getElementById("navSunnahBtn").addEventListener("click", () => {
-        document.getElementById("sunnahModalOverlay").classList.add("active");
-    });
-    document.getElementById("closeSunnahBtn").addEventListener("click", () => {
-        document.getElementById("sunnahModalOverlay").classList.remove("active");
-    });
+    // Sunnah Guide Modal — ✅ Guarded
+    const navSunnahBtn = document.getElementById("navSunnahBtn");
+    if (navSunnahBtn) {
+        navSunnahBtn.addEventListener("click", () => {
+            const sOverlay = document.getElementById("sunnahModalOverlay");
+            if (sOverlay) sOverlay.classList.add("active");
+        });
+    }
+
+    const closeSunnahBtn = document.getElementById("closeSunnahBtn");
+    if (closeSunnahBtn) {
+        closeSunnahBtn.addEventListener("click", () => {
+            const sOverlay = document.getElementById("sunnahModalOverlay");
+            if (sOverlay) sOverlay.classList.remove("active");
+        });
+    }
 }
 
 // ==========================================
@@ -14061,7 +14135,7 @@ function showToast(msg) {
     setTimeout(() => t.remove(), 2500);
 }
 
-// More Menu Toggle (اگر theme.js میں نہ ہو)
+// More Menu Toggle — ✅ Guarded
 const moreBtn = document.getElementById("moreNavBtn");
 const moreMenu = document.getElementById("moreMenu");
 const closeMoreBtn = document.getElementById("closeMoreMenuBtn");
@@ -14072,9 +14146,11 @@ if (moreBtn && moreMenu) {
         moreMenu.classList.toggle("open");
     });
 
-    closeMoreBtn.addEventListener("click", function() {
-        moreMenu.classList.remove("open");
-    });
+    if (closeMoreBtn) {
+        closeMoreBtn.addEventListener("click", function() {
+            moreMenu.classList.remove("open");
+        });
+    }
 
     document.addEventListener("click", function(e) {
         if (!moreMenu.contains(e.target) && !moreBtn.contains(e.target)) {

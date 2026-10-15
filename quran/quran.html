@@ -163,7 +163,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
   <!-- Theme CSS -->
   <link rel="stylesheet" href="../theme/theme.css">
@@ -192,6 +192,7 @@
         <img src="../images/quran.jpg" alt="Quran">
     </div>
 </header>
+
 
 
     <!-- Main Content -->
@@ -379,12 +380,9 @@
           <div class="download-pack-card">
             <div class="pack-icon text-amber"><i class="fa-solid fa-headphones"></i></div>
             <div class="pack-details">
-              <h3>Full Quran Audio (Offline)</h3>
-              <p>Download full high-quality audio recitation for your selected Qari for 100% offline listening.</p>
-              <div class="reciter-picker-row">
-                <label>Select Qari to Download:</label>
-                <select id="select-download-qari" class="custom-select"></select>
-              </div>
+              <h3>Full Quran Audio — Mishary Rashid Alafasy</h3>
+<p>Download full high-quality audio recitation for 100% offline listening.</p>
+             
             </div>
             <div class="pack-action">
               <button id="btn-download-all-audio" class="btn-primary w-full">
@@ -428,13 +426,7 @@
             </div>
           </div>
 
-          <div class="setting-item">
-            <div class="setting-text">
-              <strong>Default Qari (Reciter)</strong>
-              <span>Voice for full surah and verse recitation</span>
-            </div>
-            <select id="select-settings-qari" class="custom-select"></select>
-          </div>
+         
 
           <div class="setting-item">
             <div class="setting-text">
@@ -502,51 +494,75 @@
   
   <!-- HOME -->
   <a href="../index.html" class="nav-item">
-    <i class="fa-solid fa-house"></i>
+    <img src="../images/home.jpg" alt="Home" class="nav-icon-img">
     <span>Home</span>
   </a>
 
-  <!-- BACK -->
-  <button class="nav-item" id="btn-back-nav" onclick="goBack()">
-    <i class="fa-solid fa-arrow-left"></i>
-    <span>Back</span>
-  </button>
 
-  <!-- SEARCH -->
-  <button class="nav-item" id="searchNavBtn">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span>Search</span>
-  </button>
 
   <!-- MORE (Bottom Sheet) -->
   <div class="more-nav">
     <button type="button" class="more-nav-btn" id="moreNavBtn">
-      <i class="fa-solid fa-ellipsis"></i>
+      <img src="../images/more.jpg" alt="More" class="nav-icon-img">
       <span>More</span>
     </button>
 
-    <div class="more-menu" id="moreMenu">
-      <div class="more-menu-header">
-        <span>All Features</span>
-        <button id="closeMoreMenuBtn" type="button">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
+     <div class="more-menu" id="moreMenu">
+            <div class="more-menu-header">
+                <span>All Features</span>
+                <button id="closeMoreMenuBtn" type="button">
+                    <span>✕</span>
+                </button>
+            </div>
 
       <div class="more-menu-grid">
-        <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-        <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-        <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-        <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
+        <a href="../dua/duas.html">
+    <img src="../images/dua.jpg" alt="Duas" class="more-menu-img">
+    <span>Duas</span>
+</a>
+       
+<a href="../names/names.html">
+    <img src="../images/99.jpg" alt="99 Names">
+    <span>Names</span>
+</a>
         
-        <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-        <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-        <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
-        <a href="../islamic names/islamic names.html"><i class="fa-solid fa-id-card"></i><span>Islamic Names</span></a>
+<a href="../tasbeeh/tasbeeh.html">
+    <img src="../images/tasbeeh1.jpg" alt="Tasbeeh1">
+    <span>Tasbeeh</span>
+</a>
+        
+<a href="../campus/campus.html">
+    <img src="../images/campusimage.png" alt="Campus">
+    <span>Campus</span>
+</a>
+        
+       
+<a href="../calendar/calendar.html">
+    <img src="../images/calendar.png" alt="Calendar">
+    <span>Calendar</span>
+</a>
+        
+<a href="../age/age.html">
+    <img src="../images/age.png" alt="Age">
+    <span>Age</span>
+</a>
+        
+<a href="../zakat/zakat.html">
+    <img src="../images/zakat1.webp" alt="Zakat">
+    <span>Zakat</span>
+</a>
+        
+<a href="../islamic names/islamic names.html">
+    <img src="../images/islamic names.jpg" alt="Islamic Names">
+    <span>Islamic Names</span>
+</a>
                
+<a href="../settings/settings.html">
+    <img src="../images/settings.jpg" alt="Settings">
+    <span>Settings</span>
+</a>
 
-
-        <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        
       </div>
     </div>
   </div>
@@ -561,7 +577,7 @@
 
   
     <script src="../theme/theme.js"></script>
-    
+    <script src="../js/icons.js"></script>
   <script src="../js/back-button.js"></script>
     <script src="quran.js"></script>
   </body>

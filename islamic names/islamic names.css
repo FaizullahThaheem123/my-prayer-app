@@ -247,8 +247,8 @@ body {
 
 .alphabet-strip {
     display: flex;
-    gap: 8px;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    gap: 6px;
     padding-bottom: 4px;
 }
 
@@ -314,8 +314,8 @@ body {
 
 .category-filters {
     display: flex;
-    gap: 8px;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    gap: 6px;
     padding-bottom: 2px;
 }
 
@@ -918,8 +918,11 @@ body {
 
 .more-menu-grid a span,
 .more-menu-grid button span {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
 /* ===== UNIFIED HEADER FIX ===== */
@@ -979,4 +982,34 @@ body {
     object-fit: cover !important;
     border-radius: 50% !important;
     display: block !important;
+}
+
+.bottom-nav span,
+.more-nav-btn span {
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+}
+
+/* ===== Bottom Nav Image Icons ===== */
+.bottom-nav .nav-icon-img,
+.more-nav-btn .nav-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+/* ===== More Menu Images — chhote karo ===== */
+.more-menu-grid a img,
+.more-menu-grid button img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
 }

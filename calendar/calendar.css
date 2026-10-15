@@ -186,6 +186,7 @@ body{
     border-radius: 14px;
     padding: 14px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    text-align: center; 
 }
 
 .date-info-block {
@@ -311,11 +312,13 @@ body{
     border-radius: 14px;
     padding: 14px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    
 }
 
 .details-header {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     color: var(--primary);
     margin-bottom: 10px;
@@ -401,7 +404,10 @@ body{
 .bottom-nav span,
 .more-nav-btn span {
     white-space: nowrap;
-    font-size: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
 }
 
 .more-nav {
@@ -527,8 +533,11 @@ body{
 
 .more-menu-grid a span,
 .more-menu-grid button span {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
 
@@ -568,13 +577,24 @@ body{
     border-radius: 14px;
     padding: 14px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .events-header h4 {
     font-size: 15px;
     color: var(--primary);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-top: 8px;          /* ⬅️ YE ADD KARO — upar se space */
+    margin-bottom: 12px;       /* ⬅️ Neeche se space */
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
 }
+
+/* Baaki CSS same rahega */
 .events-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -602,3 +622,23 @@ body{
     color: var(--text-muted);
 }
 
+/* ===== Bottom Nav Image Icons ===== */
+.bottom-nav .nav-icon-img,
+.more-nav-btn .nav-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+/* ===== More Menu Images — chhote karo ===== */
+.more-menu-grid a img,
+.more-menu-grid button img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
+}

@@ -164,7 +164,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <!-- ✅ FIXED: CSS File Link -->
     <link rel="stylesheet" href="islamic names.css">
@@ -211,19 +211,15 @@
     </section>
 
     <!-- GENDER & CATEGORY FILTERS -->
-    <section class="filters-section">
-        <div class="gender-filters">
-            <button class="filter-btn active" data-gender="all">All (تمام)</button>
-            <button class="filter-btn male" data-gender="male">👦 Male (لڑکے)</button>
-            <button class="filter-btn female" data-gender="female">👧 Female (لڑکیاں)</button>
-            <button class="filter-btn unisex" data-gender="unisex">👶 Unisex (مشترکہ)</button>
-            <button class="filter-btn favorites-btn" data-gender="favorites" id="savedFilterBtn">
-                <i class="fa-regular fa-heart"></i> Saved (<span id="favCount">0</span>)
-            </button>
-            <button class="filter-btn reset-btn" id="resetFiltersBtn" title="Reset All Filters">
-                <i class="fa-solid fa-rotate-left"></i>
-            </button>
-        </div>
+    <div class="gender-filters">
+    <button class="filter-btn active" data-gender="all">All (تمام)</button>
+    <button class="filter-btn male" data-gender="male">👦 Male (لڑکے)</button>
+    <button class="filter-btn female" data-gender="female">👧 Female (لڑکیاں)</button>
+    <button class="filter-btn favorites-btn" data-gender="favorites" id="savedFilterBtn">
+        <i class="fa-regular fa-heart"></i> Saved (<span id="favCount">0</span>)
+    </button>
+   
+</div>
 
         <div class="category-filters" id="categoryFilters">
             <button class="cat-btn active" data-cat="all">All Categories</button>
@@ -387,50 +383,67 @@
     </div>
 
     <!-- ==============================
-     BOTTOM NAVIGATION (Home + Saved + More)
+     BOTTOM NAVIGATION (Home + More)
      ============================== -->
 <nav class="bottom-nav">
-    <!-- HOME - لنک آپ کے index.html کی طرف -->
+    <!-- HOME -->
     <a href="../index.html" class="nav-item active" id="navHomeLink">
-        <i class="fa-solid fa-house"></i>
+        <img src="../images/home.jpg" alt="Home" class="nav-icon-img">
         <span>Home</span>
     </a>
 
-    <!-- SAVED (Favorites) - بٹن اسی طرح رہے گا -->
-    <button class="nav-item" id="navSavedBtn">
-        <div class="icon-wrap">
-            <i class="fa-solid fa-heart"></i>
-            <span class="badge" id="navFavBadge" style="display:none;">0</span>
-        </div>
-        <span>Saved</span>
-    </button>
-
-    <!-- MORE - Bottom Sheet والا بٹن -->
+    <!-- MORE - Bottom Sheet -->
     <div class="more-nav">
         <button type="button" class="more-nav-btn" id="moreNavBtn">
-            <i class="fa-solid fa-ellipsis"></i>
+            <img src="../images/more.jpg" alt="More" class="nav-icon-img">
             <span>More</span>
         </button>
 
-        <!-- More مینو (Bottom Sheet) -->
+        <!-- More Menu (Bottom Sheet) -->
         <div class="more-menu" id="moreMenu">
             <div class="more-menu-header">
                 <span>All Features</span>
                 <button id="closeMoreMenuBtn" type="button">
-                    <i class="fa-solid fa-xmark"></i>
+                    <span>✕</span>
                 </button>
             </div>
             <div class="more-menu-grid">
-                <a href="../quran/quran.html"><i class="fa-solid fa-book-quran"></i><span>Quran</span></a>
-                <a href="../dua/duas.html"><i class="fa-solid fa-hands-praying"></i><span>Duas</span></a>
-                <a href="../names/names.html"><i class="fa-solid fa-star-and-crescent"></i><span>99 Names</span></a>
-                <a href="../tasbeeh/tasbeeh.html"><i class="fa-solid fa-ring"></i><span>Tasbeeh</span></a>
-                <a href="../campus/campus.html"><i class="fa-solid fa-graduation-cap"></i><span>Campus</span></a>
-               
-                <a href="../calendar/calendar.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
-                 <a href="../age/age.html"><i class="fa-solid fa-cake-candles"></i><span>Age</span></a>
-                <a href="../zakat/zakat.html"><i class="fa-solid fa-hand-holding-heart"></i><span>Zakat</span></a>
-                <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                <a href="../quran/quran.html">
+                    <img src="../images/quran.jpg" alt="Quran">
+                    <span>Quran</span>
+                </a>
+                <a href="../dua/duas.html">
+                    <img src="../images/dua.jpg" alt="Duas">
+                    <span>Duas</span>
+                </a>
+                <a href="../names/names.html">
+                    <img src="../images/99.jpg" alt="99 Names">
+                    <span>99 Names</span>
+                </a>
+                <a href="../tasbeeh/tasbeeh.html">
+                    <img src="../images/tasbeeh1.jpg" alt="Tasbeeh">
+                    <span>Tasbeeh</span>
+                </a>
+                <a href="../campus/campus.html">
+                    <img src="../images/campusimage.png" alt="Campus">
+                    <span>Campus</span>
+                </a>
+                <a href="../calendar/calendar.html">
+                    <img src="../images/calendar.png" alt="Calendar">
+                    <span>Calendar</span>
+                </a>
+                <a href="../age/age.html">
+                    <img src="../images/age.png" alt="Age">
+                    <span>Age</span>
+                </a>
+                <a href="../zakat/zakat.html">
+                    <img src="../images/zakat1.webp" alt="Zakat">
+                    <span>Zakat</span>
+                </a>
+                <a href="../settings/settings.html">
+                    <img src="../images/settings.jpg" alt="Settings">
+                    <span>Settings</span>
+                </a>
             </div>
         </div>
     </div>
@@ -439,6 +452,7 @@
 <!-- JavaScript File -->
   <script src="../theme/theme.js"></script>
   <script src="../js/back-button.js"></script>
+<script src="../js/icons.js"></script>
 <script src="islamic names.js"></script>
 
 </body>

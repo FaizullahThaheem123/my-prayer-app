@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * القرآن الكريم — HOLY QURAN COMPLETE ENGINE (FINAL FIX - WORKING CDN)
+ * القرآن الكريم — HOLY QURAN COMPLETE ENGINE (PER-AYAH OFFLINE)
  * ============================================================================
  */
 
@@ -159,48 +159,11 @@
   ];
 
   const QARIS_LIST = [
-    { id: "ar.alafasy",            name: "Mishary Rashid Alafasy",     arabic: "مشاري راشد العفاسي" },
-    { id: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais",     arabic: "عبدالرحمن السديس" },
-    { id: "ar.husary",             name: "Mahmoud Khalil Al-Husary",   arabic: "محمود خليل الحصري" },
-    { id: "ar.minshawi",           name: "Mohamed Siddiq Al-Minshawi", arabic: "محمد صديق المنشاوي" },
-    { id: "ar.mahermuaiqly",       name: "Maher Al-Muaiqly",           arabic: "ماهر المعيقلي" },
-    { id: "ar.abdulbasitmurattal", name: "Abdul Basit Abdul Samad",    arabic: "عبدالباسط عبدالصمد" },
-    { id: "ar.saoodshuraym",       name: "Sa'ud Ash-Shuraym",          arabic: "سعود الشريم" },
-    { id: "ar.ahmedajamy",         name: "Ahmed Al-Ajamy",             arabic: "أحمد بن علي العجمي" }
-  ];
-
-  // ✅ WORKING CDN MAPPING (mp3quran.net — Pakistan mein chalta hai)
-  const MP3QURAN_MAP = {
-    "ar.alafasy":            { code: "afs"   },
-    "ar.abdurrahmaansudais": { code: "sds"   },
-    "ar.husary":             { code: "husr"  },
-    "ar.minshawi":           { code: "minsh" },
-    "ar.mahermuaiqly":       { code: "maher" },
-    "ar.abdulbasitmurattal": { code: "basit" },
-    "ar.saoodshuraym":       { code: "shur"  },
-    "ar.ahmedajamy":         { code: "ajm"   }
-  };
-
-  const MP3QURAN_SERVERS = [
-    "server8.mp3quran.net",
-    "server6.mp3quran.net",
-    "server7.mp3quran.net",
-    "server9.mp3quran.net",
-    "server10.mp3quran.net",
-    "server11.mp3quran.net",
-    "server12.mp3quran.net",
-    "server13.mp3quran.net"
+    { id: "ar.alafasy", name: "Mishary Rashid Alafasy", arabic: "مشاري راشد العفاسي" }
   ];
 
   const QARI_EVERYAYAH_MAP = {
-    "ar.alafasy":            "Alafasy_128kbps",
-    "ar.abdurrahmaansudais": "Abdurrahmaan_As-Sudais_192kbps",
-    "ar.husary":             "Husary_128kbps",
-    "ar.minshawi":           "Minshawy_Murattal_128kbps",
-    "ar.mahermuaiqly":       "Maher_AlMuaiqly_128kbps",
-    "ar.abdulbasitmurattal": "Abdul_Basit_Murattal_192kbps",
-    "ar.saoodshuraym":       "Saood_ash-Shuraym_128kbps",
-    "ar.ahmedajamy":         "Ahmed_ibn_Ali_al-Ajamy_128kbps"
+    "ar.alafasy": "Alafasy_128kbps"
   };
 
   function getEveryayahUrl(qariId, surahNum, ayahNum) {
@@ -211,21 +174,23 @@
   }
 
   // ==========================================
-  // ✅ FILESYSTEM HELPERS (Android Storage)
+  // FILESYSTEM HELPERS (Android Storage) — Per-Ayah
   // ==========================================
   const CapFilesystem = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem;
   const isNativeApp = !!(CapFilesystem) &&
     !(window.Capacitor.isNativePlatform && !window.Capacitor.isNativePlatform());
 
   const QURAN_BASE_DIR = "MyPrayer/Quran";
-  const MIN_AUDIO_BYTES = 50000;
+  const MIN_AUDIO_BYTES = 5000;
 
   const QURAN_SAVE_DIRS = ["DATA", "EXTERNAL"];
   const QURAN_READ_DIRS = ["DATA", "EXTERNAL", "EXTERNAL_STORAGE"];
   let resolvedSaveDir = null;
 
-  function quranSurahPath(qariId, surahNum) {
-    return QURAN_BASE_DIR + "/" + qariId + "/" + surahNum + ".mp3";
+  function quranAyahPath(qariId, surahNum, ayahNum) {
+    const s = String(surahNum).padStart(3, "0");
+    const a = String(ayahNum).padStart(3, "0");
+    return QURAN_BASE_DIR + "/" + qariId + "/" + s + "/" + a + ".mp3";
   }
 
   function fmtSize(bytes) {
@@ -279,9 +244,9 @@
     return null;
   }
 
-  async function statSurah(qariId, surahNum) {
+  async function statAyah(qariId, surahNum, ayahNum) {
     if (!isNativeApp) return null;
-    const path = quranSurahPath(qariId, surahNum);
+    const path = quranAyahPath(qariId, surahNum, ayahNum);
     for (let i = 0; i < QURAN_READ_DIRS.length; i++) {
       try {
         const st = await CapFilesystem.stat({ path: path, directory: QURAN_READ_DIRS[i] });
@@ -292,41 +257,30 @@
     return null;
   }
 
-  async function writeSurahToStorage(qariId, surahNum, blob) {
+  async function writeAyahToStorage(qariId, surahNum, ayahNum, blob) {
     if (!isNativeApp) return 0;
     const dir = await getSaveDir();
     if (!dir) return 0;
-    const path = quranSurahPath(qariId, surahNum);
+    const path = quranAyahPath(qariId, surahNum, ayahNum);
     try {
       try { await CapFilesystem.deleteFile({ path: path, directory: dir }); } catch (e) {}
-      const CHUNK = 3 * 1024 * 1024;
-      for (let off = 0; off < blob.size; off += CHUNK) {
-        const b64 = await blobToBase64(blob.slice(off, off + CHUNK));
-        if (off === 0) {
-          await CapFilesystem.writeFile({ path: path, data: b64, directory: dir, recursive: true });
-        } else {
-          await CapFilesystem.appendFile({ path: path, data: b64, directory: dir });
-        }
-      }
+      const b64 = await blobToBase64(blob);
+      await CapFilesystem.writeFile({ path: path, data: b64, directory: dir, recursive: true });
       const stat = await CapFilesystem.stat({ path: path, directory: dir });
       const size = Number(stat && stat.size) || 0;
-      if (size >= MIN_AUDIO_BYTES && size === blob.size) {
-        console.log("✅ Saved:", path, "|", (size / 1048576).toFixed(2), "MB");
-        return size;
-      }
+      if (size >= MIN_AUDIO_BYTES) return size;
       try { await CapFilesystem.deleteFile({ path: path, directory: dir }); } catch (e) {}
       return 0;
     } catch (e) {
-      console.warn("writeSurahToStorage failed:", e);
-      try { await CapFilesystem.deleteFile({ path: path, directory: dir }); } catch (e2) {}
+      console.warn("writeAyahToStorage failed:", e);
       return 0;
     }
   }
 
-  async function readSurahFromStorage(qariId, surahNum) {
+  async function readAyahFromStorage(qariId, surahNum, ayahNum) {
     if (!isNativeApp) return null;
     try {
-      const found = await statSurah(qariId, surahNum);
+      const found = await statAyah(qariId, surahNum, ayahNum);
       if (!found) return null;
       const res = await CapFilesystem.readFile({ path: found.path, directory: found.directory });
       return base64ToBlob(res.data, "audio/mpeg");
@@ -340,56 +294,45 @@
     set.totalBytes = 0;
     if (!isNativeApp) return set;
 
-    const sizes = {};
-    for (let i = 0; i < QURAN_READ_DIRS.length; i++) {
-      try {
-        const res = await CapFilesystem.readdir({
-          path: QURAN_BASE_DIR + "/" + qariId,
-          directory: QURAN_READ_DIRS[i]
-        });
-        (res.files || []).forEach(function(f) {
-          const name = (typeof f === "string") ? f : (f && f.name);
-          const m = name && String(name).match(/^(\d+)\.mp3$/);
-          if (!m) return;
-          const num = parseInt(m[1], 10);
-          const size = (f && typeof f === "object" && f.size != null) ? Number(f.size) : null;
-          if (size !== null && size < MIN_AUDIO_BYTES) return;
-          if (!set.has(num)) { set.add(num); sizes[num] = size; }
-        });
-      } catch (e) {}
+    const hints = getLocalDownloadedSet(qariId);
+    for (const num of hints) {
+      const surahInfo = SURAHS_LIST.find(s => s.number === num);
+      if (!surahInfo) continue;
+      let allPresent = true;
+      let totalSize = 0;
+      for (let a = 1; a <= surahInfo.numberOfAyahs; a++) {
+        const st = await statAyah(qariId, num, a);
+        if (!st) { allPresent = false; break; }
+        totalSize += st.size;
+      }
+      if (allPresent) {
+        set.add(num);
+        set.totalBytes += totalSize;
+      }
     }
-
-    const toCheck = new Set(Array.from(getLocalDownloadedSet(qariId)));
-    set.forEach(function(n) { if (sizes[n] == null) toCheck.add(n); });
-    for (const n of toCheck) {
-      if (set.has(n) && sizes[n] != null) continue;
-      const st = await statSurah(qariId, n);
-      if (st) { set.add(n); sizes[n] = st.size; }
-    }
-
-    let total = 0;
-    set.forEach(function(n) { total += Number(sizes[n]) || 0; });
-    set.totalBytes = total;
     return set;
   }
 
-  async function getOfflineSurahUrl(qariId, surahNum) {
+  async function getOfflineAyahUrl(qariId, surahNum, ayahNum) {
     if (isNativeApp) {
       try {
-        const found = await statSurah(qariId, surahNum);
+        const found = await statAyah(qariId, surahNum, ayahNum);
         if (found && window.Capacitor && window.Capacitor.convertFileSrc) {
           const u = await CapFilesystem.getUri({ path: found.path, directory: found.directory });
           if (u && u.uri) return { url: window.Capacitor.convertFileSrc(u.uri), isBlob: false };
         }
       } catch (e) {}
     }
-    const blob = await getCachedSurahAudio(qariId, surahNum);
+    const blob = await getCachedAyahAudio(qariId, surahNum, ayahNum);
     if (blob && blob.size > MIN_AUDIO_BYTES) {
       return { url: URL.createObjectURL(blob), isBlob: true };
     }
     return null;
   }
 
+  // ==========================================
+  // STATE
+  // ==========================================
   const state = {
     currentView: "home",
     history: ["home"],
@@ -433,6 +376,25 @@
     return persistentStorageGranted;
   }
 
+  // ==========================================
+  // AUDIO COMPLETE FLAG — instant check
+  // ==========================================
+  function isAudioMarkedComplete(qariId) {
+    try {
+      return localStorage.getItem("quran_audio_complete_" + qariId) === "true";
+    } catch (e) { return false; }
+  }
+
+  function setAudioCompleteFlag(qariId, isComplete) {
+    try {
+      if (isComplete) {
+        localStorage.setItem("quran_audio_complete_" + qariId, "true");
+      } else {
+        localStorage.removeItem("quran_audio_complete_" + qariId);
+      }
+    } catch (e) {}
+  }
+
   function getLocalDownloadedSet(qariId) {
     try {
       const raw = localStorage.getItem("quran_downloaded_" + qariId);
@@ -454,6 +416,9 @@
     saveLocalDownloadedSet(qariId, set);
   }
 
+  // ==========================================
+  // INIT
+  // ==========================================
   function init() {
     loadSettings();
     renderSurahsGrid(SURAHS_LIST);
@@ -573,50 +538,74 @@
       }
     }
 
+    // Browser fallback: check each hinted surah in IDB for full completeness
     const localSet = getLocalDownloadedSet(qariId);
-    const idbSet = new Set();
+    const result = new Set();
+    if (localSet.size === 0) return result;
 
     try {
       const db = await openDB();
-      await new Promise((resolve) => {
-        const tx = db.transaction("audio", "readonly");
-        const store = tx.objectStore("audio");
-        const prefix = qariId + "_surah_";
-        const range = IDBKeyRange.bound(prefix, prefix + "\uffff");
-        const request = store.openCursor(range);
-        request.onsuccess = (ev) => {
-          const cursor = ev.target.result;
-          if (cursor) {
-            if (cursor.value && cursor.value.data && cursor.value.data.size > 50000) {
-              const num = parseInt(cursor.key.replace(prefix, ""), 10);
-              if (!isNaN(num)) idbSet.add(num);
-            }
-            cursor.continue();
-          } else { resolve(); }
-        };
-        request.onerror = () => resolve();
-      });
+      for (const surahNum of localSet) {
+        const surahInfo = SURAHS_LIST.find(s => s.number === surahNum);
+        if (!surahInfo) continue;
+
+        const allPresent = await new Promise((resolve) => {
+          const tx = db.transaction("audio", "readonly");
+          const store = tx.objectStore("audio");
+          let remaining = surahInfo.numberOfAyahs;
+          let ok = true;
+          for (let a = 1; a <= surahInfo.numberOfAyahs; a++) {
+            const key = qariId + "_surah_" + surahNum + "_ayah_" + a;
+            const req = store.get(key);
+            req.onsuccess = () => {
+              if (!req.result || !req.result.data || req.result.data.size < MIN_AUDIO_BYTES) ok = false;
+              if (--remaining === 0) resolve(ok);
+            };
+            req.onerror = () => { ok = false; if (--remaining === 0) resolve(false); };
+          }
+          if (remaining === 0) resolve(ok);
+        });
+
+        if (allPresent) result.add(surahNum);
+      }
       db.close();
     } catch (e) { console.warn("IDB read error:", e); }
-
-    const result = new Set();
-    localSet.forEach(n => { if (idbSet.has(n)) result.add(n); });
     return result;
   }
 
+  // ✅ checkAudioDownloadStatus — FAST PATH with flag
   async function checkAudioDownloadStatus() {
     if (state.isDownloadingAudio) return;
     try {
       const qariId = state.downloadQari;
-      const set = await getDownloadedSurahSet(qariId);
-      if (state.isDownloadingAudio) return;
-      const count = set.size;
       const btn = document.getElementById("btn-download-all-audio");
       const progressBar = document.getElementById("audio-download-progress-bar");
       const fill = progressBar ? progressBar.querySelector(".progress-bar-fill") : null;
       const label = progressBar ? progressBar.querySelector(".progress-label") : null;
 
+      // ⚡ FAST PATH: Agar flag set hai to INSTANTLY complete dikhao
+      if (isAudioMarkedComplete(qariId)) {
+        if (progressBar && fill && label) {
+          progressBar.classList.remove("hidden");
+          fill.style.width = "100%";
+          label.innerHTML = '<strong style="color:#22c55e;">Downloaded • 100% complete</strong>';
+        }
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> This Qari is already complete';
+        }
+        // Background me verify karo (user ko nahi dikhta)
+        verifyAudioInBackground(qariId);
+        return;
+      }
+
+      // Slow verify
+      const set = await getDownloadedSurahSet(qariId);
+      if (state.isDownloadingAudio) return;
+      const count = set.size;
+
       if (count >= 114) {
+        setAudioCompleteFlag(qariId, true);
         if (progressBar && fill && label) {
           progressBar.classList.remove("hidden");
           fill.style.width = "100%";
@@ -647,7 +636,57 @@
     } catch (e) { console.warn("Check audio download error:", e); }
   }
 
+  // ✅ Background verify — agar flag stale hai to hata do
+  async function verifyAudioInBackground(qariId) {
+    try {
+      const set = await getDownloadedSurahSet(qariId);
+      if (set.size < 114) {
+        console.warn("⚠️ Flag was stale — actual:", set.size, "/114");
+        setAudioCompleteFlag(qariId, false);
+      }
+    } catch (e) {
+      console.warn("Background verify error:", e);
+    }
+  }
+
+  // ✅ AUDIO STOP FUNCTION
+  function stopAudio() {
+    if (state.audioInstance) {
+      try {
+        state.audioInstance.pause();
+        state.audioInstance.currentTime = 0;
+        state.audioInstance.src = "";
+        state.audioInstance.removeAttribute("src");
+        state.audioInstance.load();
+        state.audioInstance.onended = null;
+        state.audioInstance.onerror = null;
+      } catch (e) {
+        console.warn("stopAudio error:", e);
+      }
+    }
+
+    if (state.currentObjectURL) {
+      try { URL.revokeObjectURL(state.currentObjectURL); } catch (e) {}
+      state.currentObjectURL = null;
+    }
+
+    state.isPlaying = false;
+    state.currentPlayingAyahIndex = 0;
+
+    updatePlayPauseIcon(false);
+
+    const bar = document.getElementById("audio-player-bar");
+    if (bar) bar.classList.add("hidden");
+
+    highlightPlayingAyah(-1);
+  }
+
   function navigate(viewName) {
+    // ✅ FIX: Reader se nikal rahe ho to audio band karo
+    if (state.currentView === "reader" && viewName !== "reader") {
+      stopAudio();
+    }
+
     state.currentView = viewName;
     state.history.push(viewName);
     document.querySelectorAll(".view-screen").forEach(el => el.classList.remove("active"));
@@ -713,22 +752,8 @@
   }
 
   function renderQariOptions() {
-    const settingsSel = document.getElementById("select-settings-qari");
-    const downloadSel = document.getElementById("select-download-qari");
-
-    if (settingsSel) {
-      settingsSel.innerHTML = QARIS_LIST.map(q =>
-        `<option value="${q.id}">${q.name} (${q.arabic})</option>`
-      ).join("");
-      settingsSel.value = state.selectedQari;
-    }
-
-    if (downloadSel) {
-      downloadSel.innerHTML = QARIS_LIST.map(q =>
-        `<option value="${q.id}">${q.name} (${q.arabic})</option>`
-      ).join("");
-      downloadSel.value = state.downloadQari;
-    }
+    state.selectedQari = "ar.alafasy";
+    state.downloadQari = "ar.alafasy";
   }
 
   async function openSurah(surahNumber) {
@@ -753,12 +778,32 @@
   async function fetchAndRenderSurah(surahNumber) {
     const container = document.getElementById("ayahs-list-container");
     container.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size:32px;"></i><p>Loading Surah...</p></div>`;
+
+    try {
+      const offlineData = await getOfflineSurahText(surahNumber);
+      if (offlineData && offlineData.ayahs && offlineData.ayahs.length > 0) {
+        console.log("📂 Loaded surah " + surahNumber + " from OFFLINE storage");
+        state.ayahsData = offlineData.ayahs.map((a) => ({
+          number: a.number,
+          numberInSurah: a.number,
+          text: a.arabic,
+          urdu: a.urdu || "",
+          english: a.english || ""
+        }));
+        renderAyahs();
+        return;
+      }
+    } catch (e) {
+      console.warn("Offline read failed:", e);
+    }
+
     try {
       const [resArabic, resUrdu, resEnglish] = await Promise.all([
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`).then(r => r.json()),
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ur.jalandhry`).then(r => r.json()),
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`).then(r => r.json())
       ]);
+
       state.ayahsData = resArabic.data.ayahs.map((ayah, i) => ({
         number: ayah.number,
         numberInSurah: ayah.numberInSurah,
@@ -767,8 +812,60 @@
         english: resEnglish.data.ayahs[i] ? resEnglish.data.ayahs[i].text : ""
       }));
       renderAyahs();
+
+      try {
+        const db = await openDB();
+        const surahInfo = SURAHS_LIST.find(s => s.number === surahNumber) || {};
+        const surahData = {
+          surah: surahNumber,
+          name: surahInfo.englishName || "",
+          arabicName: surahInfo.name || "",
+          ayahs: state.ayahsData.map(a => ({
+            number: a.numberInSurah,
+            arabic: a.text,
+            urdu: a.urdu,
+            english: a.english
+          }))
+        };
+        await new Promise((resolve, reject) => {
+          const tx = db.transaction("text", "readwrite");
+          tx.objectStore("text").put({ id: "quran_surah_" + surahNumber, data: surahData });
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(tx.error);
+        });
+        db.close();
+        console.log("💾 Cached surah " + surahNumber + " for offline use");
+      } catch (cacheErr) {
+        console.warn("Cache save failed:", cacheErr);
+      }
+
     } catch (err) {
-      container.innerHTML = `<div style="text-align:center; padding:40px; color:#e11d48;"><p>Failed to load.</p><button class="btn-primary" onclick="quranApp.openSurah(${surahNumber})" style="margin-top:12px;">Retry</button></div>`;
+      console.error("Load failed:", err);
+      container.innerHTML = `<div style="text-align:center; padding:40px; color:#e11d48;">
+        <p>Internet nahi hai aur ye surah offline download bhi nahi hui.</p>
+        <p style="margin-top:8px; font-size:12px; color:var(--text-muted);">Pehle Offline Hub se "Download All Quran Text" karein.</p>
+        <button class="btn-primary" onclick="quranApp.openSurah(${surahNumber})" style="margin-top:12px;">Retry</button>
+      </div>`;
+    }
+  }
+
+  async function getOfflineSurahText(surahNumber) {
+    try {
+      const db = await openDB();
+      const item = await new Promise((resolve) => {
+        const tx = db.transaction("text", "readonly");
+        const req = tx.objectStore("text").get("quran_surah_" + surahNumber);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => resolve(null);
+      });
+      db.close();
+      if (item && item.data && item.data.ayahs && item.data.ayahs.length > 0) {
+        return item.data;
+      }
+      return null;
+    } catch (e) {
+      console.warn("getOfflineSurahText error:", e);
+      return null;
     }
   }
 
@@ -826,34 +923,24 @@
     document.getElementById("audio-player-bar").classList.remove("hidden");
 
     let playUrl = getEveryayahUrl(state.selectedQari, surah.number, ayah.numberInSurah);
-    let isSurahCache = false;
+    let isOffline = false;
 
     try {
-      const offline = await getOfflineSurahUrl(state.selectedQari, surah.number);
+      const offline = await getOfflineAyahUrl(state.selectedQari, surah.number, ayah.numberInSurah);
       if (offline && offline.url) {
         playUrl = offline.url;
         if (offline.isBlob) state.currentObjectURL = offline.url;
-        isSurahCache = true;
+        isOffline = true;
       }
     } catch (err) {}
 
     console.log("🎧 Playing:", state.selectedQari,
                 "| Ayah:", ayah.numberInSurah,
-                "| Mode:", isSurahCache ? "OFFLINE" : "ONLINE");
+                "| Mode:", isOffline ? "OFFLINE" : "ONLINE");
 
     state.audioInstance = new Audio();
     state.audioInstance.preload = "auto";
     state.audioInstance.src = playUrl;
-
-    if (isSurahCache) {
-      state.audioInstance.onloadedmetadata = () => {
-        const dur = state.audioInstance.duration;
-        if (dur && state.ayahsData.length > 1) {
-          const approx = (index / state.ayahsData.length) * dur;
-          try { state.audioInstance.currentTime = approx; } catch (e) {}
-        }
-      };
-    }
 
     state.audioInstance.onerror = () => {
       console.warn("Audio load error for ayah", ayah.numberInSurah);
@@ -965,6 +1052,9 @@
     setTimeout(() => toast.classList.add("hidden"), 2500);
   }
 
+  // ==========================================
+  // DOWNLOAD ALL QURAN TEXT
+  // ==========================================
   async function downloadAllQuranText() {
     if (state.isDownloadingText) return;
     await requestPersistentStorage();
@@ -1161,7 +1251,7 @@
   }
 
   // ==========================================
-  // ✅ AUDIO DOWNLOAD — FINAL FIX (working CDN)
+  // ✅ DOWNLOAD ALL AUDIO — PER-AYAH (same as online)
   // ==========================================
   async function downloadAllQuranAudio() {
     if (state.isDownloadingAudio) return;
@@ -1176,18 +1266,33 @@
     const fill = progressBar.querySelector(".progress-bar-fill");
     const label = progressBar.querySelector(".progress-label");
 
+    // ✅ NAYA: Agar flag already set hai to turant return karo
+    if (isAudioMarkedComplete(qariId)) {
+      showToast("✅ This Qari is already complete");
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> This Qari is already complete';
+      if (progressBar && fill && label) {
+        progressBar.classList.remove("hidden");
+        fill.style.width = "100%";
+        label.innerHTML = '<strong style="color:#22c55e;">Downloaded • 100% complete</strong>';
+      }
+      state.isDownloadingAudio = false;
+      return;
+    }
+
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
     progressBar.classList.remove("hidden");
 
     const totalSurahs = SURAHS_LIST.length;
-    let progressHandle = null;
+    const totalAyahs = SURAHS_LIST.reduce((sum, s) => sum + s.numberOfAyahs, 0);
 
     try {
       const downloadedSet = await getDownloadedSurahSet(qariId);
       const surahsToDownload = SURAHS_LIST.filter(s => !downloadedSet.has(s.number));
 
       if (surahsToDownload.length === 0) {
+        setAudioCompleteFlag(qariId, true);
         showToast("✅ This Qari is already complete");
         fill.style.width = "100%";
         label.innerHTML = '<strong style="color:#22c55e;">Downloaded • 100% complete</strong>';
@@ -1197,65 +1302,30 @@
         return;
       }
 
-      let successful = downloadedSet.size;
-      let failed = 0;
-      const inflight = {};
+      let successfulSurahs = downloadedSet.size;
+      let failedSurahs = 0;
+      let ayahsDone = 0;
+
+      for (const n of downloadedSet) {
+        const info = SURAHS_LIST.find(s => s.number === n);
+        if (info) ayahsDone += info.numberOfAyahs;
+      }
 
       function renderProgress() {
-        let frac = 0;
-        Object.keys(inflight).forEach(k => { frac += inflight[k].f; });
-        const pct = Math.min(100, Math.floor(((successful + frac) / totalSurahs) * 100));
+        const pct = Math.min(100, Math.floor((ayahsDone / totalAyahs) * 100));
         fill.style.width = pct + "%";
-        label.innerHTML = '<strong>' + pct + '%</strong> (' + successful + '/' + totalSurahs + ')';
+        label.innerHTML = '<strong>' + pct + '%</strong> (' +
+                          successfulSurahs + '/' + totalSurahs + ' surahs, ' +
+                          ayahsDone + '/' + totalAyahs + ' ayahs)';
       }
-
       renderProgress();
 
-      // Progress polling
-      if (isNativeApp) {
-        const progressPoll = setInterval(async function() {
-          try {
-            for (const key in inflight) {
-              const num = inflight[key].surahNum;
-              if (!num) continue;
-              const st = await statSurah(qariId, num);
-              if (st && st.size > 0) {
-                inflight[key].b = st.size;
-                inflight[key].f = Math.min(0.95, st.size / 2000000);
-              }
-            }
-            renderProgress();
-          } catch (e) {}
-        }, 600);
-        progressHandle = { remove: function() { clearInterval(progressPoll); } };
-      }
+      const TIMEOUT_MS = 30000;
+      const RETRY_PER_AYAH = 2;
+      const AYAH_CONCURRENCY = 5;
+      const DELAY_BETWEEN_SURAHS = 300;
 
-      const CONCURRENCY = 1;
-      const TIMEOUT_MS = 120000;
-      const RETRY_PER_SURAH = 2;
-      const DELAY_BETWEEN = 500;
-
-      // ✅ FIXED: mp3quran.net (Pakistan mein chalta hai) + multiple servers
-      function buildSurahUrls(surahNumber) {
-        const padded = String(surahNumber).padStart(3, "0");
-        const code = (MP3QURAN_MAP[qariId] && MP3QURAN_MAP[qariId].code) || "afs";
-
-        // Primary: mp3quran.net (working CDN)
-        const mp3quranUrls = MP3QURAN_SERVERS.map(srv =>
-          `https://${srv}/${code}/${padded}.mp3`
-        );
-
-        // Fallback: everyayah (single surah file, per-ayah concatenated server-side? No—) 
-        // Use download.quranicaudio as secondary (may be blocked, but try)
-        const otherFallbacks = [
-          `https://download.quranicaudio.com/quran/${qariId.replace("ar.", "")}/${surahNumber}.mp3`,
-          `https://cdn.islamic.network/quran/audio-surah/128/${qariId}/${surahNumber}.mp3`
-        ];
-
-        return [...mp3quranUrls, ...otherFallbacks];
-      }
-
-      async function fetchWithTimeout(url, timeout) {
+      async function fetchBlob(url, timeout) {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), timeout);
         try {
@@ -1265,114 +1335,93 @@
             headers: { 'Accept': 'audio/mpeg,audio/*,*/*' }
           });
           clearTimeout(id);
-
           if (!response.ok) throw new Error("HTTP " + response.status);
-
           const blob = await response.blob();
-
           if (!blob || blob.size < MIN_AUDIO_BYTES) {
-            throw new Error("Invalid audio size: " + (blob ? blob.size : 0));
+            throw new Error("Invalid size: " + (blob ? blob.size : 0));
           }
-
-          console.log("✅ Downloaded: " + (blob.size / 1024).toFixed(1) + " KB");
           return blob;
-        } catch (err) {
+        } catch (e) {
           clearTimeout(id);
-          throw err;
+          throw e;
         }
       }
 
-      // ✅ FIXED v3: fetch + writeFile (working approach)
-      async function saveSurahNative(surahNumber) {
-        const urls = buildSurahUrls(surahNumber);
-        let lastError = null;
+      async function downloadOneAyah(surahNum, ayahNum) {
+        const existing = await statAyah(qariId, surahNum, ayahNum);
+        if (existing && existing.size >= MIN_AUDIO_BYTES) return true;
 
-        for (let attempt = 0; attempt < RETRY_PER_SURAH; attempt++) {
-          for (let u = 0; u < urls.length; u++) {
-            const key = "s" + surahNumber + "_" + u;
-            inflight[key] = { f: 0, b: 0, surahNum: surahNumber };
-            try {
-              console.log("⬇️ [" + surahNumber + "] attempt " + (attempt + 1) + "/" + RETRY_PER_SURAH + " source " + (u + 1) + "/" + urls.length);
-
-              // 1. fetch() se blob download karo
-              const blob = await fetchWithTimeout(urls[u], TIMEOUT_MS);
-              if (!blob || blob.size < MIN_AUDIO_BYTES) {
-                throw new Error("Invalid blob: " + (blob ? blob.size : 0));
-              }
-
-              // 2. writeSurahToStorage se file mein save karo
-              const savedSize = await writeSurahToStorage(qariId, surahNumber, blob);
-              if (savedSize < MIN_AUDIO_BYTES) {
-                throw new Error("writeSurahToStorage returned " + savedSize);
-              }
-
-              delete inflight[key];
-              return savedSize;
-            } catch (err) {
-              lastError = err;
-              const msg = String((err && err.message) || err);
-              console.warn("❌ [" + surahNumber + "] attempt " + (attempt + 1) + " source " + (u + 1) + " failed:", msg);
-              delete inflight[key];
+        const url = getEveryayahUrl(qariId, surahNum, ayahNum);
+        for (let attempt = 0; attempt < RETRY_PER_AYAH; attempt++) {
+          try {
+            const blob = await fetchBlob(url, TIMEOUT_MS);
+            const size = await writeAyahToStorage(qariId, surahNum, ayahNum, blob);
+            if (size >= MIN_AUDIO_BYTES) return true;
+          } catch (e) {
+            if (attempt < RETRY_PER_AYAH - 1) {
+              await new Promise(r => setTimeout(r, 500 * (attempt + 1)));
             }
           }
-
-          if (attempt < RETRY_PER_SURAH - 1) {
-            const waitMs = 800 * (attempt + 1);
-            console.log("⏳ Waiting " + waitMs + "ms before retry " + (attempt + 2) + "...");
-            await new Promise(r => setTimeout(r, waitMs));
-          }
         }
-        throw lastError || new Error("All sources failed after retries");
+        return false;
       }
 
       btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${qari.name}...`;
 
-      for (let i = 0; i < surahsToDownload.length; i += CONCURRENCY) {
-        const batch = surahsToDownload.slice(i, i + CONCURRENCY);
+      for (const surah of surahsToDownload) {
+        const total = surah.numberOfAyahs;
+        const indices = [];
+        for (let a = 1; a <= total; a++) indices.push(a);
 
-        await Promise.allSettled(
-          batch.map(async (surah) => {
-            try {
-              if (isNativeApp) {
-                const size = await saveSurahNative(surah.number);
-                markSurahDownloadedLocal(qariId, surah.number);
-                successful++;
-              } else {
-                // Browser fallback
-                const urls = buildSurahUrls(surah.number);
-                let blob = null;
-                for (const url of urls) {
-                  try { blob = await fetchWithTimeout(url, TIMEOUT_MS); break; } catch(e) {}
-                }
-                if (!blob) throw new Error("All sources failed (browser)");
-                const db = await openDB();
-                await putSurahAudioBlob(db, qariId, surah.number, blob);
-                db.close();
-                successful++;
-              }
-            } catch (err) {
-              failed++;
-              console.warn("Surah " + surah.number + " permanently failed:", err && err.message ? err.message : err);
-            }
-          })
-        );
+        let cursor = 0;
+        let failedInThisSurah = 0;
+
+        async function worker() {
+          while (cursor < indices.length) {
+            const myIdx = cursor++;
+            const ayahNum = indices[myIdx];
+            const ok = await downloadOneAyah(surah.number, ayahNum);
+            if (!ok) failedInThisSurah++;
+            ayahsDone++;
+            if (ayahsDone % 5 === 0) renderProgress();
+          }
+        }
+
+        const workers = [];
+        for (let w = 0; w < AYAH_CONCURRENCY; w++) {
+          workers.push(worker());
+        }
+        await Promise.all(workers);
+
+        if (failedInThisSurah === 0) {
+          successfulSurahs++;
+          markSurahDownloadedLocal(qariId, surah.number);
+        } else {
+          failedSurahs++;
+          console.warn("Surah " + surah.number + " — " + failedInThisSurah + " ayahs failed");
+        }
 
         renderProgress();
-
-        if (i + CONCURRENCY < surahsToDownload.length) {
-          await new Promise(r => setTimeout(r, DELAY_BETWEEN));
-        }
+        await new Promise(r => setTimeout(r, DELAY_BETWEEN_SURAHS));
       }
 
-      let msg = "✅ " + successful + "/114 saved";
-      if (failed > 0) msg = "⚠️ " + failed + " surah download nahi hui — Resume Download dabayein (" + successful + "/114 saved)";
-      showToast(msg);
+      renderProgress();
+
+      // ✅ NAYA: Agar sab 114 complete hai to flag set karo
+      if (successfulSurahs >= 114 && failedSurahs === 0) {
+        setAudioCompleteFlag(qariId, true);
+        showToast("✅ All 114 surahs downloaded!");
+      } else {
+        setAudioCompleteFlag(qariId, false);
+        let msg = "⚠️ " + successfulSurahs + "/114 done";
+        if (failedSurahs > 0) msg = "⚠️ " + failedSurahs + " surah incomplete — Resume dabayein";
+        showToast(msg);
+      }
 
     } catch (err) {
       console.error(err);
       showToast("❌ Download failed: " + (err.message || "Unknown"));
     } finally {
-      try { if (progressHandle && progressHandle.remove) await progressHandle.remove(); } catch (e) {}
       state.isDownloadingAudio = false;
       await checkAudioDownloadStatus();
     }
@@ -1391,18 +1440,12 @@
     });
   }
 
-  async function putSurahAudioBlob(db, qariId, surahNum, blob) {
+  async function putAyahAudioBlob(db, qariId, surahNum, ayahNum, blob) {
     if (isNativeApp) {
-      const ok = await writeSurahToStorage(qariId, surahNum, blob);
-      if (ok) {
-        markSurahDownloadedLocal(qariId, surahNum);
-        return true;
-      }
-      throw new Error("Storage save failed for surah " + surahNum);
+      const ok = await writeAyahToStorage(qariId, surahNum, ayahNum, blob);
+      return ok > 0;
     }
-
-    const key = `${qariId}_surah_${surahNum}`;
-
+    const key = qariId + "_surah_" + surahNum + "_ayah_" + ayahNum;
     await new Promise((resolve, reject) => {
       const tx = db.transaction("audio", "readwrite");
       tx.objectStore("audio").put({ id: key, data: blob });
@@ -1410,27 +1453,23 @@
       tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error || new Error("Aborted"));
     });
-
-    markSurahDownloadedLocal(qariId, surahNum);
     return true;
   }
 
-  async function getCachedSurahAudio(qariId, surahNum) {
+  async function getCachedAyahAudio(qariId, surahNum, ayahNum) {
     if (isNativeApp) {
       try {
-        const blob = await readSurahFromStorage(qariId, surahNum);
-        if (blob && blob.size > MIN_AUDIO_BYTES) {
-          return blob;
-        }
+        const blob = await readAyahFromStorage(qariId, surahNum, ayahNum);
+        if (blob && blob.size > MIN_AUDIO_BYTES) return blob;
       } catch (e) {}
     }
-
     try {
       const db = await openDB();
       return await new Promise((resolve, reject) => {
         const tx = db.transaction("audio", "readonly");
         const store = tx.objectStore("audio");
-        const request = store.get(`${qariId}_surah_${surahNum}`);
+        const key = qariId + "_surah_" + surahNum + "_ayah_" + ayahNum;
+        const request = store.get(key);
         request.onsuccess = () => resolve(request.result ? request.result.data : null);
         request.onerror = () => reject(request.error);
       });
@@ -1486,41 +1525,6 @@
       });
     });
 
-    document.getElementById("select-settings-qari")?.addEventListener("change", function (e) {
-      const newQariId = e.target.value;
-      state.selectedQari = newQariId;
-      saveSettings();
-
-      if (state.audioInstance) {
-        try {
-          state.audioInstance.pause();
-          state.audioInstance.currentTime = 0;
-          state.audioInstance.src = "";
-          state.audioInstance.removeAttribute("src");
-          state.audioInstance.load();
-          state.audioInstance.onended = null;
-          state.audioInstance.onloadedmetadata = null;
-        } catch (err) {}
-        state.audioInstance = new Audio();
-      }
-
-      if (state.currentObjectURL) {
-        try { URL.revokeObjectURL(state.currentObjectURL); } catch (err) {}
-        state.currentObjectURL = null;
-      }
-
-      state.isPlaying = false;
-      state.currentPlayingAyahIndex = 0;
-
-      const playBtn = document.getElementById("btn-player-play-pause");
-      if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-
-      document.getElementById("audio-player-bar")?.classList.add("hidden");
-
-      const qari = QARIS_LIST.find(q => q.id === newQariId);
-      showToast("Qari: " + (qari ? qari.name : ""));
-    });
-
     document.getElementById("select-download-qari")?.addEventListener("change", (e) => {
       state.downloadQari = e.target.value;
       saveSettings();
@@ -1563,6 +1567,25 @@
       if (state.currentPlayingAyahIndex + 1 < state.ayahsData.length) playAyahAudio(state.currentPlayingAyahIndex + 1);
     });
     document.getElementById("btn-reader-play-surah")?.addEventListener("click", playFullSurah);
+
+    document.getElementById("btn-reader-font-size")?.addEventListener("click", function () {
+      var sizes = [24, 28, 32, 36];
+      var current = state.fontSize || 28;
+      var idx = sizes.indexOf(current);
+      var next = sizes[(idx + 1) % sizes.length];
+      state.fontSize = next;
+      saveSettings();
+      renderAyahs();
+      showToast("Font size: " + next + "px");
+    });
+
+    document.getElementById("btn-reader-translation-toggle")?.addEventListener("click", function () {
+      var anyOn = state.showUrdu || state.showEnglish;
+      state.showUrdu = !anyOn;
+      state.showEnglish = !anyOn;
+      renderAyahs();
+      showToast(anyOn ? "Translations off" : "Translations on");
+    });
 
     document.getElementById("player-seek-slider")?.addEventListener("input", (e) => {
       if (!state.audioInstance) return;

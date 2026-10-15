@@ -1,13 +1,90 @@
 // ==========================================
-// SETTINGS PAGE — WITH GOOGLE SIGN-IN
+// SETTINGS PAGE — WITH GOOGLE SIGN-IN + OFFLINE PHOTO CACHE
 // ==========================================
 
 const GOOGLE_WEB_CLIENT_ID = "1083769445858-mcvoq5rsqs9003jkh64qj3nmq6b6t21p.apps.googleusercontent.com";
 const USER_STORAGE_KEY = "myprayer_user";
+const PHOTO_CACHE_PREFIX = "myprayer_photo_";  // per-user photo cache key
 
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ settings.js: DOMContentLoaded fired");
+
+    // ==========================================
+    // ✅ PHOTO CACHE HELPERS (offline support)
+    // ==========================================
+    function getPhotoCacheKey(userId) {
+        return PHOTO_CACHE_PREFIX + (userId || "default");
+    }
+
+    function getCachedPhoto(userId) {
+        try {
+            return localStorage.getItem(getPhotoCacheKey(userId)) || null;
+        } catch (e) { return null; }
+    }
+
+    function saveCachedPhoto(userId, base64) {
+        try {
+            localStorage.setItem(getPhotoCacheKey(userId), base64);
+        } catch (e) {
+            console.warn("Photo cache save failed:", e);
+        }
+    }
+
+    function clearCachedPhoto(userId) {
+        try {
+            localStorage.removeItem(getPhotoCacheKey(userId));
+        } catch (e) {}
+    }
+
+    // ✅ Purani saari cached photos delete karo (except current user)
+    function clearAllOtherPhotos(currentUserId) {
+        try {
+            const keys = Object.keys(localStorage);
+            keys.forEach(function(key) {
+                if (key.startsWith(PHOTO_CACHE_PREFIX)) {
+                    const cachedUserId = key.substring(PHOTO_CACHE_PREFIX.length);
+                    if (cachedUserId !== currentUserId) {
+                        localStorage.removeItem(key);
+                        console.log("🗑️ Removed old photo cache for user:", cachedUserId);
+                    }
+                }
+            });
+        } catch (e) {
+            console.warn("Clear other photos error:", e);
+        }
+    }
+
+    // ✅ Photo URL ko base64 mein download karke save karo
+    async function downloadAndCachePhoto(url, userId) {
+        if (!url || !userId) return null;
+        try {
+            console.log("⬇️ Downloading profile photo for offline...");
+            const response = await fetch(url, { mode: "cors", cache: "force-cache" });
+            if (!response.ok) throw new Error("HTTP " + response.status);
+
+            const blob = await response.blob();
+            if (!blob || blob.size < 100) throw new Error("Invalid image blob");
+
+            const base64 = await new Promise(function(resolve, reject) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    const result = reader.result;
+                    if (typeof result === "string" && result.startsWith("data:")) resolve(result);
+                    else reject(new Error("Invalid data URI"));
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+
+            saveCachedPhoto(userId, base64);
+            console.log("✅ Profile photo cached (" + Math.round(base64.length / 1024) + " KB)");
+            return base64;
+        } catch (e) {
+            console.warn("Photo download failed:", e);
+            return null;
+        }
+    }
 
     // ==============================
     // 0. GOOGLE SIGN-IN
@@ -56,20 +133,36 @@ document.addEventListener("DOMContentLoaded", function () {
             catch (e) { console.warn("User clear error:", e); }
         }
 
+        // ✅ Show user with cached photo first (offline-safe)
         function showUser(user) {
             guestBox.style.display = "none";
             userBox.style.display = "block";
 
             if (userPhoto) {
-                const imageUrl = user.imageUrl || user.photoURL || user.picture || "";
-                if (imageUrl) {
-                    userPhoto.src = imageUrl;
+                // Priority 1: cached base64 photo (offline-safe)
+                const cachedPhoto = getCachedPhoto(user.id);
+                if (cachedPhoto) {
+                    userPhoto.src = cachedPhoto;
+                    userPhoto.style.display = "block";
+                } else if (user.imageUrl || user.photoURL || user.picture) {
+                    // Priority 2: network URL
+                    userPhoto.src = user.imageUrl || user.photoURL || user.picture;
                     userPhoto.style.display = "block";
                 } else {
                     userPhoto.removeAttribute("src");
                 }
-                userPhoto.onerror = function () { this.removeAttribute("src"); };
+
+                userPhoto.onerror = function () {
+                    // Fallback to cache if network fails
+                    const cp = getCachedPhoto(user.id);
+                    if (cp && this.src !== cp) {
+                        this.src = cp;
+                    } else {
+                        this.removeAttribute("src");
+                    }
+                };
             }
+
             if (userName) userName.textContent = user.name || "User";
             if (userEmail) userEmail.textContent = user.email || "";
         }
@@ -79,9 +172,26 @@ document.addEventListener("DOMContentLoaded", function () {
             userBox.style.display = "none";
         }
 
+        // ✅ Initial render
         const saved = loadUser();
-        if (saved) showUser(saved);
-        else showGuest();
+        if (saved) {
+            // Purani photos delete karo (sirf current user ki rakho)
+            clearAllOtherPhotos(saved.id);
+            showUser(saved);
+
+            // Agar cached photo nahi hai, to background mein download karo
+            const cachedPhoto = getCachedPhoto(saved.id);
+            if (!cachedPhoto && saved.imageUrl && navigator.onLine) {
+                downloadAndCachePhoto(saved.imageUrl, saved.id).then(function(base64) {
+                    if (base64 && userPhoto) {
+                        userPhoto.src = base64;
+                        userPhoto.style.display = "block";
+                    }
+                });
+            }
+        } else {
+            showGuest();
+        }
 
         async function initializeGoogle() {
             if (!SocialLogin) { console.warn("SocialLogin plugin not available."); return; }
@@ -94,6 +204,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         initializeGoogle();
 
+        // ==========================================
+        // SIGN IN
+        // ==========================================
         if (signInBtn) {
             signInBtn.addEventListener("click", async function () {
                 if (!SocialLogin) {
@@ -130,9 +243,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (!user.email && !user.id) throw new Error("Google account information nahi mili.");
 
+                    // ✅ PURANI user ki photo delete (naya account aa gaya)
+                    const oldUser = loadUser();
+                    if (oldUser && oldUser.id && oldUser.id !== user.id) {
+                        clearCachedPhoto(oldUser.id);
+                        console.log("🗑️ Removed old user's photo cache");
+                    }
+
+                    // ✅ Purani saari other photos bhi delete karo
+                    clearAllOtherPhotos(user.id);
+
+                    // ✅ User save karo
                     saveUser(user);
                     showUser(user);
                     console.log("✅ Google signed in:", user.email);
+
+                    // ✅ Naye user ki photo AUTO download + cache karo
+                    if (user.imageUrl) {
+                        downloadAndCachePhoto(user.imageUrl, user.id).then(function(base64) {
+                            if (base64 && userPhoto) {
+                                userPhoto.src = base64;
+                                userPhoto.style.display = "block";
+                            }
+                        });
+                    }
                 } catch (err) {
                     console.warn("Google Sign-In error:", err);
                     const msg = err && err.message ? err.message : String(err || "Unknown error");
@@ -150,14 +284,27 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
+        // ==========================================
+        // SIGN OUT — current user's photo bhi delete
+        // ==========================================
         if (signOutBtn) {
             signOutBtn.addEventListener("click", async function () {
                 if (!confirm("Sign out karna chahte hain?")) return;
+
+                const currentUser = loadUser();
+
                 try {
                     if (SocialLogin && typeof SocialLogin.logout === "function") {
                         await SocialLogin.logout({ provider: "google" });
                     }
                 } catch (e) { console.warn("Google sign out error:", e); }
+
+                // ✅ Current user ki cached photo delete karo
+                if (currentUser && currentUser.id) {
+                    clearCachedPhoto(currentUser.id);
+                    console.log("🗑️ Removed photo cache on sign out");
+                }
+
                 clearUser();
                 showGuest();
                 console.log("✅ Signed out");
@@ -422,7 +569,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==============================
-    // 5. MORE MENU  ⬅️ AB YAHAN, ANDAR
+    // 5. MORE MENU
     // ==============================
     const moreNavBtn = document.getElementById("moreNavBtn");
     const moreMenu = document.getElementById("moreMenu");

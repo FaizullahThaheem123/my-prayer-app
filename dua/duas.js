@@ -406,6 +406,9 @@ let currentCategory = "all";
 let currentDuaIndex = 0;
 let currentDuaList = duas;
 
+// Downloaded duas (audio) — localStorage se load
+let downloadedDuas = JSON.parse(localStorage.getItem("duaDownloaded") || "[]");
+
 // ======================================
 // DOM ELEMENTS
 // ======================================
@@ -491,7 +494,24 @@ function openReader(index) {
     setDuaAudio(dua.audio);
     duaReader.classList.add("show");
     document.querySelector(".reader-content").scrollTop = 0;
+
+    // ✅ Downloaded button state restore karo
+    updateDownloadBtnState();
 }
+
+// ✅ Download button ka green state set/restore karo
+function updateDownloadBtnState() {
+    const btn = document.getElementById("duaDownloadBtn");
+    if (!btn) return;
+    if (downloadedDuas.includes(currentDuaIndex)) {
+        btn.classList.add("downloaded");
+        btn.title = "Already downloaded for offline listening";
+    } else {
+        btn.classList.remove("downloaded");
+        btn.title = "Download MP3 for Offline Listening";
+    }
+}
+
 
 // ======================================
 // AUDIO SYSTEM (ONLINE STREAMING)
@@ -600,6 +620,15 @@ function downloadCurrentDuaAudio() {
     const safeTitle = dua.title.toLowerCase().replace(/[^a-z0-9]/g, "_");
     const fileName = `${safeTitle}.mp3`;
 
+    // ✅ Helper — download mark karo (green button)
+    function markDownloaded() {
+        if (!downloadedDuas.includes(currentDuaIndex)) {
+            downloadedDuas.push(currentDuaIndex);
+            localStorage.setItem("duaDownloaded", JSON.stringify(downloadedDuas));
+        }
+        updateDownloadBtnState();
+    }
+
     // Fetch and download as MP3 Blob
     fetch(dua.audio)
         .then(res => res.blob())
@@ -612,6 +641,8 @@ function downloadCurrentDuaAudio() {
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(blobUrl);
+
+            markDownloaded(); // ✅ green button
             alert(`✅ "${dua.title}" downloaded successfully for offline listening!`);
         })
         .catch(() => {
@@ -623,6 +654,8 @@ function downloadCurrentDuaAudio() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+
+            markDownloaded(); // ✅ green button (fallback mein bhi)
         });
 }
 

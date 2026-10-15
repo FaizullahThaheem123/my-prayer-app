@@ -143,6 +143,26 @@ async function initNativeNotifications() {
 
         LocalNotifications = window.Capacitor.Plugins.LocalNotifications;
 
+        // ✅ Jab user Azan notification par tap kare, usay turant tray se hata do
+        // (ongoing:true sirf swipe rokta hai — tap par hataana ye listener karta hai)
+        // aur alarms ko bhi turant reschedule kar do taake har Azan ke sath
+        // agle 3 din ke alarm rozana refresh hote rahen.
+        LocalNotifications.addListener("localNotificationActionPerformed", async (event) => {
+            try {
+                const id = event && event.notification && event.notification.id;
+                if (id) {
+                    await LocalNotifications.cancel({ notifications: [{ id }] });
+                }
+            } catch (e) {
+                console.log("Notification dismiss error:", e);
+            }
+            try {
+                await rescheduleEnabledAlarms();
+            } catch (e) {
+                console.log("Reschedule-on-tap error:", e);
+            }
+        });
+
         let permission = await LocalNotifications.checkPermissions();
         if (permission.display !== "granted") {
             permission = await LocalNotifications.requestPermissions();
@@ -196,6 +216,7 @@ async function isExactAlarmGranted() {
         console.log("🔍 Exact alarm setting:", setting);
         return setting.exact_alarm === "granted";
     } catch (e) {
+        // ✅ FIXED: Safe — assume NOT granted if check fails
         console.warn("⚠️ Exact alarm check failed — assuming NOT granted:", e);
         return false;
     }
@@ -266,8 +287,13 @@ document.addEventListener("visibilitychange", async function () {
 // ======================================
 // SCHEDULE PRAYER ALARM
 // ======================================
+// ✅ FIXED:
+// - ALARM_DAYS_AHEAD = 30 (Vivo notification limit ke andar)
+// - isExactNotification / isExactMandatory hata diye (invalid properties thi)
+// - allowWhileIdle + at schedule already exact alarm banata hai
+// - Verify + logging add kiya
 
-const ALARM_DAYS_AHEAD = 3;
+const ALARM_DAYS_AHEAD = 30;
 
 function alarmIdFor(prayer, dayOffset) {
     return PRAYER_ID_MAP[prayer] + dayOffset * 10;
@@ -307,6 +333,7 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
             return false;
         }
 
+        // Purane saare alarm cancel
         try {
             await LocalNotifications.cancel({
                 notifications: allAlarmIdsFor(prayer)
@@ -329,6 +356,7 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
                 0
             );
 
+            // Guzra hua waqt skip
             if (at.getTime() <= now.getTime() + 1000) continue;
 
             notifications.push({
@@ -342,7 +370,7 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
                     allowWhileIdle: true
                 },
                 autoCancel: true,
-                ongoing: false
+                ongoing: true // ✅ user click/tap kiye baghair swipe se hat nahi sakta
             });
         }
 
@@ -359,6 +387,7 @@ async function scheduleNativeAlarm(prayer, hour, minute, askPermission) {
 
         console.log(`✅ ${prayer} alarm scheduled (${notifications.length} din)`, result);
 
+        // ✅ VERIFY: Check karo actually kitne pending hain
         try {
             const pending = await LocalNotifications.getPending();
             const prayerIds = notifications.map(n => n.id);
@@ -507,6 +536,8 @@ async function toggleAlarm(prayer) {
 // ======================================
 
 function checkAlarms() {
+    // Native exact alarms are responsible for the real alarm.
+    // Do NOT use WebView Audio when native scheduling is working.
     if (nativeNotificationsReady && nativeExactOk) return;
 
     const now = new Date();
@@ -529,12 +560,21 @@ function checkAlarms() {
         if (parts.length < 2) return;
 
         let hours = parseInt(parts[0], 10);
-        const minutes = parseInt(parts[1], 10);
+        let minutes = parseInt(parts[1], 10);
 
         if (Number.isNaN(hours) || Number.isNaN(minutes)) return;
 
         if (timeStr.toLowerCase().includes("pm") && hours < 12) hours += 12;
         if (timeStr.toLowerCase().includes("am") && hours === 12) hours = 0;
+
+        // ✅ Defensive: agar kisi wajah se hours/minutes range se bahar hon
+        // (jaise purani corrupt "-5" value), unhe real clock time me normalize karo
+        // taake ye comparison kabhi silently hamesha fail na ho.
+        if (minutes < 0 || minutes > 59 || hours < 0 || hours > 23) {
+            const norm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
+            hours = norm.getHours();
+            minutes = norm.getMinutes();
+        }
 
         if (now.getHours() !== hours ||
             now.getMinutes() !== minutes ||
@@ -755,6 +795,7 @@ async function requestFreshGPS(silent, onDone, isRetry) {
         done();
     }
 
+    // NATIVE GEOLOCATION
     if (nativeGeoReady && NativeGeolocation) {
         try {
             const position = await NativeGeolocation.getCurrentPosition({
@@ -774,6 +815,7 @@ async function requestFreshGPS(silent, onDone, isRetry) {
         }
     }
 
+    // BROWSER FALLBACK
     if (!navigator.geolocation || !isGeoAllowed()) {
         useSavedOrDefault("⚠️ Is browser me location available nahi hai");
         return;
@@ -843,6 +885,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setInterval(checkAlarms, 1000);
 
+    // ✅ Reschedule alarms after jamaat times are loaded
     if (nativeNotificationsReady) {
         setTimeout(() => {
             rescheduleEnabledAlarms();
@@ -962,6 +1005,7 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
         localStorage.setItem("userLongitude", String(longitude));
         localStorage.setItem("lastGpsUpdate", String(Date.now()));
 
+        // SMART LOCATION DETECTION
         try {
             const locRes = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
@@ -1006,38 +1050,50 @@ async function getPrayerTimes(latitude, longitude, isBackgroundUpdate) {
             saveLocationName(normalizeLocationName(savedName || "Adilpur"));
         }
 
-        // ✅ MAGHRIB JAMAAT — Azan se 10 min PEHLE, rozana auto-update
+        // MAGHRIB JAMAAT (Azan se -10 min, roz Maghrib shift ke sath auto-update)
         if (result.data.timings && result.data.timings.Maghrib) {
             localStorage.setItem("liveMaghribAzan", result.data.timings.Maghrib);
 
             const parts = result.data.timings.Maghrib.split(":");
-            let hours = parseInt(parts[0]);
-            let minutes = parseInt(parts[1]);
+            let hours = parseInt(parts[0], 10);
+            let minutes = parseInt(parts[1], 10);
 
             minutes -= 10;
-            if (minutes < 0) { minutes += 60; hours -= 1; }
-            if (hours < 0) { hours += 24; }
+            // ✅ FIX: -10 se minutes 0 se neeche (underflow) ja sakte hain
+            // (jaise Azan 18:05 => -10 = -5), pehle sirf overflow (>=60) check hota tha
+            // jo kabhi trigger hi nahi hota tha — is wajah se "18:-5" jaisi corrupt
+            // value save ho rahi thi aur alarm kabhi nahi bajta tha.
+            if (minutes < 0) {
+                minutes += 60;
+                hours -= 1;
+                if (hours < 0) hours = 23;
+            }
 
             const autoMaghribJamaat =
                 String(hours).padStart(2, "0") + ":" +
                 String(minutes).padStart(2, "0");
 
-            // ✅ Rozana auto-update (condition hata di)
-            jamaatTimes["Maghrib"] = autoMaghribJamaat;
-            localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
-            updateJamaatUI();
+            // Purani corrupt value (jaise "18:-5") ho to usay invalid gino
+            const existingMaghrib = jamaatTimes["Maghrib"];
+            const isValidTime = !!existingMaghrib && /^([01]\d|2[0-3]):[0-5]\d$/.test(existingMaghrib);
+            const isManual = localStorage.getItem("maghribJamaatManual") === "true";
 
-            // ✅ Agar Maghrib alarm ON hai, to naye time par reschedule
-            if (alarms["Maghrib"] === true && nativeNotificationsReady) {
-                const p = autoMaghribJamaat.split(":");
-                await scheduleNativeAlarm(
-                    "Maghrib",
-                    parseInt(p[0], 10),
-                    parseInt(p[1], 10)
-                );
+            // ✅ FIX: pehle sirf ek dafa (jab time set hi na ho) auto-calc hota tha,
+            // is wajah se Maghrib roz shift hone ke bawajood alarm purane/corrupt
+            // time par hi frozen reh jata tha. Ab jab tak user ne khud Maghrib
+            // jamaat manually set nahi kiya, ye roz naye Azan time ke sath update hoga.
+            if (!isManual && (!isValidTime || existingMaghrib !== autoMaghribJamaat)) {
+                jamaatTimes["Maghrib"] = autoMaghribJamaat;
+                localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
+                updateJamaatUI();
+
+                if (alarms["Maghrib"] === true && nativeNotificationsReady) {
+                    await scheduleNativeAlarm("Maghrib", hours, minutes);
+                }
             }
         }
 
+        // HIJRI DATE
         const hijriStr = result.data.date.hijri.weekday.en + ", " +
             result.data.date.hijri.day + " " +
             result.data.date.hijri.month.en + " " +
@@ -1238,6 +1294,10 @@ async function saveJamaatTime() {
 
     jamaatTimes[selectedPrayer] = time;
     localStorage.setItem("jamaatTimes", JSON.stringify(jamaatTimes));
+    if (selectedPrayer === "Maghrib") {
+        // ✅ User ne khud Maghrib jamaat set ki — ab isay auto -10 se overwrite na karo
+        localStorage.setItem("maghribJamaatManual", "true");
+    }
     updateJamaatUI();
     closeJamaatModal();
 
@@ -1363,6 +1423,7 @@ setInterval(() => {
 // ======================================
 
 function loadThemeOnIndex() {
+    // theme.js load ho to wahi poora theme sambhalta hai — purani body class ki zaroorat nahi
     if (typeof themeDesigns !== "undefined") return;
     const savedTheme = localStorage.getItem("appTheme");
     if (savedTheme) document.body.className = "theme-" + savedTheme;
@@ -1372,6 +1433,7 @@ function loadThemeOnIndex() {
 loadThemeOnIndex();
 
 function initAutoTheme() {
+    // theme.js load ho to purana auto light/dark body-class system band
     if (typeof themeDesigns !== "undefined") return;
     const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -1520,6 +1582,8 @@ window.closeJamaatModal = closeJamaatModal;
 window.closeNotificationModal = closeNotificationModal;
 window.refreshLocation = refreshLocation;
 
+
+
 // ======================================
 // HOME PAGE BACK BUTTON HANDLER
 // ======================================
@@ -1540,18 +1604,21 @@ window.refreshLocation = refreshLocation;
 
         App.addListener("backButton", async function () {
 
+            // 1. Jamaat modal open?
             const jamaatModal = document.getElementById("jamaatModal");
             if (jamaatModal && jamaatModal.style.display === "flex") {
                 jamaatModal.style.display = "none";
                 return;
             }
 
+            // 2. Notification modal open?
             const notifModal = document.getElementById("notificationModal");
             if (notifModal && notifModal.style.display === "flex") {
                 notifModal.style.display = "none";
                 return;
             }
 
+            // 3. More menu open?
             const menu = document.getElementById("moreMenu");
             if (menu && (menu.classList.contains("show") || menu.classList.contains("open"))) {
                 menu.classList.remove("show");
@@ -1559,6 +1626,7 @@ window.refreshLocation = refreshLocation;
                 return;
             }
 
+            // 4. ✅ Home page pe hain → exit app
             App.exitApp();
         });
 

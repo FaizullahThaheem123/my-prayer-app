@@ -358,7 +358,10 @@ body{
 .bottom-nav span,
 .more-nav-btn span {
     white-space: nowrap;
-    font-size: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
 }
 
 .more-nav {
@@ -485,10 +488,12 @@ body{
 
 .more-menu-grid a span,
 .more-menu-grid button span {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
-
 /* MOBILE */
 @media(max-width:430px){
     .names-header{ padding:8px 8px 6px; }
@@ -508,7 +513,7 @@ body{
     .detail-urdu{ font-size:14px; }
     .bottom-nav{ height:50px; }
     .more-menu-grid{ gap:8px; }
-    .more-menu-grid a, .more-menu-grid button{ padding:8px 4px; font-size:9px; }
+    .more-menu-grid a, .more-menu-grid button{ padding:8px 4px; font-size:11px; }
     .names-grid-section{ padding-bottom: 18px; }
 }
 
@@ -554,4 +559,25 @@ body{
     object-fit: cover !important;
     border-radius: 50% !important;
     display: block !important;
+}
+
+/* ===== Bottom Nav Image Icons ===== */
+.bottom-nav .nav-icon-img,
+.more-nav-btn .nav-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+/* ===== More Menu Images — chhote karo ===== */
+.more-menu-grid a img,
+.more-menu-grid button img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
 }

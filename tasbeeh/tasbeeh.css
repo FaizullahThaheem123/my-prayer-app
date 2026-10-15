@@ -371,8 +371,6 @@ body{
     align-items: center;
     padding: 6px 4px;
     background: var(--card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-top: 2px solid var(--primary);
     border-radius: 24px 24px 0 0;
     box-shadow: 0 -10px 30px rgba(0,0,0,.6);
@@ -406,7 +404,10 @@ body{
 .bottom-nav a span,
 .more-nav-btn span {
     white-space: nowrap;
-    font-size: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
 }
 
 .more-nav{
@@ -439,8 +440,6 @@ body{
     left: 0;
     right: 0;
     background: var(--card);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
     border-top: 2px solid var(--primary);
@@ -538,8 +537,11 @@ body{
 
 .more-menu-grid a span,
 .more-menu-grid button span {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
 /* ======================================
@@ -564,7 +566,7 @@ body{
     .combined-stats .item .stat-number{ font-size:15px; }
     .more-menu-grid{ gap:8px; }
     .more-menu-grid a,
-    .more-menu-grid button{ padding:10px 6px; font-size:10px; }
+    .more-menu-grid button{ padding:10px 6px; font-size:12px; }
 }
 
 /* ===== UNIFIED HEADER FIX ===== */
@@ -655,4 +657,34 @@ body{
         height: 78px !important;
         font-size: 22px !important;
     }
+}
+
+.bottom-nav span,
+.more-nav-btn span {
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+}
+
+/* ===== Bottom Nav Image Icons ===== */
+.bottom-nav .nav-icon-img,
+.more-nav-btn .nav-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+/* ===== More Menu Images — chhote karo ===== */
+.more-menu-grid a img,
+.more-menu-grid button img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
 }
