@@ -1,0 +1,57 @@
+# Privacy Policy — My Prayer: Jamaat Edit Time
+
+**Last updated: October 15, 2026**
+
+## 1. Introduction
+
+My Prayer: Jamaat Edit Time is an Islamic prayer application designed to help users access prayer times and other Islamic features. This Privacy Policy explains how the app may access, use, and handle information when you use it.
+
+## 2. Information and Permissions
+
+Depending on the features you use and the permissions you grant, the app may access the following:
+
+- **Location:** If you allow location access, the app may use your device location to help determine local prayer times, Qibla direction, or weather information. You can disable location permission in your device settings. Some features may then require manual location selection or may not work as expected.
+- **Notifications and alarms:** The app may schedule prayer reminders and Azan notifications on your device if you enable them and grant the required permissions.
+- **App settings:** Preferences such as selected themes, prayer reminder settings, or other choices may be stored locally on your device.
+
+## 3. How Information Is Used
+
+Information accessed by the app is used to provide its features, such as local prayer-time information, Qibla direction, weather information, reminders, and saved preferences.
+
+The app does not display advertisements.
+
+## 4. Third-Party Services
+
+Some features may rely on third-party services to provide information, such as prayer-time calculations, location search, or weather data. When you use these features, requests may be sent to the relevant service. Those services may receive information included in the requests, such as a location or search query.
+
+Third-party services operate under their own privacy policies and terms. Please review their policies where applicable.
+
+## 5. Data Sharing and Sale
+
+The app developer does not sell users' personal information. Information may be processed by third-party services when necessary to provide a feature, as described above. The actual information transmitted depends on the feature used and the app's configuration.
+
+## 6. Data Retention and Deletion
+
+Some app preferences may remain stored on your device until you clear the app's data or uninstall the app. Information handled by third-party services is subject to those services' own retention practices and policies.
+
+## 7. Children's Privacy
+
+The app is intended for general use. The developer does not knowingly collect children's personal information for the purpose of creating user profiles. If you believe personal information has been provided to the developer inappropriately, contact us using the details below.
+
+## 8. Security
+
+Reasonable steps are taken to protect information handled by the app. However, no method of electronic storage or transmission can be guaranteed to be completely secure.
+
+## 9. Changes to This Policy
+
+This Privacy Policy may be updated when the app's features or privacy practices change. The latest version will be published at the same policy URL.
+
+## 10. Contact
+
+For questions about this Privacy Policy or the privacy practices of the app, please contact the developer using either of the following email addresses.
+
+**App:** My Prayer: Jamaat Edit Time  
+**Developer:** Faizullah Thaheem
+
+**Email 1:** namekapatanahe12345@gmail.com  
+**Email 2:** faizullahthaheem@yahoo.com
